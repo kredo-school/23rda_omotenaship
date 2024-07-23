@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -18,3 +20,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
+    Route::get('/', [AdminUserController::class, 'index'])->name('index');
+});
+
