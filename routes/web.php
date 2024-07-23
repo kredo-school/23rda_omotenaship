@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -23,4 +25,8 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
    Route::get('/{id}/show', [ProfileController::class, 'show'])
     ->name('show'); 
+});
+
+Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
+    Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
