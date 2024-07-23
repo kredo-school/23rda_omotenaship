@@ -66,22 +66,22 @@
              <div class="text-danger small">{{ $message }}</div>
         @enderror
     </div>
+
    <div class="mb-3">
        <label for="area" class="form-control fw-bold">Area of Japan</label>
-          <div class="dropdown">
-            <button class="btn btn-outline-dark dropdown-taggle"type="button" data-bs-toggle="dropdown" aria-expanded="false">Area of Japan</button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Hokkaidou</a></li>
-                    <li><a class="dropdown-item" href="#">Touhoku</a></li>
-                    <li><a class="dropdown-item" href="#">Kantou</a></li>
-                    <li><a class="dropdown-item" href="#">Chuubu</a></li>
-                    <li><a class="dropdown-item" href="#">Kinnki</a></li>
-                    <li><a class="dropdown-item" href="#">Chuugoku</a></li>
-                    <li><a class="dropdown-item" href="#">Shikoku</a></li>
-                    <li><a class="dropdown-item" href="#">Kyuushuu</a></li>
-                </ul>
-          </div>
+          <select class="form-select form-select-lg mb-3">
+               <option selected>Area of Japan</option>
+               <option value="1">Hokkaidou</option>
+               <option value="2">Touhoku</option>
+               <option value="3">Kantou</option>
+               <option value="4">Chuubu</option>
+               <option value="5">Kinnki</option>
+               <option value="6">Chuugoku</option>
+               <option value="7">Shikoku</option>
+               <option value="8">Kyuushuu</option>
+          </select>
     </div>
+  
 
   </form>
 
