@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminUserController;
 
@@ -21,6 +22,13 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+
+Route::group(['prefix' => '/favorites', 'as'=>'favorites.'], function () {
+    Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
+    
+});
+
+
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
    Route::get('/{id}/show', [ProfileController::class, 'show'])
@@ -30,3 +38,4 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
 Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
+
