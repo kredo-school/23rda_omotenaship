@@ -7,8 +7,18 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^11.9",
+<<<<<<< Updated upstream
         "laravel/tinker": "^2.9",
         "twbs/bootstrap": "^5.3"
+=======
+<<<<<<< Updated upstream
+        "laravel/tinker": "^2.9"
+=======
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.5",
+        "twbs/bootstrap": "^5.3"
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

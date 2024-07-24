@@ -1,4 +1,4 @@
-<x-app-layout>
+{{-- <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -14,4 +14,23 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-app-layout> --}}
+
+
+@extends('layouts.app')
+
+{{-- @section('title', 'title') --}}
+
+@section('content')
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="">
+                    {{ __("You're logged in!") }}
+                </div>
+
+                <p class="text-danger">text</p>
+            </div>
+        </div>
+    </div>
+@endsection
