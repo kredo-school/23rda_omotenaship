@@ -21,8 +21,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
+    // Routes go here
+   Route::get('/{id}/show', [ProfileController::class, 'show'])
+    ->name('show'); 
+});
 
 Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
-
