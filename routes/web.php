@@ -5,7 +5,7 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminUserController;
-use App\Http\Controllers\AdminUserController;
+// use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,9 +25,9 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'post','as' => 'post.'],function(){
+Route::group(['prefix' => 'post', 'as' => 'post.'],function () {
     Route::get('/create',[PostController::class,'create'])->name('create');
-
+});
 
 Route::group(['prefix' => '/favorites', 'as'=>'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
@@ -46,3 +46,4 @@ Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
+?>
