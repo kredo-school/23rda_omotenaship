@@ -5,6 +5,7 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminPostController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,4 +46,10 @@ Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
+
+Route::group(['prefix' =>'/admin/posts', 'as' =>'admin.posts.'], function() {
+    Route::get('/', [AdminPostController::class, 'index'])->name('index');
+});
+
 ?>
+
