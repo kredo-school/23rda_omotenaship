@@ -27,16 +27,17 @@
             </div>
         </div>
 
-    <div class="col-8">
-        <table class="table table-hover align-middle bg-white border text-dark">
-            <thead class="table-primary text-white">
+
+    <div class="col-9">
+        <table class="table table-hover align-middle border text-center">
+            <thead>
                 <tr>
                     <th></th>
-                    <th>Name</th>
-                    <th>BirthDate</th>
-                    <th>Language</th>
-                    <th>Create</th>
-                    <th>Update</th>
+                    <th class="admin-table-header">Name</th>
+                    <th class="admin-table-header">BirthDate</th>
+                    <th class="admin-table-header">Language</th>
+                    <th class="admin-table-header">Create</th>
+                    <th class="admin-table-header">Update</th>
                     <th></th> 
                 </tr>
             </thead>
