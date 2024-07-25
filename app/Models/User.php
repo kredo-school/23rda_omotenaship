@@ -44,4 +44,49 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function ngWords()
+    {
+        return $this->hasMany(NGWord::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function browsingHistories()
+    {
+        return $this->hasMany(BrowsingHistory::class);
+    }
+
+    public function sentDMs()
+    {
+        return $this->hasMany(DirectMessage::class, 'from_id');
+    }
+
+    public function receivedDMs()
+    {
+        return $this->hasMany(DirectMessage::class, 'to_id');
+    }
 }
