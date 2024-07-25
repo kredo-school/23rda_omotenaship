@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('prefectures', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('area_id');
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('area_id')->references('id')->on('areas');
         });
     }
 
