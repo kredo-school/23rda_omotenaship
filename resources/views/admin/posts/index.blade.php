@@ -3,19 +3,6 @@
 
 
 @section('content')
-
-<style>
-    .list-group h6{
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 10px;
-        width: 100px
-    }
-
-    .table thead {
-        color: #202F55;
-    }
-</style>
-
 <div class="container mt-5">
     <div class="row">
         <div class="col-3">
@@ -28,45 +15,45 @@
         </div>
 
     <div class="col-9">
-        <table class="table table-hover align-middle border text-center">
+        <table class="table table-hover align-middle border">
             <thead>
                 <tr>
-                    <th></th>
-                    <th class="admin-table-header">Name</th>
-                    <th class="admin-table-header">BirthDate</th>
-                    <th class="admin-table-header">Language</th>
-                    <th class="admin-table-header">Create</th>
-                    <th class="admin-table-header">Update</th>
-                    <th></th> 
+                    <th class="admin-table-header"></th>
+                    <th class="admin-table-header text-center">Name</th>
+                    <th class="admin-table-header text-center">Title</th>
+                    <th class="admin-table-header text-center">VisteDate</th>
+                    <th class="admin-table-header text-center">Create</th>
+                    <th class="admin-table-header text-center">Update</th>
+                    <th class="admin-table-header"></th> 
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
+                    <td><img src="https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
                     <td>Michel</td>
+                    <td>beatiful views</td>
                     <td>2000/01/01</td>
-                    <td>English</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>
 
                 <tr>
-                    <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
-                    <td>Michel</td>
+                    <td><img src="https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
+                    <td>Jack</td>
+                    <td>Please check here</td>
                     <td>2000/01/01</td>
-                    <td>English</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>
 
                 <tr>
-                    <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
-                    <td>Michel</td>
+                    <td><img src="https://images.pexels.com/photos/1023953/pexels-photo-1023953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
+                    <td>Maria</td>
+                    <td>Japan</td>
                     <td>2000/01/01</td>
-                    <td>English</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
