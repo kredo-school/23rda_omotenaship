@@ -5,7 +5,6 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AdminUserController;
-// use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('welcome');

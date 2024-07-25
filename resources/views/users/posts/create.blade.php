@@ -3,11 +3,12 @@
 @section('title','New Post')
 
 @section('content')
-<h2 class="mb-4 col-2 ms-5 border-bottom border-danger">New Post</h2>
+<div class="row">
+ <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">New Post</h2>
   <form action="#" method="post" enctype="multipart/formdata">
      @csrf
       
-      <div class="row">
+      
           <div class="mb-4 col-7 ms-5">
             <label for="category" class="form-label d-block fw-bold">
                 Category 
@@ -133,7 +134,7 @@
           <button type="submit" class="btn btn-danger btn-lg px-5">Post</button>
           </div>
         
-          </div>
+          
         </form>
-
+       </div>
 @endsection
