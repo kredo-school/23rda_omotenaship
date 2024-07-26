@@ -4,12 +4,13 @@
 
 @section('content')
 
+<div class="container justify-content-center d-flex">
 <div class="row">
  <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">New Post</h2>
   <form action="#" method="post" enctype="multipart/formdata">
      @csrf
       
-      <div class="mb-4 col-7 ms-5">
+      <div class="mb-4 col-auto ms-5">
           <label for="category" class="form-label d-block fw-bold">
               Category 
           </label>
@@ -97,9 +98,9 @@
             @error('date')
               <div class="text-danger small">{{ $message }}</div>
             @enderror
-          </div>
+        </div>
 
-          <div class="mb-3 col-7 ms-5">
+        <div class="mb-3 col-7 ms-5">
             <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
                 <select class="form-select form-select-lg mb-3">
                     <option selected>Prefecture of Japan</option>
@@ -109,9 +110,9 @@
             @error('date')
               <div class="text-danger small">{{ $message }}</div>
             @enderror
-          </div>
+        </div>
 
-          <div class="mb-3 col-7 ms-5">
+        <div class="mb-3 col-7 ms-5">
             <label for="event of date" class="form-label fw-bold">Event of date</label>
             <br>
             <label class="date-edit">
@@ -128,13 +129,14 @@
             @error('date')
               <div class="text-danger small">{{ $message }}</div>
             @enderror
-          </div>
+        </div>
          
-          <div class="mb-3 col-7 mx-auto">
+        <div class="mb-3 col-7 mx-auto">
           <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white" id="post-button">Post</button>
-          </div>
+        </div>
         
           
         </form>
-       </div>
+  </div>
+ </div>
 @endsection
