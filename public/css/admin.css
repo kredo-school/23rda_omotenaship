@@ -1,18 +1,22 @@
 
-.list-group h6 {
+.admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     width: 100px;
 }
 
-.img {
+.admin-img {
     width: 100px;
     height: 100px;
 }
 
 .admin-table-header {
     font-size: large;
-    background-color: #202F55 !important;
-    color: #ffffff !important;
+    background-color: #202F55;
+    color: #ffffff;
 }
 
+.admin-btn {
+    background-color: #202F55;
+    color: #ffffff;
+}
