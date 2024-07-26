@@ -3,22 +3,9 @@
 
 
 @section('content')
-
-<style>
-    .list-group h6{
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 10px;
-        width: 100px
-    }
-
-    .table thead {
-        color: #202F55;
-    }
-</style>
-
 <div class="container mt-5">
     <div class="row">
-        <div class="col-3">
+        <div class="col-4">
             <div class="list-group">
                 <h6>Admin page</h6>
                 <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-users"></i> Users</a>
@@ -27,18 +14,17 @@
             </div>
         </div>
 
-
-    <div class="col-9">
+    <div class="col-8">
         <table class="table table-hover align-middle border text-center">
             <thead>
                 <tr>
-                    <th></th>
+                    <th class="admin-table-header"></th>
                     <th class="admin-table-header">Name</th>
                     <th class="admin-table-header">BirthDate</th>
                     <th class="admin-table-header">Language</th>
                     <th class="admin-table-header">Create</th>
                     <th class="admin-table-header">Update</th>
-                    <th></th> 
+                    <th class="admin-table-header"></th> 
                 </tr>
             </thead>
 
