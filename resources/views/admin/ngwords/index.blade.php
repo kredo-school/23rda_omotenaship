@@ -15,45 +15,50 @@
         </div>
 
     <div class="col-9">
-        <table class="table table-hover align-middle border">
+    <form action="#" method="post">
+        <div class="row gx-2 mb-3">
+            <div class="col-5">
+                <input type="text" name="" id="" class="form-control" placeholder="Add new NG word" autofocus>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary w-100 admin-btn">
+                    +Add
+                </button>
+            </div>
+        </div>
+    </form>
+       
+        <table class="table table-hover align-middle border text-center">
             <thead>
                 <tr>
-                    <th class="admin-table-header"></th>
-                    <th class="admin-table-header text-center">Name</th>
-                    <th class="admin-table-header text-center">Title</th>
-                    <th class="admin-table-header text-center">VisteDate</th>
-                    <th class="admin-table-header text-center">Create</th>
-                    <th class="admin-table-header text-center">Update</th>
+                    <th class="admin-table-header">Number</th>
+                    <th class="admin-table-header">NG Word</th>
+                    <th class="admin-table-header">Create</th>
+                    <th class="admin-table-header">Update</th>
                     <th class="admin-table-header"></th> 
                 </tr>
             </thead>
 
             <tbody>
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
-                    <td>Michel</td>
-                    <td>beatiful views</td>
-                    <td>2000/01/01</td>
+                    <td>1</td>
+                    <td>Fuck</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>
 
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
-                    <td>Jack</td>
-                    <td>Please check here</td>
-                    <td>2000/01/01</td>
+                    <td>2</i></td>
+                    <td>broad</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
                 </tr>
 
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/1023953/pexels-photo-1023953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
-                    <td>Maria</td>
-                    <td>Japan</td>
-                    <td>2000/01/01</td>
+                    <td>3</td>
+                    <td>stupid</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
                     <td><i class="fa-solid fa-ellipsis"></i></td>
