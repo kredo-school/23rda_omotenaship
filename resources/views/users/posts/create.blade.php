@@ -131,7 +131,7 @@
           </div>
          
           <div class="mb-3 col-7 mx-auto">
-          <button type="submit" class="btn btn-danger btn-lg px-5" id="post-button">Post</button>
+          <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white" id="post-button">Post</button>
           </div>
         
           

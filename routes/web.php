@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::group(['prefix' => 'post', 'as' => 'post.'],function () {
+Route::group(['prefix' => 'posts', 'as' => 'posts.'],function () {
     Route::get('/create',[PostController::class,'create'])->name('create');
 });
 
