@@ -6,7 +6,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-3">
-            <div class="list-group">
+            <div class="list-group admin-list-group">
                 <h6>Admin page</h6>
                 <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-users"></i> Users</a>
                 <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-pen-to-square"></i> Posts</a>
@@ -30,7 +30,7 @@
 
             <tbody>
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
+                    <td><img src="https://images.pexels.com/photos/402028/pexels-photo-402028.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
                     <td>Michel</td>
                     <td>beatiful views</td>
                     <td>2000/01/01</td>
@@ -40,7 +40,7 @@
                 </tr>
 
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
+                    <td><img src="https://images.pexels.com/photos/1798631/pexels-photo-1798631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
                     <td>Jack</td>
                     <td>Please check here</td>
                     <td>2000/01/01</td>
@@ -50,7 +50,7 @@
                 </tr>
 
                 <tr>
-                    <td><img src="https://images.pexels.com/photos/1023953/pexels-photo-1023953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="img"></td>
+                    <td><img src="https://images.pexels.com/photos/1023953/pexels-photo-1023953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="" class="admin-img"></td>
                     <td>Maria</td>
                     <td>Japan</td>
                     <td>2000/01/01</td>
