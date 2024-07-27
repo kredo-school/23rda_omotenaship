@@ -7,12 +7,12 @@
     <div class="container-fluid p-0">
         <div class="row" style="height: 100vh;">
             <!-- left -->
-            <div class="col-lg-3 p-0" style="background-image: url('{{ asset('/storage/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
+            <div class="col-lg-3 p-0" style="background-image: url('{{ asset('/public/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
                 <!-- <div class="d-flex justify-content-center align-items-end h-100">
                 </div> -->
             </div>
             <!-- center -->
-            <div class="col-lg-6 mx-auto p-0 d-flex justify-content-center align-items-center" style="background-image: url('{{ asset('/storage/logos/red5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;">
+            <div class="col-lg-6 mx-auto p-0 d-flex justify-content-center align-items-center" style="background-image: url('{{ asset('/public/logos/red5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;">
                 <div class="text-center text-danger w-100" style="max-width: 500px;">
                     <h2>{{ __('Welcome back to Omotenaship') }}</h2>
                     <form method="POST" action="{{ route('login') }}" class="mt-4">
@@ -56,7 +56,7 @@
                 </div>
             </div>
             <!-- right -->
-            <div class="col-lg-3 p-0" style="background-image: url('{{ asset('/storage/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
+            <div class="col-lg-3 p-0" style="background-image: url('{{ asset('/public/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
             </div>
         </div>
     </div>
