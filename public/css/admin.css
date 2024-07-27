@@ -10,13 +10,19 @@
     height: 100px;
 }
 
-.admin-table-header {
+.admin-table-header th{
     font-size: large;
-    background-color: #202F55;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
+}
+
+.bg-samurai {
+    background-color:#202F55;
     color: #ffffff;
 }
 
 .admin-btn {
-    background-color: #202F55;
-    color: #ffffff;
+    font-size: large !important;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
 }

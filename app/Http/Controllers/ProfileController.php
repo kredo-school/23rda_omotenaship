@@ -15,3 +15,4 @@ class ProfileController extends Controller
         /*->with('id',$id)*/; 
     }
 }
+
