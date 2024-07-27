@@ -21,7 +21,7 @@
                 <input type="text" name="" id="" class="form-control" placeholder="Add new NG word" autofocus>
             </div>
             <div class="col-3">
-                <button type="submit" class="btn btn-primary w-100 admin-btn">
+                <button type="submit" class="btn w-100 admin-btn">
                     +Add
                 </button>
             </div>
@@ -30,12 +30,12 @@
        
         <table class="table table-hover align-middle border text-center">
             <thead>
-                <tr>
-                    <th class="admin-table-header">Number</th>
-                    <th class="admin-table-header">NG Word</th>
-                    <th class="admin-table-header">Create</th>
-                    <th class="admin-table-header">Update</th>
-                    <th class="admin-table-header"></th> 
+                <tr class="admin-table-header">
+                    <th>Number</th>
+                    <th>NG Word</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th></th> 
                 </tr>
             </thead>
 
