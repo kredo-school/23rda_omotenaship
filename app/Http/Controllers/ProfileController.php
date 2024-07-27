@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function show(){
+    public function show(/*$id*/) {
         return view('profiles.show')
+        /*->with('id',$id)*/; 
     }
-    
-    public function edit() {
-        return view('profiles.edit')
+    public function edit(/*$id*/) {
+        return view('profiles.show')
+        /*->with('id',$id)*/; 
     }
 }
