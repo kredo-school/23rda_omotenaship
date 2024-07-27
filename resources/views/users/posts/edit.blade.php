@@ -36,7 +36,7 @@
                 @enderror
       </div>
           
-      <div class="mb-4 col-7 ms-5">
+      <div class="mb-4 col-auto ms-5">
             <label for="title" class="form-label fw-bold">Title</label>
             <textarea name="title" id="title" class="form-control">{{ old('title') }}</textarea>
             <!-- Error -->
@@ -45,7 +45,7 @@
             @enderror
       </div>
           
-      <div class="mb-4 col-7 ms-5">
+      <div class="mb-4 col-auto ms-5">
               <label for="article" class="form-label fw-bold">Article</label>
               <textarea name="article" id="article" rows="3" class="form-control">{{ old('article') }}</textarea>
               <!-- Error -->
@@ -54,7 +54,7 @@
               @enderror
       </div>
 
-      <div class="row mb-4 col-7 ms-5">
+      <div class="row mb-4 col-auto ms-5">
          <div class="col-5">
               <label for="image" class="form-label fw-bold">Image</label>
               <img src="#" alt="#" class="img-thumbnail w-100">
@@ -71,7 +71,7 @@
       </div>
   
 
-      <div class="mb-3 col-7 ms-5">
+      <div class="mb-3 col-auto ms-5">
           <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
           <br>
           <label class="date-edit">
@@ -83,7 +83,7 @@
             @enderror
        </div>
 
-        <div class="mb-3 col-7 ms-5">
+        <div class="mb-3 col-auto ms-5">
             <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
                 <select class="form-select form-select-lg mb-3">
                     <option selected>Area of Japan</option>
@@ -103,7 +103,7 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-7 ms-5">
+        <div class="mb-3 col-auto ms-5">
             <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
                 <select class="form-select form-select-lg mb-3">
                     <option selected>Prefecture of Japan</option>
@@ -115,7 +115,7 @@
             @enderror
         </div>
 
-        <div class="mb-3 col-7 ms-5">
+        <div class="mb-3 col-auto ms-5">
             <label for="event of date" class="form-label fw-bold">Event of date</label>
             <br>
             <label class="date-edit">
@@ -134,7 +134,7 @@
             @enderror
         </div>
          
-        <div class="mb-3 col-7 mx-auto">
+        <div class="mb-3 justify-center d-flex">
           <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white" id="post-button">Save</button>
         </div>
         
