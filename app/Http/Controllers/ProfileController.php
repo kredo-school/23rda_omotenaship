@@ -11,7 +11,7 @@ class ProfileController extends Controller
         /*->with('id',$id)*/; 
     }
     public function edit(/*$id*/) {
-        return view('profiles.show')
+        return view('profiles.edit')
         /*->with('id',$id)*/; 
     }
 }
