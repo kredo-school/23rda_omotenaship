@@ -14,8 +14,7 @@
             </div>
         </div>
 
-
-    <div class="col-9">
+    <div class="col-8">
         <table class="table table-hover align-middle border text-center">
             <thead>
                 <tr  class="admin-table-header">

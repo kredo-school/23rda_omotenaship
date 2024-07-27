@@ -10,4 +10,8 @@ class ProfileController extends Controller
         return view('profiles.show')
         ->with('id',$id); 
     }
+    public function edit($id) {
+        return view('profiles.edit')
+        ->with('id',$id); 
+    }
 }
