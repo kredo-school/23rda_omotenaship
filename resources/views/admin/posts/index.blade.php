@@ -15,16 +15,16 @@
         </div>
 
     <div class="col-9">
-        <table class="table table-hover align-middle border">
+        <table class="table table-hover align-middle border text-center">
             <thead>
-                <tr>
-                    <th class="admin-table-header"></th>
-                    <th class="admin-table-header text-center">Name</th>
-                    <th class="admin-table-header text-center">Title</th>
-                    <th class="admin-table-header text-center">VisteDate</th>
-                    <th class="admin-table-header text-center">Create</th>
-                    <th class="admin-table-header text-center">Update</th>
-                    <th class="admin-table-header"></th> 
+                <tr class="admin-table-header">
+                    <th></th>
+                    <th>Name</th>
+                    <th>Title</th>
+                    <th>VisteDate</th>
+                    <th>Create</th>
+                    <th>Update</th>
+                    <th></th> 
                 </tr>
             </thead>
 
