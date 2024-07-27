@@ -23,6 +23,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
        
     </head>
     <body class="font-sans antialiased">
