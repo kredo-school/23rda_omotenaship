@@ -3,7 +3,6 @@
 @section('title','New Post')
 
 @section('content')
-
 <div class="container justify-content-center d-flex">
 <div class="row">
  <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">New Post</h2>
