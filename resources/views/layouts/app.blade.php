@@ -16,14 +16,19 @@
 
        <!-- FontAwesome -->
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+       
        
        <!-- Bootstrap        -->
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/admin-posts-index.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+       <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
+
        
     </head>
     <body class="font-sans antialiased">
