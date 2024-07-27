@@ -3,6 +3,9 @@
 
 
 @section('content')
+
+@include('components.navbar')
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-3">
@@ -61,7 +64,19 @@
                     <td>stupid</td>
                     <td>2024-07-22</td>
                     <td>2024-07-22</td>
-                    <td><i class="fa-solid fa-ellipsis"></i></td>
+                    <td>
+                        <div class="dropdown">
+                            <button>
+                                <i class="fa-solid fa-ellipsis"></i>
+                            </button>
+
+                            <div class="dropdown-menu">
+                                <button class="dropdown-list">
+                                    Delete User
+                                </button>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -72,4 +87,10 @@
             </ul>
     </div>
 </div>
+
+<div class="footer">
+    @include('components.footer')
+</div>
+
+
 @endsection

@@ -17,12 +17,41 @@
 }
 
 .bg-samurai {
-    background-color:#202F55;
-    color: #ffffff;
+    background-color:#202F55 !important;
+    color: #ffffff !important;
 }
 
 .admin-btn {
     font-size: large !important;
     background-color: #202F55 !important;
     color: #ffffff !important;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 2px -2px #202F55;
+}
+
+.nav-item {
+    font-size: 2em;
+}
+
+.footer-container {
+    background-color: #202F55;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 15px;
+    height: 50px;
+}
+
+.snslinks {
+    display: flex;
+    gap: 10px;
+}
+
+.footer {
+    width: 100%;
 }

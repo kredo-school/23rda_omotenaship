@@ -5,3 +5,14 @@
 .bg-samurai {
     background-color:#202F55;
 }
+
+.footer-user-container {
+    background-color: #BC002D;
+    color: #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 15px;
+    height: 50px;
+}
