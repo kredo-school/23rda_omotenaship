@@ -25,10 +25,7 @@
         <!-- CSS -->
 
        <link rel="stylesheet" href="{{ asset('css/admin-posts-index.css') }}">
-       
        <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-       <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
        
     </head>
     <body class="font-sans antialiased">
