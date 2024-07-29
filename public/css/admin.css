@@ -27,15 +27,27 @@
     color: #ffffff !important;
 }
 
+
+/* navbar */
+.admin-navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px #202F55;
+}
+
 .navbar {
     background-color: #ffffff !important;
-    box-shadow: 0 4px 2px -2px #202F55;
+    box-shadow: 0 1px 4px #BC002D;
+}
+
+.navbar h1 {
+    margin-bottom: 0;
 }
 
 .nav-item {
     font-size: 2em;
 }
 
+/* footer */
 .footer-container {
     background-color: #202F55;
     color: #ffffff;
@@ -52,6 +64,3 @@
     gap: 10px;
 }
 
-.footer {
-    width: 100%;
-}
