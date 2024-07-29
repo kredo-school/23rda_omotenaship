@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 @extends('layouts.app')
 
 @section('title','Edit Post')
@@ -144,3 +145,5 @@
 </div>
 
 @endsection
+=======
+>>>>>>> main
