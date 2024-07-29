@@ -1,5 +1,5 @@
 <!-- Admin delete modal -->
-<div class="modal">
+{{-- <div class="modal">
     <div class="modal-dialog">
         <div class="modal-content border">
             <div class="modal-header">
@@ -25,4 +25,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
