@@ -1,1 +1,8 @@
-<h1>Hello</h1>
+@extends('layouts.app')
+
+@section('title', 'Favorites')
+
+@section('content')
+
+@include('components.post')
+@endsection
