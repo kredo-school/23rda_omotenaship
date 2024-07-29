@@ -28,11 +28,18 @@ require __DIR__.'/auth.php';
 
 Route::group(['prefix' => 'posts', 'as' => 'posts.'],function () {
     Route::get('/create',[PostController::class,'create'])->name('create');
+    Route::get('/edit',[PostController::class,'edit'])->name('edit');
 });
 
 Route::group(['prefix' => '/favorites', 'as'=>'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
+});
     
+
+
+Route::group(['prefix' => '/admin/users', 'as' =>'admin.users.'], function() {
+    Route::get('/', [AdminUserController::class, 'index'])->name('index');
+
 });
 
 
