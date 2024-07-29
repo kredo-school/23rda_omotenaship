@@ -6,7 +6,6 @@
             <img src="{{ asset('images/logos/blue.jpg') }}" alt="logo" width="60" height="60" class="d-inline-block align-text-top">
         </a>
         <h1>Omotenaship</h1>
-
         
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li class="nav-item">

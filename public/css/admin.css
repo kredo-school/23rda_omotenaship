@@ -1,4 +1,5 @@
 
+/* admin page */
 .admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
@@ -26,7 +27,6 @@
     background-color: #202F55 !important;
     color: #ffffff !important;
 }
-
 
 /* navbar */
 .admin-navbar {
