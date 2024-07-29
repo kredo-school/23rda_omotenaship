@@ -25,10 +25,11 @@ Route::middleware('auth')->group(function () {
 
 
 require __DIR__.'/auth.php';
-
+// posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'],function () {
     Route::get('/create',[PostController::class,'create'])->name('create');
     Route::get('/edit',[PostController::class,'edit'])->name('edit');
+    Route::get('/show',[PostController::class,'show'])->name('show');
 });
 
 Route::group(['prefix' => '/favorites', 'as'=>'favorites.'], function () {
