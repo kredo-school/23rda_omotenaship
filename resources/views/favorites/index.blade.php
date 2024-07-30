@@ -4,5 +4,7 @@
 
 @section('content')
 
+
 @include('components.post')
+
 @endsection

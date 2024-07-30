@@ -21,4 +21,9 @@ class PostController extends Controller
 
          return view('users.posts.create');
     }
+
+    public function edit(){
+        
+        return view('users.posts.edit');
+    }
 }
