@@ -28,7 +28,7 @@
        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/post-show.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
 
        
     </head>
