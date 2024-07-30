@@ -63,7 +63,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="#">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             </li>
 
