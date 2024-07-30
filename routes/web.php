@@ -47,7 +47,8 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
    Route::get('/{id}/show', [ProfileController::class, 'show'])
     ->name('show'); 
-
+    Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+    ->name('edit'); 
 });
 
 Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
