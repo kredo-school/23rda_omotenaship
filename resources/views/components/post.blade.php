@@ -1,6 +1,10 @@
-<div style="width: 384.87px;height: 297.66px;">
+<div class="card components-post">
     <div class="row">
-        <img src="{{ asset('images/14.png') }}">
+        <div class="bg-photo">
+            <img src="{{ asset('images/14.png') }}">
+
+            <div class="post-bg-image"></div>
+        </div>
     </div>
     <div class="row mx-2">
         <div class="col-10">
@@ -12,3 +16,4 @@
             <img src="{{ asset('images/10.png') }}">
         </div>
     </div>
+</div>

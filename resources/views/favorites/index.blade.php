@@ -5,6 +5,6 @@
 @section('content')
 
 
-@include('components.post')
+    @include('components.post')
 
 @endsection
