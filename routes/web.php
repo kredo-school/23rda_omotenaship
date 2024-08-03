@@ -9,10 +9,8 @@ use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
 // Top page
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', [PostController::class, 'index'])
+    ->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
