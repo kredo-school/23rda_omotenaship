@@ -28,7 +28,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- title --}}
                 <div class="mb-4 col-7 ms-5">
                     <label for="title" class="form-label fw-bold">Title</label>
                     <textarea name="title" id="title" class="form-control">{{ old('title') }}</textarea>
@@ -37,7 +37,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- artical --}}
                 <div class="mb-4 col-7 ms-5">
                     <label for="article" class="form-label fw-bold">Article</label>
                     <textarea name="article" id="article" rows="3" class="form-control">{{ old('article') }}</textarea>
@@ -46,7 +46,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- image --}}
                 <div class="mb-4 col-7 ms-5">
                     <label for="image" class="form-label fw-bold">Image</label>
                     <input type="file" name="image" id="image" class="form-control" aria-describedby="image-info">
@@ -59,7 +59,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- Date --}}
                 <div class="mb-3 col-7 ms-5">
                     <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
                     <br>
@@ -71,7 +71,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                 {{-- Area of japan --}}
                 <div class="mb-3 col-7 ms-5">
                     <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
                     <select class="form-select form-select-lg mb-3">
@@ -91,7 +91,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- prefecture --}}
                 <div class="mb-3 col-7 ms-5">
                     <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
                     <select class="form-select form-select-lg mb-3">
@@ -103,7 +103,7 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+                {{-- Event --}}
                 <div class="mb-3 col-7 ms-5">
                     <label for="event of date" class="form-label fw-bold">Event of date</label>
                     <br>
