@@ -62,7 +62,7 @@
             </form>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ route('posts.create') }}">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             </li>
