@@ -6,7 +6,7 @@
                 <h5 class="modal-title">Delete Post</h5>
             </div>
             <div class="modal-body text-center">
-                <img src="https://images.pexels.com/photos/1023953/pexels-photo-1023953.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" class="mx-auto admin-img">
+                <img src="{{ asset('images/posts/14.png') }}" class="mx-auto admin-img">
                 <h5 class="mt-3">Title</h5>
                 
                     <i class="fa-solid fa-triangle-exclamation icon-delete-user"></i>
