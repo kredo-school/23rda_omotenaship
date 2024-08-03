@@ -29,3 +29,35 @@
 h5 {
     font-size: 20px;
 }
+
+/* Button */
+/* Button-kurenai 
+…Color changes when cursor is placed on it.*/
+.btn-kurenai {
+    color: #FFFFFF;;
+    border: 2px solid #BC002D;
+    background-color: #BC002D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-kurenai:hover {
+    color: #FFFFFF;
+    background-color: #E50137;
+}
+/* Button-white
+…Color changes when cursor is placed on it.*/
+.btn-white {
+    color: #BC002D;;
+    border: 2px solid #BC002D;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn-white:hover {
+    font-weight: 700;
+    color: #E50137;
+    border: 4px solid #E50137;
+    background-color: #FFFFFF;
+}
