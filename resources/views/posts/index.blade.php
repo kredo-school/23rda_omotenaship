@@ -3,11 +3,9 @@
 @section('title', 'Omotenaship')
 
 @section('content')
-    <div class="container-fluid mb-5">
-        <img src="{{ asset('images/banners/navbar-before-login.png') }}" alt="">
-    </div>
+    @include('components.navbar')
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-8">
                 <div class="row mb-5">
@@ -17,32 +15,33 @@
                     </div>
                 </div>
 
-                <h2 class="border">New Post</h2>
+                {{-- Heading --}}
+                <h2 class="mb-3"><span class="px-2 heading-kurenai">New Post</span></h2>
 
+                {{-- Posts --}}
                 <div class="row">
-                    <div class="col-6">
-                        <img src="{{ asset('images/posts/post-1.png') }}" alt="">
+                    <div class="col-6 mb-3">
+                        @include('components.post')
                     </div>
-                    <div class="col-6">
-                        <img src="{{ asset('images/posts/post-2.png') }}" alt="">
+                    <div class="col-6 mb-3">
+                        @include('components.post')
                     </div>
-                    <div class="col-6">
-                        <img src="{{ asset('images/posts/post-3.png') }}" alt="">
+                    <div class="col-6 mb-3">
+                        @include('components.post')
                     </div>
-                    <div class="col-6">
-                        <img src="{{ asset('images/posts/post-1.png') }}" alt="">
+                    <div class="col-6 mb-3">
+                        @include('components.post')
                     </div>
                 </div>
             </div>
 
             <div class="col-4">
-                 {{-- Sidebar --}}
-                 <img src="{{ asset('images/banners/sidebar.png') }}" alt="">
+                {{-- Sidebar --}}
+                @include('components.sidebar')
             </div>
         </div>
-
-        <div class="row">
-            Footer
-        </div>
     </div>
+
+    {{-- Footer --}}
+    @include('components.footer')
 @endsection
