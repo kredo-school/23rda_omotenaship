@@ -4,9 +4,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\DirectMessageController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+
 
 // Top page
 Route::get('/', [PostController::class, 'index'])
@@ -48,7 +50,11 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
         ->name('edit');
 });
 
-Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
+Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], function() {
+    Route::get('/{id}/show', [DirectMessageController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
