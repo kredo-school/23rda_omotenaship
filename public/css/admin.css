@@ -1,4 +1,5 @@
 
+/* admin page */
 .admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
@@ -10,13 +11,56 @@
     height: 100px;
 }
 
-.admin-table-header {
+.admin-table-header th{
     font-size: large;
-    background-color: #202F55;
-    color: #ffffff;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
+}
+
+.bg-samurai {
+    background-color:#202F55 !important;
+    color: #ffffff !important;
 }
 
 .admin-btn {
+    font-size: large !important;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
+}
+
+/* navbar */
+.admin-navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px #202F55;
+}
+
+.navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px #BC002D;
+}
+
+.navbar h1 {
+    margin-bottom: 0;
+}
+
+.nav-item {
+    font-size: 2em;
+}
+
+/* footer */
+.footer-container {
     background-color: #202F55;
     color: #ffffff;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    gap: 15px;
+    height: 50px;
 }
+
+.snslinks {
+    display: flex;
+    gap: 10px;
+}
+
