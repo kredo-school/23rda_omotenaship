@@ -54,9 +54,10 @@
         <div class="col-7">
             <div class="d-flex align-items-center mb-2">
                 <i class="fa-solid fa-circle-user text-secondary icon-sm me-2"></i>
-                <a href="#" class="text-decoration-none text-dark me-auto">Mary Watson</a>
+                <a href="#" class="text-decoration-none text-dark me-auto mt-0 pt-0">Mary Watson</a>
                 <p class="show-date">2024-06-10</p>
             </div>
+                <p>beautiful place</p>
         </div>
     </div>
 </div>
