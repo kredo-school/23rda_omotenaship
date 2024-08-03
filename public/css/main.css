@@ -1,3 +1,4 @@
+/* General Style */
 .bg-kurenai {
     background-color:#BC002D;
 }
@@ -6,16 +7,25 @@
     background-color:#202F55;
 }
 
+.heading-kurenai {
+    border-bottom: 3px solid #BC002D;
+}
+
+.heading-samurai {
+    border-bottom: 3px solid #202F55;
+}
+
 .footer-user-container {
     background-color: #BC002D;
     color: #ffffff;
     text-align: center;
     display: flex;
     justify-content: space-between;
-    align-items: center; 
+    align-items: center;
     gap: 15px;
     height: 50px;
 }
+
 h5 {
     font-size: 20px;
 }
