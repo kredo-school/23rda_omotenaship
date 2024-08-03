@@ -1,5 +1,5 @@
 
-/* admin page */
+/* admin sidebar */
 .admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
@@ -64,3 +64,17 @@
     gap: 10px;
 }
 
+
+/* delete user modal */
+.cancel-border {
+    color: #202F55;
+}
+
+.icon-delete-user {
+    font-size: 3rem;
+    color: #202F55;
+}
+
+.admin-modal-text {
+    font-size: 0.8rem;
+}
