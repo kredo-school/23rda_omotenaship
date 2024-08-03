@@ -4,5 +4,7 @@
 
 @section('content')
 
-@include('components.sidebar')
+
+    @include('components.post')
+
 @endsection
