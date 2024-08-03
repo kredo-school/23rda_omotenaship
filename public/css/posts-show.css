@@ -1,0 +1,12 @@
+.posts-show-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+.show-date{
+   font-size:0.65rem;
+   
+}
+
+  

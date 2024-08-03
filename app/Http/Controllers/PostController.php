@@ -11,19 +11,30 @@ class PostController extends Controller
     private $post;
     // private $category;
 
-    public function __construct(Post $post){
+    public function __construct(Post $post)
+    {
         $this->post = $post;
         // $this->category = $category;
     }
 
-    public function create(){
-        //  $all_categories = $this->category->all();
-
-         return view('users.posts.create');
+    public function index()
+    {
+        return view('posts.index');
     }
 
-    public function edit(){
-        
+    public function create()
+    {
+        //  $all_categories = $this->category->all();
+        return view('users.posts.create');
+    }
+
+    public function edit()
+    {
         return view('users.posts.edit');
+    }
+
+    public function show()
+    {
+        return view('users.posts.show');
     }
 }

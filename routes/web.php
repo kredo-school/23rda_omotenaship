@@ -8,10 +8,9 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Top page
+Route::get('/', [PostController::class, 'index'])
+    ->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -24,45 +23,38 @@ Route::middleware('auth')->group(function () {
 });
 
 
-require __DIR__.'/auth.php';
-
-Route::group(['prefix' => 'posts', 'as' => 'posts.'],function () {
-    Route::get('/create',[PostController::class,'create'])->name('create');
-    Route::get('/edit',[PostController::class,'edit'])->name('edit');
+require __DIR__ . '/auth.php';
+// posts
+Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
+    Route::get('/create', [PostController::class, 'create'])->name('create');
+    Route::get('/edit', [PostController::class, 'edit'])->name('edit');
+    Route::get('/show', [PostController::class, 'show'])->name('show');
 });
 
-Route::group(['prefix' => '/favorites', 'as'=>'favorites.'], function () {
+Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
 });
-    
 
-
-Route::group(['prefix' => '/admin/users', 'as' =>'admin.users.'], function() {
+Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
-
 });
-
 
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
-   Route::get('/{id}/show', [ProfileController::class, 'show'])
-    ->name('show'); 
+    Route::get('/{id}/show', [ProfileController::class, 'show'])
+        ->name('show');
     Route::get('/{id}/edit', [ProfileController::class, 'edit'])
-    ->name('edit'); 
+        ->name('edit');
 });
 
-Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
+Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
-
-Route::group(['prefix' =>'/admin/posts', 'as' =>'admin.posts.'], function() {
+Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
     Route::get('/', [AdminPostController::class, 'index'])->name('index');
 });
 
-Route::group(['prefix' =>'/admin/ngwords', 'as' =>'admin.ngwords.'], function() {
+Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
     Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
 });
-
-?>
-
