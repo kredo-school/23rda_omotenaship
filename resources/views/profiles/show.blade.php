@@ -28,16 +28,28 @@
                         </div>
 
                         {{-- Introduction --}}
-                        <div class="row mx-auto">
+                        <div class="row mx-auto mb-5">
                             {{-- Introduction -Title --}}
-                            <h6>Introduction</h6>
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Introduction
+                            </h5>
                             {{-- Introduction -Text --}}
-                            <p class="text-start mx-auto p-1">Lorem ipsum dolor sit amet, </p>
+                            <p
+                                class="mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-11 m-0 px-2 py-0">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry!! Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s!!
+                            </p>
                         </div>
+
 
                         {{-- Language --}}
                         <div class="row mx-auto mb-5">
-                            <h6>Language <span>English</span></h6>
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Language :  
+                                <span>
+                                    English
+                                </span>
+                            </h5>
                         </div>
 
                         {{-- Button --}}
