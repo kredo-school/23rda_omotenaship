@@ -6,12 +6,12 @@
   @include('components.navbar')
     <div class="container justify-content-center d-flex">
         <div class="row">
-            <h2 class="mb-4 col-3 ms-5 mt-3 heading-kurenai">New Post</h2>
-            <form action="#" method="post" enctype="multipart/formdata">
+            <h2 class="mb-4 col-3 ms-3 mt-3 heading-kurenai"><span>New Post</span></h2>
+            <form action="{{ route('posts.store') }}" method="post" enctype="multipart/formdata">
                 @csrf
 
                 {{-- category --}}
-                <div class="mb-4 col-auto ms-5">
+                <div class="mb-4 col-auto ms-3">
                     <label for="category" class="form-label d-block fw-bold">
                         Category
                     </label>
@@ -29,7 +29,7 @@
                     @enderror
                 </div>
                 {{-- title --}}
-                <div class="mb-4 col-7 ms-5">
+                <div class="mb-4 col-10 ms-3">
                     <label for="title" class="form-label fw-bold">Title</label>
                     <textarea name="title" id="title" class="form-control">{{ old('title') }}</textarea>
                     <!-- Error -->
@@ -38,7 +38,7 @@
                     @enderror
                 </div>
                 {{-- artical --}}
-                <div class="mb-4 col-7 ms-5">
+                <div class="mb-4 col-10 ms-3">
                     <label for="article" class="form-label fw-bold">Article</label>
                     <textarea name="article" id="article" rows="3" class="form-control">{{ old('article') }}</textarea>
                     <!-- Error -->
@@ -47,7 +47,7 @@
                     @enderror
                 </div>
                 {{-- image --}}
-                <div class="mb-4 col-7 ms-5">
+                <div class="mb-4 col-10 ms-3">
                     <label for="image" class="form-label fw-bold">Image</label>
                     <input type="file" name="image" id="image" class="form-control" aria-describedby="image-info">
                     <div class="form-text" id="image-info">
@@ -60,11 +60,11 @@
                     @enderror
                 </div>
                 {{-- Date --}}
-                <div class="mb-3 col-7 ms-5">
+                <div class="mb-3 col-10 ms-3">
                     <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
                     <br>
                     <label class="date-edit">
-                        <input type="date" value="yyyy-mm-dd" class="rounded-2">
+                        <input type="date" name="visit_date" value="yyyy-mm-dd" class="rounded-2">
                     </label>
                     <!-- Error -->
                     @error('date')
@@ -72,9 +72,9 @@
                     @enderror
                 </div>
                  {{-- Area of japan --}}
-                <div class="mb-3 col-7 ms-5">
+                <div class="mb-3 col-10 ms-3">
                     <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
-                    <select class="form-select form-select-lg mb-3">
+                    <select class="form-select form-select-lg mb-3" name="area_id">
                         <option selected>Area of Japan</option>
                         <option value="1">Hokkaidou</option>
                         <option value="2">Touhoku</option>
@@ -92,9 +92,9 @@
                     @enderror
                 </div>
                 {{-- prefecture --}}
-                <div class="mb-3 col-7 ms-5">
+                <div class="mb-3 col-10 ms-3">
                     <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
-                    <select class="form-select form-select-lg mb-3">
+                    <select class="form-select form-select-lg mb-3" nama="prefecture_id">
                         <option selected>Prefecture of Japan</option>
                     </select>
 
@@ -104,18 +104,18 @@
                     @enderror
                 </div>
                 {{-- Event --}}
-                <div class="mb-3 col-7 ms-5">
+                <div class="mb-3 col-10 ms-3">
                     <label for="event of date" class="form-label fw-bold">Event of date</label>
                     <br>
                     <label class="date-edit">
                         <span>Start</span>
-                        <input type="date" value="yyyy-mm-dd" class="rounded-2">
+                        <input type="date" value="yyyy-mm-dd" class="rounded-2" nama="start_date">
                     </label>
                     <br>
                     <br>
                     <label class="date-edit">
                         <span> End </span>
-                        <input type="date" value="yyyy-mm-dd" class="rounded-2">
+                        <input type="date" value="yyyy-mm-dd" class="rounded-2" nama="end_date">
                     </label>
                     <!-- Error -->
                     @error('date')
@@ -123,7 +123,7 @@
                     @enderror
                 </div>
 
-                <div class="mb-3 col-7 mx-auto">
+                <div class="mb-3 col-10 mx-auto">
                     <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white"
                         id="post-button">Post</button>
                 </div>

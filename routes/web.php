@@ -32,6 +32,7 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
     Route::get('/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/show', [PostController::class, 'show'])->name('show');
+    Route::post('/store', [PostController::class, 'store'])->name('store');
 });
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
