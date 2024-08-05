@@ -20,11 +20,11 @@
                         </div>
                         {{-- Name --}}
                         <div class="row mx-auto">
-                            <h4>
+                            <h5 class="mx-auto d-flex justify-content-center align-items-center">
                                 <span>
                                     John Adam Smitd
                                 </span>
-                            </h4>
+                            </h5>
                         </div>
 
                         {{-- Introduction --}}
@@ -55,11 +55,11 @@
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            <a href="#" class="btn btn-kurenai p-1 mb-2" style="height:60px; width:250px;">
+                            <a href="#" class="btn btn-kurenai btn-lg p-1 mb-2" style="height:60px; width:250px;">
                                 Edit Profile
                             </a>
                             {{-- Delete Account --}}
-                            <button type="button" class="btn btn-white p-1" style="height:60px; width:250px;">
+                            <button type="button" class="btn btn-white btn-lg p-1" style="height:60px; width:250px;">
                                 Delete Account
                             </button>
                         </div>
