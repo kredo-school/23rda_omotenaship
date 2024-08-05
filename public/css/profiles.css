@@ -19,3 +19,31 @@ p {
 }
 
 
+/* delete account modal */
+.icon-delete-account {
+    font-size: 3rem;
+    color: #bc002d;
+}
+
+.cancel-account-border {
+    color: #bc002d;
+}
+
+.account-modal-text {
+    font-size: 0.7rem;
+    color: #bc002d;
+}
+
+.account-btn {
+    background-color: #bc002d;
+    color: #ffffff;
+}
+
+.account-modal-title {
+    color: #bc002d;
+    font-size: large;
+}
+
+.account-boder {
+    border-color: #bc002d;
+}
