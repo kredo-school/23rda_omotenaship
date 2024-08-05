@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     
 
 </head>
