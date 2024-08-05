@@ -3,7 +3,9 @@
 @section('title', 'Register')
 
 @section('content')
+
     @include('components.navbar')
+
     <div class="d-flex justify-content-center align-items-center min-vh-100">
         <div class="container-fluid p-0">
             <div class="row" style="height: 100vh;">
@@ -11,13 +13,14 @@
                 <div class="col-lg-3 p-0"
                     style="background-image: url('{{ asset('/images/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
                     <!-- <div class="d-flex justify-content-center align-items-end h-100">
-                        </div> -->
+                            </div> -->
                 </div>
                 <!-- center -->
                 <div class="col-lg-6 mx-auto p-0 d-flex justify-content-center align-items-center"
                     style="background-image: url('{{ asset('/images/logos/red5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;">
                     <div class="text-center w-100" style="max-width: 500px;">
                         <h2 class="text-kurenai">Welcome to Omotenaship</h2>
+
                         <form method="POST" action="{{ route('register') }}" class="mt-4">
                             @csrf
                             <!-- username -->
@@ -79,10 +82,11 @@
                             <div class="row mb-3">
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-kurenai w-50">
-                                        Register
-                                    </button>
+
+                                        Register</button>
                                 </div>
-                                <a href=# class="text-black">Alredy have an account? Login</a>
+                                <a href={{ route('login') }} class="text-black">Alredy have an account? Login</a>
+
                             </div>
                         </form>
                     </div>
@@ -90,9 +94,12 @@
                 <!-- right -->
                 <div class="col-lg-3 p-0"
                     style="background-image: url('{{ asset('/images/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">
+
                 </div>
             </div>
         </div>
     </div>
+
     @include('components.footer')
+
 @endsection
