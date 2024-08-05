@@ -1,77 +1,94 @@
 @extends('layouts.app')
 
+@section('title', 'Show Prfile')
+
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <!-- prfile -->
-        <div class="col-3">
-            <i class="fa-solid fa-user text-dark"></i>
-                <h4>John Adam Smitd</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <h6>Language ：　English</h6>
-            <div class="mb-3 col-8 mx-auto">
-                <button type="submit" class="btn bg-kurenai btn-lg text-white px-5">Edit</button>
+
+    @include('components.navbar')
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+
+            <!-- prfile -->
+            <div class="row col-lg-3 mx-auto p-0 d-flex justify-content-center">
+                <form action="" method="" class="bg-white shadow rounded-3 p-2" enctype="multipart/form-data">
+                    <div class="row col mx-auto p-2">
+                        {{-- Abatar --}}
+                        <div>
+                            <img src="{{ asset('images\profile_sample1.png') }}" alt=""
+                                class="mx-auto d-flex justify-content-center align-items-center" style="height: 100px;">
+                        </div>
+                        {{-- Name --}}
+                        <div class="row mx-auto">
+                            <h4>
+                                <span>
+                                    John Adam Smitd
+                                </span>
+                            </h4>
+                        </div>
+
+                        {{-- Introduction --}}
+                        <div class="row mx-auto">
+                            {{-- Introduction -Title --}}
+                            <h6>Introduction</h6>
+                            {{-- Introduction -Text --}}
+                            <p class="text-start mx-auto p-1">Lorem ipsum dolor sit amet, </p>
+                        </div>
+
+                        {{-- Language --}}
+                        <div class="row mx-auto mb-5">
+                            <h6>Language <span>English</span></h6>
+                        </div>
+
+                        {{-- Button --}}
+                        <div class="d-flex flex-column align-items-center">
+                            {{-- Edit Profile --}}
+                            <a href="#" class="btn btn-kurenai p-1 mb-2" style="height:60px; width:250px;">
+                                Edit Profile
+                            </a>
+                            {{-- Delete Account --}}
+                            <button type="button" class="btn btn-white p-1" style="height:60px; width:250px;">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <!-- Posts-->
-        <div class="col-lg-9 mx-auto p-0 d-flex justify-content-center>
-            <div class="row">
-                
+
+
+            <!-- Posts-->
+            <div
+                class="col-lg-8
+                                mx-auto p-0 d-flex justify-content-center>
+                                <div class="row">
                 <div class="row">
+                    {{-- My Post --}}
                     <div class="section-header">
-                        <h2>My post</h2>
-                        <hr class="profiles-hr">
+                        <h2>
+                            <span class="px-2 heading-kurenai">
+                                My Post
+                            </span>
+                        </h2>
                     </div>
 
-                        <div class="profiles-gallery">
-                            <table class="profiles-items">
-                                    <tr>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/259772/pexels-photo-259772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/1876568/pexels-photo-1876568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/932261/pexels-photo-932261.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/161251/senso-ji-temple-japan-kyoto-landmark-161251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-items">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                    </tr>
-                            </table>
+                    {{-- New Post --}}
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+    @include('components.footer')
 @endsection

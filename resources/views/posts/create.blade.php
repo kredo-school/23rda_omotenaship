@@ -3,9 +3,10 @@
 @section('title', 'New Post')
 
 @section('content')
+  @include('components.navbar')
     <div class="container justify-content-center d-flex">
         <div class="row">
-            <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">New Post</h2>
+            <h2 class="mb-4 col-3 ms-5 mt-3 heading-kurenai">New Post</h2>
             <form action="#" method="post" enctype="multipart/formdata">
                 @csrf
 
@@ -22,7 +23,6 @@
                             <label for="{{ $category->name }}" class="form-check-label">{{ $category->name }}</label>
                         </div>
                     @endforeach
-
                     <!-- Error -->
                     @error('catogory')
                         <div class="text-danger small">{{ $message }}</div>
@@ -132,4 +132,5 @@
             </form>
         </div>
     </div>
+    @include('components.footer')
 @endsection
