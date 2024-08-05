@@ -24,7 +24,7 @@ class PostController extends Controller
     public function create(){
          $all_categories = $this->category->all();
 
-         return view('users.posts.create')->with('all_categories',$all_categories);
+         return view('posts.create')->with('all_categories',$all_categories);
     }
 
     public function store(Request $request) {
@@ -43,11 +43,11 @@ class PostController extends Controller
 
     public function edit()
     {
-        return view('users.posts.edit');
+        return view('posts.edit');
     }
 
     public function show()
     {
-        return view('users.posts.show');
+        return view('posts.show');
     }
 }
