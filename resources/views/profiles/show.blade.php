@@ -52,11 +52,11 @@
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            <a href="#" class="btn btn-kurenai btn-lg p-1 mb-2" style="height:60px; width:250px;">
+                            <a href="#" class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
                             </a>
                             {{-- Delete Account --}}
-                            <button type="button" class="btn btn-white btn-lg p-1" style="height:60px; width:250px;">
+                            <button type="button" class="btn btn-white-pf btn-lg p-1">
                                 Delete Account
                             </button>
                         </div>
