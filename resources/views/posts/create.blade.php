@@ -74,17 +74,11 @@
                  {{-- Area of japan --}}
                 <div class="mb-3 col-10 ms-3">
                     <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
-                    <select class="form-select form-select-lg mb-3" name="area_id">
-                        <option selected>Area of Japan</option>
-                        <option value="1">Hokkaidou</option>
-                        <option value="2">Touhoku</option>
-                        <option value="3">Kantou</option>
-                        <option value="4">Chuubu</option>
-                        <option value="5">Kinnki</option>
-                        <option value="6">Chuugoku</option>
-                        <option value="7">Shikoku</option>
-                        <option value="8">Kyuushuu</option>
-                    </select>
+                       <select class="form-select form-select-lg mb-3" name="area" id="area">
+                            @foreach($all_areas as $area)
+                                <option value="{{ $area->name }}">{{ $area->name }}</option>
+                            @endforeach
+                       </select>
 
                     <!-- Error -->
                     @error('date')
@@ -94,8 +88,10 @@
                 {{-- prefecture --}}
                 <div class="mb-3 col-10 ms-3">
                     <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
-                    <select class="form-select form-select-lg mb-3" nama="prefecture_id">
-                        <option selected>Prefecture of Japan</option>
+                    <select class="form-select form-select-lg mb-3" nama="prefecture" id="prefecture">
+                        @foreach($all_prefectures as $prefecture)
+                             <option value="{{ $prefecture->name }}">{{ $prefecture->name }}</option>
+                        @endforeach
                     </select>
 
                     <!-- Error -->
