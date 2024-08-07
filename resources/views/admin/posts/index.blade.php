@@ -64,7 +64,7 @@
 
                                     <div class="dropdown-menu text-center">
                                         <button class="dropdown-list" data-bs-toggle="modal"
-                                            data-bs-target="#deleteUserModal">
+                                            data-bs-target="#deletePostModal">
                                             Delete Post
                                         </button>
                                     </div>

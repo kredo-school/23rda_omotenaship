@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
     
 
 </head>
