@@ -20,34 +20,43 @@
                         </div>
                         {{-- Name --}}
                         <div class="row mx-auto">
-                            <h4>
+                            <h5 class="mx-auto d-flex justify-content-center align-items-center">
                                 <span>
                                     John Adam Smitd
                                 </span>
-                            </h4>
+                            </h5>
                         </div>
 
                         {{-- Introduction --}}
-                        <div class="row mx-auto">
+                        <div class="row mx-auto mb-5">
                             {{-- Introduction -Title --}}
-                            <h6>Introduction</h6>
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Introduction
+                            </h5>
                             {{-- Introduction -Text --}}
-                            <p class="text-start mx-auto p-1">Lorem ipsum dolor sit amet, </p>
+                            <p
+                                class="mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-11 m-0 px-2 py-0">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry!! Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s!!
+                            </p>
                         </div>
+
 
                         {{-- Language --}}
                         <div class="row mx-auto mb-5">
-                            <h6>Language <span>English</span></h6>
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Language :  English
+                            </h5>
                         </div>
 
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            <a href="#" class="btn btn-kurenai p-1 mb-2" style="height:60px; width:250px;">
+                            <a href="#" class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
                             </a>
                             {{-- Delete Account --}}
-                            <button type="button" class="btn btn-white p-1" style="height:60px; width:250px;">
+                            <button type="button" class="btn btn-white-pf btn-lg p-1">
                                 Delete Account
                             </button>
                         </div>

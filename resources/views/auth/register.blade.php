@@ -3,9 +3,7 @@
 @section('title', 'Register')
 
 @section('content')
-
     @include('components.navbar')
-
     <div class="row">
         <!-- left -->
         <div class="col-lg-3">
@@ -26,9 +24,7 @@
                         <div class="col-md-6">
                             <input id="username" type="text" class="form-control bg-transparent"name="username"
                                 value="{{ old('username') }}" required autocomplete="username" autofocus>
-                            <!-- ↑のclassに@error('username')
-        is-invalid
-    @enderror -->
+
                             @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -43,9 +39,7 @@
                         <div class="col-md-6">
                             <input id="username" type="text" class="form-control bg-transparent"name="password"
                                 value="{{ old('password') }}" required autocomplete="password" autofocus>
-                            <!-- ↑のclassに@error('password')
-        is-invalid
-    @enderror -->
+
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -76,8 +70,7 @@
                             <button type="submit" class="btn btn-kurenai w-50">
                                 Register</button>
                         </div>
-                        <a href={{ route('login') }} class="text-black text-center">Alredy have an account? Login</a>
-
+                        <a href={{ route('login') }} class="text-black">Alredy have an account? Login</a>
                     </div>
                 </form>
             </div>

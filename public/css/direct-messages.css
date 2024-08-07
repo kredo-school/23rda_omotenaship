@@ -1,0 +1,61 @@
+.user-chat {
+    box-shadow: 0px 0px 1px gray;
+    
+}
+
+.balloon-chat {
+    display: flex;
+    flex-wrap: wrap;
+    }
+    /* 左の吹き出し */
+    .balloon-chat.left { 
+    flex-direction: row; /* 左から右に並べる */
+    }
+    /* 右の吹き出し */
+    .balloon-chat.right { 
+    flex-direction: row-reverse; /* 右から左に並べる */
+    }
+    /* 吹き出しの入力部分の作成 */
+    .chatting {
+    position: relative;
+    display: inline-block; /* 吹き出しが文字幅に合わせます */ 
+    margin: 10px 20px;
+    padding: 10px 20px;
+    background: #ffffff; 
+    box-shadow: 0px 4px 30px gray;
+    text-align: left; 
+    border-radius: 12px; 
+    }
+    /* 吹き出しの三角部分の作成 */
+    .chatting::after {
+    content: "";
+    border: 15px solid transparent;
+    border-top-color: #ffffff; 
+    /* box-shadow: 5px 5px 5px gray; */
+    position: absolute;
+    top: 10px; 
+    }
+
+    .left .chatting::after {
+    left: -15px;
+    }
+    .right .chatting::after {
+    right: -15px; 
+    }
+    /* アイコンの作成 */
+    .balloon-chat figure img {
+    border-radius: 50%; 
+    border: 2px solid #333300;
+    margin: 0;
+    }
+    /* アイコンの大きさ */
+    .icon-img {
+    width: 80px;
+    height: 80px;
+    }
+    /* アイコンの名前の設定 */
+    .icon-name {
+    width: 80px; /* アイコンの大きさと合わせる */
+    font-size: 12px;
+    text-align: center;
+    }
