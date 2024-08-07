@@ -25,7 +25,7 @@
     </div>
 </div>
 
-@else('false')
+@elseif('false')
 {{--User delete-post-modal --}}
 <div class="modal fade" id="deletePostModal" aria-labelledby="delete-post-modal">
     <div class="modal-dialog modal-sm">
