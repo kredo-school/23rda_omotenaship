@@ -24,16 +24,30 @@ class PostController extends Controller
     public function create(){
          $all_categories = $this->category->all();
 
-         return view('users.posts.create')->with('all_categories',$all_categories);
+         return view('posts.create')->with('all_categories',$all_categories);
+    }
+
+    public function store(Request $request) {
+         $request->validate([
+            'category' => 'required|array|between:1,4',
+            'title' => 'required|max:500',
+            'article' => 'required|max:1000',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
+            'date of visit' => '',
+            'area of japan' =>'',
+            'prefecture' => '',
+            'event' => '',
+            
+         ]);
     }
 
     public function edit()
     {
-        return view('users.posts.edit');
+        return view('posts.edit');
     }
 
     public function show()
     {
-        return view('users.posts.show');
+        return view('posts.show');
     }
 }
