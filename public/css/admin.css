@@ -78,3 +78,7 @@
 .admin-modal-text {
     font-size: 0.8rem;
 }
+
+.delete-border {
+    border-color: #202F55;
+}
