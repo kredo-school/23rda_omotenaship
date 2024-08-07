@@ -45,10 +45,7 @@
                         {{-- Language --}}
                         <div class="row mx-auto mb-5">
                             <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
-                                Language :  
-                                <span>
-                                    English
-                                </span>
+                                Language :  English
                             </h5>
                         </div>
 
