@@ -18,6 +18,42 @@ p {
     height: 100px;
 }
 
+/* Button */
+/* Button-kurenai 
+…Color changes when cursor is placed on it.*/
+.btn-kurenai-pf {
+    color: #FFFFFF;;
+    border: 2px solid #BC002D;
+    background-color: #BC002D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:250px;
+    height:60px;
+}
+.btn-kurenai-pf:hover {
+    color: #FFFFFF;
+    background-color: #E50137;
+}
+/* Button-white
+…Color changes when cursor is placed on it.*/
+.btn-white-pf {
+    color: #BC002D;;
+    border: 2px solid #BC002D;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:250px;
+    height:60px;
+}
+.btn-white-pf:hover {
+    font-weight: 700;
+    color: #E50137;
+    border: 4px solid #E50137;
+    background-color: #FFFFFF;
+}
+
 
 /* delete account modal */
 .icon-delete-account {
