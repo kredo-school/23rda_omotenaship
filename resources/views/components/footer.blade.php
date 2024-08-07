@@ -1,5 +1,4 @@
-@if(false)
-
+@if($footer == 'user-footer')
 <!-- Users Footer -->
 <div class="footer">
     <div class="container-fluid footer-user-container">
@@ -30,8 +29,7 @@
     </div>
 </div>
 
-@elseif(true)
-
+@elseif($footer == 'admin-footer')
 <!-- Admin Footer -->
 <div class="footer">
     <div class="container-fluid footer-container">
@@ -60,6 +58,6 @@
             </a>
         </div>
     </div>
-</div>
+<div>
 
 @endif

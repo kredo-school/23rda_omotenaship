@@ -1,4 +1,4 @@
-@if (false)
+@if ($navbar == 'admin-navbar')
     <!-- Admin navbar -->
     <nav class="navbar admin-navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -23,9 +23,10 @@
             </ul>
         </div>
     </nav>
-@elseif (false)
+
+@elseif ($navbar == 'guest-navbar')
     <!--Guest navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
@@ -47,9 +48,10 @@
             </ul>
         </div>
     </nav>
-@elseif (true)
+    
+@elseif ($navbar == 'user-navbar')
     <!--User navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
@@ -110,9 +112,10 @@
             </ul>
         </div>
     </nav>
-@elseif (false)
+
+@elseif ($navbar == 'register-navbar')
     <!--Register navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
