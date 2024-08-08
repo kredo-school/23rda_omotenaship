@@ -3,11 +3,11 @@
 @section('title', 'New Post')
 
 @section('content')
-  @include('components.navbar')
+    @include('components.navbar')
     <div class="container justify-content-center d-flex">
         <div class="row">
             <h2 class="mb-4 col-3 ms-3 mt-3 heading-kurenai"><span>New Post</span></h2>
-            <form action="{{ route('posts.store') }}" method="post" enctype="multipart/formdata">
+            <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
 
                 {{-- category --}}
@@ -17,7 +17,7 @@
                     </label>
                     @foreach ($all_categories as $category)
                         <div class="form-check form-check-inline">
-                            <input type="checkbox" name="category[]" id="{{ $category->name }}" value="{{ $category->id }}"
+                            <input type="checkbox" name="categories[]" id="{{ $category->name }}" value="{{ $category->id }}"
                                 class="form-check-input">
 
                             <label for="{{ $category->name }}" class="form-check-label">{{ $category->name }}</label>
@@ -46,14 +46,19 @@
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-                {{-- image --}}
+                {{-- images --}}
                 <div class="mb-4 col-10 ms-3">
                     <label for="image" class="form-label fw-bold">Image</label>
-                    <input type="file" name="image" id="image" class="form-control" aria-describedby="image-info">
+                    <input type="file" name="image" id="image" class="form-control"
+                        aria-describedby="image-info">
                     <div class="form-text" id="image-info">
                         <p class="mb-0">The acceptable formats are jpeg, jpg, png and gif only.</p>
                         <p class="mb-0">Maximum file size is 1048kb.</p>
                     </div>
+                    {{-- caption --}}
+                <div class="mb-4 col-10 ms-3">
+                    <label for="caption" class="form-label fw-bold">Caption</label>
+                    <textarea name="caption" id="caption" class="form-control">{{ old('caption') }}</textarea>
                     <!-- Error -->
                     @error('image')
                         <div class="text-danger small">{{ $message }}</div>
@@ -64,21 +69,21 @@
                     <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
                     <br>
                     <label class="date-edit">
-                        <input type="date" name="visit_date" value="yyyy-mm-dd" class="rounded-2">
+                        <input type="date" name="visit_date" class="rounded-2">
                     </label>
                     <!-- Error -->
                     @error('date')
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-                 {{-- Area of japan --}}
+                {{-- Area of japan --}}
                 <div class="mb-3 col-10 ms-3">
                     <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
-                       <select class="form-select form-select-lg mb-3" name="area" id="area">
-                            @foreach($all_areas as $area)
-                                <option value="{{ $area->name }}">{{ $area->name }}</option>
-                            @endforeach
-                       </select>
+                    <select class="form-select form-select-lg mb-3" name="area_id" id="area">
+                        @foreach ($all_areas as $area)
+                            <option value="{{ $area->id }}">{{ $area->name }}</option>
+                        @endforeach
+                    </select>
 
                     <!-- Error -->
                     @error('date')
@@ -88,9 +93,9 @@
                 {{-- prefecture --}}
                 <div class="mb-3 col-10 ms-3">
                     <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
-                    <select class="form-select form-select-lg mb-3" nama="prefecture" id="prefecture">
-                        @foreach($all_prefectures as $prefecture)
-                             <option value="{{ $prefecture->name }}">{{ $prefecture->name }}</option>
+                    <select class="form-select form-select-lg mb-3" nama="prefecture_id" id="prefecture">
+                        @foreach ($all_prefectures as $prefecture)
+                            <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
                         @endforeach
                     </select>
 
@@ -105,22 +110,23 @@
                     <br>
                     <label class="date-edit">
                         <span>Start</span>
-                        <input type="date" value="yyyy-mm-dd" class="rounded-2" nama="start_date">
+                        <input type="date" class="rounded-2" name="start_date">
                     </label>
                     <br>
                     <br>
                     <label class="date-edit">
                         <span> End </span>
-                        <input type="date" value="yyyy-mm-dd" class="rounded-2" nama="end_date">
+                        <input type="date" class="rounded-2" name="end_date">
                     </label>
                     <!-- Error -->
                     @error('date')
                         <div class="text-danger small">{{ $message }}</div>
                     @enderror
                 </div>
-
+               
+                {{-- Button --}}
                 <div class="mb-3 col-10 mx-auto">
-                    <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white"
+                    <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover"
                         id="post-button">Post</button>
                 </div>
 
