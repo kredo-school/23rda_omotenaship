@@ -1,4 +1,5 @@
-@if ($navbar == 'admin-navbar')
+@if(false)
+    {{-- if(Auth::user->role_id === 1) --}}
     <!-- Admin navbar -->
     <nav class="navbar admin-navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -24,7 +25,7 @@
         </div>
     </nav>
 
-@elseif ($navbar == 'guest-navbar')
+@elseif (false)
     <!--Guest navbar -->
     <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -48,8 +49,8 @@
             </ul>
         </div>
     </nav>
-    
-@elseif ($navbar == 'user-navbar')
+
+@elseif (true)
     <!--User navbar -->
     <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -113,7 +114,7 @@
         </div>
     </nav>
 
-@elseif ($navbar == 'register-navbar')
+@elseif (false)
     <!--Register navbar -->
     <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
