@@ -37,7 +37,7 @@ class PostController extends Controller
             'area of japan' =>'',
             'prefecture' => '',
             'event' => '',
-            
+
          ]);
     }
 
@@ -49,5 +49,10 @@ class PostController extends Controller
     public function show()
     {
         return view('posts.show');
+    }
+
+    public function showEventNearYou()
+    {
+        return view('posts.event-near-you');
     }
 }
