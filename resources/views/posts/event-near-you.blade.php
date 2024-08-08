@@ -3,5 +3,9 @@
 @section('title', 'Event near You')
 
 @section('content')
-    content
+    {{-- Navbar --}}
+    @include('components.navbar')
+
+    {{-- Footer --}}
+    @include('components.footer')
 @endsection
