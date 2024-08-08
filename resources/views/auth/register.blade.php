@@ -30,9 +30,7 @@
                                 value="{{ old('username') }}" required autocomplete="username" autofocus>
 
                             @error('username')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                <p class="mb-0 text-danger small">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -43,12 +41,6 @@
                         <div class="col-md-6">
                             <input type="password" class="form-control bg-transparent" id="password" name="password"
                                 value="{{ old('password') }}" required autocomplete="password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>
 
@@ -60,10 +52,9 @@
                             <input type="password" class="form-control bg-transparent" id="password_confirmation"
                                 name="password_confirmation" value="" required>
 
-                            @error('password_confirmation')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                            {{-- Error message for password unmached --}}
+                            @error('password')
+                                <p class="mb-0 text-danger small">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
