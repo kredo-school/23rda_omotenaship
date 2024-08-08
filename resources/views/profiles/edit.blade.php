@@ -130,7 +130,7 @@
                 {{-- Button --}}
                 <div class="mt-1 mb-5 d-flex flex-column justify-content-center align-items-end">
                     <a href=# class="btn btn-kurenai btn-lg px-5 w-100">
-                        <h5>Update profile<h5>
+                        Update profile
                     </a>
                 </div>
 
