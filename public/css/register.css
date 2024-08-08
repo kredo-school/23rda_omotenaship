@@ -2,6 +2,17 @@
     color:#BC002D;
 }
 
-.samurai-neko{
-    background-position: left bottom; 
+.redcat {
+   height: 100%;
+   width: 90%;
+   position: relative;
+   top: 3%;
+}
+.bluecat {
+    height: 40%;
+    width: 70%;
+    position: relative;
+    top: 55%;
+    right: 20%;
+    left: 10%;
 }

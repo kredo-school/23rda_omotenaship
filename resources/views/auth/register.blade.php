@@ -7,14 +7,14 @@
     <div class="row">
         <!-- left -->
         <div class="col-lg-3">
-            <img src="{{ asset('images/logos/blue5.jpg') }}" alt="bluecat">
+            <img src="{{ asset('images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
         </div>
         <!-- center -->
-        <div class="card border-0 col-lg-6 mt-3">
-            <img src="{{ asset('images/logos/red5.jpg') }}" alt="redcat">
+        <div class="card border-0 col-lg-6 mt-3 d-flex align-items-center justify-content-center">
+            <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="redcat">
 
-            <div class="card-img-overlay  position-absolute top-50 start-50 translate-middle">
-                <h2 class="text-kurenai text-center">Welcome to Omotenaship</h2>
+            <div class="card-img-overlay">
+                <h2 class="text-kurenai text-center mt-5 pt-5">Welcome to Omotenaship</h2>
 
                 <form method="POST" action="{{ route('register') }}" class="mt-4">
                     @csrf
@@ -70,14 +70,14 @@
                             <button type="submit" class="btn btn-kurenai w-50">
                                 Register</button>
                         </div>
-                        <a href={{ route('login') }} class="text-black">Alredy have an account? Login</a>
+                        <a href={{ route('login') }} class="text-black text-center">Alredy have an account? Login</a>
                     </div>
                 </form>
             </div>
         </div>
         <!-- right -->
         <div class="col-lg-3 p-0">
-            <img src="{{ asset('/images/logos/blue5.jpg') }}" alt="bluecat">
+            <img src="{{ asset('/images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
         </div>
     </div>
 
