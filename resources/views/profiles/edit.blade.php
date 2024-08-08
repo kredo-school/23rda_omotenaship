@@ -98,8 +98,8 @@
                                     Language
                                 </h5>
                             </label>
-                            <select id="language-select" name="languages" class="form-control" 
-                            onchange="changeLanguage()">{{ old('language-select') }}
+                            <select id="language-select" name="languages" class="form-control"
+                                onchange="changeLanguage()">{{ old('language-select') }}
                                 <option value="en">English</option>
                                 <option value="ja">Japanese</option>
                                 <option value="fr">French</option>
@@ -129,9 +129,9 @@
 
                 {{-- Button --}}
                 <div class="mt-1 mb-5 d-flex flex-column justify-content-center align-items-end">
-                    <button type="submit" class="btn btn-kurenai btn-lg px-5 w-100">
+                    <a href=# class="btn btn-kurenai btn-lg px-5 w-100">
                         <h5>Update profile<h5>
-                    </button>
+                    </a>
                 </div>
 
             </div>
