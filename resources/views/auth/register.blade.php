@@ -15,8 +15,9 @@
                 <!-- center -->
                 <div class="col-lg-6 mx-auto p-0 d-flex justify-content-center align-items-center"
                     style="background-image: url('{{ asset('/storage/logos/red5.jpg') }}'); background-size: cover; background-position: center; height: 100vh;">
-                    <div class="text-center w-100 text-kurenai" style="max-width: 500px;">
+                    <div class="text-center text-danger w-100" style="max-width: 500px;">
                         <h2>Welcome to Omotenaship</h2>
+
                         <form method="POST" action="{{ route('register') }}" class="mt-4">
                             @csrf
                             <!-- username -->
@@ -80,11 +81,15 @@
                                     <button type="submit" class="btn btn-kurenai w-50">
                                         Register</button>
                                 </div>
-                                <a href={{ route('login') }} class="text-black">Alredy have an account? Login</a>
+
+                                <a href={{ route('login') }} class="text-black">
+                                    Alredy have an account? Login
+                                </a>
                             </div>
                         </form>
                     </div>
                 </div>
+
                 <!-- right -->
                 <div class="col-lg-3 p-0"
                     style="background-image: url('{{ asset('/storage/logos/blue5.jpg') }}'); background-size: cover; background-position: center; height: 33vh; margin-top: 50vh;">

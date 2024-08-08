@@ -97,11 +97,15 @@
                     </a>
                 </li>
 
-                {{-- Login --}}
+                {{-- Logout --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                    </a>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+
+                        <button type="submit" class="nav-link">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        </a>
+                    </form>
                 </li>
             </ul>
         </div>
