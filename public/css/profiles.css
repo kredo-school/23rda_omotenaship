@@ -8,45 +8,52 @@ p {
     font-family: "BIZ UDPGothic";
 }
 
-/* Image-Abatar */
-.img-pf-show {
+/*Abatar */
+.abatar-pf-show {
     width: 100px;
     height: 100px;
 }
-.img-pf-edit {
-    width: 100px;
-    height: 100px;
+
+.abatar-pf-edit {
+    width: 150px;
+    height: 150px;
 }
+
 
 /* Button */
 /* Button-kurenai 
 …Color changes when cursor is placed on it.*/
 .btn-kurenai-pf {
-    color: #FFFFFF;;
+    color: #FFFFFF;
+    ;
     border: 2px solid #BC002D;
     background-color: #BC002D;
     display: flex;
     justify-content: center;
     align-items: center;
-    width:250px;
-    height:60px;
+    width: 250px;
+    height: 60px;
 }
+
 .btn-kurenai-pf:hover {
     color: #FFFFFF;
     background-color: #E50137;
 }
+
 /* Button-white
 …Color changes when cursor is placed on it.*/
 .btn-white-pf {
-    color: #BC002D;;
+    color: #BC002D;
+    ;
     border: 2px solid #BC002D;
     background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     align-items: center;
-    width:250px;
-    height:60px;
+    width: 250px;
+    height: 60px;
 }
+
 .btn-white-pf:hover {
     font-weight: 700;
     color: #E50137;
