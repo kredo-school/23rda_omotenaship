@@ -19,12 +19,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+
     <!-- Bootstrap        -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
-        
+    <!-- UDGothic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=BIZ+UDPGothic&display=swap"
+        rel="stylesheet">
+
+
+
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/admin-posts-index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
@@ -34,13 +41,15 @@
     <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
-    
+    <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
+
 
 </head>
 
-<body class="font-sans antialiased">
+{{-- <body class="font-sans antialiased biz-udpgothic-regular"> --}}
+<body class="biz-udpgothic-regular">
 
-<!-- Page Content -->
+    <!-- Page Content -->
     <main>
         @yield('content')
     </main>
