@@ -5,9 +5,11 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DirectMessageController;
+use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+
 
 
 // Top page
@@ -54,6 +56,10 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
 
 Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], function() {
     Route::get('/{id}/show', [DirectMessageController::class, 'show'])->name('show');
+});
+
+Route::group(['prefix' =>'/browsing-history', 'as' =>'browsing-history.'], function() {
+    Route::get('/{user_id}', [BrowsingHistoryController::class, 'index'])->name('index');
 });
 
 Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
