@@ -8,7 +8,6 @@ use App\Models\Category;
 use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
-use App\Models\PostCategory;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
@@ -18,18 +17,18 @@ class PostController extends Controller
     private $area;
     private $prefecture;
     private $image;
-    private $post_category;
+    
 
 
 
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, PostCategory $post_category)
+    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image)
     {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
-        $this->post_category = $post_category;
+        
     }
 
     public function index()
@@ -54,14 +53,13 @@ class PostController extends Controller
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
-            // 'images.*' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
 
         ]);
 
         // dd(2);
 
         //   post store
-        //  $this->post = new Post();
         // $this->post->user_id = Auth::user()->id;
          $this->post->user_id = 3;
         $this->post->title = $request->title;
@@ -95,17 +93,7 @@ class PostController extends Controller
             $this->image->caption = $request->caption;
             $this->image->save();
         }
-        // // if ($request->hasFile('images')) {
-        // //     // foreach ($request->file('images') as $imageFile) {
-        // //     //     $imageData = file_get_contents($imageFile->getRealPath());
-
-        // //         $path = $imageFile->store('public/images'); // 'public/images' は保存先のディレクトリ
-        // //         $image = new Image();
-        // //         $image->post_id = $post->id;
-        // //         $image->image = basename($path); // パスを保存する場合
-        // //         $image->caption = $request->input('caption');
-        // //         $image->save();
-        //     }
+        
         
         return redirect()->route('posts.show');
     }
