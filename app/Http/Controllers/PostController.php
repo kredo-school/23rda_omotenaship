@@ -119,6 +119,10 @@ class PostController extends Controller
     {
         return view('posts.show');
     }
+    public function showEventNearYou()
+    {
+        return view('posts.event-near-you');
+    }
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
@@ -131,4 +135,6 @@ class PostController extends Controller
 
         return $data_uri;
     }
+
+    
 }

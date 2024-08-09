@@ -34,7 +34,7 @@
     box-shadow: 0 1px 4px #202F55;
 }
 
-.navbar {
+.user-navbar {
     background-color: #ffffff !important;
     box-shadow: 0 1px 4px #BC002D;
 }
@@ -48,6 +48,12 @@
 }
 
 /* footer */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
 .footer-container {
     background-color: #202F55;
     color: #ffffff;

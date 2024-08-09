@@ -1,4 +1,5 @@
-@if (false)
+@if(false)
+    {{-- if(Auth::user->role_id === 1) --}}
     <!-- Admin navbar -->
     <nav class="navbar admin-navbar navbar-expand-lg">
         <div class="container-fluid">
@@ -23,9 +24,10 @@
             </ul>
         </div>
     </nav>
+
 @elseif (false)
     <!--Guest navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
@@ -47,9 +49,10 @@
             </ul>
         </div>
     </nav>
+
 @elseif (true)
     <!--User navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
@@ -110,9 +113,10 @@
             </ul>
         </div>
     </nav>
+
 @elseif (false)
     <!--Register navbar -->
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar user-navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
