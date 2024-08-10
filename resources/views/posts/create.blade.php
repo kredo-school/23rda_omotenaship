@@ -11,7 +11,7 @@
                 {{-- heading --}}
                 <h2 class="heading-kurenai col-3"><span>New Post</span></h2>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     {{-- category --}}
