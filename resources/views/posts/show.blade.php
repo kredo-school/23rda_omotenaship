@@ -14,10 +14,10 @@
                             class="posts-show-image w-100" alt="post image">
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div class="row">
                     {{-- title and icon --}}
                     <div class="col">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-r">
                             <a href="#" class="text-decoration-none text-dark">
                                 <h3>Beautiful view</h3>
                             </a>
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 {{-- avatar,username and category --}}
-                <div class="row justify-content-center">
+                <div class="row">
                     <div class="col">
                         <div class="d-flex align-items-center mb-2">
                             <i class="fa-solid fa-circle-user text-secondary icon-sm me-2"></i>
@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 {{-- discription --}}
-                <div class="row justify-content-center">
+                <div class="row">
                     <div class="col">
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat repudiandae animi ad sunt, odit
                             molestias laudantium quisquam, natus quibusdam, suscipit ab aperiam. Deleniti voluptas
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 {{-- post comment --}}
-                <div class="row justify-content-center">
+                <div class="row">
                     <div class="col">
                         <form action="#" method="post">
                             @csrf
