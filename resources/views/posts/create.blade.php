@@ -3,13 +3,13 @@
 @section('title', 'New Post')
 
 @section('content')
-    {{-- @include('components.navbar') --}}
+    @include('components.navbar')
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-7">
 
                 {{-- heading --}}
-                <h2 class="heading-kurenai"><span>New Post</span></h2>
+                <h2 class="heading-kurenai col-3"><span>New Post</span></h2>
 
                 <form action="#" method="post" enctype="multipart/form-data">
                     @csrf
@@ -20,15 +20,15 @@
                             <label for="category" class="form-label d-block fw-bold">
                                 Category
                             </label>
-                            {{-- @foreach ($all_categories as $category) --}}
+                            @foreach ($all_categories as $category)
                             <div class="form-check form-check-inline">
-                                {{-- <input type="checkbox" name="categories[]" id="{{ $category->name }}"
+                                <input type="checkbox" name="categories[]" id="{{ $category->name }}"
                                         value="{{ $category->id }}" class="form-check-input">
 
                                     <label for="{{ $category->name }}"
-                                        class="form-check-label">{{ $category->name }}</label> --}}
+                                        class="form-check-label">{{ $category->name }}</label>
                             </div>
-                            {{-- @endforeach --}}
+                            @endforeach
                             <!-- Error -->
                             @error('catogory')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -103,9 +103,9 @@
                             <div class="col mb-4">
                                 <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
                                 <select class="form-select form-select-lg mb-3" name="area_id" id="area">
-                                    {{-- @foreach ($all_areas as $area)
+                                    @foreach ($all_areas as $area)
                                         <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
 
                                 <!-- Error -->
@@ -119,9 +119,9 @@
                             <div class="col mb-4">
                                 <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
                                 <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
-                                    {{-- @foreach ($all_prefectures as $prefecture)
+                                    @foreach ($all_prefectures as $prefecture)
                                         <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
 
                                 <!-- Error -->
@@ -166,6 +166,6 @@
         </div>
     </div>
 
-    {{-- @include('components.footer') --}}
+    @include('components.footer')
 
 @endsection
