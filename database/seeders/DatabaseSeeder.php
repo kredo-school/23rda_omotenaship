@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             AreasTableSeeder::class,
             PrefecturesTableSeeder::class,
             CategoriesTableSeeder::class,
+            NGWordsSeeder::class,
         ]);
     }
 }

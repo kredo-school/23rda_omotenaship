@@ -80,6 +80,6 @@
             @include('components.footer')
 
             <!-- Include the modal here-->
-            {{-- @include('components.delete-ngword-modal') --}}
+            @include('components.delete-ngword-modal')
 
 @endsection
