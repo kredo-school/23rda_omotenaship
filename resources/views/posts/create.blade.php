@@ -4,9 +4,9 @@
 
 @section('content')
     @include('components.navbar')
-    <div class="container">
-        <div class="row justify-content-center d-flex">
-            <div class="col-7">
+    <div class="container pt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
 
                 {{-- heading --}}
                 <h2 class="heading-kurenai col-3"><span>New Post</span></h2>
@@ -84,7 +84,7 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- Date --}}
+                    {{-- visit_Date --}}
                     <div class="row">
                         <div class="col mb-4">
                             <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
@@ -93,7 +93,7 @@
                                 <input type="date" name="visit_date" class="rounded-2">
                             </label>
                             <!-- Error -->
-                            @error('date')
+                            @error('visit_date')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
@@ -109,7 +109,7 @@
                             </select>
 
                             <!-- Error -->
-                            @error('date')
+                            @error('area_id')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
@@ -125,30 +125,38 @@
                             </select>
 
                             <!-- Error -->
-                            @error('date')
+                            @error('prefecture_id')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                     {{-- Event --}}
-                    <div class="row">
+                    <div class="row mb-4">
                         <div class="col mb-4">
-                            <label for="event of date" class="form-label fw-bold">Event of date</label>
-                            <br>
-                            <label class="date-edit">
-                                <span>Start</span>
-                                <input type="date" class="rounded-2" name="start_date">
-                            </label>
-                            <br>
-                            <br>
-                            <label class="date-edit">
-                                <span> End </span>
-                                <input type="date" class="rounded-2" name="end_date">
-                            </label>
-                            <!-- Error -->
-                            @error('date')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
+                            <p class="form-label fw-bold m-0">Date of Event</p>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="start_date" class="date-edit">
+                                        <span>Start</span>
+                                    </label>
+                                    <input type="date" class="rounded-2" id="start_date" name="start_date">
+                                    <!-- Error -->
+                                    @error('start_date')
+                                        <div class="text-danger small">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="col">
+                                    <label for="end_date" class="date-edit">
+                                        <span> End </span>
+                                    </label>
+                                    <input type="date" class="rounded-2" id="end_date" name="end_date">
+                                    <!-- Error -->
+                                    @error('end_date')
+                                        <div class="text-danger small">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -165,7 +173,5 @@
             </div>
         </div>
     </div>
-
     @include('components.footer')
-
 @endsection
