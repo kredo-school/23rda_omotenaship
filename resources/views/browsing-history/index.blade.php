@@ -9,6 +9,7 @@
         <div class="row">
             <div class="col-auto">
 
+
                 {{-- Heading --}}
                 <h2 class="mb-3"><span class="px-2 heading-kurenai text-bold">Browsing History</span></h2>
 

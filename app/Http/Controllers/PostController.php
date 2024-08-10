@@ -14,6 +14,18 @@ class PostController extends Controller
 {
     private $post;
     private $category;
+
+
+    public function __construct(Post $post, Category $category){
+        $this->post = $post;
+        $this->category = $category;
+    }
+
+    public function create(){
+         $all_categories = $this->category->all();
+
+         return view('posts.create')->with('all_categories','$all_categories');
+
     private $area;
     private $prefecture;
     private $image;
