@@ -4,9 +4,9 @@
 
 @section('content')
     {{-- @include('components.navbar') --}}
-    <div class="container custom-container">
-        <div class="row justify-content-center d-flex">
-            <div class="col-8 mx-auto">
+    <div class="container">
+        {{-- <div class="row justify-content-center d-flex"> --}}
+            {{-- <div class="col-8 mx-auto"> --}}
                 <div class="row">
                     <h2 class="heading-kurenai"><span>New Post</span></h2>
                 </div>
@@ -158,8 +158,8 @@
                         </div>
                     </div>
                 </form>
-            </div>
-        </div>
+            {{-- </div> --}}
+        {{-- </div> --}}
     </div>
 
     {{-- @include('components.footer') --}}
