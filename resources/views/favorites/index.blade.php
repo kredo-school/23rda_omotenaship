@@ -10,7 +10,7 @@
             <div class="col-8">
 
                 {{-- Heading --}}
-                <h2 class="mb-3"><span class="px-2 heading-kurenai">New Post</span></h2>
+                <h2 class="mb-3"><span class="px-2 heading-kurenai">Favorite</span></h2>
 
                 {{-- Posts --}}
                 <div class="row">

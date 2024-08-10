@@ -5,9 +5,11 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DirectMessageController;
+use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+
 
 
 // Top page
@@ -32,6 +34,7 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
     Route::get('/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/show', [PostController::class, 'show'])->name('show');
+    Route::post('/store', [PostController::class, 'store'])->name('store');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
 });
@@ -56,6 +59,10 @@ Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], functio
     Route::get('/{id}/show', [DirectMessageController::class, 'show'])->name('show');
 });
 
+Route::group(['prefix' =>'/browsing-history', 'as' =>'browsing-history.'], function() {
+    Route::get('/{user_id}', [BrowsingHistoryController::class, 'index'])->name('index');
+});
+
 Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
@@ -65,8 +72,8 @@ Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
     Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
 });
 
-
-
 Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
     Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
+    Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
 });
+
