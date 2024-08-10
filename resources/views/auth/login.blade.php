@@ -19,7 +19,8 @@
             <div class="card-img-overlay">
                 <h2 class="text-kurenai text-center mt-5 pt-5">Welcome back to Omotenaship</h2>
 
-                <form method="POST" action="{{ route('login') }}" class="mt-4">
+                {{-- Login --}}
+                <form method="POST" action="{{ route('login.store') }}" class="mt-4">
                     @csrf
 
                     <!-- username -->

@@ -38,6 +38,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        dd('on login store method');
+
         $request->authenticate();
 
         $request->session()->regenerate();
