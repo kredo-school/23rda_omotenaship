@@ -72,7 +72,7 @@
                                 </div>
                             @enderror
                         </div>
-                        </row>
+                     </div>
                         {{-- caption --}}
                         <div class="row">
                             <div class="col mb-4">
@@ -167,4 +167,5 @@
     </div>
 
     {{-- @include('components.footer') --}}
+
 @endsection

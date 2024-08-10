@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title','New Post')
+@section('title','Edit Post')
 
 @section('content')
 <div class="container justify-content-center d-flex">
     <div class="row">
-        <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">New Post</h2>
+        <h2 class="mb-4 col-3 ms-5 border-bottom border-danger">Edit Post</h2>
         <form action="#" method="post" enctype="multipart/formdata">
             @csrf
 
@@ -131,7 +131,7 @@
             </div>
 
             <div class="mb-3 col-7 mx-auto">
-                <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white" id="post-button">Post</button>
+                <button type="submit" class="btn post-button-kurenai btn-lg px-5 text-white" id="post-button">Save</button>
             </div>
 
 

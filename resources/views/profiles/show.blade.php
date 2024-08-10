@@ -1,77 +1,103 @@
 @extends('layouts.app')
 
+@section('title', 'Show Prfile')
+
 @section('content')
-<div class="container mt-5">
-    <div class="row">
-        <!-- prfile -->
-        <div class="col-3">
-            <i class="fa-solid fa-user text-dark"></i>
-                <h4>John Adam Smitd</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                <h6>Language ：　English</h6>
-            <div class="mb-3 col-8 mx-auto">
-                <button type="submit" class="btn bg-kurenai btn-lg text-white px-5">Edit</button>
+
+    @include('components.navbar')
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+
+            <!-- prfile -->
+            <div class="row col-lg-3 mx-auto p-0 d-flex justify-content-center">
+                <form action="" method="" class="bg-white shadow rounded-3 p-2" enctype="multipart/form-data">
+                    <div class="row col mx-auto p-2">
+                        {{-- Abatar --}}
+                        <div>
+                            <img src="{{ asset('images\profile_sample1.png') }}" alt=""
+                                class="mx-auto d-flex justify-content-center align-items-center" style="height: 100px;">
+                        </div>
+                        {{-- Name --}}
+                        <div class="row mx-auto">
+                            <h5 class="mx-auto d-flex justify-content-center align-items-center">
+                                <span>
+                                    John Adam Smitd
+                                </span>
+                            </h5>
+                        </div>
+
+                        {{-- Introduction --}}
+                        <div class="row mx-auto mb-5">
+                            {{-- Introduction -Title --}}
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Introduction
+                            </h5>
+                            {{-- Introduction -Text --}}
+                            <p
+                                class="mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-11 m-0 px-2 py-0">
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry!! Lorem Ipsum
+                                has been the industry's standard dummy text ever since the 1500s!!
+                            </p>
+                        </div>
+
+
+                        {{-- Language --}}
+                        <div class="row mx-auto mb-5">
+                            <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
+                                Language :  English
+                            </h5>
+                        </div>
+
+                        {{-- Button --}}
+                        <div class="d-flex flex-column align-items-center">
+                            {{-- Edit Profile --}}
+                            <a href="#" class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
+                                Edit Profile
+                            </a>
+                            {{-- Delete Account --}}
+                            <button type="button" class="btn btn-white-pf btn-lg p-1">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <!-- Posts-->
-        <div class="col-lg-9 mx-auto p-0 d-flex justify-content-center>
-            <div class="row">
-                
+
+
+            <!-- Posts-->
+            <div
+                class="col-lg-8
+                                mx-auto p-0 d-flex justify-content-center>
+                                <div class="row">
                 <div class="row">
+                    {{-- My Post --}}
                     <div class="section-header">
-                        <h2>My post</h2>
-                        <hr class="profiles-hr">
+                        <h2>
+                            <span class="px-2 heading-kurenai">
+                                My Post
+                            </span>
+                        </h2>
                     </div>
 
-                        <div class="profiles-gallery">
-                            <table class="profiles-items">
-                                    <tr>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/259772/pexels-photo-259772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/1876568/pexels-photo-1876568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/932261/pexels-photo-932261.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-img">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                        <td>
-                                            <img 
-                                            src="https://images.pexels.com/photos/161251/senso-ji-temple-japan-kyoto-landmark-161251.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                                            alt=""
-                                            class="profiles-items">
-                                            <h3>Title flower garden</h3>
-                                            <p>review</p>
-                                            <p>User name</p>
-                                        </td>
-                                    </tr>
-                            </table>
+                    {{-- New Post --}}
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                        <div class="col-6 mb-3">
+                            @include('components.post')
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-
+    @include('components.footer')
 @endsection

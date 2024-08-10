@@ -9,6 +9,9 @@ class Area extends Model
 {
     use HasFactory;
 
+    protected $table = 'areas';
+    protected  $fillable = ['area_id'];
+
     public function posts()
     {
         return $this->hasMany(Post::class);
