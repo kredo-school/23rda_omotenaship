@@ -1,5 +1,4 @@
-@if(false)
-
+@if(true)
 <!-- Users Footer -->
 <div class="footer">
     <div class="container-fluid footer-user-container">
@@ -30,11 +29,11 @@
     </div>
 </div>
 
-@elseif(true)
-
+@elseif(false)
+{{-- if(Auth::user->role_id === 1) --}}
 <!-- Admin Footer -->
 <div class="footer">
-    <div class="container-fluid footer-container">
+    <div class="container-fluid footer-container mt-auto">
         <div class=snslinks>
             <a href="#" class="text-white text-decoration-none">
                 <i class="fa-brands fa-facebook"></i>
@@ -60,6 +59,6 @@
             </a>
         </div>
     </div>
-</div>
+<div>
 
 @endif

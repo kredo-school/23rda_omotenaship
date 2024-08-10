@@ -1,5 +1,5 @@
 {{-- admin sidebar --}}
-<div class="col-4">
+<div class="col-3">
     <div class="list-group admin-list-group">
         <h6>Admin page</h6>
 

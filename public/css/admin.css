@@ -1,9 +1,9 @@
 
-/* admin page */
+/* admin sidebar */
 .admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
-    width: 100px;
+    width: 50%;
 }
 
 .admin-img {
@@ -34,7 +34,7 @@
     box-shadow: 0 1px 4px #202F55;
 }
 
-.navbar {
+.user-navbar {
     background-color: #ffffff !important;
     box-shadow: 0 1px 4px #BC002D;
 }
@@ -48,6 +48,13 @@
 }
 
 /* footer */
+.footer {
+    /* position: absolute; */
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
 .footer-container {
     background-color: #202F55;
     color: #ffffff;
@@ -64,3 +71,21 @@
     gap: 10px;
 }
 
+
+/* delete user modal */
+.cancel-border {
+    color: #202F55;
+}
+
+.icon-delete-user {
+    font-size: 3rem;
+    color: #202F55;
+}
+
+.admin-modal-text {
+    font-size: 0.8rem;
+}
+
+.delete-border {
+    border-color: #202F55;
+}
