@@ -3,25 +3,26 @@
 @section('title', 'Show Post')
 
 @section('content')
-    <div class="container">
+    @include('components.navbar')
+    <div class="container pt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-7">
 
                 {{-- image --}}
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col">
-                        <img src="https://images.pexels.com/photos/2466608/pexels-photo-2466608.jpeg"
-                            class="posts-show-image w-100" alt="post image">
+                        <img src="https://images.pexels.com/photos/25539620/pexels-photo-25539620.jpeg?auto=compress&cs=tinysrgb&w=800"
+                            class="posts-show-image w-100" alt="post id">
                     </div>
                 </div>
                 <div class="row">
                     {{-- title and icon --}}
                     <div class="col">
                         <div class="d-flex justify-content-between align-items-r">
-                            <a href="#" class="text-decoration-none text-dark">
-                                <h3>Beautiful view</h3>
+                            <h3>Beautiful view</h3>
+                            <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-pen icon-sm"></i>
                             </a>
-                            <i class="fa-solid fa-pen icon-sm"></i>
                         </div>
                     </div>
                 </div>
@@ -85,4 +86,5 @@
             </div>
         </div>
     </div>
+    @include('components.footer')
 @endsection

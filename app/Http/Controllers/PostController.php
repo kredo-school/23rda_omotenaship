@@ -100,9 +100,10 @@ class PostController extends Controller
         return view('posts.edit');
     }
 
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('posts.show');
+        $post = $this->post->findOrFail($id);
+        return view('posts.show')->with('post',$post);
     }
     public function showEventNearYou()
     {
