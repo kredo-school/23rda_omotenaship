@@ -18,7 +18,6 @@ class PostController extends Controller
     private $prefecture;
     private $image;
 
-
     public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image)
     {
         $this->post = $post;
