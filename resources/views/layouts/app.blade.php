@@ -42,7 +42,7 @@
     <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
 
 </head>
 
