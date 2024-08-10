@@ -34,6 +34,7 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
     Route::get('/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/show', [PostController::class, 'show'])->name('show');
+    Route::post('/store', [PostController::class, 'store'])->name('store');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
 });
@@ -71,8 +72,8 @@ Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
     Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
 });
 
-
-
 Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
     Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
+    Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
 });
+

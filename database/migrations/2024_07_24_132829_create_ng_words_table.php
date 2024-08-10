@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ng_words', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();;
             $table->string('word');
             $table->string('language')->default('en-US');
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('n_g_words');
+        Schema::dropIfExists('ng_words');
     }
 };
