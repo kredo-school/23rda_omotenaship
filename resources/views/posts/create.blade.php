@@ -3,15 +3,15 @@
 @section('title', 'New Post')
 
 @section('content')
-    {{-- @include('components.navbar') --}}
+    @include('components.navbar')
     <div class="container">
         <div class="row justify-content-center d-flex">
             <div class="col-7">
 
                 {{-- heading --}}
-                <h2 class="heading-kurenai"><span>New Post</span></h2>
+                <h2 class="heading-kurenai col-3"><span>New Post</span></h2>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     {{-- category --}}
@@ -20,15 +20,15 @@
                             <label for="category" class="form-label d-block fw-bold">
                                 Category
                             </label>
-                            {{-- @foreach ($all_categories as $category) --}}
-                            <div class="form-check form-check-inline">
-                                {{-- <input type="checkbox" name="categories[]" id="{{ $category->name }}"
+                            @foreach ($all_categories as $category)
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" name="categories[]" id="{{ $category->name }}"
                                         value="{{ $category->id }}" class="form-check-input">
 
                                     <label for="{{ $category->name }}"
-                                        class="form-check-label">{{ $category->name }}</label> --}}
-                            </div>
-                            {{-- @endforeach --}}
+                                        class="form-check-label">{{ $category->name }}</label>
+                                </div>
+                            @endforeach
                             <!-- Error -->
                             @error('catogory')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -72,100 +72,100 @@
                                 </div>
                             @enderror
                         </div>
-                     </div>
-                        {{-- caption --}}
-                        <div class="row">
-                            <div class="col mb-4">
-                                <label for="caption" class="form-label fw-bold">Caption</label>
-                                <textarea name="caption" id="caption" class="form-control">{{ old('caption') }}</textarea>
-                                <!-- Error -->
-                                @error('caption')
-                                    <div class="text-danger small">{{ $message }}</div>
-                                @enderror
-                            </div>
+                    </div>
+                    {{-- caption --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="caption" class="form-label fw-bold">Caption</label>
+                            <textarea name="caption" id="caption" class="form-control">{{ old('caption') }}</textarea>
+                            <!-- Error -->
+                            @error('caption')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
-                        {{-- Date --}}
-                        <div class="row">
-                            <div class="col mb-4">
-                                <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
-                                <br>
-                                <label class="date-edit">
-                                    <input type="date" name="visit_date" class="rounded-2">
-                                </label>
-                                <!-- Error -->
-                                @error('date')
-                                    <div class="text-danger small">{{ $message }}</div>
-                                @enderror
-                            </div>
+                    </div>
+                    {{-- Date --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
+                            <br>
+                            <label class="date-edit">
+                                <input type="date" name="visit_date" class="rounded-2">
+                            </label>
+                            <!-- Error -->
+                            @error('date')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
-                        {{-- Area of japan --}}
-                        <div class="row">
-                            <div class="col mb-4">
-                                <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
-                                <select class="form-select form-select-lg mb-3" name="area_id" id="area">
-                                    {{-- @foreach ($all_areas as $area)
-                                        <option value="{{ $area->id }}">{{ $area->name }}</option>
-                                    @endforeach --}}
-                                </select>
+                    </div>
+                    {{-- Area of japan --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
+                            <select class="form-select form-select-lg mb-3" name="area_id" id="area">
+                                @foreach ($all_areas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->name }}</option>
+                                @endforeach
+                            </select>
 
-                                <!-- Error -->
-                                @error('date')
-                                    <div class="text-danger small">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            <!-- Error -->
+                            @error('date')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
-                        {{-- prefecture --}}
-                        <div class="row">
-                            <div class="col mb-4">
-                                <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
-                                <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
-                                    {{-- @foreach ($all_prefectures as $prefecture)
-                                        <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
-                                    @endforeach --}}
-                                </select>
+                    </div>
+                    {{-- prefecture --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
+                            <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
+                                @foreach ($all_prefectures as $prefecture)
+                                    <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
+                                @endforeach
+                            </select>
 
-                                <!-- Error -->
-                                @error('date')
-                                    <div class="text-danger small">{{ $message }}</div>
-                                @enderror
-                            </div>
+                            <!-- Error -->
+                            @error('date')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
-                        {{-- Event --}}
-                        <div class="row">
-                            <div class="col mb-4">
-                                <label for="event of date" class="form-label fw-bold">Event of date</label>
-                                <br>
-                                <label class="date-edit">
-                                    <span>Start</span>
-                                    <input type="date" class="rounded-2" name="start_date">
-                                </label>
-                                <br>
-                                <br>
-                                <label class="date-edit">
-                                    <span> End </span>
-                                    <input type="date" class="rounded-2" name="end_date">
-                                </label>
-                                <!-- Error -->
-                                @error('date')
-                                    <div class="text-danger small">{{ $message }}</div>
-                                @enderror
-                            </div>
+                    </div>
+                    {{-- Event --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="event of date" class="form-label fw-bold">Event of date</label>
+                            <br>
+                            <label class="date-edit">
+                                <span>Start</span>
+                                <input type="date" class="rounded-2" name="start_date">
+                            </label>
+                            <br>
+                            <br>
+                            <label class="date-edit">
+                                <span> End </span>
+                                <input type="date" class="rounded-2" name="end_date">
+                            </label>
+                            <!-- Error -->
+                            @error('date')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
+                    </div>
 
-                        {{-- Button --}}
-                        <div class="row">
-                            <div class="mb-4 col-6 mx-auto d-grid gap-2">
-                                <button type="submit"
-                                    class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover"
-                                    id="post-button">Post
-                                </button>
-                            </div>
+                    {{-- Button --}}
+                    <div class="row">
+                        <div class="mb-4 col-6 mx-auto d-grid gap-2">
+                            <button type="submit"
+                                class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover"
+                                id="post-button">Post
+                            </button>
                         </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    {{-- @include('components.footer') --}}
+    @include('components.footer')
 
 @endsection
