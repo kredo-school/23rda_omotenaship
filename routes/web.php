@@ -78,5 +78,6 @@ Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
 Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
     Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
     Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
+    Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
 });
 
