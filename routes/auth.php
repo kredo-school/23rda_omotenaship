@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
+// Before Login
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
@@ -23,7 +24,9 @@ Route::middleware('guest')->group(function () {
 
     // Execute to login
     Route::post('login', [AuthenticatedSessionController::class, 'store'])
-        ->name('login.store');
+        ->name('login');
+    // Route::post('login', [AuthenticatedSessionController::class, 'store'])
+    //     ->name('login.store');
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
@@ -38,6 +41,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.store');
 });
 
+// After Login
 Route::middleware('auth')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');

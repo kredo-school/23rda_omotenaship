@@ -20,7 +20,8 @@
                 <h2 class="text-kurenai text-center mt-5 pt-5">Welcome back to Omotenaship</h2>
 
                 {{-- Login --}}
-                <form method="POST" action="{{ route('login.store') }}" class="mt-4">
+                <form method="POST" action="{{ route('login') }}" class="mt-4">
+                {{-- <form method="POST" action="{{ route('login.store') }}" class="mt-4"> --}}
                     @csrf
 
                     <!-- username -->
@@ -60,6 +61,8 @@
                                 Login
                             </button>
                         </div>
+
+                        {{-- Link to Register Page --}}
                         <a href={{ route('register') }} class="text-black text-center">Don't have an account yet?
                             Register</a>
                     </div>
