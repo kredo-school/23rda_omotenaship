@@ -77,3 +77,7 @@ Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function 
     Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
