@@ -39,11 +39,11 @@
                     </thead>
 
                     <tbody>
-                        @forelse ($all_ngwords as $ngword)
+                        @forelse ($all_ngwords as $ng_word)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $ngword->word }}</td>
-                                <td>{{ $ngword->created_at }}</td>
+                                <td>{{ $ng_word->word }}</td>
+                                <td>{{ $ng_word->created_at }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-sm" data-bs-toggle="dropdown">
