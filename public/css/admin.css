@@ -3,7 +3,7 @@
 .admin-list-group h6 {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
-    width: 100px;
+    width: 50%;
 }
 
 .admin-img {
@@ -50,8 +50,8 @@
 /* footer */
 .footer {
     /* position: absolute; */
-    /* position: fixed; */
-    /* bottom: 0; */
+    position: fixed;
+    bottom: 0;
     width: 100%;
 }
 
