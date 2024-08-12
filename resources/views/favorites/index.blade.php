@@ -7,29 +7,40 @@
     @include('components.navbar')
     <div class="container mt-5">
         <div class="row">
-            <div class="col-8">
+            <div class="col-lg-8">
 
                 {{-- Heading --}}
                 <h2 class="mb-3"><span class="px-2 heading-kurenai">Favorite</span></h2>
 
                 {{-- Posts --}}
-                <div class="row">
-                    <div class="col-6 mb-3">
+                <div class="row justify-content-around">
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
                         @include('components.post')
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
                         @include('components.post')
                     </div>
-                    <div class="col-6 mb-3">
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
                         @include('components.post')
                     </div>
-                    
+                    <div class="col-md-6 mb-3 d-flex justify-content-center">
+                        @include('components.post')
+                    </div>
+
                 </div>
             </div>
 
-            <div class="col-4">
+            <div class="col-lg-4">
                 {{-- Sidebar --}}
-                @include('components.sidebar')
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-12">
+                        @include('components.calendar')
+                    </div>
+                
+                    <div class="col-12 col-md-6 col-lg-12">
+                        @include('components.caregory-icons')
+                    </div>
+                </div>
             </div>
         </div>
     </div>
