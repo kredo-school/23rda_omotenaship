@@ -47,23 +47,26 @@ Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
+// profiles
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
     Route::get('/{id}/show', [ProfileController::class, 'show'])
         ->name('show');
     Route::get('/{id}/edit', [ProfileController::class, 'edit'])
         ->name('edit');
+    // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+    //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
 });
 
-Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], function() {
+Route::group(['prefix' => '/direct-messages', 'as' => 'direct-messages.'], function () {
     Route::get('/{id}/show', [DirectMessageController::class, 'show'])->name('show');
 });
 
-Route::group(['prefix' =>'/browsing-history', 'as' =>'browsing-history.'], function() {
+Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], function () {
     Route::get('/{user_id}', [BrowsingHistoryController::class, 'index'])->name('index');
 });
 
-Route::group(['prefix' =>'/admin/users', 'as' =>'admin.users.'], function() {
+Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
 });
 
