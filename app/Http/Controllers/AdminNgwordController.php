@@ -9,12 +9,6 @@ class AdminNgwordController extends Controller
 {
 
     protected $table = 'ng_words';
-    private $ngword;
-
-    public function __construct(NGWord $ngword)
-    {
-        $this->ngword = $ngword;
-    }
 
     public function index()
     {
