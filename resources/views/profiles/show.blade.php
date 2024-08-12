@@ -52,7 +52,11 @@
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            <a href="#" class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
+                            {{-- temporary --}}
+                            @php
+                                $user_id=2; 
+                            @endphp
+                            <a href={{ route('profiles.edit', $user_id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
                             </a>
                             {{-- Delete Account --}}

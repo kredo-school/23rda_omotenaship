@@ -11,7 +11,7 @@
                 <p class="mb-0"><span class="rounded-1 mr-2 border border-dark px-1">Review</span><span class="rounded-1 mr-2 border border-dark px-1">Event</span><span class="rounded-1 mr-2 border border-dark px-1">Volunteer</span><span class="rounded-1 mr-2 border border-dark px-1">Culture</span></p>
                 <p>Username</p>
             </div>
-            <div class="col-2 mt-4">
+            <div class="col-2 mt-4 pt-3">
                 <img src="{{ asset('images/10.png') }}" alt="Icon Image">
             </div>
         </div>
