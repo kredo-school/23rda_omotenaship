@@ -121,6 +121,7 @@ class ProfilesTableSeeder extends Seeder
         $this->profile->insert($profiles);
     }
 
+    
     private function generateDataUri($img_contents, $img_path)
     {
         // Get file extension
