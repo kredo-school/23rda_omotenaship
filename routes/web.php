@@ -58,10 +58,8 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
 });
 
-
-Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], function() {
-    Route::get('/', [DirectMessageController::class, 'index'])->name('index');
-    Route::get('/{user_id}/show', [DirectMessageController::class, 'show'])->name('show');
+Route::group(['prefix' => '/direct-messages', 'as' => 'direct-messages.'], function () {
+    Route::get('/{id}/show', [DirectMessageController::class, 'show'])->name('show');
 });
 
 Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], function () {
@@ -73,7 +71,7 @@ Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
 });
 
 Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
-    Route::get('/{id}', [AdminPostController::class, 'index'])->name('index');
+    Route::get('/', [AdminPostController::class, 'index'])->name('index');
     Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
 });
 
