@@ -13,6 +13,7 @@ class ProfilesTableSeeder extends Seeder
     public function __construct(Profile $profile){
         $this->profile = $profile;
     }
+
     /**
      * Run the database seeds.
      */
