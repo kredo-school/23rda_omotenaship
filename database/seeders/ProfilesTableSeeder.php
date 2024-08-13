@@ -40,6 +40,7 @@ class ProfilesTableSeeder extends Seeder
         $data_uri4 = $this->generateDataUri($img_contents4, $img_path4);
         $data_uri5 = $this->generateDataUri($img_contents5, $img_path5);
 
+        
         $profiles = [
             [
                 'user_id' => '1',
@@ -121,7 +122,6 @@ class ProfilesTableSeeder extends Seeder
         $this->profile->insert($profiles);
     }
 
-    
     private function generateDataUri($img_contents, $img_path)
     {
         // Get file extension
