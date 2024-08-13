@@ -40,7 +40,7 @@ class ProfilesTableSeeder extends Seeder
         $data_uri4 = $this->generateDataUri($img_contents4, $img_path4);
         $data_uri5 = $this->generateDataUri($img_contents5, $img_path5);
 
-        
+
         $profiles = [
             [
                 'user_id' => '1',
@@ -51,8 +51,7 @@ class ProfilesTableSeeder extends Seeder
                 I enjoy traveling while working remotely in between jobs. I speak very little Japanese, but prefer places where I can communicate in English.
                 Occupation: Software Engineer
                 Travel Style: Solo travel
-                Interests: Technology, visiting cafes, historical buildings, local cuisine
-                
+                Interests: Technology, visiting cafes, historical buildings, local cuisine.
                 I am interested in new technology and café culture, and look forward to checking out the latest tech trends in the various places I visit during my travels. He is also passionate about finding cafes that are unique to the area and trying the local coffee and sweets. When visiting historical buildings, I learn about the architectural styles and the historical context in which they were built, while documenting my travels by leaving photos and sketches. When it comes to local cuisine, they reflect on their trips by learning about popular local ingredients and cooking methods and trying to recreate them at home.I hope you all enjoy Japan as much as I did!',
                 'avatar' => "$data_uri1",
                 'birth_date' => '1994-02-02',
@@ -65,7 +64,7 @@ class ProfilesTableSeeder extends Seeder
                 'first_name' => 'Emily',
                 'last_name' => 'Martin',
                 'middle_name' => 'Blue',
-                'introduction' => 'I am a fashion blogger by trade✨.
+                'introduction' => 'I am a fashion blogger by trade.
                 I cover the latest fashions and trendy spots in Japan and share them on my blog and social networking sites. I am interested in fashion, shopping, art and music festivals and often travel with a group of friends.
                 I am active in urban areas of Japan, especially Tokyo and Osaka! My Japanese is at a beginner level (lol).',
                 'avatar' => "$data_uri2",
@@ -110,7 +109,8 @@ class ProfilesTableSeeder extends Seeder
                 'last_name' => 'Brown',
                 'middle_name' => '',
                 'introduction' => 'I am a retired businessman and now enjoy luxury travel.
-                I would love to relax at a luxury resort.',
+                I would love to relax at a luxury resort.
+                Please do not hesitate to contact me',
                 'avatar' => "$data_uri5",
                 'birth_date' => '1970-10-22',
                 'language' => 'en-US',
