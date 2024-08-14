@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
 
         # Call seed files
         $this->call([
-            // UsersTableSeeder::class,
-            // AreasTableSeeder::class,
-            // PrefecturesTableSeeder::class,
-            // CategoriesTableSeeder::class,
-            // NGWordsSeeder::class,
-            // PostsTableSeeder::class,
+            UsersTableSeeder::class,
+            AreasTableSeeder::class,
+            PrefecturesTableSeeder::class,
+            CategoriesTableSeeder::class,
+            NGWordsSeeder::class,
+            PostsTableSeeder::class,
             ProfilesTableSeeder::class,
-            // ImagesTableSeeder::class
+            ImagesTableSeeder::class
         ]);
     }
 }
