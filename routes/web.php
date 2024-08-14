@@ -86,6 +86,7 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
 
 Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
     Route::get('/', [AdminUserController::class, 'index'])->name('index');
+    Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
 });
 
 Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
