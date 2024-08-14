@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             NGWordsSeeder::class,
             PostsTableSeeder::class,
             ProfilesTableSeeder::class,
+            ImagesTableSeeder::class
         ]);
     }
 }
