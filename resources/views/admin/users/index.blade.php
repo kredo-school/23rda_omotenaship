@@ -5,7 +5,7 @@
 @section('content')
     <!-- Include the modal here-->
     @include('components.navbar')
-    
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-3">
@@ -34,47 +34,41 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
-                            <td>Michel</td>
-                            <td>2000/01/01</td>
-                            <td>English</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td><i class="fa-solid fa-ellipsis"></i></td>
-                        </tr>
+                        @csrf
 
-                        <tr>
-                            <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
-                            <td>Michel</td>
-                            <td>2000/01/01</td>
-                            <td>English</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td><i class="fa-solid fa-ellipsis"></i></td>
-                        </tr>
-
-                        <tr>
-                            <td><i class="fa-solid fa-circle-user icon-sm"></i></td>
-                            <td>Michel</td>
-                            <td>2000/01/01</td>
-                            <td>English</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </button>
-
-                                    <div class="dropdown-menu text-center">
-                                        <button class="dropdown-list" data-bs-toggle="modal"
-                                            data-bs-target="#deleteUserModal">
-                                            Delete User
+                        @foreach ($all_profiles as $profile)
+                            <tr>
+                                <td>
+                                    @if ($profile && $profile->avatar)
+                                        <img src="{{ $profile->avatar }}" alt="#"
+                                            class="rounded-circle d-block avatar-md">
+                                    @else
+                                        <i class="fa-solid fa-circle-user icon-sm"></i>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $profile->first_name }} {{ $profile->last_name }} {{ $profile->middle_name }}
+                                </td>
+                                <td>{{ $profile->birth_date }}</td>
+                                <td>{{ $profile->language }}</td>
+                                <td>{{ $profile->created_at }}</td>
+                                <td>{{ $profile->updated_at }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-ellipsis"></i>
                                         </button>
+
+                                        <div class="dropdown-menu text-center">
+                                            <button class="dropdown-list" data-bs-toggle="modal"
+                                                data-bs-target="#deleteUserModal">
+                                                Delete User
+                                            </button>
+                                        </div>
                                     </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
                 <ul class="pagination justify-content-center">
@@ -89,5 +83,5 @@
     @include('components.footer')
 
     <!-- Include the modal here-->
-    @include('components.delete-modal')
+    @include('components.delete-user-modal')
 @endsection
