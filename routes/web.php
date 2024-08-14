@@ -38,6 +38,12 @@ Route::get('/', [PostController::class, 'index'])
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
+// Prepare route for auth
+Route::group(['middleware' => 'auth'], function () {
+    // Routes go here
+
+});
+
 
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
