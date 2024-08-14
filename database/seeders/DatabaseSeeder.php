@@ -28,6 +28,8 @@ class DatabaseSeeder extends Seeder
             CategoriesTableSeeder::class,
             NGWordsSeeder::class,
             PostsTableSeeder::class,
+            ProfilesTableSeeder::class,
+            ImagesTableSeeder::class
         ]);
     }
 }
