@@ -24,6 +24,8 @@ Auth::routes();
 // GET /register: Shows register form
 // POST /register: Processes register
 
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 // Top page
 Route::get('/', [PostController::class, 'index'])
     ->name('index');
@@ -101,6 +103,5 @@ Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function 
 });
 
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
