@@ -30,7 +30,7 @@ class PostController extends Controller
     // post.index, also top page
     public function index()
     {
-        $posts = $this->post->all();
+        $posts = $this->post->paginate(4);
 
         return view('posts.index')
             ->with('posts', $posts);
