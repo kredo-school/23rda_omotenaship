@@ -26,6 +26,7 @@
 
 @auth
     @if (Auth::user()->role_id === 1)
+        {{-- @if (request()->is('/admin/*')) --}}
         <!-- Admin navbar -->
         <nav class="navbar admin-navbar navbar-expand-lg">
             <div class="container-fluid">
@@ -42,10 +43,15 @@
                         </a>
                     </li>
 
+                    {{-- Logout --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+
+                            <button type="submit" class="nav-link">
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </div>
