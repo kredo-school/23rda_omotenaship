@@ -65,7 +65,7 @@ Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
 });
 
-Route::group(['prefix' =>'/direct-messages', 'as' =>'direct-messages.'], function() {
+Route::group(['prefix' => '/direct-messages', 'as' => 'direct-messages.'], function () {
     Route::get('/', [DirectMessageController::class, 'index'])->name('index');
     Route::get('/{user_id}/show', [DirectMessageController::class, 'show'])->name('show');
 });
@@ -82,8 +82,9 @@ Route::group(['middleware' => 'admin'], function () {
     });
 
     Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
-        Route::get('/{id}', [AdminPostController::class, 'index'])->name('index');
+        Route::get('/', [AdminPostController::class, 'index'])->name('index');
         Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
+        Route::delete('/{id}', [AdminPostController::class, 'destroy'])->name('destroy');
     });
 
     Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
@@ -92,10 +93,3 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
     });
 });
-
-
-
-
-
-
-
