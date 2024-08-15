@@ -75,7 +75,7 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
 });
 
 // Admin Pages
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');

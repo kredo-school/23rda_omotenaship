@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -15,6 +16,11 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        // Logged-in and admin
+        if (Auth::check() && Auth::user()->role_id == 1) {
+            return $next($request); # allows viewing of the page (default)
+        } else {
+            return redirect()->route('index'); # redirect to index
+        }
     }
 }
