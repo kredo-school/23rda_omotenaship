@@ -11,8 +11,13 @@
                 {{-- image --}}
                 <div class="row mb-3">
                     <div class="col">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjwgW0hhDish6CmrszxreIlFiZ6NqfTPNjmQ&s"
-                            {{-- <img src="{{ $post->image->image }}" --}} class="posts-show-image w-100" alt="post id">
+                        @if ($post->images->isNotEmpty())
+                            @foreach ($post->images as $image)
+                                <img src="{{ $image->image }}" class="posts-show-image w-100" alt="{{ $image->post_id }}">
+                            @endforeach
+                        @else
+                            <p>No image available</p>
+                        @endif
                     </div>
                 </div>
                 <div class="row">
@@ -30,7 +35,15 @@
                 <div class="row">
                     <div class="col">
                         <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                            {{-- <a href="{{ route('profile.show', Auth::user()->id) }}">
+                                @if (Auth::user()->avatar)
+                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
+                                        class="rounded-circle avatar-lg">
+                                @else
+                                    <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                                @endif
+                            </a> --}}
+
                             <a href="#" class="text-decoration-none text-dark me-auto">
                                 {{ $post->user->username }}
                             </a>
@@ -87,3 +100,4 @@
     </div>
     @include('components.footer')
 @endsection
+Ï

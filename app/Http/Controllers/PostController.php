@@ -25,7 +25,6 @@ class PostController extends Controller
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
-        
     }
 
     public function index()
@@ -58,7 +57,7 @@ class PostController extends Controller
 
         //   post store
         // $this->post->user_id = Auth::user()->id;
-         $this->post->user_id = 3;
+        $this->post->user_id = 3;
         $this->post->title = $request->title;
         $this->post->article = $request->article;
         $this->post->visit_date = $request->visit_date;
@@ -67,14 +66,14 @@ class PostController extends Controller
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
         $this->post->save();
-        
+
         // dd(1);
 
         // category
         $post_categories = [];
         foreach ($request->categories as $category_id) {
             $post_categories[] = [
-                'post_id' => $this->post->id , 
+                'post_id' => $this->post->id,
                 'category_id' => $category_id
             ];
         }
@@ -90,8 +89,8 @@ class PostController extends Controller
             $this->image->caption = $request->caption;
             $this->image->save();
         }
-        
-        
+
+
         return redirect()->route('posts.show');
     }
 
@@ -104,8 +103,9 @@ class PostController extends Controller
     {
         $post = $this->post->findOrFail($id);
         //  dd($post->user->getAttributes());
-        return view('posts.show')->with('post',$post);
+        return view('posts.show')->with('post', $post);
     }
+
     public function showEventNearYou()
     {
         return view('posts.event-near-you');
@@ -122,6 +122,4 @@ class PostController extends Controller
 
         return $data_uri;
     }
-
-    
 }
