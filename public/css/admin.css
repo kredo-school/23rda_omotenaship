@@ -39,6 +39,16 @@
     box-shadow: 0 1px 4px #BC002D;
 }
 
+.navbar {
+    top: 0%;
+    width: 100%;
+    position: fixed;
+}
+
+main {
+    padding-top: 100px;
+}
+
 .navbar h1 {
     margin-bottom: 0;
 }
@@ -50,7 +60,7 @@
 /* footer */
 .footer {
     /* position: absolute; */
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     width: 100%;
 }
