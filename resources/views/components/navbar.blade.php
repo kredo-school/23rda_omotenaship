@@ -14,8 +14,9 @@
                 </form>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    {{-- Login --}}
+                    <a class="nav-link" href="{{ route('login') }}">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </a>
                 </li>
             </ul>
