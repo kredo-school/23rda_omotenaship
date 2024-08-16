@@ -46,6 +46,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function getAuthIdentifierName()
+    {
+        return 'username';
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class);
