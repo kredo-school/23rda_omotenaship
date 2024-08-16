@@ -24,12 +24,25 @@
 
                     <!-- username -->
                     <div class="row mb-3">
-                        <label for="username" class="col-md-3 col-form-label text-black">{{ __('Username') }}</label>
+                        <label for="name" class="col-md-3 col-form-label text-black">{{ __('Username') }}</label>
                         <div class="col-md-6">
-                            <input type="text" class="form-control bg-transparent" id="username" name="username"
-                                value="{{ old('username') }}" required autocomplete="username" autofocus>
+                            <input type="text" class="form-control bg-transparent" id="name" name="name"
+                                value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                            @error('username')
+                            @error('name')
+                                <p class="mb-0 text-danger small">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="row mb-3">
+                        <label for="email" class="col-md-3 col-form-label text-black">{{ __('Email') }}</label>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control bg-transparent" id="email" name="email"
+                                value="{{ old('email') }}" required autocomplete="email">
+
+                            @error('email')
                                 <p class="mb-0 text-danger small">{{ $message }}</p>
                             @enderror
                         </div>
