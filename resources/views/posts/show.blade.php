@@ -38,15 +38,18 @@
                             {{-- <a href="{{ route('profile.show', Auth::user()->id) }}">
                                 @if (Auth::user()->avatar)
                                     <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
-                                        class="rounded-circle avatar-lg">
+                                        class="rounded-circle posts-show-icon">
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
                                 @endif
                             </a> --}}
 
-                            <a href="#" class="text-decoration-none text-dark me-auto">
-                                {{ $post->user->username }}
+                            <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar-sm posts-show-icon">
+
+                            <a href="#" class="text-decoration-none text-dark me-auto ms-3">
+                                {{ $post->user->name }}
                             </a>
+
                             {{-- <i class="fa-solid fa-rectangle-ad"></i> --}}
                             @foreach ($post->postCategories as $post_category)
                                 <div class="badge bg-secondary bg-opacity-50">
