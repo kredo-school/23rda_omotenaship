@@ -23,35 +23,40 @@ class UsersTableSeeder extends Seeder
         $users = [
             [
                 'role_id' => 1, // admin
-                'username' => 'admin',
+                'name' => 'admin',
+                'email' => 'admin@sample.com',
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
             [
                 'role_id' => 2, // user
-                'username' => 'user01',
+                'name' => 'user01',
+                'email' => 'user01@sample.com',
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
             [
                 'role_id' => 2, // user
-                'username' => 'user02',
+                'name' => 'user02',
+                'email' => 'user02@sample.com',
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
             [
                 'role_id' => 2, // user
-                'username' => 'user03',
+                'name' => 'user03',
+                'email' => 'user03@sample.com',
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
             [
                 'role_id' => 2, // user
-                'username' => 'user04',
+                'name' => 'user04',
+                'email' => 'user04@sample.com',
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
