@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FavoriteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DirectMessageController;
@@ -10,7 +11,20 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
+// Require Route file for auth
+// require __DIR__ . '/auth.php';
 
+// For Auth
+Auth::routes();
+// Able to be applied with laravel/ui package
+// It generates:
+// GET /login: Shows login form
+// POST /login: Processes login
+// POST /logout: Processes logout
+// GET /register: Shows register form
+// POST /register: Processes register
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Top page
 Route::get('/', [PostController::class, 'index'])
@@ -26,8 +40,12 @@ Route::get('/', [PostController::class, 'index'])
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-// Route for auth
-require __DIR__ . '/auth.php';
+// Prepare route for auth
+Route::group(['middleware' => 'auth'], function () {
+    // Routes go here
+
+});
+
 
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
@@ -84,4 +102,7 @@ Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function 
     Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
     Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
 });
+
+
+
 
