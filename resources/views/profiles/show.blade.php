@@ -15,14 +15,21 @@
                     <div class="row col mx-auto p-2">
                         {{-- Abatar --}}
                         <div>
-                            <img src="{{ asset('images\profile_sample1.png') }}" alt=""
-                                class="mx-auto d-flex justify-content-center align-items-center" style="height: 100px;">
+
+                            @if ($profile->avatar)
+                                <img src="{{ $profile->avatar }}" alt="#" 
+                                class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @else
+                                <img src="{{ asset('images\profile_sample1.png') }}" alt=""
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @endif
+
                         </div>
                         {{-- Name --}}
                         <div class="row mx-auto">
                             <h5 class="mx-auto d-flex justify-content-center align-items-center">
                                 <span>
-                                    John Adam Smitd
+                                    {{ $profile->first_name }} {{ $profile->last_name }} {{ $profile->middle_name }}
                                 </span>
                             </h5>
                         </div>
@@ -36,8 +43,7 @@
                             {{-- Introduction -Text --}}
                             <p
                                 class="mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-11 m-0 px-2 py-0">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry!! Lorem Ipsum
-                                has been the industry's standard dummy text ever since the 1500s!!
+                                {{ $profile->introduction }} 
                             </p>
                         </div>
 
@@ -45,7 +51,7 @@
                         {{-- Language --}}
                         <div class="row mx-auto mb-5">
                             <h5 class="mx-auto d-flex text-start text-secondary col-12 m-0 px-2 py-3">
-                                Language :  English
+                                Language : {{ $profile->language }}
                             </h5>
                         </div>
 
@@ -54,7 +60,7 @@
                             {{-- Edit Profile --}}
                             {{-- temporary --}}
                             @php
-                                $user_id=2; 
+                                $user_id = 2;
                             @endphp
                             <a href={{ route('profiles.edit', $user_id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
