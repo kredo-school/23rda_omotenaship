@@ -3,7 +3,6 @@
 
 
 @section('content')
-
     <!-- Include the modal here-->
     @include('components.navbar')
 
@@ -18,7 +17,7 @@
                             <th></th>
                             <th>Name</th>
                             <th>Title</th>
-                            <th>VisteDate</th>
+                            <th>VisiteDate</th>
                             <th>Create</th>
                             <th>Update</th>
                             <th></th>
@@ -26,66 +25,51 @@
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td><img src="{{ asset('images/sample1.jpg')}}"
-                                    alt="" class="admin-img"></td>
-                            <td>Michel</td>
-                            <td>beatiful views</td>
-                            <td>2000/01/01</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td><i class="fa-solid fa-ellipsis"></i></td>
-                        </tr>
+                        @csrf
 
-                        <tr>
-                            <td><img src="{{ asset('images/sample2.jpg')}}"
-                                    alt="" class="admin-img"></td>
-                            <td>Jack</td>
-                            <td>Please check here</td>
-                            <td>2000/01/01</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td><i class="fa-solid fa-ellipsis"></i></td>
-                        </tr>
-
-                        <tr>
-                            <td><img src="{{ asset('images/sample3.jpg')}}"
-                                    alt="" class="admin-img"></td>
-                            <td>Maria</td>
-                            <td>Japan</td>
-                            <td>2000/01/01</td>
-                            <td>2024-07-22</td>
-                            <td>2024-07-22</td>
-                            <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-ellipsis"></i>
-                                    </button>
-
-                                    <div class="dropdown-menu text-center">
-                                        <button class="dropdown-list" data-bs-toggle="modal"
-                                            data-bs-target="#deletePostModal">
-                                            Delete Post
+                        @foreach ($all_posts as $post)
+                            <tr>
+                                <td>
+                                    @if ($post->images->isNotEmpty())
+                                        <img src="{{ $post->images->first()->url }}" alt="Image" class="">
+                                    @else
+                                        <i class="fa-solid fa-circle-user icon-sm"></i>
+                                    @endif
+                                </td>
+                                <td></td>
+                                <td>{{ $post->title }}</td>
+                                <td>{{ $post->visit_date }}</td>
+                                <td>{{ $post->created_at }}</td>
+                                <td>{{ $post->updated_at }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
+                                            <i class="fa-solid fa-ellipsis"></i>
                                         </button>
+
+                                        <div class="dropdown-menu text-center">
+                                            <button class="dropdown-list" data-bs-toggle="modal"
+                                                data-bs-target="#deletePostModal">
+                                                Delete Post
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
+                <div class="d-flex justify-content-center">
+                    {{ $all_posts->links() }}
+                </div>
             </div>
         </div>
     </div>
 
-        <!-- Include the modal here-->
-        @include('components.footer')
+    <!-- Include the modal here-->
+    @include('components.footer')
 
-        <!-- Include the modal here-->
-        @include('components.delete-post-modal')
+    <!-- Include the modal here-->
+    @include('components.delete-post-modal')
+@endsection
 
-    @endsection
