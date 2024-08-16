@@ -71,14 +71,14 @@
                         @endforeach
                     </tbody>
                 </table>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
+
+                <div class="d-flex justify-content-center">
+                    {{ $all_profiles->links() }}
+                </div>
             </div>
         </div>
     </div>
+
     <!-- Include the modal here-->
     @include('components.footer')
 
