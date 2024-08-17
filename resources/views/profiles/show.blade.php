@@ -10,15 +10,19 @@
         <div class="row justify-content-center">
 
             <!-- prfile -->
-            <div class="row col-lg-3 mx-auto p-0 d-flex justify-content-center">
+            <div class="row col-lg-4 mx-auto p-0 d-flex justify-content-center">
                 <form action="" method="" class="bg-white shadow rounded-3 p-2" enctype="multipart/form-data">
                     <div class="row col mx-auto p-2">
                         {{-- Abatar --}}
                         <div>
-
+                            @php
+                                // dd($profile);
+                                // dd($profile->first_name);
+                                // dd($profile->avatar);
+                            @endphp
                             @if ($profile->avatar)
-                                <img src="{{ $profile->avatar }}" alt="#" 
-                                class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                                <img src="{{ $profile->avatar }}" alt="#"
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
                             @else
                                 <img src="{{ asset('images\profile_sample1.png') }}" alt=""
                                     class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
@@ -29,7 +33,7 @@
                         <div class="row mx-auto">
                             <h5 class="mx-auto d-flex justify-content-center align-items-center">
                                 <span>
-                                    {{ $profile->first_name }} {{ $profile->last_name }} {{ $profile->middle_name }}
+                                    {{ $profile->first_name }} {{ $profile->middle_name }} {{ $profile->last_name }}
                                 </span>
                             </h5>
                         </div>
@@ -41,10 +45,14 @@
                                 Introduction
                             </h5>
                             {{-- Introduction -Text --}}
-                            <p
-                                class="mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-11 m-0 px-2 py-0">
-                                {{ $profile->introduction }} 
-                            </p>
+                            <div
+                                class="contenedor-pf mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-0 m-0 px-2 py-0">
+                                <input id='leer' type="checkbox" />
+                                <label for="leer"></label>
+                                <div class="expand-pf">
+                                    <p class='content'>{{ $profile->introduction }}</p>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -58,11 +66,7 @@
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            {{-- temporary --}}
-                            @php
-                                $user_id = 2;
-                            @endphp
-                            <a href={{ route('profiles.edit', $user_id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
+                            <a href={{ route('profiles.edit') }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
                             </a>
                             {{-- Delete Account --}}
@@ -75,11 +79,8 @@
             </div>
 
 
-            <!-- Posts-->
-            <div
-                class="col-lg-8
-                                mx-auto p-0 d-flex justify-content-center>
-                                <div class="row">
+            <!-- My Posts-->
+            <div class="row col-lg-8 mx-auto p-0 d-flex align-items-start justify-content-center ">
                 <div class="row">
                     {{-- My Post --}}
                     <div class="section-header">
@@ -90,20 +91,20 @@
                         </h2>
                     </div>
 
-                    {{-- New Post --}}
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            @include('components.post')
-                        </div>
-                        <div class="col-6 mb-3">
-                            @include('components.post')
-                        </div>
-                        <div class="col-6 mb-3">
-                            @include('components.post')
-                        </div>
-                        <div class="col-6 mb-3">
-                            @include('components.post')
-                        </div>
+                    {{-- My Posts --}}
+                    <div class="row ">
+                        @forelse ($posts as $post)
+                            <div class="col-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+                    </div>
+
+                    {{-- Pagination Link --}}
+                    <div class="d-flex justify-content-center">
+                        {{ $posts->links() }}
                     </div>
                 </div>
             </div>

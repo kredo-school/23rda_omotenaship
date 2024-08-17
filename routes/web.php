@@ -58,9 +58,9 @@ Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
 // profiles
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
-    Route::get('/{id}/show', [ProfileController::class, 'show'])
+    Route::get('/show', [ProfileController::class, 'show'])
         ->name('show');
-    Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+    Route::get('/edit', [ProfileController::class, 'edit'])
         ->name('edit');
     // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
     //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
