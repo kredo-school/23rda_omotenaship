@@ -28,39 +28,10 @@
     color: #ffffff !important;
 }
 
-/* navbar */
-.admin-navbar {
-    background-color: #ffffff !important;
-    box-shadow: 0 1px 4px #202F55;
-}
-
-.user-navbar {
-    background-color: #ffffff !important;
-    box-shadow: 0 1px 4px #BC002D;
-}
-
-.navbar {
-    top: 0%;
-    width: 100%;
-    position: fixed;
-}
-
-main {
-    padding-top: 100px;
-    padding-bottom: 100px;
-}
-
-.navbar h1 {
-    margin-bottom: 0;
-}
-
-.nav-item {
-    font-size: 2em;
-}
-
 /* footer */
 .footer {
     position: fixed;
+    z-index: 0;
     bottom: 0;
     width: 100%;
 }
@@ -82,7 +53,7 @@ main {
 }
 
 
-/* delete user modal */
+/* delete user & post modal */
 .cancel-border {
     color: #202F55;
 }

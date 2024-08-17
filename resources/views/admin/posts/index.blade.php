@@ -30,13 +30,15 @@
                         @foreach ($all_posts as $post)
                             <tr>
                                 <td>
+                                    <a href="{{ route('admin.posts.index', $post->user->id) }}">
                                     @if ($post->images->isNotEmpty())
-                                        <img src="{{ $post->images->first()->url }}" alt="Image" class="">
+                                    <img src="{{ $post->images->first()->image }}" alt="{{ $post->id }}">
                                     @else
                                         <i class="fa-solid fa-circle-user icon-sm"></i>
                                     @endif
+                                    </a>
                                 </td>
-                                <td></td>
+                                <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->title }}</td>
                                 <td>{{ $post->visit_date }}</td>
                                 <td>{{ $post->created_at }}</td>
@@ -70,6 +72,6 @@
     @include('components.footer')
 
     <!-- Include the modal here-->
-    @include('components.delete-post-modal')
+    @include('components.admin-delete-post-modal')
 @endsection
 
