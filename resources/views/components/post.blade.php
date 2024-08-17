@@ -28,7 +28,7 @@
 
                 <p>{{ $post->user->name }}</p>
             </div>
-            <div class="col-2 pt-3">
+            <div class="col-2 pt-4 text-end">
                 <i class="fa-solid fa-heart text-danger"></i>
             </div>
         </div>
