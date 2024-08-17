@@ -18,8 +18,10 @@ class FavoriteController extends Controller
 
     public function index($user_id)
     {
+        $posts = $this->favorites->where('user_id', $user_id)->with('post');
         return view('favorites.index')
-            ->with('user_id', $user_id);
+            ->with('user_id', $user_id)
+            ->with('posts', $posts);
     }
 
     public function store(Request $request)
