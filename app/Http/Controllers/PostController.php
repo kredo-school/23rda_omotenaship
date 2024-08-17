@@ -103,10 +103,13 @@ class PostController extends Controller
         return view('posts.edit');
     }
 
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('posts.show');
+        $post = $this->post->findOrFail($id);
+        //  dd($post->user->getAttributes());
+        return view('posts.show')->with('post', $post);
     }
+
     public function showEventNearYou()
     {
         return view('posts.event-near-you');

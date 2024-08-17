@@ -15,7 +15,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function comments()
@@ -50,11 +50,12 @@ class Post extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'post_id');
     }
 
     public function postCategories()
     {
         return $this->hasMany(PostCategory::class);
     }
+
 }

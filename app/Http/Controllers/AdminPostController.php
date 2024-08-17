@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\Image;
 
 class AdminPostController extends Controller
 {
-    public function index(){
-
-        $all_posts = Post::with('images')->paginate(5);
+    public function index()
+    {
+        $all_posts = Post::with(['images', 'user'])->paginate(5);
 
         return view('admin.posts.index')->with('all_posts', $all_posts);
     }
@@ -19,7 +21,8 @@ class AdminPostController extends Controller
         return view('admin.posts.show');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $post = Post::findOrFail($id);
         $post->delete();
 
