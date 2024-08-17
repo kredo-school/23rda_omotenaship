@@ -1,63 +1,171 @@
-@guest
-    <!--Guest navbar -->
-    <nav class="navbar user-navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
-                    class="d-inline-block align-text-top">
-            </a>
-            <h1>Omotenaship</h1>
+{{-- @guest --}}
+<!--Guest navbar -->
+<nav class="navbar user-navbar navbar-expand-lg">
+    <div class="container-fluid">
 
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <form action="#" class="search me-2 pt-3">
-                    <input type="search" name="search" id="search" class="form-control" placeholder="search">
-                </form>
+        {{-- Logo --}}
+        <a class="navbar-brand" href="{{ route('index') }}">
+            @php
+                // dd(Auth::check());
+                // dd(Auth::user()->role_id);
 
-                <li class="nav-item">
-                    {{-- Login --}}
-                    <a class="nav-link" href="{{ route('login') }}">
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-@endguest
+                if (Auth::check()) {
+                    if (Auth::user()->role_id === 1) {
+                        $logo_url = 'images/logos/blue.jpg';
+                    }
+                } else {
+                    $logo_url = 'images/logos/red.jpg';
+                }
+            @endphp
 
-@auth
-    @if (Auth::user()->role_id === 1)
-        {{-- @if (request()->is('/admin/*')) --}}
-        <!-- Admin navbar -->
-        <nav class="navbar admin-navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="{{ asset('images/logos/blue.jpg') }}" alt="logo" width="60" height="60"
-                        class="d-inline-block align-text-top">
+            @guest
+                {{-- Guest --}}
+                {{-- <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60" --}}
+                {{-- class="d-inline-block align-text-top"> --}}
+            @endguest
+            @auth
+                @if (Auth::user()->role_id === 1)
+                    {{-- Admin --}}
+                    {{-- <img src="{{ asset('images/logos/blue.jpg') }}" alt="logo" width="60" height="60"
+                        class="d-inline-block align-text-top"> --}}
+                @elseif (Auth::user()->role_id === 2)
+                    {{-- User --}}
+                    {{-- <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60" --}}
+                    {{-- class="d-inline-block align-text-top"> --}}
+                @endif
+            @endauth
+
+            <img src="{{ asset($logo_url) }}" alt="logo" width="60" height="60"
+                class="d-inline-block align-text-top">
+        </a>
+
+        {{-- Servise Name --}}
+        <h1>Omotenaship</h1>
+
+
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            {{-- Search bar --}}
+            <form action="#" class="search me-2 pt-3">
+                <input type="search" name="search" id="search" class="form-control" placeholder="search">
+            </form>
+
+            {{-- Login --}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('login') }}">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
                 </a>
-                <h1>Omotenaship</h1>
+            </li>
+        </ul>
+    </div>
+</nav>
+{{-- @endguest --}}
 
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
 
-                    {{-- Logout --}}
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
 
-                            <button type="submit" class="nav-link">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+{{-- Temporary Stoped --}}
+@if (false)
+
+    @auth
+        @if (Auth::user()->role_id === 1)
+            {{-- @if (request()->is('/admin/*')) --}}
+            <!-- Admin navbar -->
+            <nav class="navbar admin-navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('images/logos/blue.jpg') }}" alt="logo" width="60" height="60"
+                            class="d-inline-block align-text-top">
+                    </a>
+                    <h1>Omotenaship</h1>
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-circle-user"></i>
                             </a>
+                        </li>
+
+                        {{-- Logout --}}
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="nav-link">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        @elseif(Auth::user()->role_id === 2)
+            <!--User navbar -->
+            <nav class="navbar user-navbar navbar-expand-lg">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
+                            class="d-inline-block align-text-top">
+                    </a>
+                    <h1>Omotenaship</h1>
+
+                    <ul class="navbar-nav ms-auto mb-4 mb-lg-0">
+                        <form action="#" class="search me-20 pt-3">
+                            <input type="search" name="search" id="search" class="form-control" placeholder="search">
                         </form>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    @elseif(Auth::user()->role_id === 2)
-        <!--User navbar -->
+
+                        {{-- Create Post --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.create') }}">
+                                <i class="fa-regular fa-pen-to-square"></i>
+                            </a>
+                        </li>
+
+                        {{-- Favorite --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-regular fa-star"></i>
+                            </a>
+                        </li>
+
+                        {{-- Direct Message --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-regular fa-comments"></i>
+                            </a>
+                        </li>
+
+                        {{-- Browsing History --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-clock-rotate-left"></i>
+                            </a>
+                        </li>
+
+                        {{-- Profile --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fa-solid fa-circle-user"></i>
+                            </a>
+                        </li>
+
+                        {{-- Logout --}}
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="nav-link">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    </a>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        @endif
+    @endauth
+
+    @if (false)
+        <!--Register navbar -->
+        {{-- Only for login and register page --}}
         <nav class="navbar user-navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
@@ -66,86 +174,21 @@
                 </a>
                 <h1>Omotenaship</h1>
 
-                <ul class="navbar-nav ms-auto mb-4 mb-lg-0">
-                    <form action="#" class="search me-20 pt-3">
-                        <input type="search" name="search" id="search" class="form-control" placeholder="search">
-                    </form>
-
-                    {{-- Create Post --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('posts.create') }}">
-                            <i class="fa-regular fa-pen-to-square"></i>
-                        </a>
-                    </li>
-
-                    {{-- Favorite --}}
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fa-regular fa-star"></i>
+                            <h6>Login</h6>
                         </a>
                     </li>
 
-                    {{-- Direct Message --}}
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <i class="fa-regular fa-comments"></i>
+                            <h6>Register</h6>
                         </a>
-                    </li>
-
-                    {{-- Browsing History --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </a>
-                    </li>
-
-                    {{-- Profile --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="fa-solid fa-circle-user"></i>
-                        </a>
-                    </li>
-
-                    {{-- Logout --}}
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-
-                            <button type="submit" class="nav-link">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                </a>
-                        </form>
                     </li>
                 </ul>
             </div>
         </nav>
     @endif
-@endauth
 
-@if (false)
-    <!--Register navbar -->
-    {{-- Only for login and register page --}}
-    <nav class="navbar user-navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logos/red.jpg') }}" alt="logo" width="60" height="60"
-                    class="d-inline-block align-text-top">
-            </a>
-            <h1>Omotenaship</h1>
-
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <h6>Login</h6>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <h6>Register</h6>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
 @endif
