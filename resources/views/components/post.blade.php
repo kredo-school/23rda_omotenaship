@@ -1,9 +1,13 @@
 <div class="card components-post">
-    {{-- <div class="card-img-top"></div> --}}
-    {{-- <div class="row"> --}}
     <img src="{{ asset('images/14.png') }}" class="img-fluid card-img-top">
-    <img src="{{ asset('images/Star1.png') }}" class="star-icon">
-    {{-- </div> --}}
+    <form action="{{ route('favorites.store') }}" method="POST">
+        @csrf
+        <input type="hidden" name="user_id" value=2>
+        <input type="hidden" name="post_id" value=1>
+        <button type="submit" class="border-0 bg-transparent">
+            <i class="fa-solid fa-star text-warning star-icon"></i>
+        </button>
+    </form>
     <div class="card-body">
         <div class="row">
             <div class="col-10">
