@@ -1,9 +1,9 @@
 <div class="card components-post">
     <img src="{{ asset('images/14.png') }}" class="img-fluid card-img-top">
-    <form action="{{ route('favorites.store', $post_id) }}" method="POST">
+    <form action="{{ route('favorites.store') }}" method="POST">
         @csrf
-        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-        <input type="hidden" name="post_id" value="{{ $post_id }}">
+        <input type="hidden" name="user_id" value=2>
+        <input type="hidden" name="post_id" value=1>
         <button type="submit" class="border-0 bg-transparent">
             <i class="fa-solid fa-star text-warning star-icon"></i>
         </button>

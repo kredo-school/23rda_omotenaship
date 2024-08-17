@@ -22,12 +22,15 @@ class FavoriteController extends Controller
             ->with('user_id', $user_id);
     }
 
-    public function store($post_id)
+    public function store(Request $request)
     {
-        $this->favorites->user_id = Auth::user()->id;
-        $this->favorites->post_id = $post_id;
+        $userId = $request->input('user_id');
+        $postId = $request->input('post_id');
+    
+        $this->favorites->user_id = $userId;
+        $this->favorites->post_id = $postId;
         $this->favorites->save();
-
+    
         return redirect()->back();
     }
 
