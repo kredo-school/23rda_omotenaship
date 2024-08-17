@@ -26,8 +26,13 @@
                     <div class="col-md-6 col-12 my-3 px-3 justify-content-center">
                         {{-- Avatar Display --}}
                         <div>
-                            <img src="{{ asset('images\profile_sample1.png') }}" alt=""
-                                class="mx-auto d-flex justify-content-center align-self-stretch abatar-pf-edit">
+                            @if ($profile->avatar)
+                                <img src="{{ $profile->avatar }}" alt="#"
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @else
+                                <img src="{{ asset('images\profile_sample1.png') }}" alt=""
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @endif
                         </div>
                         {{-- Abatar Upload --}}
                         <div class="m-0 col-auto align-self-start">
@@ -60,7 +65,7 @@
                                 </label>
                                 <input type="text" name="name" id="name" 
                                 class="form-control form-siz-pf" autofocus
-                                    placeholder="First name">
+                                    placeholder="{{ $profile->first_name }}">
                             </div>
                             {{-- Midle name --}}
                             <div class="mb-3">
@@ -71,7 +76,7 @@
                                 </label>
                                 <input type="text" name="name" id="name" 
                                 class="form-control form-siz-pf" autofocus
-                                    placeholder="Midle name">
+                                    placeholder="{{ $profile->middle_name }}">
                             </div>
                             {{-- Last name --}}
                             <div class="mb-3">
@@ -82,7 +87,7 @@
                                 </label>
                                 <input type="text" name="name" id="name" 
                                 class="form-control form-siz-pf" autofocus
-                                    placeholder="Last name">
+                                    placeholder="{{ $profile->last_name }}">
                             </div>
                         </div>
                         {{-- Date of Birth --}}
@@ -94,7 +99,7 @@
                             </label>
                             <input type="date" name="datepicker" id="datepicker" 
                             class="form-control form-siz-pf" autofocus
-                                placeholder="YYYY/MM/DD">{{ old('datepicker') }}
+                                placeholder={{ $profile->birth_date }}>
                         </div>
                         {{-- Language --}}
                         <div class="mb-3">
@@ -105,7 +110,7 @@
                             </label>
                             <select id="language-select" name="languages" 
                             class="form-control form-siz-pf"
-                                onchange="changeLanguage()">{{ old('language-select') }}
+                                onchange="changeLanguage()">{{ $profile->language }}
                                 <option value="en">English</option>
                                 <option value="ja">Japanese</option>
                                 <option value="fr">French</option>
@@ -126,7 +131,7 @@
                     </label>
                     {{-- Introduction -Text --}}
                     <textarea name="introduction" id="introduction" rows="5" class="form-control mx-auto"
-                        placeholder="Describe yourself">{{ old('introduction') }}</textarea>
+                        placeholder="Describe yourself">{{ $profile->introduction }}</textarea>
                     <!-- Error -->
                     @error('introduction')
                         <p class="text-danger small">message{{-- {{ $message }} --}}</p>

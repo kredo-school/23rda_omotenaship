@@ -24,7 +24,8 @@ class ProfileController extends Controller
 
     public function show()
     {
-        $profile = $this->profile->where('user_id', 2)->first();
+        $profile = $this->profile->
+        where('user_id', 2)->first();
         // dd($profile);
         // $profile = Auth::user()->profile;  ←Auth
 
@@ -37,7 +38,17 @@ class ProfileController extends Controller
 
     public function edit()
     {
+        $profile = $this->profile->
+        where('user_id', 2)->first();
+        // dd($profile);
         return view('profiles.edit')
-            ->with('user_id');
+            ->with('profile', $profile);
     }
+
+    // public function edit()
+    // {
+    //     return view('profiles.edit')
+    //         ->with('user_id');
+    // }
+
 }
