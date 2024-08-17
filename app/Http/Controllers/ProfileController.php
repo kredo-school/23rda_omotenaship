@@ -35,9 +35,9 @@ class ProfileController extends Controller
             ->with('posts', $posts);
     }
 
-    public function edit($id)
+    public function edit()
     {
         return view('profiles.edit')
-            ->with('user_id', $id);
+            ->with('user_id');
     }
 }
