@@ -7,10 +7,11 @@
 
     <div class="container mt-5">
         <div class="row">
+            {{-- Left Column --}}
             <div class="col-8">
+                {{-- Event near You --}}
                 <div class="row mb-5">
                     <div class="col">
-                        {{-- Event near You --}}
                         <img src="{{ asset('images/banners/event-near-you.png') }}" alt="">
                     </div>
                 </div>
@@ -20,21 +21,22 @@
 
                 {{-- Posts --}}
                 <div class="row">
-                    <div class="col-6 mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col-6 mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col-6 mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col-6 mb-3">
-                        @include('components.post')
+                    @forelse ($posts as $post)
+                        <div class="col-6 mb-3">
+                            @include('components.post')
+                        </div>
+                    @empty
+                        No posts yet!
+                    @endforelse
+
+                    {{-- Pagination Link --}}
+                    <div class="d-flex justify-content-center">
+                        {{ $posts->links() }}
                     </div>
                 </div>
             </div>
 
+            {{-- Right Colmun --}}
             <div class="col-4">
                 {{-- Sidebar --}}
                 @include('components.sidebar')
