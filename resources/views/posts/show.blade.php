@@ -35,24 +35,21 @@
                 <div class="row">
                     <div class="col">
                         <div class="d-flex align-items-center mb-2">
-                            {{-- <a href="{{ route('profile.show', Auth::user()->id) }}">
-                                @if (Auth::user()->avatar)
-                                    <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->name }}"
-                                        class="rounded-circle posts-show-icon">
+                            <a href="{{ route('profiles.show', $post->id) }}">
+                                @if ($post->user->profile->avatar)
+                                    <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
+                                        class="rounded-circle avatar-sm posts-show-icon">
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
                                 @endif
-                            </a> --}}
-
-                            <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar-sm posts-show-icon">
-
-                            <a href="#" class="text-decoration-none text-dark me-auto ms-3">
+                            </a>
+                            <a href="{{ route('profiles.show', $post->id) }}"
+                                class="text-decoration-none text-dark me-auto ms-3">
                                 {{ $post->user->name }}
                             </a>
 
-                            {{-- <i class="fa-solid fa-rectangle-ad"></i> --}}
                             @foreach ($post->postCategories as $post_category)
-                                <div class="badge bg-secondary bg-opacity-50">
+                                <div class="badge bg-secondary bg-opacity-50 ms-1">
                                     {{ $post_category->category->name }}
                                 </div>
                             @endforeach
