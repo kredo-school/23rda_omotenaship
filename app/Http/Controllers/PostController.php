@@ -27,9 +27,13 @@ class PostController extends Controller
         $this->image = $image;
     }
 
+    // post.index, also top page
     public function index()
     {
-        return view('posts.index');
+        $posts = $this->post->paginate(4);
+
+        return view('posts.index')
+            ->with('posts', $posts);
     }
 
     public function create()
