@@ -25,9 +25,11 @@
                     <div class="col">
                         <div class="d-flex justify-content-between align-items-r">
                             <h3>{{ $post->title }}</h3>
-                            <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
-                                <i class="fa-solid fa-pen icon-sm"></i>
-                            </a>
+                            {{-- @if (Auth::user()->id === $post->user->id) --}}
+                                <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
+                                    <i class="fa-solid fa-pen icon-sm"></i>
+                                </a>
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>
