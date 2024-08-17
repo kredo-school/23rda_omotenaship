@@ -14,18 +14,13 @@
 
                 {{-- Posts --}}
                 <div class="row justify-content-around">
-                    <div class="col-md-6 mb-3 d-flex justify-content-center">
-                        @include('components.post')
-                    </div>
-                    <div class="col-md-6 mb-3 d-flex justify-content-center">
-                        @include('components.post')
-                    </div>
-                    <div class="col-md-6 mb-3 d-flex justify-content-center">
-                        @include('components.post')
-                    </div>
-                    <div class="col-md-6 mb-3 d-flex justify-content-center">
-                        @include('components.post')
-                    </div>
+                    @forelse ($posts as $post)
+                        <div class="col-md-6 mb-3 d-flex justify-content-center">
+                            @include('components.post')
+                        </div>
+                    @empty
+                        No posts yet!
+                    @endforelse
 
                 </div>
             </div>
@@ -36,7 +31,7 @@
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.calendar')
                     </div>
-                
+
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.caregory-icons')
                     </div>
