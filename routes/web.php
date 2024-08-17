@@ -52,6 +52,7 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
+    Route::post('/store',[FavoriteController::class, 'store'])->name('store');
 });
 
 // profiles
