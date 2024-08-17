@@ -36,6 +36,7 @@ class PostController extends Controller
             ->with('posts', $posts);
     }
 
+    // create post
     public function create()
     {
         $all_categories = $this->category->all();
@@ -45,7 +46,7 @@ class PostController extends Controller
         return view('posts.create')->with('all_categories', $all_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
     }
 
-    // create post
+    // post store
     public function store(Request $request)
     {
         // dd(3);
@@ -60,8 +61,8 @@ class PostController extends Controller
         // dd(2);
 
         //   post store
-        // $this->post->user_id = Auth::user()->id;
-        $this->post->user_id = 3;
+        $this->post->user_id = Auth::user()->id;
+        // $this->post->user_id = 3;
         $this->post->title = $request->title;
         $this->post->article = $request->article;
         $this->post->visit_date = $request->visit_date;
@@ -97,16 +98,33 @@ class PostController extends Controller
 
         return redirect()->route('posts.show');
     }
-
-    public function edit()
+    // post edit
+    public function edit($id)
     {
-        return view('posts.edit');
+        
+        $post = $this->post->findOrFail($id);
+        $all_categories = $this->category->all();
+        $all_areas = $this->area->all();
+        $all_prefectures = $this->prefecture->all();
+
+        #If the AUTH user is NOT the owner of the post,redirect to homepage
+        // if(Auth::user()->id != $post->user->id) {
+        //     return redirect()->route('index');
+        // }
+
+        $selected_categories = [];
+        foreach($post->postCategories as $post_category) 
+        {
+             $selected_categories[] = $post_category->category_id;
+        }
+        
+
+        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories',$selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
     }
 
     public function show($id)
     {
         $post = $this->post->findOrFail($id);
-        //  dd($post->user->getAttributes());
         return view('posts.show')->with('post', $post);
     }
 
