@@ -107,7 +107,8 @@
                         <div class="col mb-4">
                             <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
                             <br>
-                            <input type="date" id="Date of visit" name="visit_date" class="rounded-2">
+                            <input type="date" id="Date of visit" name="visit_date" class="rounded-2"
+                            value="{{ old('visit_date',$post->visit_date) }}">
                             <!-- Error -->
                             @error('visit_date')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -152,7 +153,7 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- Event --}}
+                    {{-- Date of Event --}}
                     <div class="row mb-4">
                         <div class="col mb-4">
                             <p class="form-label fw-bold m-0">Date of Event</p>
@@ -161,7 +162,8 @@
                                     <label for="start_date" class="date-edit">
                                         <span>Start</span>
                                     </label>
-                                    <input type="date" class="rounded-2" id="start_date" name="start_date">
+                                    <input type="date" class="rounded-2" id="start_date" name="start_date"
+                                    value="{{ old('start_date', $post->start_date) }}">
                                     <!-- Error -->
                                     @error('start_date')
                                         <div class="text-danger small">{{ $message }}</div>
@@ -172,7 +174,8 @@
                                     <label for="end_date" class="date-edit">
                                         <span> End </span>
                                     </label>
-                                    <input type="date" class="rounded-2" id="end_date" name="end_date">
+                                    <input type="date" class="rounded-2" id="end_date" name="end_date"
+                                    value="{{ old('end_date', $post->end_date) }}">
                                     <!-- Error -->
                                     @error('end_date')
                                         <div class="text-danger small">{{ $message }}</div>

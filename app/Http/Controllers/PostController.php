@@ -118,7 +118,6 @@ class PostController extends Controller
              $selected_categories[] = $post_category->category_id;
         }
         
-
         return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories',$selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
     }
 
