@@ -145,10 +145,10 @@ class PostController extends Controller
         // image
         if ($request->image) {
             $img_obj = $request->image;
-            $data_uri = $request->generateDataUri($img_obj);
+            $data_uri = $this->generateDataUri($img_obj);
 
             $post->image->post_id = $post->id;
-            $post->image->image = $request->$data_uri;
+            $post->image->image = $data_uri;
             $post->image->caption = $request->caption;
             $post->image->save();
         }
