@@ -31,7 +31,6 @@
         <!-- ユーザーがログインしていない場合 -->
         <button class="border-0 bg-transparent star-icon" onclick="alert('Please Login');">
             <i class="fa-regular fa-star fa-2x"></i>
-            {{-- <i class="fa-solid fa-star"></i> --}}
         </button>
     @endif
     </form>
