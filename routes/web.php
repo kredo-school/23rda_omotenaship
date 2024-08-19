@@ -43,7 +43,7 @@ Route::get('/', [PostController::class, 'index'])
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
-    Route::get('/edit', [PostController::class, 'edit'])->name('edit');
+    Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/{id}/show', [PostController::class, 'show'])->name('show');
     Route::post('/store', [PostController::class, 'store'])->name('store');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
