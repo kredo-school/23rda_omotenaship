@@ -72,6 +72,6 @@
     @include('components.footer')
 
     <!-- Include the modal here-->
-    @include('components.delete-post-modal')
+    @include('components.admin-delete-post-modal')
 @endsection
 

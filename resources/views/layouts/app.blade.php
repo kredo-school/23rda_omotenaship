@@ -33,7 +33,6 @@
 
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('css/admin-posts-index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -43,6 +42,7 @@
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
     <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-navbar.css') }}">
 
 </head>
 
