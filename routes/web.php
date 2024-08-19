@@ -52,8 +52,8 @@ Route::get('/', [PostController::class, 'index'])
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
-    Route::get('/edit', [PostController::class, 'edit'])->name('edit');
-    Route::get('/show', [PostController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
+    Route::get('/{id}/show', [PostController::class, 'show'])->name('show');
     Route::post('/store', [PostController::class, 'store'])->name('store');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
@@ -61,14 +61,15 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
+    Route::post('/store',[FavoriteController::class, 'store'])->name('store');
 });
 
 // profiles
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
-    Route::get('/{id}/show', [ProfileController::class, 'show'])
+    Route::get('/show', [ProfileController::class, 'show'])
         ->name('show');
-    Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+    Route::get('/edit', [ProfileController::class, 'edit'])
         ->name('edit');
     // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
     //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
@@ -84,7 +85,7 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
 });
 
 // Admin Pages
-Route::group(['middleware' => 'admin'], function () {
+// Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
@@ -101,4 +102,4 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
     });
-});
+// });
