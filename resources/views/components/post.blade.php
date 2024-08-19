@@ -10,7 +10,7 @@
 
     {{-- Favorites Button --}}
     
-    @if (Auth::check())
+    {{-- @if (Auth::check())
         @if ($post->isFavorited())
             <form action="{{ route('favorite.destroy', $post->id) }}" method="post" class="star-icon">
                 @csrf
@@ -32,7 +32,7 @@
         <button class="border-0 bg-transparent star-icon" onclick="alert('Please Login');">
             <i class="fa-regular fa-star fa-2x"></i>
         </button>
-    @endif
+    @endif --}}
     </form>
     <div class="card-body">
         <div class="row">
