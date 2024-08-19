@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DirectMessageController;
 use App\Http\Controllers\BrowsingHistoryController;
@@ -12,11 +13,11 @@ use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
 // Require Route file for auth
-// require __DIR__ . '/auth.php';
+require __DIR__ . '/auth.php';
 
 // For Auth
 // Route::group(['middleware' => 'web'], function () {
-Auth::routes();
+// Auth::routes();
 // });
 // Able to be applied with laravel/ui package
 // It generates:
