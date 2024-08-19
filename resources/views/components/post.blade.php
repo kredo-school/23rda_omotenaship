@@ -12,9 +12,9 @@
         @csrf --}}
         {{-- <input type="hidden" name="user_id" value=2>
         <input type="hidden" name="post_id" value=1> --}}
-        <button type="submit" class="border-0 bg-transparent">
+        {{-- <button type="submit" class="border-0 bg-transparent">
             <i class="fa-solid fa-star  star-icon"></i>
-        </button>
+        </button> --}}
     </form>
     <div class="card-body">
         <div class="row">
