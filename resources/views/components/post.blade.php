@@ -16,21 +16,22 @@
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="border-0 bg-transparent">
-                    <i class="fa-solid fa-star text-warning star-icon"></i>
+                    <i class="fa-solid fa-star text-warning star-icon fa-2x"></i>
                 </button>
             </form>
         @else
             <form action="{{ route('favorite.store', $post->id) }}" method="post">
                 @csrf
                 <button type="submit" class="border-0 bg-transparent star-icon">
-                    <i class="fa-regular fa-star star-icon"></i>
+                    <i class="fa-regular fa-star star-icon fa-2x"></i>
                 </button>
             </form>
         @endif
     @else
         <!-- ユーザーがログインしていない場合 -->
         <button class="border-0 bg-transparent star-icon" onclick="alert('Please Login');">
-            <i class="fa-regular fa-star"></i>
+            <i class="fa-regular fa-star fa-2x"></i>
+            {{-- <i class="fa-solid fa-star"></i> --}}
         </button>
     @endif
     </form>
@@ -46,8 +47,8 @@
 
                 <p>{{ $post->user->name }}</p>
             </div>
-            <div class="col-2 pt-3">
-                <i class="fa-solid fa-heart text-danger"></i>
+            <div class="col-2 pt-4 text-end">
+                <i class="fa-solid fa-heart text-danger fa-2x"></i>
             </div>
         </div>
     </div>

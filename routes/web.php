@@ -59,9 +59,9 @@ Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
 // profiles
 Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
     // Routes go here
-    Route::get('/{id}/show', [ProfileController::class, 'show'])
+    Route::get('/show', [ProfileController::class, 'show'])
         ->name('show');
-    Route::get('/{id}/edit', [ProfileController::class, 'edit'])
+    Route::get('/edit', [ProfileController::class, 'edit'])
         ->name('edit');
     // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
     //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
@@ -77,7 +77,7 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
 });
 
 // Admin Pages
-Route::group(['middleware' => 'admin'], function () {
+// Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
@@ -94,4 +94,4 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
     });
-});
+// });

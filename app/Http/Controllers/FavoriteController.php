@@ -24,6 +24,7 @@ class FavoriteController extends Controller
         // return view('favorites.index')
         //     ->with('user_id', $user_id);
         return view('favorites.index', compact('posts', 'user_id'));
+
     }
 
     public function store(Request $request, $post_id)
