@@ -48,7 +48,10 @@ class User extends Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'username';
+        // return 'username';
+        // return 'name';
+
+        return 'email';
     }
 
     public function profile()

@@ -3,6 +3,14 @@
 @section('title', 'Omotenaship')
 
 @section('content')
+    {{-- Temp --}}
+    @php
+        $auth_user = session('auth_user');
+        Log::info('Check the value of $auth_user on view.posts.index:', ['auth_user' => $auth_user]);
+    @endphp
+
+
+
     @include('components.navbar')
 
     <div class="container mt-5">

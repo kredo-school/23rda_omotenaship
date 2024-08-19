@@ -15,7 +15,9 @@ use App\Http\Controllers\AdminNgwordController;
 // require __DIR__ . '/auth.php';
 
 // For Auth
+// Route::group(['middleware' => 'web'], function () {
 Auth::routes();
+// });
 // Able to be applied with laravel/ui package
 // It generates:
 // GET /login: Shows login form
