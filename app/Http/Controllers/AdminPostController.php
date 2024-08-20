@@ -16,9 +16,11 @@ class AdminPostController extends Controller
         return view('admin.posts.index')->with('all_posts', $all_posts);
     }
 
-    public function show()
+    public function show($id)
     {
-        return view('admin.posts.show');
+        $post = Post::with(['images', 'user'])->findOrFail($id);
+
+        return view('admin.posts.show')->with('post', $post);
     }
 
     public function destroy($id)
