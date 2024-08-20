@@ -108,13 +108,13 @@ class PostController extends Controller
             $this->image->save();
         }
 
-
         return redirect()->route('posts.show');
     }
+
     // post edit
     public function edit($id)
     {
-        
+
         $post = $this->post->findOrFail($id);
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
@@ -126,13 +126,68 @@ class PostController extends Controller
         // }
 
         $selected_categories = [];
-        foreach($post->postCategories as $post_category) 
-        {
-             $selected_categories[] = $post_category->category_id;
+        foreach ($post->postCategories as $post_category) {
+            $selected_categories[] = $post_category->category_id;
+        }
+
+        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories', $selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+    }
+
+    // post update
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'categories' => 'required|array|between:1,4',
+            'title' => 'required|max:500',
+            'article' => 'required|max:1000',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
+        ]);
+
+        $post = $this->post->findOrFail($id);
+        $post->title = $request->title;
+        $post->article = $request->article;
+        $post->visit_date = $request->visit_date;
+        $post->start_date = $request->start_date;
+        $post->end_date = $request->end_date;
+        $post->prefecture_id = $request->prefecture_id;
+        $post->area_id = $request->area_id;
+        $post->save();
+
+        // image
+
+
+        if ($request->image) {
+            $img_obj = $request->image;
+            $data_uri = $this->generateDataUri($img_obj);
+
+            foreach ($post->images as $image) {
+
+                $image_id = $image->id;
+
+                $image = $this->image->findOrFail($image_id);
+                $image->post_id = $post->id;
+                $image->image = $data_uri;
+                $image->caption = $request->caption;
+                $image->save();
+            }
+        }
+
+        // categories
+        $post->postCategories()->delete();
+
+        foreach ($request->categories as $category_id) {
+            $post_categories[] = [
+                'post_id' => $this->post->id,
+                'category_id' => $category_id
+            ];
         }
         
-        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories',$selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+        $post->postCategories()->createMany($post_categories);
+
+        return redirect()->route('posts.show', $id);
     }
+
+
 
     public function show($id)
     {
