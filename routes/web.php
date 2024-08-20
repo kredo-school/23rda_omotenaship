@@ -43,16 +43,18 @@ Route::get('/', [PostController::class, 'index'])
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/create', [PostController::class, 'create'])->name('create');
-    Route::get('/edit', [PostController::class, 'edit'])->name('edit');
+    Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/{id}/show', [PostController::class, 'show'])->name('show');
     Route::post('/store', [PostController::class, 'store'])->name('store');
+    Route::patch('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
 });
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
-    Route::post('/store',[FavoriteController::class, 'store'])->name('store');
+    Route::post('/store/{post_id}',[FavoriteController::class, 'store'])->name('store');
+    Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])->name('destroy');
 });
 
 // profiles
