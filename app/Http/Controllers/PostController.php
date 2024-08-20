@@ -168,10 +168,23 @@ class PostController extends Controller
                 'category_id' => $category_id
             ];
         }
-        
+
         $post->postCategories()->createMany($post_categories);
 
         return redirect()->route('posts.show', $id);
+    }
+
+    public function showDeletePostModal($id)
+    {
+        $post = $this->post->findOrFail($id);
+        return view('posts.delete-post-modal')->with('post',$post);
+    }
+
+    public function destroy($id)
+    {
+        $this->post->destroy($id);
+
+        return redirect()->route('posts.index');
     }
 
 

@@ -193,9 +193,11 @@
                                 Save
                             </button>
                             {{-- Delete post --}}
-                            <button type="button" class="btn btn-white-pf btn-lg p-1">
+                            {{-- <button type="button" class="btn btn-white-pf btn-lg p-1" data-bs-toggle="components" data-bs-target="#delete-post-modal-{{ $post->id }}"> --}}
+                                <a href="{{ route('posts.delete-post-modal', $post->id) }}" class="btn btn-white-pf btn-lg p-1">
                                 Delete
-                            </button>
+                            </a>
+                            {{-- </button> --}}
                         </div>
                     </div>
                 </form>
