@@ -16,12 +16,11 @@
                 <div class="row justify-content-around">
                     @forelse ($posts as $post)
                         <div class="col-md-6 mb-3 d-flex justify-content-center">
-                            @include('components.post')
+                            @include('components.post', ['post' => $post])
                         </div>
                     @empty
-                        No posts yet!
+                        <p>No favorite posts yet!</p>
                     @endforelse
-
                 </div>
             </div>
 
@@ -31,7 +30,7 @@
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.calendar')
                     </div>
-
+                
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.caregory-icons')
                     </div>
