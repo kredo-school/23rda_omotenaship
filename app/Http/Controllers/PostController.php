@@ -129,10 +129,8 @@ class PostController extends Controller
             'article' => 'required|max:1000',
             'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
         ]);
-        
+
         $post = $this->post->findOrFail($id);
-        $post->title = $request->title;
-        $post->article = $request->article;
         $post->title = $request->title;
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
@@ -143,16 +141,23 @@ class PostController extends Controller
         $post->save();
 
         // image
+
+
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
 
-            $post->image->post_id = $post->id;
-            $post->image->image = $data_uri;
-            $post->image->caption = $request->caption;
-            $post->image->save();
+            foreach ($post->images as $image) {
+
+                $image_id = $image->id;
+
+                $image = $this->image->findOrFail($image_id);
+                $image->post_id = $post->id;
+                $image->image = $data_uri;
+                $image->caption = $request->caption;
+                $image->save();
+            }
         }
-        $post->save();
 
         // categories
         $post->postCategories()->delete();
@@ -163,6 +168,7 @@ class PostController extends Controller
                 'category_id' => $category_id
             ];
         }
+        
         $post->postCategories()->createMany($post_categories);
 
         return redirect()->route('posts.show', $id);
