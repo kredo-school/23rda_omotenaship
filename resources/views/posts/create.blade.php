@@ -163,9 +163,13 @@
                     {{-- Button --}}
                     <div class="row">
                         <div class="mb-4 col-6 mx-auto d-grid gap-2">
-                            <button type="submit"
+                            {{-- <button type="submit"
                                 class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover"
                                 id="post-button">Post
+                            </button> --}}
+                            <button type="submit" class="btn btn-kurenai-pf btn-lg p-1 mb-2" id="post-button">
+                                {{-- class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover" --}}
+                                Post
                             </button>
                         </div>
                     </div>
