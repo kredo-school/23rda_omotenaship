@@ -21,15 +21,46 @@
                     </div>
                 </div>
                 <div class="row">
-                    {{-- title and icon --}}
-                    <div class="col">
-                        <div class="d-flex justify-content-between align-items-r">
-                            <h3>{{ $post->title }}</h3>
-                            {{-- @if (Auth::user()->id === $post->user->id) --}}
-                                <a href="{{ route('posts.edit',$post->id) }}" class="text-decoration-none text-dark">
-                                    <i class="fa-solid fa-pen icon-sm"></i>
+
+                    <div class="col d-flex justify-content-between">
+                        {{-- title and icon --}}
+                        <h3 class="m-0">{{ $post->title }}</h3>
+
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div>
+                                @if (Auth::check())
+                                    @if ($post->isFavorited())
+                                        <form action="{{ route('favorite.destroy', $post->id) }}" method="post"
+                                            class="">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="border-0 bg-transparent">
+                                                <i class="fa-solid fa-star text-warning fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <form action="{{ route('favorite.store', $post->id) }}" method="post">
+                                            @csrf
+                                            <button type="submit" class="border-0 bg-transparent">
+                                                <i class="fa-regular fa-star fa-2x"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @else
+                                    <!-- ユーザーがログインしていない場合 -->
+                                    <button class="border-0 bg-transparent" onclick="alert('Please Login');">
+                                        <i class="fa-regular fa-star fa-2x"></i>
+                                    </button>
+                                @endif
+                            </div>
+                            <div>
+                                {{-- @if (Auth::user()->id === $post->user->id) --}}
+                                <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
+                                    <i class="fa-solid fa-pen fa-2x fa-pen-post"></i>
+
                                 </a>
-                            {{-- @endif --}}
+                                {{-- @endif --}}
+                            </div>
                         </div>
                     </div>
                 </div>
