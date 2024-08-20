@@ -5,6 +5,7 @@ use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DirectMessageController;
 use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
@@ -52,7 +53,12 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
-    Route::post('/store',[FavoriteController::class, 'store'])->name('store');
+    Route::post('/store', [FavoriteController::class, 'store'])->name('store');
+});
+
+//comments
+Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
+    Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
 });
 
 // profiles
@@ -77,20 +83,20 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
 
 // Admin Pages
 // Route::group(['middleware' => 'admin'], function () {
-    Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
-        Route::get('/', [AdminUserController::class, 'index'])->name('index');
-        Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
-    });
+Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
+    Route::get('/', [AdminUserController::class, 'index'])->name('index');
+    Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
+});
 
-    Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
-        Route::get('/', [AdminPostController::class, 'index'])->name('index');
-        Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
-        Route::delete('/{id}', [AdminPostController::class, 'destroy'])->name('destroy');
-    });
+Route::group(['prefix' => '/admin/posts', 'as' => 'admin.posts.'], function () {
+    Route::get('/', [AdminPostController::class, 'index'])->name('index');
+    Route::get('/{id}/show', [AdminPostController::class, 'show'])->name('show');
+    Route::delete('/{id}', [AdminPostController::class, 'destroy'])->name('destroy');
+});
 
-    Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
-        Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
-        Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
-        Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
-    });
+Route::group(['prefix' => '/admin/ngwords', 'as' => 'admin.ngwords.'], function () {
+    Route::get('/', [AdminNgwordController::class, 'index'])->name('index');
+    Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
+    Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
+});
 // });

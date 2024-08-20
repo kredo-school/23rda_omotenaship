@@ -26,9 +26,9 @@
                         <div class="d-flex justify-content-between align-items-r">
                             <h3>{{ $post->title }}</h3>
                             {{-- @if (Auth::user()->id === $post->user->id) --}}
-                                <a href="{{ route('posts.edit',$post->id) }}" class="text-decoration-none text-dark">
-                                    <i class="fa-solid fa-pen icon-sm"></i>
-                                </a>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="text-decoration-none text-dark">
+                                <i class="fa-solid fa-pen icon-sm"></i>
+                            </a>
                             {{-- @endif --}}
                         </div>
                     </div>
@@ -77,13 +77,19 @@
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
-                        <form action="#" method="post">
+                        <form action="{{ route('comments.store', $post->id) }}" method="post">
                             @csrf
                             <div class="input-group mb-3">
-                                <textarea name="comment_body" rows="1" class="form-control form-control-sm" placeholder="Add a comment...">{{ old('comment_body') }}</textarea>
+                                <textarea name="comment{{ $post->id }}" id="{{ $post->id }}" rows="1"
+                                    class="form-control form-control-sm" placeholder="Add a comment...">{{ old('comment' . $post->id) }}</textarea>
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
                             </div>
+                            <!-- Error -->
+                            @error('comment' . $post->id)
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </form>
+
                     </div>
                 </div>
                 {{-- show comments --}}
@@ -91,7 +97,7 @@
                     <div class="col">
                         <div class="d-flex align-items-center mb-2">
                             <i class="fa-solid fa-circle-user text-secondary icon-sm me-2"></i>
-                            <a href="#" class="text-decoration-none text-dark me-auto mt-0 pt-0">Mary Watson</a>
+                            {{-- <a href="route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark me-auto mt-0 pt-0">{{ $comment->user->name }}</a> --}}
                             <p class="show-date">2024-06-10</p>
                         </div>
                         <p>beautiful place</p>
