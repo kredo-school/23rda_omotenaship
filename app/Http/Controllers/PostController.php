@@ -9,6 +9,7 @@ use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -29,11 +30,23 @@ class PostController extends Controller
 
     // post.index, also top page
     public function index()
+    // public function index(Request $request)
     {
+        $auth_user = session('auth_user');
+        Log::info('Check the value of $auth_user on PostController:', ['auth_user' => $auth_user]);
+
         $posts = $this->post->paginate(4);
+
+        // dd($request);
+        // $auth_user = $request->session()->get('auth_user');
+        // dd($auth_user);
 
         return view('posts.index')
             ->with('posts', $posts);
+
+        // return view('posts.index')
+        //     ->with('posts', $posts)
+        //     ->with('auth_user', $auth_user);
     }
 
     // create post
