@@ -21,6 +21,7 @@
                     </div>
                 </div>
                 <div class="row">
+
                     <div class="col d-flex justify-content-between">
                         {{-- title and icon --}}
                         <h3 class="m-0">{{ $post->title }}</h3>
@@ -56,6 +57,7 @@
                                 {{-- @if (Auth::user()->id === $post->user->id) --}}
                                 <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
                                     <i class="fa-solid fa-pen fa-2x fa-pen-post"></i>
+
                                 </a>
                                 {{-- @endif --}}
                             </div>
