@@ -3,6 +3,10 @@
     height: 325px;
     position: relative;
 }
+.card-img-top {
+    width: 350px;
+    height: 200px;
+}
 
 .star-icon {
     position: absolute;
@@ -10,4 +14,6 @@
     bottom: 30px;
     top: 10px;
     right: 10px;
+    width: 40px;
+    height: 40px;
 }

@@ -9,6 +9,7 @@ use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -29,13 +30,26 @@ class PostController extends Controller
 
     // post.index, also top page
     public function index()
+    // public function index(Request $request)
     {
+        $auth_user = session('auth_user');
+        Log::info('Check the value of $auth_user on PostController:', ['auth_user' => $auth_user]);
+
         $posts = $this->post->paginate(4);
+
+        // dd($request);
+        // $auth_user = $request->session()->get('auth_user');
+        // dd($auth_user);
 
         return view('posts.index')
             ->with('posts', $posts);
+
+        // return view('posts.index')
+        //     ->with('posts', $posts)
+        //     ->with('auth_user', $auth_user);
     }
 
+    // create post
     public function create()
     {
         $all_categories = $this->category->all();
@@ -45,7 +59,7 @@ class PostController extends Controller
         return view('posts.create')->with('all_categories', $all_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
     }
 
-    // create post
+    // post store
     public function store(Request $request)
     {
         // dd(3);
@@ -60,8 +74,8 @@ class PostController extends Controller
         // dd(2);
 
         //   post store
-        // $this->post->user_id = Auth::user()->id;
-        $this->post->user_id = 3;
+        $this->post->user_id = Auth::user()->id;
+        // $this->post->user_id = 3;
         $this->post->title = $request->title;
         $this->post->article = $request->article;
         $this->post->visit_date = $request->visit_date;
@@ -94,19 +108,93 @@ class PostController extends Controller
             $this->image->save();
         }
 
-
         return redirect()->route('posts.show');
     }
 
-    public function edit()
+    // post edit
+    public function edit($id)
     {
-        return view('posts.edit');
+
+        $post = $this->post->findOrFail($id);
+        $all_categories = $this->category->all();
+        $all_areas = $this->area->all();
+        $all_prefectures = $this->prefecture->all();
+
+        #If the AUTH user is NOT the owner of the post,redirect to homepage
+        // if(Auth::user()->id != $post->user->id) {
+        //     return redirect()->route('index');
+        // }
+
+        $selected_categories = [];
+        foreach ($post->postCategories as $post_category) {
+            $selected_categories[] = $post_category->category_id;
+        }
+
+        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories', $selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
     }
 
-    public function show(Post $post)
+    // post update
+    public function update(Request $request, $id)
     {
-        return view('posts.show');
+        $request->validate([
+            'categories' => 'required|array|between:1,4',
+            'title' => 'required|max:500',
+            'article' => 'required|max:1000',
+            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
+        ]);
+
+        $post = $this->post->findOrFail($id);
+        $post->title = $request->title;
+        $post->article = $request->article;
+        $post->visit_date = $request->visit_date;
+        $post->start_date = $request->start_date;
+        $post->end_date = $request->end_date;
+        $post->prefecture_id = $request->prefecture_id;
+        $post->area_id = $request->area_id;
+        $post->save();
+
+        // image
+
+
+        if ($request->image) {
+            $img_obj = $request->image;
+            $data_uri = $this->generateDataUri($img_obj);
+
+            foreach ($post->images as $image) {
+
+                $image_id = $image->id;
+
+                $image = $this->image->findOrFail($image_id);
+                $image->post_id = $post->id;
+                $image->image = $data_uri;
+                $image->caption = $request->caption;
+                $image->save();
+            }
+        }
+
+        // categories
+        $post->postCategories()->delete();
+
+        foreach ($request->categories as $category_id) {
+            $post_categories[] = [
+                'post_id' => $this->post->id,
+                'category_id' => $category_id
+            ];
+        }
+        
+        $post->postCategories()->createMany($post_categories);
+
+        return redirect()->route('posts.show', $id);
     }
+
+
+
+    public function show($id)
+    {
+        $post = $this->post->findOrFail($id);
+        return view('posts.show')->with('post', $post);
+    }
+
     public function showEventNearYou()
     {
         return view('posts.event-near-you');

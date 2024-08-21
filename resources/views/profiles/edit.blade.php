@@ -26,8 +26,13 @@
                     <div class="col-md-6 col-12 my-3 px-3 justify-content-center">
                         {{-- Avatar Display --}}
                         <div>
-                            <img src="{{ asset('images\profile_sample1.png') }}" alt=""
-                                class="mx-auto d-flex justify-content-center align-self-stretch abatar-pf-edit">
+                            @if ($profile->avatar)
+                                <img src="{{ $profile->avatar }}" alt="#"
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @else
+                                <img src="{{ asset('images\profile_sample1.png') }}" alt=""
+                                    class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                            @endif
                         </div>
                         {{-- Abatar Upload --}}
                         <div class="m-0 col-auto align-self-start">
@@ -52,54 +57,60 @@
                         <div class="row">
                             {{-- First name --}}
                             <div class="mb-3">
-                                <label for="name" class="form-label fw-bold mb-0">
-                                    <h5>
+                                <label for="name" 
+                                class="form-label fw-bold mb-0">
+                                    <h6>
                                         First name
-                                    </h5>
+                                    </h6>
                                 </label>
-                                <input type="text" name="name" id="name" class="form-control" autofocus
-                                    placeholder="First name">
+                                <input type="text" name="name" id="name" 
+                                class="form-control form-siz-pf" autofocus
+                                    placeholder="{{ $profile->first_name }}">
                             </div>
                             {{-- Midle name --}}
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-bold mb-0">
-                                    <h5>
+                                    <h6>
                                         Midle name
-                                    </h5>
+                                    </h6>
                                 </label>
-                                <input type="text" name="name" id="name" class="form-control" autofocus
-                                    placeholder="Midle name">
+                                <input type="text" name="name" id="name" 
+                                class="form-control form-siz-pf" autofocus
+                                    placeholder="{{ $profile->middle_name }}">
                             </div>
                             {{-- Last name --}}
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-bold mb-0">
-                                    <h5>
+                                    <h6>
                                         Last name
-                                    </h5>
+                                    </h6>
                                 </label>
-                                <input type="text" name="name" id="name" class="form-control" autofocus
-                                    placeholder="Last name">
+                                <input type="text" name="name" id="name" 
+                                class="form-control form-siz-pf" autofocus
+                                    placeholder="{{ $profile->last_name }}">
                             </div>
                         </div>
                         {{-- Date of Birth --}}
                         <div class="mb-3">
                             <label for="datepicker" class="form-label fw-bold  mb-0">
-                                <h5>
+                                <h6>
                                     Date of Birth
-                                </h5>
+                                </h6>
                             </label>
-                            <input type="date" name="datepicker" id="datepicker" class="form-control" autofocus
-                                placeholder="YYYY/MM/DD">{{ old('datepicker') }}
+                            <input type="date" name="datepicker" id="datepicker" 
+                            class="form-control form-siz-pf" autofocus
+                                placeholder={{ $profile->birth_date }}>
                         </div>
                         {{-- Language --}}
                         <div class="mb-3">
                             <label for="name" class="form-label fw-bold mb-0">
-                                <h5>
+                                <h6>
                                     Language
-                                </h5>
+                                </h6>
                             </label>
-                            <select id="language-select" name="languages" class="form-control"
-                                onchange="changeLanguage()">{{ old('language-select') }}
+                            <select id="language-select" name="languages" 
+                            class="form-control form-siz-pf"
+                                onchange="changeLanguage()">{{ $profile->language }}
                                 <option value="en">English</option>
                                 <option value="ja">Japanese</option>
                                 <option value="fr">French</option>
@@ -116,18 +127,18 @@
                 <div class="row mb-3 justify-content-start align-self-end">
                     {{-- Introduction -Title --}}
                     <label for="introduction" class="form-label fw-bold">
-                        <h5>Introduction</h5>
+                        <h6>Introduction</h6>
                     </label>
                     {{-- Introduction -Text --}}
                     <textarea name="introduction" id="introduction" rows="5" class="form-control mx-auto"
-                        placeholder="Describe yourself">{{ old('introduction') }}</textarea>
+                        placeholder="Describe yourself">{{ $profile->introduction }}</textarea>
                     <!-- Error -->
                     @error('introduction')
                         <p class="text-danger small">message{{-- {{ $message }} --}}</p>
                     @enderror
                 </div>
 
-                {{-- Button --}}
+                {{-- Update Button --}}
                 <div class="mt-1 mb-5 d-flex flex-column justify-content-center align-items-end">
                     <a href=# class="btn btn-kurenai btn-lg px-5 w-100">
                         Update profile
