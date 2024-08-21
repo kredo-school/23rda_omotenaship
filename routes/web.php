@@ -1,9 +1,29 @@
 <?php
 
+// ==== Initial File ====
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
+
+// ==== (End Initial File) ====
+
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\DirectMessageController;
 use App\Http\Controllers\BrowsingHistoryController;
@@ -11,11 +31,10 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
-// Require Route file for auth
-// require __DIR__ . '/auth.php';
-
 // For Auth
-Auth::routes();
+// Route::group(['middleware' => 'web'], function () {
+// Auth::routes();
+// });
 // Able to be applied with laravel/ui package
 // It generates:
 // GET /login: Shows login form
@@ -29,16 +48,6 @@ Auth::routes();
 // Top page
 Route::get('/', [PostController::class, 'index'])
     ->name('index');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 // posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
@@ -55,7 +64,8 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
-    Route::post('/store',[FavoriteController::class, 'store'])->name('store');
+    Route::post('/store/{post_id}',[FavoriteController::class, 'store'])->name('store');
+    Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])->name('destroy');
 });
 
 // profiles

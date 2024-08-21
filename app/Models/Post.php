@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -56,6 +57,18 @@ class Post extends Model
     public function postCategories()
     {
         return $this->hasMany(PostCategory::class);
+    }
+
+    public function isFavorited()
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return false;
+        }
+
+
+        return $user->favorites()->where('post_id', $this->id)->exists();
     }
 
 }

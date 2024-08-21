@@ -46,10 +46,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function getAuthIdentifierName()
-    {
-        return 'username';
-    }
+    // public function getAuthIdentifierName()
+    // {
+    //     // return 'username';
+    //     // return 'name';
+
+    //     return 'email';
+    // }
 
     public function profile()
     {
@@ -78,7 +81,8 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        // return $this->hasMany(Favorite::class);
+        return $this->hasMany(Post::class, 'favorites', 'user_id', 'post_id');
     }
 
     public function browsingHistories()
@@ -95,4 +99,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(DirectMessage::class, 'to_id');
     }
+
+
 }
