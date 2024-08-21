@@ -27,36 +27,36 @@
                         <h3 class="m-0">{{ $post->title }}</h3>
 
                         <div class="d-flex justify-content-end align-items-center">
-                            <div>
+                            <div class="mt-3">
                                 @if (Auth::check())
-                                    @if ($post->isFavorited())
-                                        <form action="{{ route('favorite.destroy', $post->id) }}" method="post"
+                                    @if ($post->isFavorited(Auth::user()))
+                                        <form action="{{ route('favorites.destroy', $post->id) }}" method="post"
                                             class="">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="border-0 bg-transparent">
-                                                <i class="fa-solid fa-star text-warning fa-2x"></i>
+                                                <i class="fa-solid fa-star fa-star-post text-warning fa-2x"></i>
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('favorite.store', $post->id) }}" method="post">
+                                        <form action="{{ route('favorites.store', ['post_id' => $post->id]) }}" method="post">
                                             @csrf
                                             <button type="submit" class="border-0 bg-transparent">
-                                                <i class="fa-regular fa-star fa-2x"></i>
+                                                <i class="fa-regular fa-star fa-star-post fa-2x"></i>
                                             </button>
                                         </form>
                                     @endif
                                 @else
-                                    <!-- ユーザーがログインしていない場合 -->
+                                    
                                     <button class="border-0 bg-transparent" onclick="alert('Please Login');">
-                                        <i class="fa-regular fa-star fa-2x"></i>
+                                        <i class="fa-regular fa-star fa-star-post fa-2x"></i>
                                     </button>
                                 @endif
                             </div>
                             <div>
                                 {{-- @if (Auth::user()->id === $post->user->id) --}}
-                                <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
-                                    <i class="fa-solid fa-pen fa-2x fa-pen-post"></i>
+                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}" class="text-decoration-none text-dark">
+                                    <i class="fa-solid fa-pen fa-pen-post"></i>
 
                                 </a>
                                 {{-- @endif --}}
