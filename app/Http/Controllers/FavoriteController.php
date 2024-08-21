@@ -17,22 +17,24 @@ class FavoriteController extends Controller
         $this->favorites = $favorites;
     }
 
-    public function index($user_id)
+    public function index()
     {
-        $user2 = User::find(2); // IDが2のユーザーを取得
-        $posts = $user2->favorites()->get();
+        $user = Auth::user(); 
+        $posts = $user->favorites()->get();
         // return view('favorites.index')
         //     ->with('user_id', $user_id);
-        return view('favorites.index', compact('posts', 'user_id'));
+        return view('favorites.index')
+        ->with('posts',$posts);
+    
 
     }
 
     public function store(Request $request, $post_id)
 {
-    $user2 = User::find(2); // IDが2のユーザーを取得
+    $user = Auth::user(); 
 
-        // お気に入りに登録
-        $user2->favorites()->attach($post_id);
+      
+    $user->favorites()->attach($post_id);
 
         return redirect()->back();
 }
