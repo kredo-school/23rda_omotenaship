@@ -11,7 +11,7 @@
                 {{-- heading --}}
                 <h2 class="heading-kurenai col-3"><span>Edit Post</span></h2>
 
-                <form action="#" method="post" enctype="multipart/form-data">
+                <form action="{{ route('posts.update',$post->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -79,7 +79,7 @@
                                 <p>No image</p>
                             @endif
 
-                            <input type="file" name="images[]" id="images" class="form-control mt-1"
+                            <input type="file" name="image" id="image" class="form-control mt-1"
                                 aria-describedby="image-info">
                             <div class="form-text" id="image-info">
                                 <p class="mb-0">The acceptable formats are jpeg, jpg, png and gif only.</p>

@@ -46,10 +46,13 @@ class User extends Authenticatable
         ];
     }
 
-    public function getAuthIdentifierName()
-    {
-        return 'username';
-    }
+    // public function getAuthIdentifierName()
+    // {
+    //     // return 'username';
+    //     // return 'name';
+
+    //     return 'email';
+    // }
 
     public function profile()
     {
