@@ -1,5 +1,5 @@
 {{-- delete-NG Word-modal --}}
-<div class="modal fade" id="deleteNGWordModal" aria-labelledby="delete-ngword-modal">
+<div class="modal fade" id="deleteNGWordModal-{{ $ng_word->id }}" aria-labelledby="delete-ngword-modal">
     <div class="modal-dialog modal-sm">
         <form action="{{ route('admin.ngwords.destroy', $ng_word->id) }}" method="post">
             @csrf
@@ -13,7 +13,7 @@
                     <i class="fa-solid fa-triangle-exclamation icon-delete-user"></i>
                     <div>
                         <p class="admin-modal-text mt-2">
-                            Are you sure you want to delete ?
+                            Are you sure you want to delete "{{ $ng_word->word }}"?
                         </p>
                     </div>
                 </div>
@@ -25,3 +25,4 @@
         </form>
     </div>
 </div>
+
