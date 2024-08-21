@@ -11,7 +11,7 @@
                 {{-- heading --}}
                 <h2 class="heading-kurenai col-3"><span>Edit Post</span></h2>
 
-                <form action="{{ route('posts.update',$post->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('posts.update', $post->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PATCH')
 
@@ -108,7 +108,7 @@
                             <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
                             <br>
                             <input type="date" id="Date of visit" name="visit_date" class="rounded-2"
-                            value="{{ old('visit_date',$post->visit_date) }}">
+                                value="{{ old('visit_date', $post->visit_date) }}">
                             <!-- Error -->
                             @error('visit_date')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -163,7 +163,7 @@
                                         <span>Start</span>
                                     </label>
                                     <input type="date" class="rounded-2" id="start_date" name="start_date"
-                                    value="{{ old('start_date', $post->start_date) }}">
+                                        value="{{ old('start_date', $post->start_date) }}">
                                     <!-- Error -->
                                     @error('start_date')
                                         <div class="text-danger small">{{ $message }}</div>
@@ -175,7 +175,7 @@
                                         <span> End </span>
                                     </label>
                                     <input type="date" class="rounded-2" id="end_date" name="end_date"
-                                    value="{{ old('end_date', $post->end_date) }}">
+                                        value="{{ old('end_date', $post->end_date) }}">
                                     <!-- Error -->
                                     @error('end_date')
                                         <div class="text-danger small">{{ $message }}</div>
@@ -185,24 +185,26 @@
                         </div>
                     </div>
 
-                    {{-- Button --}}
+                    {{-- save Button --}}
                     <div class="row">
                         <div class="mb-4 col-6 mx-auto d-grid gap-2">
                             <button type="submit" class="btn btn-kurenai-pf btn-lg p-1 mb-2" id="post-button">
                                 {{-- class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover" --}}
                                 Save
                             </button>
-                            {{-- Delete post --}}
-                            {{-- <button type="button" class="btn btn-white-pf btn-lg p-1" data-bs-toggle="components" data-bs-target="#delete-post-modal-{{ $post->id }}"> --}}
-                                <a href="{{ route('posts.delete-post-modal', $post->id) }}" class="btn btn-white-pf btn-lg p-1">
+                            {{-- Delete Button --}}
+                            <button type="button" class="btn btn-white-pf btn-lg p-1" data-bs-toggle="modal"
+                                data-bs-target="#delete-post-modal-{{ $post->id }}">
                                 Delete
-                            </a>
-                            {{-- </button> --}}
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    {{-- include delete modal  --}}
+    @include('components.delete-post-modal')
+    {{-- include footer --}}
     @include('components.footer')
 @endsection

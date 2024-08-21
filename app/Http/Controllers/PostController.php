@@ -154,8 +154,6 @@ class PostController extends Controller
         $post->save();
 
         // image
-
-
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -187,17 +185,12 @@ class PostController extends Controller
         return redirect()->route('posts.show', $id);
     }
 
-    public function showDeletePostModal($id)
-    {
-        $post = $this->post->findOrFail($id);
-        return view('posts.delete-post-modal')->with('post',$post);
-    }
 
     public function destroy($id)
     {
         $this->post->destroy($id);
 
-        return redirect()->route('posts.index');
+        return redirect()->route('index');
     }
 
 

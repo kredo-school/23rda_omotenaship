@@ -3,6 +3,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                    {{-- <form action="{{ url('/posts/'.$post->id.'/destroy') }}" method="post"> --}}
                     @csrf
                     @method('DELETE')
 
@@ -10,8 +11,15 @@
                         <h5 class="modal-title account-modal-title">Delete Post</h5>
                     </div>
                     <div class="modal-body text-center">
-                        <img src="{{ asset('images/sample3.jpg') }}" class="mx-auto admin-img">
-                        <h5 class="mt-3">Title</h5>
+                        @if ($post->images->isNotEmpty())
+                            @foreach ($post->images as $image)
+                                <img src="{{ $image->image }}" class="posts-show-image w-100"
+                                    alt="{{ $image->post_id }}">
+                            @endforeach
+                        @else
+                            <p>No image available</p>
+                        @endif
+                        <h5 class="mt-3">{{ $post->title }}</h5>
 
                         <i class="fa-solid fa-triangle-exclamation icon-delete-account"></i>
                         <div>
@@ -22,10 +30,10 @@
                     </div>
                     <div class="modal-footer account-boder d-flex justify-content-center">
                         <button type="button" class="btn border cancel-account-border"
-                            data-dismiss="modal">Cancel</button>
+                            data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn account-btn">Delete</button>
                     </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
