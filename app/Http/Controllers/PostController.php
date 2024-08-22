@@ -154,8 +154,6 @@ class PostController extends Controller
         $post->save();
 
         // image
-
-
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -181,10 +179,18 @@ class PostController extends Controller
                 'category_id' => $category_id
             ];
         }
-        
+
         $post->postCategories()->createMany($post_categories);
 
         return redirect()->route('posts.show', $id);
+    }
+
+
+    public function destroy($id)
+    {
+        $this->post->destroy($id);
+
+        return redirect()->route('index');
     }
 
 

@@ -55,6 +55,7 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
     Route::get('/{id}/show', [PostController::class, 'show'])->name('show');
     Route::post('/store', [PostController::class, 'store'])->name('store');
+    Route::delete('/{id}/destroy', [PostController::class, 'destroy'])->name('destroy');
     Route::patch('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
