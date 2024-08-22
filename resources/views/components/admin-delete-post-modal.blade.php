@@ -1,5 +1,5 @@
     {{-- Admin delete-post-modal --}}
-    <div class="modal fade" id="deletePostModal" aria-labelledby="delete-post-modal">
+    <div class="modal fade" id="deletePostModal-{{ $post->id }}" aria-labelledby="delete-post-modal">
         <div class="modal-dialog modal-sm">
             <form action="{{ route('admin.posts.destroy', $post->id) }}" method="post">
                 @csrf
@@ -10,8 +10,8 @@
                         <h5 class="modal-title">Delete Post</h5>
                     </div>
                     <div class="modal-body text-center">
-                        <img src="{{ $post->id }}" class="mx-auto admin-img">
-                        <h5 class="mt-3">Title</h5>
+                        <img src="{{ $post->images->first()->image }}" class="mx-auto admin-img">
+                        <h5 class="mt-3">{{ $post->title }}</h5>
 
                         <i class="fa-solid fa-triangle-exclamation icon-delete-user"></i>
                         <div>

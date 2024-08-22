@@ -30,12 +30,12 @@
                         @foreach ($all_posts as $post)
                             <tr>
                                 <td>
-                                    <a href="{{ route('admin.posts.index', $post->user->id) }}">
-                                    @if ($post->images->isNotEmpty())
-                                    <img src="{{ $post->images->first()->image }}" alt="{{ $post->id }}">
-                                    @else
-                                        <i class="fa-solid fa-circle-user icon-sm"></i>
-                                    @endif
+                                    <a href="{{ route('admin.posts.show', $post->id) }}">
+                                        @if ($post->images->isNotEmpty())
+                                            <img src="{{ $post->images->first()->image }}" alt="{{ $post->id }}" class="admin-post-image">
+                                        @else
+                                            <i class="fa-solid fa-circle-user icon-sm"></i>
+                                        @endif
                                     </a>
                                 </td>
                                 <td>{{ $post->user->name }}</td>
@@ -44,20 +44,14 @@
                                 <td>{{ $post->created_at }}</td>
                                 <td>{{ $post->updated_at }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-
-                                        <div class="dropdown-menu text-center">
-                                            <button class="dropdown-list" data-bs-toggle="modal"
-                                                data-bs-target="#deletePostModal">
-                                                Delete Post
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <button class="btn" data-bs-toggle="modal"
+                                        data-bs-target="#deletePostModal-{{ $post->id }}">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
                                 </td>
                             </tr>
+                            <!-- Include the modal here-->
+                            @include('components.admin-delete-post-modal')
                         @endforeach
                     </tbody>
                 </table>
@@ -70,8 +64,4 @@
 
     <!-- Include the modal here-->
     @include('components.footer')
-
-    <!-- Include the modal here-->
-    @include('components.admin-delete-post-modal')
 @endsection
-

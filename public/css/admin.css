@@ -70,3 +70,9 @@
 .delete-border {
     border-color: #202F55;
 }
+
+/* admin post.index page image size */
+.admin-post-image {
+    height: 100px;
+    width: 300px;
+}
