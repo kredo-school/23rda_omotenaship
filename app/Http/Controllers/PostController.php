@@ -197,7 +197,7 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = $this->post->findOrFail($id);
+        $post = $this->post->with('comments.user')->findOrFail($id);
         return view('posts.show')->with('post', $post);
     }
 
