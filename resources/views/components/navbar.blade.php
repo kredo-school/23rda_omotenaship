@@ -50,7 +50,7 @@
 
                             <button type="submit" class="nav-link">
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                            </a>
+                                </a>
                         </form>
                     </li>
                 </ul>
@@ -67,10 +67,14 @@
                 <h1>Omotenaship</h1>
 
                 <ul class="navbar-nav ms-auto mb-4 mb-lg-0">
-                    <form action="#" class="search me-20 pt-3">
-                        <input type="search" name="search" id="search" class="form-control" placeholder="search">
-                    </form>
-
+                    {{-- Serch bar  --}}
+                    
+                        @if (!request()->is('admin/*'))
+                            <form action="{{ route('posts.search') }}" class="search me-20 pt-3">
+                                <input type="search" name="search" id="search" class="form-control" placeholder="search">
+                            </form>
+                        @endif
+                    
                     {{-- Create Post --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('posts.create') }}">
