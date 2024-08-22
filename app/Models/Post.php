@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
@@ -30,7 +31,7 @@ class Post extends Model
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(User::class,'favorites');
     }
 
     public function browsingHistories()
@@ -56,6 +57,11 @@ class Post extends Model
     public function postCategories()
     {
         return $this->hasMany(PostCategory::class);
+    }
+
+    public function isFavorited(User $user)
+    {
+        return $this->favorites()->where('user_id', $user->id)->exists();
     }
 
 }

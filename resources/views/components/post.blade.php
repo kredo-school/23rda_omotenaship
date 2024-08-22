@@ -1,4 +1,6 @@
 <div class="card components-post">
+    {{-- Image --}}
+    <a href="{{ route('posts.show',['id' => $post->id]) }}">
     @if ($post->images->isNotEmpty())
         @foreach ($post->images as $image)
             <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top">
@@ -6,15 +8,8 @@
     @else
         <p>No image available</p>
     @endif
+</a>
 
-    {{-- Favorites Button --}}
-    {{-- <form action="{{ route('favorites.store') }}" method="POST">
-        @csrf --}}
-        {{-- <input type="hidden" name="user_id" value=2>
-        <input type="hidden" name="post_id" value=1> --}}
-        {{-- <button type="submit" class="border-0 bg-transparent">
-            <i class="fa-solid fa-star  star-icon"></i>
-        </button> --}}
     </form>
     <div class="card-body">
         <div class="row">
@@ -29,7 +24,7 @@
                 <p>{{ $post->user->name }}</p>
             </div>
             <div class="col-2 pt-4 text-end">
-                <i class="fa-solid fa-heart text-danger"></i>
+                <i class="fa-solid fa-heart text-danger fa-2x"></i>
             </div>
         </div>
     </div>
