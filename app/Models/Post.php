@@ -31,7 +31,7 @@ class Post extends Model
 
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(User::class,'favorites');
     }
 
     public function browsingHistories()
@@ -59,16 +59,9 @@ class Post extends Model
         return $this->hasMany(PostCategory::class);
     }
 
-    public function isFavorited()
+    public function isFavorited(User $user)
     {
-        $user = Auth::user();
-
-        if (!$user) {
-            return false;
-        }
-
-
-        return $user->favorites()->where('post_id', $this->id)->exists();
+        return $this->favorites()->where('user_id', $user->id)->exists();
     }
 
 }
