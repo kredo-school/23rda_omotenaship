@@ -63,7 +63,8 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
-    Route::post('/store', [FavoriteController::class, 'store'])->name('store');
+    Route::post('/{post_id}',[FavoriteController::class, 'store'])->name('store');
+    Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])->name('destroy');
 });
 
 //comments

@@ -10,28 +10,28 @@ class CommentController extends Controller
 {
     private $comment;
 
-    public function __construct(Comment $comment)
+    public function __construct()
     {
-        $this->comment = $comment;
+        $this->comment = new Comment();
     }
 
     public function store(Request $request, $post_id)
     {
         $request->validate(
             [
-                'comment' . $post_id => 'required|max:150'
+                'comment' => 'required|max:150'
             ],
             [
-                'comment' . $post_id . '.required' => 'You cannot submit an empty comment.',
-                'comment' . $post_id . '.max' => 'The comment must not have more than 150 characters.'
+                'comment.required' => 'You cannot submit an empty comment.',
+                'comment.max' => 'The comment must not have more than 150 characters.'
             ]
         );
 
-        $commentContent = $request->input('comment' . $post_id);
+        $commentContent = $request->input('comment');
 
-        $this->comment = $commentContent;
-        $this->comment = $post_id;
-        // $this->comment->user_id = Auth::id();
+        $this->comment->comment = $commentContent;
+        $this->comment->post_id = $post_id;
+        $this->comment->user_id = Auth::id();
 
         $this->comment->save();
 
