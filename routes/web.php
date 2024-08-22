@@ -113,6 +113,7 @@ Route::group(['middleware' => 'admin'], function () {
             ->name('index');
         Route::post('/', [AdminNgwordController::class, 'store'])
             ->name('store');
-        Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
+        Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])
+            ->name('destroy');
     });
 });
