@@ -28,10 +28,22 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // return redirect()->intended(route('dashboard', absolute: false));
+        // Redirect depending on its role
         return redirect()
-            ->route('index');
+            ->intended($this->redirectTo());
     }
+
+    protected function redirectTo()
+    {
+        $user = Auth::user();
+
+        if ($user->role_id === 1) {
+            return '/admin/users/';
+        } elseif ($user->role_id === 2) {
+            return '/';
+        }
+    }
+
 
     /**
      * Destroy an authenticated session.
