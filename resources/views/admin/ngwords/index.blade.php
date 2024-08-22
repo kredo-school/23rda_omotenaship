@@ -8,6 +8,8 @@
 
     <div class="container mt-5">
         <div class="row">
+
+            <!-- Include the sidebar here-->
             @include('components.admin-sidebar')
 
             <div class="col-9">
@@ -28,6 +30,7 @@
                     </div>
                 </form>
 
+                {{-- NG Word Table --}}
                 <table class="table table-hover align-middle border text-center">
                     <thead>
                         <tr class="admin-table-header">
@@ -45,21 +48,14 @@
                                 <td>{{ $ng_word->word }}</td>
                                 <td>{{ $ng_word->created_at }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-
-                                        <div class="dropdown-menu text-center">
-                                            <button class="dropdown-list" data-bs-toggle="modal"
-                                                data-bs-target="#deleteNGWordModal">
-                                                Delete NG Word
-                                            </button>
-                                        </div>
-                                    </div>   
+                                    <button class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteNGWordModal-{{ $ng_word->id }}">
+                                    <i class="fa-solid fa-trash-can"></i>                                   
+                                    </button>
                                 </td>
                             </tr>
-
+                            <!-- Include the modal here-->
+                            @include('components.delete-ngword-modal')
                         @empty
                             <tr>
                                 <p>No NG words found.</p>
@@ -67,19 +63,16 @@
                         @endforelse
                     </tbody>
                 </table>
-                <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
+
+                {{-- pagination --}}
+                <div class="d-flex justify-content-center">
+                    {{ $all_ngwords->links() }}
+                </div>
             </div>
         </div>
     </div>
 
-            <!-- Include the modal here-->
-            @include('components.footer')
-
-            <!-- Include the modal here-->
-            @include('components.delete-ngword-modal')
+    <!-- Include the footer here-->
+    @include('components.footer')
 
 @endsection
