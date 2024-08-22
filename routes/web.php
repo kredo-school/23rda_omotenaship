@@ -39,6 +39,7 @@ Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
 //comments
 Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
     Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
+    Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
 });
 
 // profiles
