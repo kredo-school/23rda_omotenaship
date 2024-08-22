@@ -54,8 +54,8 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
     Route::get('/{user_id}', [BrowsingHistoryController::class, 'index'])->name('index');
 });
 
-// Admin Pages
-// Route::group(['middleware' => 'admin'], function () {
+// Admin Pages (Login ad admin is needed to access)
+Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => '/admin/users', 'as' => 'admin.users.'], function () {
         Route::get('/', [AdminUserController::class, 'index'])->name('index');
         Route::delete('/{id}', [AdminUserController::class, 'destroy'])->name('destroy');
@@ -72,4 +72,4 @@ Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], fun
         Route::post('/', [AdminNgwordController::class, 'store'])->name('store');
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])->name('destroy');
     });
-// });
+});
