@@ -216,15 +216,4 @@ class PostController extends Controller
 
         return $data_uri;
     }
-
-    public function showCalendar(Request $request)
-    {
-        $date = $request->input('date', now()->format('Y-m-d'));
-
-        $posts = Post::whereDate('start_date', '<=', $date)
-                 ->whereDate('end_date', '>=', $date)
-                 ->paginate(4);
-
-        return view('posts.calendar')->with('posts', $posts);
-    }
 }
