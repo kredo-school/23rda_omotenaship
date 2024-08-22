@@ -194,6 +194,12 @@ class PostController extends Controller
     {
         return view('posts.event-near-you');
     }
+// Serch Bar
+    public function serch(Request $request) {
+       $posts = $this->post->where('title','like','%'.$request->search.'%')->get();
+      return view('posts.serch')->with('posts',$posts)->with('search',$request->search);
+
+    }
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
