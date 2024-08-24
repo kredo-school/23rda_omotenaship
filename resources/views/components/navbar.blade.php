@@ -26,6 +26,8 @@
                 @if (!Auth::check() || Auth::user()->role_id !== 1)
                     {{-- Search bar --}}
                     <form action="{{ route('posts.index') }}" method="get" class="search me-20 pt-3">
+
+                        {{-- <input type="search" name="search" value="{{ old('search',$search) }}" id="search" class="form-control" placeholder="search"> --}}
                         <input type="search" name="search" value="{{ isset($search) ? old('search',$search) : ''}}" id="search" class="form-control" placeholder="search">
                     </form>
 
