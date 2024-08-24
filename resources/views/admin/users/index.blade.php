@@ -54,20 +54,16 @@
                                 <td>{{ $profile->created_at }}</td>
                                 <td>{{ $profile->updated_at }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-
-                                        <div class="dropdown-menu text-center">
-                                            <button class="dropdown-list" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal">
-                                                Delete User
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <button class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteUserModal-{{ $profile->user->id }}">
+                                    <i class="fa-solid fa-trash-can"></i>                                   
+                                    </button>
                                 </td>
                             </tr>
+
+                            <!-- Include the modal here-->
+                            @include('components.delete-user-modal')
+
                         @endforeach
                     </tbody>
                 </table>
@@ -81,7 +77,5 @@
 
     <!-- Include the modal here-->
     @include('components.footer')
-
-    <!-- Include the modal here-->
-    @include('components.delete-user-modal')
 @endsection
+

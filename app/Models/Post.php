@@ -21,12 +21,16 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'post_id');
     }
 
     public function likes()
     {
         return $this->hasMany(Like::class);
+    }
+
+    public function isLiked(){
+        return $this->likes()->where('user_id', Auth::user()->id)->exists();
     }
 
     public function favorites()
