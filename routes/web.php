@@ -16,10 +16,12 @@ use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
 
 // posts (every user is able to see)
+
+// Top page
+Route::get('/', [PostController::class, 'index'])
+    ->name('posts.index');
+
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
-    // Top page
-    Route::get('/', [PostController::class, 'index'])
-        ->name('index');
     Route::get('/{id}/show', [PostController::class, 'show'])
         ->name('show');
 });
@@ -45,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Favorites
     Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
-        Route::get('/{user_id}', [FavoriteController::class, 'index'])
+        Route::get('/', [FavoriteController::class, 'index'])
             ->name('index');
         Route::post('/{post_id}', [FavoriteController::class, 'store'])
             ->name('store');
@@ -58,6 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
         Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
     });
+
     //comments
     Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
         Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
@@ -85,7 +88,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Browsing Histories
     Route::group(['prefix' => '/browsing-history', 'as' => 'browsing-history.'], function () {
-        Route::get('/{user_id}', [BrowsingHistoryController::class, 'index'])
+        Route::get('/', [BrowsingHistoryController::class, 'index'])
             ->name('index');
     });
 });
