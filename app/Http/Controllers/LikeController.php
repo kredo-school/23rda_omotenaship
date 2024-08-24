@@ -18,6 +18,10 @@ class LikeController extends Controller
     # store()/like
     public function store($post_id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+
         $this->like->user_id = Auth::user()->id;
 
         $this->like->post_id = $post_id;
@@ -30,9 +34,12 @@ class LikeController extends Controller
     # destroy()/unlike
     public function destroy($post_id)
     {
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         $this->like->where('user_id', Auth::user()->id)
-        ->where('post_id', $post_id)
-        ->delete();
+            ->where('post_id', $post_id)
+            ->delete();
         #DELETE FROM likes WHERE user_id = Auth::user()->id AND post_id = $post_id;
         return redirect()->back();
     }

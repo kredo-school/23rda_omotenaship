@@ -30,6 +30,9 @@ class Post extends Model
     }
 
     public function isLiked(){
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
         return $this->likes()->where('user_id', Auth::user()->id)->exists();
     }
 
