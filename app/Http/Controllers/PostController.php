@@ -183,7 +183,7 @@ class PostController extends Controller
     }
 
 
-
+    //comments
     public function show($id)
     {
         $post = $this->post->with('comments.user')->findOrFail($id);
