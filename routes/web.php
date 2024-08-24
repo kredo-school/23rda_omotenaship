@@ -72,8 +72,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('show');
         Route::get('/edit', [ProfileController::class, 'edit'])
             ->name('edit');
-        // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
-        //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
+        Route::patch('/update', [ProfileController::class, 'update'])
+            ->name('update');
     });
 
     // Direct Messages

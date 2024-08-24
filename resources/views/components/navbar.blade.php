@@ -105,7 +105,7 @@
 
                     {{-- Profile --}}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{ route('profiles.show') }}">
                             <i class="fa-solid fa-circle-user"></i>
                         </a>
                     </li>
