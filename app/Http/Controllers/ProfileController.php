@@ -22,33 +22,75 @@ class ProfileController extends Controller
         $this->post = $post;
     }
 
+    // Show
     public function show()
     {
-        $profile = $this->profile->
-        where('user_id', 2)->first();
+        $profile = Auth::user()->profile;
+
         // dd($profile);
         // $profile = Auth::user()->profile;  ←Auth
+        // $profile = $this->profile->where('user_id', 2)->first();
 
-        $posts = $profile->user->posts()->paginate(2);
+        $posts = $profile->user->posts()->paginate(4);
 
         return view('profiles.show')
             ->with('profile', $profile)
             ->with('posts', $posts);
     }
 
+    // Edit
     public function edit()
     {
-        $profile = $this->profile->
-        where('user_id', 2)->first();
+        $profile = Auth::user()->profile;
+        // $profile = $this->profile->where('user_id', 2)->first();
         // dd($profile);
         return view('profiles.edit')
             ->with('profile', $profile);
     }
-
     // public function edit()
     // {
     //     return view('profiles.edit')
     //         ->with('user_id');
     // }
 
+    // Update
+    public function update(Request $request)
+    {
+        // dd(1);
+
+        $request->validate([
+            'first_name' => 'required|max:50',
+            'avatar' => 'mimes:jpeg,jpg,gif,png|max:1048',
+        ]);
+        // dd(1);
+
+        $profile = $this->profile->findOrFail(Auth::user()->id);
+        $profile->first_name = $request->first_name;
+        $profile->last_name = $request->last_name;
+        $profile->middle_name = $request->middle_name;
+        $profile->introduction = $request->introduction;
+
+        // avatar
+        if ($request->avatar) {
+            $img_obj = $request->avatar;
+            $data_uri = $this->generateDataUri($img_obj);
+
+            $profile->avatar = $data_uri;
+        }
+        $profile->save();
+
+        return redirect()->route('profiles.show');
+    }
+    
+    // ==== Private Functions ====
+    private function generateDataUri($img_obj)
+    {
+        $img_extension = $img_obj->extension();
+        $img_contents = file_get_contents($img_obj);
+        $base64_img = base64_encode($img_contents);
+
+        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+
+        return $data_uri;
+    }
 }

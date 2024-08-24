@@ -55,16 +55,16 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('destroy');
     });
 
-//likes
-Route::group(['prefix' => 'likes', 'as' => 'likes.'], function() {
-    Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
-    Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
-});
-//comments
-Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
-    Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
-    Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
-});
+    //likes
+    Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
+        Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
+        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
+    });
+    //comments
+    Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
+        Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
+        Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
+    });
 
     // Profiles
     Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
@@ -73,8 +73,8 @@ Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
             ->name('show');
         Route::get('/edit', [ProfileController::class, 'edit'])
             ->name('edit');
-        // Route::get('/{id}/edit', [ProfileController::class, 'edit'])
-        //     ->name('edit'); ←Editリンクテストのため一時的に/{id}/を除く？
+        Route::patch('/update', [ProfileController::class, 'update'])
+            ->name('update');
     });
 
     // Direct Messages
