@@ -32,21 +32,10 @@ class PostController extends Controller
     public function index()
     // public function index(Request $request)
     {
-        $auth_user = session('auth_user');
-        Log::info('Check the value of $auth_user on PostController:', ['auth_user' => $auth_user]);
-
         $posts = $this->post->paginate(4);
-
-        // dd($request);
-        // $auth_user = $request->session()->get('auth_user');
-        // dd($auth_user);
 
         return view('posts.index')
             ->with('posts', $posts);
-
-        // return view('posts.index')
-        //     ->with('posts', $posts)
-        //     ->with('auth_user', $auth_user);
     }
 
     // create post
