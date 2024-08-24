@@ -21,7 +21,7 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'post_id');
     }
 
     public function likes()
@@ -29,9 +29,16 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function isLiked(){
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        return $this->likes()->where('user_id', Auth::user()->id)->exists();
+    }
+
     public function favorites()
     {
-        return $this->hasMany(Favorite::class);
+        return $this->belongsToMany(User::class,'favorites');
     }
 
     public function browsingHistories()
@@ -59,16 +66,9 @@ class Post extends Model
         return $this->hasMany(PostCategory::class);
     }
 
-    public function isFavorited()
+    public function isFavorited(User $user)
     {
-        $user = Auth::user();
-
-        if (!$user) {
-            return false;
-        }
-
-
-        return $user->favorites()->where('post_id', $this->id)->exists();
+        return $this->favorites()->where('user_id', $user->id)->exists();
     }
 
 }

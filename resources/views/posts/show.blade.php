@@ -21,42 +21,65 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-auto">
+                        @if ($post->isLiked())
+                            <form action="{{ route('likes.destroy',['post_id' => $post->id]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm p-0">
+                                    <i class="fa-solid fa-heart text-danger"></i>
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('likes.store',['post_id' => $post->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-sm shadow-none p-0">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+                            </form>
+                        @endif
+                    
+                    </div>
+                    <div class="col-auto px-0">
+                        <span>{{ $post->likes->count() }}</span>
+                    </div>
 
                     <div class="col d-flex justify-content-between">
                         {{-- title and icon --}}
                         <h3 class="m-0">{{ $post->title }}</h3>
 
                         <div class="d-flex justify-content-end align-items-center">
-                            <div>
+                            <div class="mt-3">
                                 @if (Auth::check())
-                                    @if ($post->isFavorited())
-                                        <form action="{{ route('favorite.destroy', $post->id) }}" method="post"
+                                    @if ($post->isFavorited(Auth::user()))
+                                        <form action="{{ route('favorites.destroy', $post->id) }}" method="post"
                                             class="">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="border-0 bg-transparent">
-                                                <i class="fa-solid fa-star text-warning fa-2x"></i>
+                                                <i class="fa-solid fa-star fa-star-post text-warning fa-2x"></i>
                                             </button>
                                         </form>
                                     @else
-                                        <form action="{{ route('favorite.store', $post->id) }}" method="post">
+                                        <form action="{{ route('favorites.store', ['post_id' => $post->id]) }}"
+                                            method="post">
                                             @csrf
                                             <button type="submit" class="border-0 bg-transparent">
-                                                <i class="fa-regular fa-star fa-2x"></i>
+                                                <i class="fa-regular fa-star fa-star-post fa-2x"></i>
                                             </button>
                                         </form>
                                     @endif
                                 @else
-                                    <!-- ユーザーがログインしていない場合 -->
                                     <button class="border-0 bg-transparent" onclick="alert('Please Login');">
-                                        <i class="fa-regular fa-star fa-2x"></i>
+                                        <i class="fa-regular fa-star fa-star-post fa-2x"></i>
                                     </button>
                                 @endif
                             </div>
                             <div>
                                 {{-- @if (Auth::user()->id === $post->user->id) --}}
-                                <a href="{{ route('posts.edit') }}" class="text-decoration-none text-dark">
-                                    <i class="fa-solid fa-pen fa-2x fa-pen-post"></i>
+                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
+                                    class="text-decoration-none text-dark">
+                                    <i class="fa-solid fa-pen fa-pen-post"></i>
 
                                 </a>
                                 {{-- @endif --}}
@@ -108,24 +131,52 @@
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
-                        <form action="#" method="post">
+                        <form action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="post">
                             @csrf
                             <div class="input-group mb-3">
-                                <textarea name="comment_body" rows="1" class="form-control form-control-sm" placeholder="Add a comment...">{{ old('comment_body') }}</textarea>
+                                <textarea name="comment" id="{{ $post->id }}" rows="1"
+                                    class="form-control form-control-sm" placeholder="{{ __('Add a comment...') }}">{{ old('comment') }}</textarea>
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
                             </div>
+                            <!-- Error -->
+                            @error('comment')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </form>
+
                     </div>
                 </div>
                 {{-- show comments --}}
                 <div class="row">
                     <div class="col">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="fa-solid fa-circle-user text-secondary icon-sm me-2"></i>
-                            <a href="#" class="text-decoration-none text-dark me-auto mt-0 pt-0">Mary Watson</a>
-                            <p class="show-date">2024-06-10</p>
-                        </div>
-                        <p>beautiful place</p>
+                        @if ($post->comments->isNotEmpty())
+                            <ul class="list-group mt-2">
+                                @foreach ($post->comments as $comment)
+                                    <li class="list-group-item border-0 p-0 mb-2">
+                                        <a href="#"
+                                            class="text-decoration-none text-dark fw-bold">
+                                            {{ $comment->user->name }}
+                                        </a>
+                                        &nbsp;
+                                        <p class="d-inline fw-light">{{ $comment->comment }}</p>
+
+                                        <form action="{{ route('comments.destroy', $comment->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <span
+                                            class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
+
+                                            @if (Auth::user()->id === $comment->user->id)
+                                            &middot; 
+                                            <!-- middle dot -->
+                                             <button type="submit" class="border-0 bg-transparent text-danger p-0 xsmall"><i class="fa-solid fa-trash-can text-kurenai"></i></button>
+                                         @endif
+                                        </form>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>

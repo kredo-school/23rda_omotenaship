@@ -32,21 +32,10 @@ class PostController extends Controller
     public function index()
     // public function index(Request $request)
     {
-        $auth_user = session('auth_user');
-        Log::info('Check the value of $auth_user on PostController:', ['auth_user' => $auth_user]);
-
         $posts = $this->post->paginate(4);
-
-        // dd($request);
-        // $auth_user = $request->session()->get('auth_user');
-        // dd($auth_user);
 
         return view('posts.index')
             ->with('posts', $posts);
-
-        // return view('posts.index')
-        //     ->with('posts', $posts)
-        //     ->with('auth_user', $auth_user);
     }
 
     // create post
@@ -154,8 +143,6 @@ class PostController extends Controller
         $post->save();
 
         // image
-
-
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -181,17 +168,25 @@ class PostController extends Controller
                 'category_id' => $category_id
             ];
         }
-        
+
         $post->postCategories()->createMany($post_categories);
 
         return redirect()->route('posts.show', $id);
     }
 
 
+    public function destroy($id)
+    {
+        $this->post->destroy($id);
 
+        return redirect()->route('index');
+    }
+
+
+    //comments
     public function show($id)
     {
-        $post = $this->post->findOrFail($id);
+        $post = $this->post->with('comments.user')->findOrFail($id);
         return view('posts.show')->with('post', $post);
     }
 

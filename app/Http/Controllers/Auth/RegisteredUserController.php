@@ -45,8 +45,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        // return redirect(route('dashboard', absolute: false));
-        return redirect()
-            ->route('index');
+        $user_logged_in = User::findOrFail(Auth::user()->id);
+
+        if ($user_logged_in->role_id === 1) {
+            return redirect('/admin/users/');
+        } elseif ($user_logged_in->role_id === 2) {
+            return redirect('/posts');
+        }
     }
 }

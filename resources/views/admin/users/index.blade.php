@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('title', 'Adimin Users')
 
 @section('content')
     <!-- Include the modal here-->
@@ -8,18 +8,11 @@
 
     <div class="container mt-5">
         <div class="row">
-            <div class="col-3">
-                <div class="list-group  admin-list-group">
-                    <h6>Admin page</h6>
-                    <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-users"></i> Users</a>
-                    <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-pen-to-square"></i>
-                        Posts</a>
-                    <a class="text-decoration-none text-dark" href="#"><i class="fa-solid fa-square-xmark"></i> NG
-                        words</a>
-                </div>
-            </div>
+            
+            <!-- Include the sidebar here-->
+            @include('components.admin-sidebar')
 
-            <div class="col-8">
+            <div class="col-md-9">
                 <table class="table table-hover align-middle border text-center">
                     <thead>
                         <tr class="admin-table-header">
@@ -40,8 +33,8 @@
                             <tr>
                                 <td>
                                     @if ($profile && $profile->avatar)
-                                        <img src="{{ $profile->avatar }}" alt="#"
-                                            class="rounded-circle d-block avatar-md">
+                                        <img src="{{ $profile->avatar }}" alt="profile-avatar"
+                                            class="rounded-circle d-block avatar-md admin-profile-avatar">
                                     @else
                                         <i class="fa-solid fa-circle-user icon-sm"></i>
                                     @endif
@@ -54,24 +47,20 @@
                                 <td>{{ $profile->created_at }}</td>
                                 <td>{{ $profile->updated_at }}</td>
                                 <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-
-                                        <div class="dropdown-menu text-center">
-                                            <button class="dropdown-list" data-bs-toggle="modal"
-                                                data-bs-target="#deleteUserModal">
-                                                Delete User
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <button class="btn" data-bs-toggle="modal"
+                                    data-bs-target="#deleteUserModal-{{ $profile->user->id }}">
+                                    <i class="fa-solid fa-trash-can"></i>                                   
+                                    </button>
                                 </td>
                             </tr>
+
+                            <!-- Include the modal here-->
+                            @include('components.delete-user-modal')
+
                         @endforeach
                     </tbody>
                 </table>
-
+                {{-- pagination --}}
                 <div class="d-flex justify-content-center">
                     {{ $all_profiles->links() }}
                 </div>
@@ -81,7 +70,5 @@
 
     <!-- Include the modal here-->
     @include('components.footer')
-
-    <!-- Include the modal here-->
-    @include('components.delete-user-modal')
 @endsection
+

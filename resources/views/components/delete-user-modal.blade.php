@@ -1,5 +1,5 @@
 {{-- delete-modal --}}
-<div class="modal fade" id="deleteUserModal" aria-labelledby="delete-user-modal">
+<div class="modal fade" id="deleteUserModal-{{ $profile->user->id }}" aria-labelledby="delete-user-modal">
     <div class="modal-dialog modal-sm">
         <form action="{{ route('admin.users.destroy', $profile->id) }}" method="post">
             @csrf
@@ -10,8 +10,8 @@
                     <h5 class="modal-title">Delete User</h5>
                 </div>
                 <div class="modal-body text-center">
-                    <img src="{{ asset('images/usersample2.jpg') }}" class="rounded-circle mx-auto admin-img">
-                    <h5 class="mt-3">User Name</h5>
+                    <img src="{{ $profile->avatar }}" class="rounded-circle mx-auto admin-img">
+                    <h5 class="mt-3">{{ $profile->first_name }}&nbsp;{{ $profile->last_name }}&nbsp;{{ $profile->middle_name }}</h5>
 
                     <i class="fa-solid fa-triangle-exclamation icon-delete-user"></i>
                     <div>
@@ -28,3 +28,4 @@
         </form>
     </div>
 </div>
+
