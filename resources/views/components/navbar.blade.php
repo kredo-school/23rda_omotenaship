@@ -140,12 +140,12 @@
                             </a>
                         </li>
 
-                        {{-- Profile --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </a>
-                        </li>
+                    {{-- Profile --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('profiles.show') }}">
+                            <i class="fa-solid fa-circle-user"></i>
+                        </a>
+                    </li>
 
                         {{-- Logout --}}
                         <li class="nav-item">
