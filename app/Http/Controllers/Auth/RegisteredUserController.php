@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
         if ($user_logged_in->role_id === 1) {
             return redirect('/admin/users/');
         } elseif ($user_logged_in->role_id === 2) {
-            return redirect('/posts');
+            return redirect('/');
         }
     }
 }
