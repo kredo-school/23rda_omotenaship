@@ -1,9 +1,13 @@
 
 /* admin sidebar */
 .admin-list-group h6 {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 3px solid #202F55;
     padding-bottom: 10px;
     width: 50%;
+}
+
+.admin-list-group a{
+    margin-bottom: 1rem;
 }
 
 .admin-img {
