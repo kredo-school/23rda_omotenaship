@@ -21,6 +21,28 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-auto">
+                        @if ($post->isLiked())
+                            <form action="{{ route('likes.destroy',['post_id' => $post->id]) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm p-0">
+                                    <i class="fa-solid fa-heart text-danger"></i>
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('likes.store',['post_id' => $post->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-sm shadow-none p-0">
+                                    <i class="fa-regular fa-heart"></i>
+                                </button>
+                            </form>
+                        @endif
+                    
+                    </div>
+                    <div class="col-auto px-0">
+                        <span>{{ $post->likes->count() }}</span>
+                    </div>
 
                     <div class="col d-flex justify-content-between">
                         {{-- title and icon --}}
@@ -109,15 +131,15 @@
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
-                        <form action="{{ route('comments.store', $post->id) }}" method="post">
+                        <form action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="post">
                             @csrf
                             <div class="input-group mb-3">
                                 <textarea name="comment" id="{{ $post->id }}" rows="1"
-                                    class="form-control form-control-sm" placeholder="Add a comment...">{{ old('comment') }}</textarea>
+                                    class="form-control form-control-sm" placeholder="{{ __('Add a comment...') }}">{{ old('comment') }}</textarea>
                                 <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
                             </div>
                             <!-- Error -->
-                            @error('comment' . $post->id)
+                            @error('comment')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </form>

@@ -5,6 +5,7 @@ require __DIR__ . '/auth.php';
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
@@ -36,6 +37,11 @@ Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
     Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])->name('destroy');
 });
 
+//likes
+Route::group(['prefix' => 'likes', 'as' => 'likes.'], function() {
+    Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
+    Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
+});
 //comments
 Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
     Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
