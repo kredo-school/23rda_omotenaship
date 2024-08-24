@@ -22,6 +22,11 @@
                         <p>No favorite posts yet!</p>
                     @endforelse
                 </div>
+
+                {{-- Pagination Link --}}
+                <div class="d-flex justify-content-center">
+                    {{ $posts->links() }}
+                </div>
             </div>
 
             <div class="col-lg-4">
@@ -30,7 +35,7 @@
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.calendar')
                     </div>
-                
+
                     <div class="col-12 col-md-6 col-lg-12">
                         @include('components.caregory-icons')
                     </div>
