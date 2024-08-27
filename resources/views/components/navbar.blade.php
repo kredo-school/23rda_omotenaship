@@ -25,9 +25,12 @@
             @if (!request()->is('login') && !request()->is('register'))
                 @if (!Auth::check() || Auth::user()->role_id !== 1)
                     {{-- Search bar --}}
-                    <form action="#" class="search me-2 pt-3">
+                    <form action="{{ route('posts.index') }}" method="get" class="search me-20 pt-3">
+                        @csrf
+
                         <input type="search" name="search" id="search" class="form-control" placeholder="search">
                     </form>
+
                 @endif
 
                 @if (!Auth::check())
