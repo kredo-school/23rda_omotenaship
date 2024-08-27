@@ -29,13 +29,16 @@ class PostController extends Controller
     }
 
     // post.index, also top page
-    public function index()
-    // public function index(Request $request)
+    public function index(Request $request)
     {
-        $posts = $this->post->paginate(4);
-
+        if ($request->search) {
+            $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
+            $posts->appends(['search' => $request->search]);
+        } else {
+            $posts = $this->post->paginate(4);
+        }
         return view('posts.index')
-            ->with('posts', $posts);
+            ->with('posts', $posts)->with('search',$request->search);
     }
 
     // create post
@@ -194,6 +197,13 @@ class PostController extends Controller
     {
         return view('posts.event-near-you');
     }
+    // Serch Bar
+    // public function search(Request $request)
+    // {
+    //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
+    //     // $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->get();
+    //     return view('posts.index')->with('posts', $posts)->with('search', $request->search);
+    // }
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
