@@ -70,7 +70,9 @@
                     {{-- Serch bar  --}}
                     
                         @if (!request()->is('admin/*'))
-                            <form action="{{ route('posts.search') }}" class="search me-20 pt-3">
+                            <form action="{{ route('posts.search') }}" class="search me-20 pt-3" method="post">
+                                @csrf
+
                                 <input type="search" name="search" id="search" class="form-control" placeholder="search">
                             </form>
                         @endif
