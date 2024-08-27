@@ -16,7 +16,11 @@ class CommentController extends Controller
     }
 
     public function store(Request $request, $post_id)
-    {
+    {   
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('message', 'Please login to add a comment.');
+        }
+
         $request->validate(
             [
                 'comment' => 'required|max:150'
