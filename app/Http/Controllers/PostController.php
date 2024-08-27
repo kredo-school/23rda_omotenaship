@@ -197,7 +197,7 @@ class PostController extends Controller
 // Serch Bar
     public function serch(Request $request) {
        $posts = $this->post->where('title','like','%'.$request->search.'%')->get();
-      return view('posts.serch')->with('posts',$posts)->with('search',$request->search);
+      return view('posts.index')->with('posts',$posts)->with('search',$request->search);
 
     }
 
