@@ -1,6 +1,6 @@
 <div class="card components-post">
     {{-- Image --}}
-    @auth
+    {{-- @auth --}}
         <a href="{{ route('posts.show', ['id' => $post->id]) }}">
             @if ($post->images->isNotEmpty())
                 @foreach ($post->images as $image)
@@ -10,17 +10,18 @@
                 <p>No image available</p>
             @endif
         </a>
-    @else
-        <a href="{{ route('login') }}">
-            @if ($post->images->isNotEmpty())
-                @foreach ($post->images as $image)
-                    <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top">
-                @endforeach
-            @else
-                <p>No image available</p>
-            @endif
-        </a>
-    @endauth
+    {{-- @else
+        {{-- <a href="{{ route('login') }}"> --}}
+        {{-- <a href="{{ route('posts.show', ['id' => $post->id]) }}"> --}}
+            {{-- @if ($post->images->isNotEmpty()) --}}
+                {{-- @foreach ($post->images as $image) --}}
+                    {{-- <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top"> --}}
+                {{-- @endforeach --}}
+            {{-- @else --}}
+                {{-- <p>No image available</p> --}}
+            {{-- @endif --}}
+        {{-- </a> --}}
+    {{-- @endauth --}}
 
     </form>
     <div class="card-body">

@@ -21,6 +21,11 @@
 
                 {{-- Login --}}
                 <form method="POST" action="{{ route('login') }}" class="mt-4">
+                    @if (session('message'))
+                        <div class="alert alert-danger">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                 {{-- <form method="POST" action="{{ route('login.store') }}" class="mt-4"> --}}
                     @csrf
 
