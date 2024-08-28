@@ -31,17 +31,16 @@
                             <div>
                                 @if ($profile->avatar)
                                     <img src="{{ $profile->avatar }}" alt="{{ $profile->avatar }}"
-                                        class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                                        class="mx-auto d-flex justify-content-center align-items-center abatar-pf-edit">
                                 @else
                                     <img src="{{ asset('images\profile_sample1.png') }}" alt=""
-                                        class="mx-auto d-flex justify-content-center align-items-center abatar-pf-show">
+                                        class="mx-auto d-flex justify-content-center align-items-center abatar-pf-edit">
                                 @endif
                             </div>
                             {{-- Abatar Upload --}}
                             <div class="m-0 col-auto align-self-start">
                                 <input type="file" name="avatar" id="avatar"
-                                    class="form-control form-control-sm mt-1" 
-                                    aria-describedby="avatar-info">
+                                    class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
                                 <div class="form-text" id="avatar-info">
                                     <p class="mb-0">
                                         Acceptable formats are jpeg, jpg, png and gif only.
@@ -63,16 +62,15 @@
                             <div class="row">
 
                                 {{-- First name --}}
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <label for="first_name" class="form-label fw-bold mb-0">
                                         <h6>
                                             First name
                                         </h6>
                                     </label>
-                                    <input type="text" name="first_name" id="first_name" 
-                                        class="form-control form-siz-pf"
-                                        autofocus placeholder="First name" 
-                                        value="{{ old('first_name',$profile->first_name) }}">
+                                    <input type="text" name="first_name" id="first_name" class="form-control form-siz-pf"
+                                        autofocus placeholder="First name"
+                                        value="{{ old('first_name', $profile->first_name) }}">
                                     <!-- Error -->
                                     @error('first_name')
                                         <p class="text-danger small">{{ $message }}</p>
@@ -80,16 +78,15 @@
                                 </div>
 
                                 {{-- Midle name --}}
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <label for="middle_name" class="form-label fw-bold mb-0">
                                         <h6>
                                             Midle name
                                         </h6>
                                     </label>
-                                    <input type="text" name="middle_name" id="middle_name" 
-                                        class="form-control form-siz-pf"
-                                        autofocus placeholder="Midle name" 
-                                        value="{{ old('middle_name',$profile->middle_name) }}">
+                                    <input type="text" name="middle_name" id="middle_name"
+                                        class="form-control form-siz-pf" autofocus placeholder="Midle name"
+                                        value="{{ old('middle_name', $profile->middle_name) }}">
                                     <!-- Error -->
                                     @error('middle_name')
                                         <p class="text-danger small">{{ $message }}</p>
@@ -97,16 +94,15 @@
                                 </div>
 
                                 {{-- Last name --}}
-                                <div class="mb-3">
+                                <div class="mb-1">
                                     <label for="last_name" class="form-label fw-bold mb-0">
                                         <h6>
                                             Last name
                                         </h6>
                                     </label>
-                                    <input type="text" name="last_name" id="last_name" 
-                                        class="form-control form-siz-pf"
-                                        autofocus placeholder="Last name" 
-                                        value="{{ old('last_name',$profile->last_name )}}">
+                                    <input type="text" name="last_name" id="last_name" class="form-control form-siz-pf"
+                                        autofocus placeholder="Last name"
+                                        value="{{ old('last_name', $profile->last_name) }}">
                                     <!-- Error -->
                                     @error('last_name')
                                         <p class="text-danger small">{{ $message }}</p>
@@ -115,16 +111,14 @@
                             </div>
 
                             {{-- Date of Birth --}}
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="birth_date" class="form-label fw-bold  mb-0">
                                     <h6>
                                         Date of Birth
                                     </h6>
                                 </label>
-                                <input type="date" name="birth_date" id="birth_date" 
-                                    class="form-control form-siz-pf"
-                                    autofocus placeholder="YYYY/MM/DD" 
-                                    value={{ old('birth_date',$profile->birth_date) }}>
+                                <input type="date" name="birth_date" id="birth_date" class="form-control form-siz-pf"
+                                    autofocus placeholder="YYYY/MM/DD" value={{ old('birth_date', $profile->birth_date) }}>
                                 <!-- Error -->
                                 @error('birth_date')
                                     <p class="text-danger small">{{ $message }}</p>
@@ -132,15 +126,14 @@
                             </div>
 
                             {{-- Language --}}
-                            <div class="mb-3">
+                            <div class="mb-1">
                                 <label for="language" class="form-label fw-bold mb-0">
                                     <h6>
                                         Language
                                     </h6>
                                 </label>
-                                <select name="language" id="language"  
-                                    class="form-control form-siz-pf"
-                                    value={{ old('language',$profile->language) }} 
+                                <select name="language" id="language" class="form-control form-siz-pf"
+                                    value={{ old('language', $profile->language) }}
                                     onchange="changeLanguage()">{{ $profile->language }}
                                     <option value="en">English</option>
                                     <option value="ja">Japanese</option>
@@ -158,7 +151,7 @@
                     </div>
 
                     {{-- Introduction --}}
-                    <div class="row mb-3 justify-content-start align-self-end">
+                    <div class="row mb-1 justify-content-start align-self-end">
                         {{-- Introduction -Title --}}
                         <label for="introduction" class="form-label fw-bold">
                             <h6>Introduction</h6>
@@ -173,12 +166,25 @@
                     </div>
 
                     {{-- Update Button --}}
-                    <div class="mt-1 mb-5 d-flex flex-column justify-content-center align-items-end">
+                    <div class="mt-1 mb-1 d-flex flex-column justify-content-center align-items-end">
                         <button type="submit" class="btn btn-kurenai btn-lg px-5 w-100">
                             Update profile
                         </button>
                     </div>
 
+                    {{-- Delete Account --}}
+                    <div class="mt-1 mb-1 d-flex flex-column justify-content-center align-items-center">
+
+                        <button type="button" class="btn btn-white-pf btn-lg p-1"
+                            data-bs-target="#deleteAccountModal-{{ $profile->user->id }}">
+                            Delete Account
+                        </button>
+
+                        <!-- Include the modal here-->
+                        @include('components.delete-account-modal')
+
+
+                    </div>
                 </div>
             </form>
         </div>
