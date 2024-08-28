@@ -174,10 +174,10 @@
                                 @foreach ($post->comments as $comment)
                                     <li class="list-group-item border-0 p-0 mb-2">
                                         <div class="d-flex align-items-center">
-                                            <a href="{{ route('profiles.show', $post->id) }}">
-                                                @if ($post->user->profile->avatar)
-                                                    <img src="{{ $post->user->profile->avatar }}"
-                                                        alt="{{ $post->user->name }}"
+                                            <a href="{{ route('profiles.show', $comment->user->id) }}">
+                                                @if ($comment->user->profile->avatar)
+                                                    <img src="{{ $comment->user->profile->avatar }}"
+                                                        alt="{{ $comment->user->name }}"
                                                         class="rounded-circle avatar-sm posts-show-icon">
                                                 @else
                                                     <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
