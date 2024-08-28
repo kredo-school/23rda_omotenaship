@@ -34,6 +34,8 @@ class PostController extends Controller
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
+        } elseif ($request->has('category')){
+            $culture = $this->category->where('name',$culture)->get();
         } else {
             $posts = $this->post->paginate(4);
         }
