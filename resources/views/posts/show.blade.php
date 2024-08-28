@@ -8,31 +8,33 @@
         <div class="row justify-content-center">
             <div class="col-7">
                 {{-- username --}}
-                <div class="row">
-                    <div class="col d-flex align-items-center mb-2">
-                        <a href="{{ route('profiles.show', $post->id) }}">
-                            @if ($post->user->profile->avatar)
-                                <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
-                                    class="rounded-circle avatar-sm posts-show-icon">
-                            @else
-                                <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
-                            @endif
-                        </a>
-                        <a href="{{ route('profiles.show', $post->id) }}"
-                            class="text-decoration-none text-dark me-auto ms-3">
-                            {{ $post->user->name }}
-                        </a>
-                    </div>
-                    {{-- Edit --}}
-                    <div class="col d-flex justify-content-end">
-                        @if (Auth::user()->id === $post->user->id)
-                            <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
-                                class="text-decoration-none text-dark d-flex align-items-center">
-                                <i class="fa-solid fa-pen fa-pen-post"></i>
+                @if ($post && $post->user)
+                    <div class="row">
+                        <div class="col d-flex align-items-center mb-2">
+                            <a href="{{ route('profiles.show', $post->user->id) }}">
+                                @if ($post->user->profile && $post->user->profile->avatar)
+                                    <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
+                                        class="rounded-circle avatar-sm posts-show-icon">
+                                @else
+                                    <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                                @endif
                             </a>
-                        @endif
+                            <a href="{{ route('profiles.show', $post->user->id) }}"
+                                class="text-decoration-none text-dark me-auto ms-3">
+                                {{ $post->user->name }}
+                            </a>
+                        </div>
+                        {{-- Edit --}}
+                        <div class="col d-flex justify-content-end">
+                            @if (Auth::check() && Auth::user()->id === $post->user->id)
+                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
+                                    class="text-decoration-none text-dark d-flex align-items-center">
+                                    <i class="fa-solid fa-pen fa-pen-post"></i>
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 {{-- image --}}
                 <div class="row mb-3">
@@ -65,7 +67,7 @@
                         @else
                             <form action="{{ route('likes.store', ['post_id' => $post->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-sm shadow-none p-0 pt-3">
+                                <button type="submit" class="btn btn-sm shadow-none p-0">
                                     <i class="fa-regular fa-heart fa-heart-post d-flex align-items-center"></i>
                                 </button>
                             </form>
@@ -76,7 +78,7 @@
                             <span class="d-flex align-items-center">{{ $post->likes->count() }}</span>
                         </div>
                         {{-- Favorite --}}
-                        <div class="d-flex justify-content-end">
+                        <div class="">
 
                             @if (Auth::check())
                                 @if ($post->isFavorited(Auth::user()))
@@ -93,14 +95,16 @@
                                     <form action="{{ route('favorites.store', ['post_id' => $post->id]) }}" method="post">
                                         @csrf
                                         <button type="submit" class="border-0 bg-transparent">
-                                            <i class="fa-regular fa-star fa-star-post fa-2x"></i>
+                                            <i class="fa-regular fa-star fa-star-post fa-2x d-flex align-items-center"></i>
                                         </button>
                                     </form>
                                 @endif
                             @else
-                                <button class="border-0 bg-transparent" onclick="alert('Please Login');">
-                                    <i class="fa-regular fa-star fa-star-post fa-2x"></i>
-                                </button>
+                                <a href="{{ route('login') }}" class="text-decoration-none">
+                                    <button class="border-0 bg-transparent" onclick="alert('Please Login');">
+                                        <i class="fa-regular fa-star fa-star-post fa-2x text-black"></i>
+                                    </button>
+                                </a>
                             @endif
 
                         </div>
@@ -141,18 +145,24 @@
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
-                        <form action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="post">
-                            @csrf
-                            <div class="input-group mb-3">
-                                <textarea name="comment" id="{{ $post->id }}" rows="1" class="form-control form-control-sm"
-                                    placeholder="{{ __('Add a comment...') }}">{{ old('comment') }}</textarea>
-                                <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
-                            </div>
-                            <!-- Error -->
-                            @error('comment')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </form>
+                        @auth
+                            <form action="{{ route('comments.store', ['post_id' => $post->id]) }}" method="post">
+                                @csrf
+                                <div class="input-group mb-3">
+                                    <textarea name="comment" id="{{ $post->id }}" rows="1" class="form-control form-control-sm"
+                                        placeholder="{{ __('Add a comment...') }}">{{ old('comment') }}</textarea>
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">Post</button>
+                                </div>
+                                <!-- Error -->
+                                @error('comment')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </form>
+                        @else
+                            <p class="text-center">
+                                <a href="{{ route('login') }}" class="text-decoration-none">Login to post a comment</a>
+                            </p>
+                        @endauth
 
                     </div>
                 </div>
@@ -183,7 +193,7 @@
                                                     class="text-uppercase text-muted xsmall ps-5">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
                                             </div>
 
-                                            @if (Auth::user()->id === $comment->user->id)
+                                            @if (Auth::check() && Auth::user()->id === $comment->user->id)
                                                 <form action="{{ route('comments.destroy', $comment->id) }}" method="post"
                                                     class="ms-3">
                                                     @csrf
@@ -202,10 +212,10 @@
                             </ul>
                         @endif
                     </div>
-                </div>              
+                </div>
             </div>
         </div>
     </div>
-  
+
     @include('components.footer')
 @endsection
