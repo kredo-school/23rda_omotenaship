@@ -1,26 +1,26 @@
 <div class="card components-post">
     {{-- Image --}}
     {{-- @auth --}}
-        <a href="{{ route('posts.show', ['id' => $post->id]) }}">
-            @if ($post->images->isNotEmpty())
-                @foreach ($post->images as $image)
-                    <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top">
-                @endforeach
-            @else
-                <p>No image available</p>
-            @endif
-        </a>
+    <a href="{{ route('posts.show', ['id' => $post->id]) }}">
+        @if ($post->images->isNotEmpty())
+            @foreach ($post->images as $image)
+                <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top">
+            @endforeach
+        @else
+            <p>No image available</p>
+        @endif
+    </a>
     {{-- @else
         {{-- <a href="{{ route('login') }}"> --}}
-        {{-- <a href="{{ route('posts.show', ['id' => $post->id]) }}"> --}}
-            {{-- @if ($post->images->isNotEmpty()) --}}
-                {{-- @foreach ($post->images as $image) --}}
-                    {{-- <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top"> --}}
-                {{-- @endforeach --}}
-            {{-- @else --}}
-                {{-- <p>No image available</p> --}}
-            {{-- @endif --}}
-        {{-- </a> --}}
+    {{-- <a href="{{ route('posts.show', ['id' => $post->id]) }}"> --}}
+    {{-- @if ($post->images->isNotEmpty()) --}}
+    {{-- @foreach ($post->images as $image) --}}
+    {{-- <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top"> --}}
+    {{-- @endforeach --}}
+    {{-- @else --}}
+    {{-- <p>No image available</p> --}}
+    {{-- @endif --}}
+    {{-- </a> --}}
     {{-- @endauth --}}
 
     </form>
@@ -37,7 +37,7 @@
                 <p>{{ $post->user->name }}</p>
             </div>
             <div class="col-1 pt-4 px-0 text-end">
-                @auth
+                @if (Auth::check())
                     @if ($post->isLiked())
                         <form action="{{ route('likes.destroy', ['post_id' => $post->id]) }}" method="post">
                             @csrf
@@ -55,16 +55,16 @@
                         </form>
                     @endif
                 @else
-                    <form action="{{ route('login') }}" method="get">
-                        <button type="submit" class="btn btn-sm shadow-none p-0">
+                    <a href="{{ route('login') }}" class="text-decoration-none">
+                        <button type="submit" class="btn btn-sm shadow-none p-0" onclick="alert('Please Login');">
                             @if ($post->likes->count() > 0)
                                 <i class="fa-solid fa-heart text-danger fa-2x"></i>
                             @else
                                 <i class="fa-regular fa-heart fa-2x"></i>
                             @endif
                         </button>
-                    </form>
-                @endauth
+                    </a>
+                @endif
             </div>
             <div class="col-1 pt-4 px-1">
                 @if ($post->likes->count() > 0)
