@@ -55,22 +55,32 @@
                     </div>
 
                     {{-- Like --}}
+
                     <div class="col-2 d-flex justify-content-end">
-                        @if ($post->isLiked())
-                            <form action="{{ route('likes.destroy', ['post_id' => $post->id]) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm p-0">
-                                    <i class="fa-solid fa-heart fa-heart-post text-danger d-flex align-items-center"></i>
-                                </button>
-                            </form>
+                        @if (Auth::check())
+                            @if ($post->isLiked())
+                                <form action="{{ route('likes.destroy', ['post_id' => $post->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm p-0">
+                                        <i
+                                            class="fa-solid fa-heart fa-heart-post text-danger d-flex align-items-center"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <form action="{{ route('likes.store', ['post_id' => $post->id]) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm shadow-none p-0">
+                                        <i class="fa-regular fa-heart fa-heart-post d-flex align-items-center"></i>
+                                    </button>
+                                </form>
+                            @endif
                         @else
-                            <form action="{{ route('likes.store', ['post_id' => $post->id]) }}" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-sm shadow-none p-0">
-                                    <i class="fa-regular fa-heart fa-heart-post d-flex align-items-center"></i>
+                            <a href="{{ route('login') }}" class="text-decoration-none">
+                                <button class="border-0 bg-transparent" onclick="alert('Please Login');">
+                                    <i class="fa-regular fa-heart fa-heart-post text-black d-flex align-items-center"></i>
                                 </button>
-                            </form>
+                            </a>
                         @endif
 
 
@@ -194,8 +204,8 @@
                                             </div>
 
                                             @if (Auth::check() && Auth::user()->id === $comment->user->id)
-                                                <form action="{{ route('comments.destroy', $comment->id) }}" method="post"
-                                                    class="ms-3">
+                                                <form action="{{ route('comments.destroy', $comment->id) }}"
+                                                    method="post" class="ms-3">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
