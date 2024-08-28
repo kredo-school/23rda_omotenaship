@@ -2,11 +2,11 @@
 /* General Style */
 /* ============= */
 .bg-kurenai {
-    background-color:#BC002D;
+    background-color: #BC002D;
 }
 
 .bg-samurai {
-    background-color:#202F55;
+    background-color: #202F55;
 }
 
 /* Heading */
@@ -20,46 +20,36 @@
     border-bottom: 3px solid #202F55;
 }
 
-.footer-user-container {
-    background-color: #BC002D;
-    color: #ffffff;
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    height: 50px;
-}
-
-h5 {
-    font-size: 20px;
-}
-
 /* Button */
-/* Button-kurenai 
+/* Button-kurenai
 …Color changes when cursor is placed on it.*/
 .btn-kurenai {
-    color: #FFFFFF;;
+    color: #FFFFFF;
+    ;
     border: 2px solid #BC002D;
     background-color: #BC002D;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .btn-kurenai:hover {
     color: #FFFFFF;
     background-color: #E50137;
 }
+
 /* Button-white
 …Color changes when cursor is placed on it.*/
 .btn-white {
-    color: #BC002D;;
+    color: #BC002D;
+    ;
     border: 2px solid #BC002D;
     background-color: #FFFFFF;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .btn-white:hover {
     font-weight: 700;
     color: #E50137;
@@ -72,37 +62,41 @@ h5 {
     /* font-family:serif; */
     font-weight: 400;
     font-style: normal;
-  }
+}
 
-  /*　Heading */
-h1
-{
+/* Heading */
+h1 {
     font-family: "BIZ UDPGothic";
     font-size: 40px;
 }
 
-h2{
+h2 {
     font-family: "BIZ UDPGothic";
     font-size: 32px;
 }
-h3{
+
+h3 {
     font-family: "BIZ UDPGothic";
     font-size: 28px;
 }
-h4{
+
+h4 {
     font-family: "BIZ UDPGothic";
     font-size: 24px;
 }
-h5{
+
+h5 {
     font-family: "BIZ UDPGothic";
     font-size: 20px;
 }
-h6{
-        font-family: "BIZ UDPGothic";
+
+h6 {
+    font-family: "BIZ UDPGothic";
     font-size: 16px;
 }
+
 p {
-        font-family: "BIZ UDPGothic";
+    font-family: "BIZ UDPGothic";
     font-size: 16px;
 }
 
@@ -114,7 +108,7 @@ p {
     font-size: 1.5em;
 }
 
-.fa-heart-post{
+.fa-heart-post {
     font-size: 1.8em;
 }
 
