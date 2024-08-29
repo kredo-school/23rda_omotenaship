@@ -43,14 +43,25 @@ Route::group(['middleware' => 'auth'], function () {
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
+        //Calendar
         Route::get('/calendar', [PostController::class, 'showCalendar'])
             ->name('calendar');
     });
 
+    // Favorites
     Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
-        Route::get('/{user_id}', [FavoriteController::class, 'index'])->name('index');
-        Route::post('/{post_id}', [FavoriteController::class, 'store'])->name('store');
-        Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])->name('destroy');
+        Route::get('/', [FavoriteController::class, 'index'])
+            ->name('index');
+        Route::post('/{post_id}', [FavoriteController::class, 'store'])
+            ->name('store');
+        Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+    //likes
+    Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
+        Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
+        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
     });
 
     //comments
