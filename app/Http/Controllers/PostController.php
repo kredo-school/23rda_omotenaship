@@ -34,13 +34,18 @@ class PostController extends Controller
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
-        } elseif ($request->has('category')){
-            $culture = $this->category->where('name',$culture)->get();
+        } elseif ($request->category == 'culture'){
+            $culture = Category::where('name','culture')->first();
+            if($culture) {
+                $posts = $this->post->whereHas('categories',function($query) use ($culture) {
+                    $query->where('category_id', $culture->id);
+                })->paginate(4);
         } else {
             $posts = $this->post->paginate(4);
         }
         return view('posts.index')
-            ->with('posts', $posts)->with('search',$request->search);
+            ->with('posts', $posts)->with('search',$request->search)->with('culture',$culture);
+    }
     }
 
     // create post
@@ -199,13 +204,7 @@ class PostController extends Controller
     {
         return view('posts.event-near-you');
     }
-    // Serch Bar
-    // public function search(Request $request)
-    // {
-    //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-    //     // $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->get();
-    //     return view('posts.index')->with('posts', $posts)->with('search', $request->search);
-    // }
+    
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
