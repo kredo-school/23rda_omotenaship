@@ -28,6 +28,8 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::patch('/{id}/update', [PostController::class, 'update'])->name('update');
     Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
         ->name('show-event-near-you');
+    Route::get('/calendar', [PostController::class, 'showCalendar'])
+        ->name('calendar');
 });
 
 Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
