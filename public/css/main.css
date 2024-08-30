@@ -1,6 +1,10 @@
 /* ============= */
 /* General Style */
 /* ============= */
+main {
+    padding-top: 100px;
+}
+
 .bg-kurenai {
     background-color: #BC002D;
 }
