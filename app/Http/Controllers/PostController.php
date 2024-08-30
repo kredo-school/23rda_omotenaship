@@ -74,7 +74,7 @@ class PostController extends Controller
         return view('posts.index')
             ->with('posts', $posts)
             ->with('search', $request->search)
-            ->with('culture', $culture  ?? null);
+            ->with('culture', $culture ?? null);
     }
 
 
