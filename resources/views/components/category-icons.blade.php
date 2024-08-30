@@ -27,7 +27,7 @@
             </a>
         </div>
         <div class="col d-flex justify-content-center">
-            <a href="#" class="icon-container">
+            <a href="{{ route('posts.index',['category' => 'culture']) }}" class="icon-container">
                 <img src="{{ asset('images/categories/4.png') }}" class="img-fluid">
                 <span class="hover-text">Culture</span>
             </a>
