@@ -42,16 +42,11 @@ class ProfileController extends Controller
     public function edit()
     {
         $profile = Auth::user()->profile;
-        // $profile = $this->profile->where('user_id', 2)->first();
         // dd($profile);
         return view('profiles.edit')
             ->with('profile', $profile);
     }
-    // public function edit()
-    // {
-    //     return view('profiles.edit')
-    //         ->with('user_id');
-    // }
+
 
     // Update
     public function update(Request $request)
@@ -68,6 +63,7 @@ class ProfileController extends Controller
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
         $profile->middle_name = $request->middle_name;
+        $profile->language = $request->language;
         $profile->introduction = $request->introduction;
 
         // avatar
@@ -80,17 +76,17 @@ class ProfileController extends Controller
         $profile->save();
 
         return redirect()->route('profiles.show');
-    }
+        }
     
-    // ==== Private Functions ====
-    private function generateDataUri($img_obj)
-    {
-        $img_extension = $img_obj->extension();
-        $img_contents = file_get_contents($img_obj);
-        $base64_img = base64_encode($img_contents);
+            // ==== Private Functions ====
+            private function generateDataUri($img_obj)
+            {
+                $img_extension = $img_obj->extension();
+                $img_contents = file_get_contents($img_obj);
+                $base64_img = base64_encode($img_contents);
 
-        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+                $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
 
-        return $data_uri;
-    }
+                return $data_uri;
+            }
 }

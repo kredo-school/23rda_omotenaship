@@ -233,7 +233,11 @@ class PostController extends Controller
 
     public function showEventNearYou()
     {
-        return view('posts.event-near-you');
+        // Temp (get all posts)
+        $posts = $this->post->paginate(3);
+
+        return view('posts.event-near-you')
+            ->with('posts', $posts);
     }
 
 
