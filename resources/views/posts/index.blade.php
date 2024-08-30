@@ -47,7 +47,8 @@
             {{-- Right Colmun --}}
             <div class="col-4">
                 {{-- Sidebar --}}
-                @include('components.sidebar')
+                @include('components.calendar')
+                @include('components.category-icons')
             </div>
         </div>
     </div>
