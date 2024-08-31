@@ -19,35 +19,33 @@ class FavoriteController extends Controller
 
     public function index()
     {
-        $user = Auth::user(); 
-        $posts = $user->favorites()->get();
+        $user = Auth::user();
+        $posts = $user->favorites()->paginate(4);
         // return view('favorites.index')
         //     ->with('user_id', $user_id);
         return view('favorites.index')
-        ->with('posts',$posts);
-    
+            ->with('posts', $posts);
+
 
     }
-
     public function store(Request $request, $post_id)
-{
-    $user = Auth::user(); 
+    {
+        $user = Auth::user();
 
-      
-    $user->favorites()->attach($post_id);
 
-        return redirect()->back();
-}
-
-public function destroy(Request $request, $post_id)
-{
-    $user2 = User::find(2); // IDが2のユーザーを取得
-
-        // お気に入りから削除
-        $user2->favorites()->detach($post_id);
+        $user->favorites()->attach($post_id);
 
         return redirect()->back();
-}
+    }
+
+    public function destroy(Request $request, $post_id)
+    {
+        $user = Auth::user();
+
+        $user->favorites()->detach($post_id);
+
+        return redirect()->back();
+    }
 
 
 }

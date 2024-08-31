@@ -29,8 +29,8 @@ class PostsTableSeeder extends Seeder
                 'prefecture_id' => 13,
                 'area_id' => 3,
                 'visit_date' => '2024-01-11',
-                'start_date' => NULL,
-                'end_date' => NULL,
+                'start_date' => '2024-08-11',
+                'end_date' => '2024-08-11',
                 'language' => 'en-US',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
@@ -43,8 +43,8 @@ class PostsTableSeeder extends Seeder
                 'prefecture_id' => 1,
                 'area_id' => 1,
                 'visit_date' => '2024-02-03',
-                'start_date' => '2024-02-03',
-                'end_date' => '2024-02-15',
+                'start_date' => '2024-08-03',
+                'end_date' => '2024-08-15',
                 'language' => 'en-US',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
@@ -99,8 +99,8 @@ class PostsTableSeeder extends Seeder
                 'prefecture_id' => 40,
                 'area_id' => 8,
                 'visit_date' => '2024-11-18',
-                'start_date' => '2024-11-18',
-                'end_date' => '2024-11-22',
+                'start_date' => '2024-08-18',
+                'end_date' => '2024-08-22',
                 'language' => 'en-US',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
@@ -127,8 +127,8 @@ class PostsTableSeeder extends Seeder
                 'prefecture_id' => 13,
                 'area_id' => 3,
                 'visit_date' => '2024-10-24',
-                'start_date' => '2024-10-24',
-                'end_date' => '2024-11-03',
+                'start_date' => '2024-08-24',
+                'end_date' => '2024-08-03',
                 'language' => 'en-US',
                 'created_at' => NOW(),
                 'updated_at' => NOW()

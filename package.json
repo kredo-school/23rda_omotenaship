@@ -16,6 +16,11 @@
         "vite": "^5.0"
     },
     "dependencies": {
-        "bootstrap": "^5.3.3"
+        "@fullcalendar/core": "^6.1.15",
+        "@fullcalendar/daygrid": "^6.1.15",
+        "@fullcalendar/interaction": "^6.1.15",
+        "bootstrap": "^5.3.3",
+        "fullcalendar": "^6.1.15",
+        "pikaday": "^1.8.2"
     }
 }
