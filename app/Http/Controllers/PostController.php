@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
+use App\Models\BrowsingHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -18,14 +19,16 @@ class PostController extends Controller
     private $area;
     private $prefecture;
     private $image;
+    private $browsing_history;
 
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image)
+    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
+        $this->browsing_history = $browsing_history;
     }
 
     // post.index, also top page
@@ -228,6 +231,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->post->with('comments.user')->findOrFail($id);
+
+        $this->storeBrowsingHistory($id);
+
         return view('posts.show')->with('post', $post);
     }
 
@@ -238,19 +244,6 @@ class PostController extends Controller
 
         return view('posts.event-near-you')
             ->with('posts', $posts);
-    }
-
-
-    // ==== Private Functions ====
-    private function generateDataUri($img_obj)
-    {
-        $img_extension = $img_obj->extension();
-        $img_contents = file_get_contents($img_obj);
-        $base64_img = base64_encode($img_contents);
-
-        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
-
-        return $data_uri;
     }
 
     public function showCalendar(Request $request)
@@ -265,5 +258,24 @@ class PostController extends Controller
                 ->paginate(3); 
 
     return view('posts.calendar')->with('posts', $posts);
+    }
+
+
+     // ==== Private Functions ====
+     private function generateDataUri($img_obj)
+     {
+         $img_extension = $img_obj->extension();
+         $img_contents = file_get_contents($img_obj);
+         $base64_img = base64_encode($img_contents);
+ 
+         $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+ 
+         return $data_uri;
+     }
+
+    private function storeBrowsingHistory($post_id) {
+        $this->browsing_history->user_id = Auth::user()->id;
+        $this->browsing_history->post_id = $post_id;
+        $this->browsing_history->save();
     }
 }
