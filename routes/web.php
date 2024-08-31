@@ -76,6 +76,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('edit');
         Route::patch('/update', [ProfileController::class, 'update'])
             ->name('update');
+        Route::delete('/{id}', [ProfileController::class, 'destroy'])
+            ->name('destroy');
     });
 
     // Direct Messages
