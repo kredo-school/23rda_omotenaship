@@ -34,13 +34,17 @@ class PostController extends Controller
         $posts = $this->post->newQuery();
 
         if ($request->search) {
-            $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-            $posts->appends(['search' => $request->search]);
+            // $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
+            $posts = $this->post->where('title', 'like', '%' . $request->search . '%');
+            // $posts->appends(['search' => $request->search]);
         } 
 
         if ($request->category == 'culture') {
             $culture = Category::where('name', 'culture')->first();
             if ($culture) {
+                // $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
+                //     $query->where('category_id', $culture->id);
+                // });
                 $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
                     $query->where('category_id', $culture->id);
                 });
