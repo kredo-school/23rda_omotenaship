@@ -34,50 +34,26 @@ class PostController extends Controller
     // post.index, also top page
     public function index(Request $request)
     {
-        // $posts = $this->post->newQuery();
-
-        // if ($request->search) {
-        //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-        //     $posts->appends(['search' => $request->search]);
-        // } 
-
-        // if ($request->category == 'culture') {
-        //     $culture = Category::where('name', 'culture')->first();
-        //     if ($culture) {
-        //         $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
-        //             $query->where('category_id', $culture->id);
-        //         });
-        //       } 
-        //     }
-
-        //     $posts = $this->post->paginate(4);
-
-        //     return view('posts.index')
-        //         ->with('posts', $posts)
-        //         ->with('search', $request->search)
-        //         ->with('culture', $culture  ?? null);
-        // }
+        
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
-        } elseif ($request->category == 'culture') {
-            $culture = Category::where('name', 'culture')->first();
-            if ($culture) {
-                $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
-                    $query->where('category_id', $culture->id);
+        } elseif ($request->category) {
+            $category = Category::where('name', $request->category)->first();
+            if ($category) {
+                $posts = $this->post->whereHas('postCategories', function ($query) use ($category) {
+                    $query->where('category_id', $category->id);
                 })->paginate(4);
-                $posts->appends(['category' => 'culture']);
-            } else {
-                $posts = $this->post->paginate(4);
-            }
+                $posts->appends(['category' => $request->category]);
+            } 
+        
         } else {
             $posts = $this->post->paginate(4);
         }
 
         return view('posts.index')
             ->with('posts', $posts)
-            ->with('search', $request->search)
-            ->with('culture', $culture ?? null);
+            ->with('search', $request->search);
     }
 
 
