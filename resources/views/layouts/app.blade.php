@@ -30,8 +30,6 @@
     <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=BIZ+UDPGothic&display=swap"
         rel="stylesheet">
 
-
-
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -44,6 +42,10 @@
     <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-footer.css') }}">
+
+    {{-- mapbox --}}
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 
 {{-- <body class="font-sans antialiased biz-udpgothic-regular"> --}}

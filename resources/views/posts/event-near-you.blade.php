@@ -14,12 +14,14 @@
 
         {{-- Map --}}
         <div class="row mb-5">
-            <img src="{{ asset('images/eventnearyou.png') }}" alt="eventnearyou">
+            <div id="map" style="width: 100%; height: 600px;"></div>
+
+            <script src="{{ asset('js/posts/event-near-you.js') }}"></script>
         </div>
 
         <div class="row">
             @forelse ($posts as $post)
-                <div class="col mb-3">
+                <div class="col mb-3 d-flex justify-content-center">
                     @include('components.post')
                 </div>
             @empty
