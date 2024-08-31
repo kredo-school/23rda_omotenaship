@@ -171,22 +171,20 @@
                             Update profile
                         </button>
                     </div>
-
-                    {{-- Delete Account --}}
-                    <div class="mt-1 mb-1 d-flex flex-column justify-content-center align-items-center">
-
-                        <button type="button" class="btn btn-white-pf btn-lg p-1"
-                            data-bs-target="#deleteAccountModal-{{ $profile->user->id }}">
-                            Delete Account
-                        </button>
-
-                        <!-- Include the modal here-->
-                        @include('components.delete-account-modal')
-
-
-                    </div>
                 </div>
             </form>
+
+            {{-- Delete Account --}}
+            <div class="mt-1 mb-1 d-flex flex-column justify-content-center align-items-center">
+
+                <button class="btn btn-white-pf btn-lg p-1" data-bs-toggle="modal"
+                    data-bs-target="#deleteAccountModal-{{ $profile->user->id }}">
+                    Delete Account
+                </button>
+                <!-- Include the modal here-->
+                @include('components.delete-account-modal')
+            </div>
+
         </div>
     </div>
     @include('components.footer')
