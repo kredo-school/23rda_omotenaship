@@ -21,6 +21,9 @@ return new class extends Migration
             $table->date('visit_date')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
+            $table->string('event_address')->nullable();
+            $table->float('event_longitude')->nullable();
+            $table->float('event_latitude')->nullable();
             $table->string('language')->default('en-US');
             $table->timestamps();
 
