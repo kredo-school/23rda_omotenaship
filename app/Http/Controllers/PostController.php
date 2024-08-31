@@ -31,15 +31,53 @@ class PostController extends Controller
     // post.index, also top page
     public function index(Request $request)
     {
+        // $posts = $this->post->newQuery();
+
+        // if ($request->search) {
+        //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
+        //     $posts->appends(['search' => $request->search]);
+        // } 
+
+        // if ($request->category == 'culture') {
+        //     $culture = Category::where('name', 'culture')->first();
+        //     if ($culture) {
+        //         $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
+        //             $query->where('category_id', $culture->id);
+        //         });
+        //       } 
+        //     }
+
+        //     $posts = $this->post->paginate(4);
+
+        //     return view('posts.index')
+        //         ->with('posts', $posts)
+        //         ->with('search', $request->search)
+        //         ->with('culture', $culture  ?? null);
+        // }
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
+        } elseif ($request->category == 'culture') {
+            $culture = Category::where('name', 'culture')->first();
+            if ($culture) {
+                $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
+                    $query->where('category_id', $culture->id);
+                })->paginate(4);
+                $posts->appends(['category' => 'culture']);
+            } else {
+                $posts = $this->post->paginate(4);
+            }
         } else {
             $posts = $this->post->paginate(4);
         }
+
         return view('posts.index')
-            ->with('posts', $posts)->with('search', $request->search);
+            ->with('posts', $posts)
+            ->with('search', $request->search)
+            ->with('culture', $culture ?? null);
     }
+
+
 
     // create post
     public function create()
@@ -202,13 +240,6 @@ class PostController extends Controller
             ->with('posts', $posts);
     }
 
-    // Serch Bar
-    // public function search(Request $request)
-    // {
-    //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-    //     // $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->get();
-    //     return view('posts.index')->with('posts', $posts)->with('search', $request->search);
-    // }
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
