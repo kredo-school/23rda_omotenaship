@@ -22,13 +22,18 @@ class ProfileController extends Controller
         $this->post = $post;
     }
 
-    // Show
+    # Show
     public function show()
     {
-        $profile = Auth::user()->profile;
+        $user = Auth::user();
+        $profile = $user->profile;
+    
+        if (!$profile) {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
         // dd($profile);
 
-            // languages
+            # languages
             $languages = [
                 'en' => 'English' ,
                 'ja' => 'Japanese',
@@ -40,7 +45,7 @@ class ProfileController extends Controller
                 $profile->language 
                 = $languages[$profile->language] ?? $profile->language;   
             
-            // pagination
+            # pagination
             $posts = $profile->user->posts()->paginate(4);
 
         return view('profiles.show')
@@ -49,7 +54,7 @@ class ProfileController extends Controller
         
     }
 
-    // Edit
+    # Edit
     public function edit()
     {
         $profile = Auth::user()->profile;
@@ -59,7 +64,7 @@ class ProfileController extends Controller
     }
 
 
-    // Update
+    # Update
     public function update(Request $request)
     {
         // dd(1);
@@ -77,7 +82,7 @@ class ProfileController extends Controller
         $profile->language = $request->language;
         $profile->introduction = $request->introduction;
 
-        // avatar
+        #avatar
         if ($request->avatar) {
             $img_obj = $request->avatar;
             $data_uri = $this->generateDataUri($img_obj);
@@ -100,4 +105,19 @@ class ProfileController extends Controller
 
                 return $data_uri;
             }
+
+    # Delete
+    public function destroy($id) {
+        $profile =  Profile::findOrFail($id);
+        $user = $profile->user;
+
+
+        $profile->delete();
+
+        if ($user) {
+            $user->delete();
+        }
+
+    return redirect()->back();
+    }
 }
