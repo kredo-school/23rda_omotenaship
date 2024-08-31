@@ -31,7 +31,6 @@ class PostController extends Controller
     // post.index, also top page
     public function index(Request $request)
     {
-        
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
@@ -42,8 +41,7 @@ class PostController extends Controller
                     $query->where('category_id', $category->id);
                 })->paginate(4);
                 $posts->appends(['category' => $request->category]);
-            } 
-        
+            }
         } else {
             $posts = $this->post->paginate(4);
         }
@@ -216,6 +214,20 @@ class PostController extends Controller
             ->with('posts', $posts);
     }
 
+    // ==== API ====
+    public function fetchData()
+    {
+        $posts = $this->post->whereHas('postCategories', function ($query) {
+            $query->where('category_id', 2); // Event
+        })->get();
+
+        foreach ($posts as $post) {
+            $image = $post->images()->first();
+            $post->image = $image; // add image property to $post
+        }
+
+        return response()->json($posts);
+    }
 
     // ==== Private Functions ====
     private function generateDataUri($img_obj)
