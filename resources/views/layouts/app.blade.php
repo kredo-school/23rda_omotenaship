@@ -43,7 +43,7 @@
     <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-navbar.css') }}">
-
+    <link rel="stylesheet" href="{{ asset('css/components-footer.css') }}">
 </head>
 
 {{-- <body class="font-sans antialiased biz-udpgothic-regular"> --}}

@@ -38,12 +38,11 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         if ($user->role_id === 1) {
-            return '/admin/users/';
+            return '/admin/users';
         } elseif ($user->role_id === 2) {
             return '/';
         }
     }
-
 
     /**
      * Destroy an authenticated session.
@@ -56,6 +55,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

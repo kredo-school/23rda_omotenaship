@@ -29,6 +29,13 @@ class Post extends Model
         return $this->hasMany(Like::class);
     }
 
+    public function isLiked(){
+        if (!Auth::check()) {
+            return redirect()->route('login');
+        }
+        return $this->likes()->where('user_id', Auth::user()->id)->exists();
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(User::class,'favorites');
@@ -62,6 +69,11 @@ class Post extends Model
     public function isFavorited(User $user)
     {
         return $this->favorites()->where('user_id', $user->id)->exists();
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class,'post_category','post_id','category_id');
     }
 
 }
