@@ -31,51 +31,73 @@ class PostController extends Controller
     // post.index, also top page
     public function index(Request $request)
     {
-        // $posts = $this->post->newQuery();
+        $posts = $this->post->newQuery();
 
-        // if ($request->search) {
-        //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-        //     $posts->appends(['search' => $request->search]);
-        // } 
-
-        // if ($request->category == 'culture') {
-        //     $culture = Category::where('name', 'culture')->first();
-        //     if ($culture) {
-        //         $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
-        //             $query->where('category_id', $culture->id);
-        //         });
-        //       } 
-        //     }
-
-        //     $posts = $this->post->paginate(4);
-
-        //     return view('posts.index')
-        //         ->with('posts', $posts)
-        //         ->with('search', $request->search)
-        //         ->with('culture', $culture  ?? null);
-        // }
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
-        } elseif ($request->category == 'culture') {
+        } 
+
+        if ($request->category == 'culture') {
             $culture = Category::where('name', 'culture')->first();
             if ($culture) {
                 $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
                     $query->where('category_id', $culture->id);
-                })->paginate(4);
+                });
                 $posts->appends(['category' => 'culture']);
-            } else {
-                $posts = $this->post->paginate(4);
+              } 
             }
-        } else {
-            $posts = $this->post->paginate(4);
-        }
+            if ($request->category == 'review') {
+                $review = Category::where('name', 'review')->first();
+                if ($review) {
+                    $posts = $posts->whereHas('categories', function ($query) use ($review) {
+                        $query->where('category_id', $review->id);
+                    });
+                    $posts->appends(['category' => 'review']);
+                }
+            }
 
-        return view('posts.index')
-            ->with('posts', $posts)
-            ->with('search', $request->search)
-            ->with('culture', $culture ?? null);
-    }
+            $posts = $this->post->paginate(4);
+
+            return view('posts.index')
+                ->with('posts', $posts)
+                ->with('search', $request->search)
+                ->with('culture', $culture  ?? null)
+                ->with('review', $review ?? null);
+        }
+        // if ($request->search) {
+        //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
+        //     $posts->appends(['search' => $request->search]);
+        // } elseif ($request->category == 'culture') {
+        //     $culture = Category::where('name', 'culture')->first();
+        //     if ($culture) {
+        //         $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
+        //             $query->where('category_id', $culture->id);
+        //         })->paginate(4);
+        //         $posts->appends(['category' => 'culture']);
+        //     } else {
+                
+        //         $posts = $this->post->paginate(4);
+        //     } elseif($request->category == 'Review') {
+        //         $review = Category::where('name','review')->first();
+        //         if($review) {
+        //             $posts = $this->post->whereHas('categories', function ($query) use ($review) {
+        //                 $query->where('category_id', '$review->id');
+        //             })->paginate(4);
+        //             $posts = appends(['category' => 'review']);
+        //         } else{
+        //             $posts = $this->post->paginate(4);
+        //         }
+        //     }
+        // } else {
+        //     $posts = $this->post->paginate(4);
+        // }
+
+        // return view('posts.index')
+        //     ->with('posts', $posts)
+        //     ->with('search', $request->search)
+        //     ->with('culture', $culture ?? null);
+    
 
 
 
