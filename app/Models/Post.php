@@ -75,5 +75,5 @@ class Post extends Model
     {
         return $this->belongsToMany(Category::class,'post_category','post_id','category_id');
     }
-
+    
 }
