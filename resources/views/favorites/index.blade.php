@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="col-12 col-md-6 col-lg-12">
-                        @include('components.caregory-icons')
+                        @include('components.category-icons')
                     </div>
                 </div>
             </div>

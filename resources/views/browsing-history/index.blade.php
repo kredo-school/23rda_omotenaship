@@ -8,34 +8,23 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-auto">
-
-
                 {{-- Heading --}}
                 <h2 class="mb-3"><span class="px-2 heading-kurenai text-bold">Browsing History</span></h2>
 
                 {{-- Posts --}}
                 <div class="row">
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
+                    @forelse ($posts as $post)
+                        <div class="col mb-3">
+                            @include('components.post')
+                        </div>
+                    @empty
+                        No posts yet!
+                    @endforelse
                 </div>
 
-                <div class="row">
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
-                    <div class="col mb-3">
-                        @include('components.post')
-                    </div>
+                {{-- Pagination Link --}}
+                <div class="d-flex justify-content-center">
+                    {{ $posts->links() }}
                 </div>
             </div>
 
@@ -44,5 +33,4 @@
 
     {{-- Footer --}}
     @include('components.footer')
-
 @endsection
