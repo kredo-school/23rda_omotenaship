@@ -26,16 +26,27 @@ class ProfileController extends Controller
     public function show()
     {
         $profile = Auth::user()->profile;
-
         // dd($profile);
-        // $profile = Auth::user()->profile;  ←Auth
-        // $profile = $this->profile->where('user_id', 2)->first();
 
-        $posts = $profile->user->posts()->paginate(4);
+            // languages
+            $languages = [
+                'en' => 'English' ,
+                'ja' => 'Japanese',
+                'fr' => 'French',
+                'de' => 'German' ,
+                'zh' => 'Chinese' ,
+                'ko' => 'Korean' ,
+            ];
+                $profile->language 
+                = $languages[$profile->language] ?? $profile->language;   
+            
+            // pagination
+            $posts = $profile->user->posts()->paginate(4);
 
         return view('profiles.show')
             ->with('profile', $profile)
             ->with('posts', $posts);
+        
     }
 
     // Edit
