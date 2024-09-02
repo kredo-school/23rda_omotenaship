@@ -34,7 +34,6 @@ class PostController extends Controller
     // post.index, also top page
     public function index(Request $request)
     {
-        
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
@@ -45,8 +44,7 @@ class PostController extends Controller
                     $query->where('category_id', $category->id);
                 })->paginate(4);
                 $posts->appends(['category' => $request->category]);
-            } 
-        
+            }
         } else {
             $posts = $this->post->paginate(4);
         }
@@ -231,11 +229,25 @@ class PostController extends Controller
                  })
                  ->whereDate('start_date', '<=', $date)
                  ->whereDate('end_date', '>=', $date)
-                ->paginate(3); 
+                ->paginate(3);
 
     return view('posts.calendar')->with('posts', $posts);
     }
 
+    // ==== API ====
+    public function fetchData()
+    {
+        $posts = $this->post->whereHas('postCategories', function ($query) {
+            $query->where('category_id', 2); // Event
+        })->get();
+
+        foreach ($posts as $post) {
+            $image = $post->images()->first();
+            $post->image = $image; // add image property to $post
+        }
+
+        return response()->json($posts);
+    }
 
      // ==== Private Functions ====
      private function generateDataUri($img_obj)
@@ -243,9 +255,9 @@ class PostController extends Controller
          $img_extension = $img_obj->extension();
          $img_contents = file_get_contents($img_obj);
          $base64_img = base64_encode($img_contents);
- 
+
          $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
- 
+
          return $data_uri;
      }
 
@@ -254,18 +266,4 @@ class PostController extends Controller
         $this->browsing_history->post_id = $post_id;
         $this->browsing_history->save();
     }
-
-    // public function showCalendar(Request $request)
-    // {
-    // $date = $request->input('date', now()->format('Y-m-d'));
-
-    // $posts = Post::whereHas('postCategories', function($query) {
-    //                  $query->where('category_id', 2);
-    //              })
-    //              ->whereDate('start_date', '<=', $date)
-    //              ->whereDate('end_date', '>=', $date)
-    //             ->paginate(3); 
-
-    // return view('posts.calendar')->with('posts', $posts);
-    // }
 }
