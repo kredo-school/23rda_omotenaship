@@ -23,8 +23,8 @@
 <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
 {{-- Setting messenger primary color to css --}}
-<style>
+{{-- <style>
     :root {
         --primary-color: {{ $messengerColor }};
     }
-</style>
+</style> --}}
