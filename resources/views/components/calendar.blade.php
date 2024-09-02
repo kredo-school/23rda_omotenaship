@@ -20,3 +20,4 @@
         calendar.render();
     });
 </script>
+

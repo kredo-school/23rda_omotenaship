@@ -5,7 +5,7 @@
             {{-- Avatar side --}}
             <td>
             <div class="saved-messages avatar av-m">
-                <span class="far fa-bookmark"></span>
+                <span class="far fa-bookmark omotenashipcolor"></span>
             </div>
             </td>
             {{-- center side --}}

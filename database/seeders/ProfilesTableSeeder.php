@@ -10,7 +10,8 @@ class ProfilesTableSeeder extends Seeder
 {
     private $profile;
 
-    public function __construct(Profile $profile){
+    public function __construct(Profile $profile)
+    {
         $this->profile = $profile;
     }
 
@@ -20,23 +21,6 @@ class ProfilesTableSeeder extends Seeder
     public function run(): void
     {
         $seeds = [
-            [
-                'user_id' => '1',
-                'first_name' => 'Alex',
-                'last_name' => 'Johnson',
-                'middle_name' => 'Nicole',
-                'introduction' => 'I travel to major cities and regional tourist destinations to experience Japanese culture and history.
-                I enjoy traveling while working remotely in between jobs. I speak very little Japanese, but prefer places where I can communicate in English.
-                Occupation: Software Engineer
-                Travel Style: Solo travel
-                Interests: Technology, visiting cafes, historical buildings, local cuisine.
-                I am interested in new technology and café culture, and look forward to checking out the latest tech trends in the various places I visit during my travels. He is also passionate about finding cafes that are unique to the area and trying the local coffee and sweets. When visiting historical buildings, I learn about the architectural styles and the historical context in which they were built, while documenting my travels by leaving photos and sketches. When it comes to local cuisine, they reflect on their trips by learning about popular local ingredients and cooking methods and trying to recreate them at home.I hope you all enjoy Japan as much as I did!',
-                'image_path' => 'images/seeders/avatars/Avatar_user_id1.jpg',
-                'birth_date' => '1994-02-02',
-                'language' => 'en-US',
-                'created_at' => NOW(),
-                'updated_at' => NOW()
-            ],
             [
                 'user_id' => '2',
                 'first_name' => 'Emily',
@@ -123,7 +107,7 @@ class ProfilesTableSeeder extends Seeder
                     'updated_at' => NOW()
                 ];
 
-                $this->profile->insert($profiles);
+            $this->profile->insert($profiles);
         }
     }
 

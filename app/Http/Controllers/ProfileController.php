@@ -27,31 +27,30 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile;
-    
+
         if (!$profile) {
             return redirect()->back()->with('error', 'Profile not found.');
         }
         // dd($profile);
 
-            # languages
-            $languages = [
-                'en' => 'English' ,
-                'ja' => 'Japanese',
-                'fr' => 'French',
-                'de' => 'German' ,
-                'zh' => 'Chinese' ,
-                'ko' => 'Korean' ,
-            ];
-                $profile->language 
-                = $languages[$profile->language] ?? $profile->language;   
-            
-            # pagination
-            $posts = $profile->user->posts()->paginate(4);
+        # languages
+        $languages = [
+            'en' => 'English',
+            'ja' => 'Japanese',
+            'fr' => 'French',
+            'de' => 'German',
+            'zh' => 'Chinese',
+            'ko' => 'Korean',
+        ];
+        $profile->language
+            = $languages[$profile->language] ?? $profile->language;
+
+        # pagination
+        $posts = $profile->user->posts()->paginate(4);
 
         return view('profiles.show')
             ->with('profile', $profile)
             ->with('posts', $posts);
-        
     }
 
     # Edit
@@ -92,22 +91,23 @@ class ProfileController extends Controller
         $profile->save();
 
         return redirect()->route('profiles.show');
-        }
-    
-            // ==== Private Functions ====
-            private function generateDataUri($img_obj)
-            {
-                $img_extension = $img_obj->extension();
-                $img_contents = file_get_contents($img_obj);
-                $base64_img = base64_encode($img_contents);
+    }
 
-                $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+    // ==== Private Functions ====
+    private function generateDataUri($img_obj)
+    {
+        $img_extension = $img_obj->extension();
+        $img_contents = file_get_contents($img_obj);
+        $base64_img = base64_encode($img_contents);
 
-                return $data_uri;
-            }
+        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+
+        return $data_uri;
+    }
 
     # Delete
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $profile =  Profile::findOrFail($id);
         $user = $profile->user;
 
@@ -118,6 +118,6 @@ class ProfileController extends Controller
             $user->delete();
         }
 
-    return redirect()->back();
+        return redirect()->back();
     }
 }
