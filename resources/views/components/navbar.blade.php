@@ -57,7 +57,7 @@
 
                         {{-- Direct Message --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/chatify') }}">
+                            <a class="nav-link" href="{{ route('/chatify') }}">
                                 <i class="fa-regular fa-comments"></i>
                             </a>
                         </li>
