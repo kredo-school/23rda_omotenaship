@@ -254,4 +254,18 @@ class PostController extends Controller
         $this->browsing_history->post_id = $post_id;
         $this->browsing_history->save();
     }
+
+    public function showCalendar(Request $request)
+    {
+    $date = $request->input('date', now()->format('Y-m-d'));
+
+    $posts = Post::whereHas('postCategories', function($query) {
+                     $query->where('category_id', 2);
+                 })
+                 ->whereDate('start_date', '<=', $date)
+                 ->whereDate('end_date', '>=', $date)
+                ->paginate(3); 
+
+    return view('posts.calendar')->with('posts', $posts);
+    }
 }

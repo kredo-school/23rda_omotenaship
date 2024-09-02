@@ -70,7 +70,4 @@ class Post extends Model
     {
         return $this->favorites()->where('user_id', $user->id)->exists();
     }
-
-
-
 }
