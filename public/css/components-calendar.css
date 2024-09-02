@@ -23,7 +23,7 @@
 }
 /* 本日の背景 */
 .fc-day-today {
-    background-color: #BC002D !important; 
+    background-color: #BC002D !important;
 }
 /* 選択日の背景 */
 .fc-highlight {
@@ -64,7 +64,6 @@ table, th, td {
 .fc-day-pointer {
     cursor: pointer;
 }
-
 
 /* Categories */
 .underline-kurenai {
