@@ -70,10 +70,4 @@ class Post extends Model
     {
         return $this->favorites()->where('user_id', $user->id)->exists();
     }
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class,'post_category','post_id','category_id');
-    }
-
 }

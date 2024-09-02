@@ -43,6 +43,9 @@ Route::group(['middleware' => 'auth'], function () {
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
+        //Calendar
+        Route::get('/calendar', [PostController::class, 'showCalendar'])
+            ->name('calendar');
     });
 
     // Favorites
@@ -76,6 +79,8 @@ Route::group(['middleware' => 'auth'], function () {
             ->name('edit');
         Route::patch('/update', [ProfileController::class, 'update'])
             ->name('update');
+        Route::delete('/{id}', [ProfileController::class, 'destroy'])
+            ->name('destroy');
     });
 
     // Direct Messages

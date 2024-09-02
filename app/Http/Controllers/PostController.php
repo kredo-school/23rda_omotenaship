@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
+use App\Models\BrowsingHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -18,63 +19,41 @@ class PostController extends Controller
     private $area;
     private $prefecture;
     private $image;
+    private $browsing_history;
 
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image)
+    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
+        $this->browsing_history = $browsing_history;
     }
 
     // post.index, also top page
     public function index(Request $request)
     {
-        // $posts = $this->post->newQuery();
-
-        // if ($request->search) {
-        //     $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-        //     $posts->appends(['search' => $request->search]);
-        // } 
-
-        // if ($request->category == 'culture') {
-        //     $culture = Category::where('name', 'culture')->first();
-        //     if ($culture) {
-        //         $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
-        //             $query->where('category_id', $culture->id);
-        //         });
-        //       } 
-        //     }
-
-        //     $posts = $this->post->paginate(4);
-
-        //     return view('posts.index')
-        //         ->with('posts', $posts)
-        //         ->with('search', $request->search)
-        //         ->with('culture', $culture  ?? null);
-        // }
+        
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
-        } elseif ($request->category == 'culture') {
-            $culture = Category::where('name', 'culture')->first();
-            if ($culture) {
-                $posts = $this->post->whereHas('categories', function ($query) use ($culture) {
-                    $query->where('category_id', $culture->id);
+        } elseif ($request->category) {
+            $category = Category::where('name', $request->category)->first();
+            if ($category) {
+                $posts = $this->post->whereHas('postCategories', function ($query) use ($category) {
+                    $query->where('category_id', $category->id);
                 })->paginate(4);
-                $posts->appends(['category' => 'culture']);
-            } else {
-                $posts = $this->post->paginate(4);
-            }
+                $posts->appends(['category' => $request->category]);
+            } 
+        
         } else {
             $posts = $this->post->paginate(4);
         }
 
         return view('posts.index')
             ->with('posts', $posts)
-            ->with('search', $request->search)
-            ->with('culture', $culture ?? null);
+            ->with('search', $request->search);
     }
 
 
@@ -228,6 +207,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->post->with('comments.user')->findOrFail($id);
+
+        $this->storeBrowsingHistory($id);
+
         return view('posts.show')->with('post', $post);
     }
 
@@ -240,16 +222,50 @@ class PostController extends Controller
             ->with('posts', $posts);
     }
 
-
-    // ==== Private Functions ====
-    private function generateDataUri($img_obj)
+    public function showCalendar(Request $request)
     {
-        $img_extension = $img_obj->extension();
-        $img_contents = file_get_contents($img_obj);
-        $base64_img = base64_encode($img_contents);
+    $date = $request->input('date', now()->format('Y-m-d'));
 
-        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+    $posts = Post::whereHas('postCategories', function($query) {
+                     $query->where('category_id', 2);
+                 })
+                 ->whereDate('start_date', '<=', $date)
+                 ->whereDate('end_date', '>=', $date)
+                ->paginate(3); 
 
-        return $data_uri;
+    return view('posts.calendar')->with('posts', $posts);
+    }
+
+
+     // ==== Private Functions ====
+     private function generateDataUri($img_obj)
+     {
+         $img_extension = $img_obj->extension();
+         $img_contents = file_get_contents($img_obj);
+         $base64_img = base64_encode($img_contents);
+ 
+         $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+ 
+         return $data_uri;
+     }
+
+    private function storeBrowsingHistory($post_id) {
+        $this->browsing_history->user_id = Auth::user()->id;
+        $this->browsing_history->post_id = $post_id;
+        $this->browsing_history->save();
+    }
+
+    public function showCalendar(Request $request)
+    {
+    $date = $request->input('date', now()->format('Y-m-d'));
+
+    $posts = Post::whereHas('postCategories', function($query) {
+                     $query->where('category_id', 2);
+                 })
+                 ->whereDate('start_date', '<=', $date)
+                 ->whereDate('end_date', '>=', $date)
+                ->paginate(3); 
+
+    return view('posts.calendar')->with('posts', $posts);
     }
 }

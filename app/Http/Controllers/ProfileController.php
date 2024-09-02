@@ -22,34 +22,38 @@ class ProfileController extends Controller
         $this->post = $post;
     }
 
-    // Show
+    # Show
     public function show()
     {
-        $profile = Auth::user()->profile;
+        $user = Auth::user();
+        $profile = $user->profile;
+
+        if (!$profile) {
+            return redirect()->back()->with('error', 'Profile not found.');
+        }
         // dd($profile);
 
-            // languages
-            $languages = [
-                'en' => 'English' ,
-                'ja' => 'Japanese',
-                'fr' => 'French',
-                'de' => 'German' ,
-                'zh' => 'Chinese' ,
-                'ko' => 'Korean' ,
-            ];
-                $profile->language 
-                = $languages[$profile->language] ?? $profile->language;   
-            
-            // pagination
-            $posts = $profile->user->posts()->paginate(4);
+        # languages
+        $languages = [
+            'en' => 'English',
+            'ja' => 'Japanese',
+            'fr' => 'French',
+            'de' => 'German',
+            'zh' => 'Chinese',
+            'ko' => 'Korean',
+        ];
+        $profile->language
+            = $languages[$profile->language] ?? $profile->language;
+
+        # pagination
+        $posts = $profile->user->posts()->paginate(4);
 
         return view('profiles.show')
             ->with('profile', $profile)
             ->with('posts', $posts);
-        
     }
 
-    // Edit
+    # Edit
     public function edit()
     {
         $profile = Auth::user()->profile;
@@ -59,7 +63,7 @@ class ProfileController extends Controller
     }
 
 
-    // Update
+    # Update
     public function update(Request $request)
     {
         // dd(1);
@@ -77,7 +81,7 @@ class ProfileController extends Controller
         $profile->language = $request->language;
         $profile->introduction = $request->introduction;
 
-        // avatar
+        #avatar
         if ($request->avatar) {
             $img_obj = $request->avatar;
             $data_uri = $this->generateDataUri($img_obj);
@@ -87,17 +91,33 @@ class ProfileController extends Controller
         $profile->save();
 
         return redirect()->route('profiles.show');
+    }
+
+    // ==== Private Functions ====
+    private function generateDataUri($img_obj)
+    {
+        $img_extension = $img_obj->extension();
+        $img_contents = file_get_contents($img_obj);
+        $base64_img = base64_encode($img_contents);
+
+        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+
+        return $data_uri;
+    }
+
+    # Delete
+    public function destroy($id)
+    {
+        $profile =  Profile::findOrFail($id);
+        $user = $profile->user;
+
+
+        $profile->delete();
+
+        if ($user) {
+            $user->delete();
         }
-    
-            // ==== Private Functions ====
-            private function generateDataUri($img_obj)
-            {
-                $img_extension = $img_obj->extension();
-                $img_contents = file_get_contents($img_obj);
-                $base64_img = base64_encode($img_contents);
 
-                $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
-
-                return $data_uri;
-            }
+        return redirect()->back();
+    }
 }
