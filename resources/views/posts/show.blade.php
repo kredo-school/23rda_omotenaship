@@ -185,16 +185,16 @@
                                     <li class="list-group-item border-0 p-0 mb-2">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('profiles.show', $comment->user->id) }}">
-                                                @if ($comment->user->profile->avatar)
+                                                @if (isset($comment->user->profile->avatar) && $comment->user->profile->avatar)
                                                     <img src="{{ $comment->user->profile->avatar }}"
                                                         alt="{{ $comment->user->name }}"
                                                         class="rounded-circle avatar-sm posts-show-icon">
                                                 @else
-                                                    <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                                                    <i class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
                                                 @endif
                                             </a>
                                             <div class="d-flex align-items-center ms-2">
-                                                <a href="{{ route('profiles.show', $post->id) }}"
+                                                <a href="{{ route('profiles.show', $comment->user->id) }}"
                                                     class="text-decoration-none text-dark fw-bold">
                                                     {{ $comment->user->name }}
                                                 </a>
