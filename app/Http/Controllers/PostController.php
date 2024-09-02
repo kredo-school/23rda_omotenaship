@@ -76,7 +76,7 @@ class PostController extends Controller
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
 
         ]);
 
@@ -117,7 +117,7 @@ class PostController extends Controller
             $this->image->save();
         }
 
-        return redirect()->route('posts.show');
+        return redirect()->route('posts.show' , $this->post->id);
     }
 
     // post edit
@@ -199,7 +199,7 @@ class PostController extends Controller
     {
         $this->post->destroy($id);
 
-        return redirect()->route('index');
+        return redirect()->route('posts.index');
     }
 
 
@@ -255,17 +255,17 @@ class PostController extends Controller
         $this->browsing_history->save();
     }
 
-    public function showCalendar(Request $request)
-    {
-    $date = $request->input('date', now()->format('Y-m-d'));
+    // public function showCalendar(Request $request)
+    // {
+    // $date = $request->input('date', now()->format('Y-m-d'));
 
-    $posts = Post::whereHas('postCategories', function($query) {
-                     $query->where('category_id', 2);
-                 })
-                 ->whereDate('start_date', '<=', $date)
-                 ->whereDate('end_date', '>=', $date)
-                ->paginate(3); 
+    // $posts = Post::whereHas('postCategories', function($query) {
+    //                  $query->where('category_id', 2);
+    //              })
+    //              ->whereDate('start_date', '<=', $date)
+    //              ->whereDate('end_date', '>=', $date)
+    //             ->paginate(3); 
 
-    return view('posts.calendar')->with('posts', $posts);
-    }
+    // return view('posts.calendar')->with('posts', $posts);
+    // }
 }
