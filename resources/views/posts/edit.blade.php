@@ -39,7 +39,7 @@
                                 </div>
                             @endforeach
                             <!-- Error -->
-                            @error('catogory')
+                            @error('categories')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
