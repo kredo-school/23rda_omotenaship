@@ -10,14 +10,13 @@
         <div class="row">
             @include('components.admin-sidebar')
 
-            <div class="col-8">
+            <div class="col-9">
                 <table class="table table-hover align-middle border text-center">
                     <thead>
                         <tr class="admin-table-header">
                             <th></th>
-                            <th>Name</th>
                             <th>Title</th>
-                            <th>VisiteDate</th>
+                            <th>PostBy</th>
                             <th>Create</th>
                             <th>Update</th>
                             <th></th>
@@ -38,9 +37,8 @@
                                         @endif
                                     </a>
                                 </td>
-                                <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->title }}</td>
-                                <td>{{ $post->visit_date }}</td>
+                                <td>{{ $post->user->name }}</td>
                                 <td>{{ $post->created_at }}</td>
                                 <td>{{ $post->updated_at }}</td>
                                 <td>
