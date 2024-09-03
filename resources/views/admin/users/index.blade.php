@@ -55,7 +55,7 @@
                             </tr>
 
                             <!-- Include the modal here-->
-                            @include('components.delete-user-modal')
+                            @include('components.admin-delete-user-modal')
 
                         @endforeach
                     </tbody>
