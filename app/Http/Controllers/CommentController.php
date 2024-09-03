@@ -10,7 +10,7 @@ class CommentController extends Controller
 {
     private $comment;
 
-    public function __construct()
+    public function __construct(Comment $comment)
     {
         $this->comment = new Comment();
     }

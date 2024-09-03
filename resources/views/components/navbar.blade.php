@@ -71,7 +71,7 @@
 
                         {{-- Profile --}}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profiles.show') }}">
+                            <a class="nav-link" href="{{ route('profiles.show', Auth::user()->id) }}">
                                 <i class="fa-solid fa-circle-user"></i>
                             </a>
                         </li>
