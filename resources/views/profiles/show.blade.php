@@ -66,8 +66,10 @@
                         {{-- Button --}}
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
-                            <a href={{ route('profiles.edit') }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
+                            @if (Auth::id() == $user->id)
+                            <a href={{ route('profiles.edit', $user->id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
                                 Edit Profile
+                            @endif
                             </a>
                         </div>
                     </div>
