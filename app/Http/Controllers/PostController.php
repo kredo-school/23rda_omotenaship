@@ -74,7 +74,7 @@ class PostController extends Controller
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
 
         ]);
 
@@ -115,7 +115,7 @@ class PostController extends Controller
             $this->image->save();
         }
 
-        return redirect()->route('posts.show');
+        return redirect()->route('posts.show' , $this->post->id);
     }
 
     // post edit
@@ -197,7 +197,7 @@ class PostController extends Controller
     {
         $this->post->destroy($id);
 
-        return redirect()->route('index');
+        return redirect()->route('posts.index');
     }
 
 
