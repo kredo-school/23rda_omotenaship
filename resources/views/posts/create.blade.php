@@ -179,3 +179,61 @@
     </div>
     @include('components.footer')
 @endsection
+@section('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const areaSelect = document.getElementById('area');
+            const prefectureSelect = document.getElementById('prefecture');
+
+            areaSelect.addEventListener('change', function () {
+                const areaId = this.value;
+
+                // エリアが選択されていない場合
+                if (!areaId) {
+                    showAllPrefectures();
+                    return;
+                }
+
+                // AJAXリクエストで選択されたエリアに該当する都道府県を取得
+                fetch(`/api/prefectures/${areaId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        updatePrefectureOptions(data);
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+
+            function updatePrefectureOptions(prefectures) {
+                prefectureSelect.innerHTML = ''; // 既存のオプションをクリア
+
+                prefectures.forEach(prefecture => {
+                    const option = document.createElement('option');
+                    option.value = prefecture.id;
+                    option.text = prefecture.name;
+                    prefectureSelect.appendChild(option);
+                });
+            }
+
+            function showAllPrefectures() {
+                prefectureSelect.innerHTML = ''; // 既存のオプションをクリア
+
+                @foreach ($all_areas as $area)
+                    const group = document.createElement('optgroup');
+                    group.label = '{{ $area->name }}';
+                    
+                    @foreach ($area->prefectures as $prefecture)
+                        const option = document.createElement('option');
+                        option.value = '{{ $prefecture->id }}';
+                        option.text = '{{ $prefecture->name }}';
+                        group.appendChild(option);
+                    @endforeach
+                    
+                    prefectureSelect.appendChild(group);
+                @endforeach
+            }
+
+            // 初期ロード時に全ての都道府県を表示
+            showAllPrefectures();
+        });
+    </script>
+@endsection

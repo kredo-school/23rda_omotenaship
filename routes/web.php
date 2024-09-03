@@ -128,4 +128,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])
             ->name('destroy');
     });
+
+    // prefecture(java)
+    Route::get('/api/prefectures/{areaId}', [PrefectureController::class, 'getPrefecturesByArea']);
 });
