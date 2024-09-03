@@ -18,7 +18,9 @@
 
         // starting position [lng, lat]. Note that lat must be set between -90 and 90
         center: [137.0000, 36.5000], // Center of Japan
-        zoom: 4.0 // starting zoom
+        zoom: 5.0, // starting zoom
+        pitch: 60, // 0 ~ 60 deg is recommended
+        // bearing: 0 // -180 ~ 180 deg.
     });
 
     // Add full screen control
@@ -41,7 +43,8 @@
         trackUserLocation: true,
         showUserLocation: true,
         fitBoundsOptions: {
-            zoom: 8
+            zoom: 9,
+            pitch: 60 // 0 ~ 60 deg is recommended
         }
     });
     map.addControl(
