@@ -3,14 +3,65 @@
 {
     // have to fix for token to be read from .env
     mapboxgl.accessToken = 'pk.eyJ1IjoibmFiZXlhc3UiLCJhIjoiY20waG1tdDJnMGMxaDJrc2x6anZzNWl3ciJ9.SNBz_XbiECsX23gOXApYVw'; // API key
+    // mapboxgl.accessToken = 'pk.eyJ1IjoibmFiZXlhc3UiLCJhIjoiY20wZ296dHkwMDJ4NzJrcHNud3g4dGUweiJ9.vGjN2FopovRX8FdJ-Opl9A'; // API key for custom style
+
 
     // show map
     const map = new mapboxgl.Map({
-        container: 'map', // HTMLのdiv要素のID
-        style: 'mapbox://styles/mapbox/streets-v11', // Mapboxのスタイル
-        center: [139.6917, 35.6895], // 地図の初期中心座標 [経度, 緯度]（東京）
-        zoom: 10 // Default zoom level
+        container: 'map', // container ID
+
+        // mapbox style
+        // style: 'mapbox://styles/mapbox/standard',
+        style: 'mapbox://styles/mapbox/streets-v11', // 2D
+        // style: 'mapbox://styles/mapbox/streets-v12', // 3D
+        // style: 'mapbox://styles/nabeyasu/cm0mf6smz002q01r3gj5oa8x4', // custom
+
+        // starting position [lng, lat]. Note that lat must be set between -90 and 90
+        center: [137.0000, 36.5000], // Center of Japan
+        zoom: 4.0 // starting zoom
     });
+
+    // Add full screen control
+    map.addControl(
+        new mapboxgl.FullscreenControl(),
+        'top-left'
+    );
+
+    // Add navigation control
+    map.addControl(
+        new mapboxgl.NavigationControl(),
+        'top-right'
+    );
+
+    // Add GeolocateControl
+    const geolocateControl = new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserLocation: true,
+        fitBoundsOptions: {
+            zoom: 8
+        }
+    });
+    map.addControl(
+        geolocateControl,
+        'top-right'
+    );
+
+    // Add scale control
+    map.addControl(
+        new mapboxgl.ScaleControl({
+            maxWidth: 80,
+            unit: 'metric'
+        }),
+        'bottom-right'
+    );
+
+    // Disable scroll zoom
+    map.scrollZoom.disable();
+
+
 
     // Fetch Data from PostModel
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -37,7 +88,6 @@
                 event.date = post.start_date;
 
                 events.push(event);
-                bounds.extend(event.location); // add location to Bounds
             });
 
             // create marker
@@ -58,11 +108,13 @@
                         `))
                     .addTo(map);
             });
-
-            // adjust size of map to show all markers
-            map.fitBounds(bounds, {
-                padding: 50
-            });
         })
         .catch(error => console.error('Error:', error));
+
+    // On loading map
+    map.on('load', () => {
+        setTimeout(() => {
+            geolocateControl.trigger(); // Execute to move to current location
+        }, 1000); // Wait 1 sec.
+    });
 }
