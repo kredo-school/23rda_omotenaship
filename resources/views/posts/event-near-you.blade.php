@@ -14,25 +14,26 @@
 
         {{-- Map --}}
         <div class="row mb-5">
-            <div id="map" style="width: 100%; height: 600px;"></div>
+            <div id="map" style="width: 100%; height: 650px;"></div>
 
             <script src="{{ asset('js/posts/event-near-you.js') }}"></script>
         </div>
 
-        <div class="row">
+        {{-- Posts --}}
+        {{-- <div class="row">
             @forelse ($posts as $post)
                 <div class="col mb-3 d-flex justify-content-center">
                     @include('components.post')
                 </div>
             @empty
                 No posts yet!
-            @endforelse
+            @endforelse --}}
 
             {{-- Pagination Link --}}
-            <div class="d-flex justify-content-center">
+            {{-- <div class="d-flex justify-content-center">
                 {{ $posts->links() }}
             </div>
-        </div>
+        </div> --}}
     </div>
 
     {{-- Footer --}}
