@@ -7,15 +7,15 @@
     @include('components.navbar')
     <div class="container mt-5">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-md-12">
 
                 {{-- Heading --}}
                 <h2 class="mb-3"><span class="px-2 heading-kurenai">Favorite</span></h2>
 
                 {{-- Posts --}}
-                <div class="row justify-content-around">
+                <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-md-6 mb-3 d-flex justify-content-center">
+                        <div class="col-lg-4 col-md-6 mb-3 d-flex justify-content-start">
                             @include('components.post', ['post' => $post])
                         </div>
                     @empty
@@ -29,18 +29,6 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                {{-- Sidebar --}}
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-12">
-                        @include('components.calendar')
-                    </div>
-
-                    <div class="col-12 col-md-6 col-lg-12">
-                        @include('components.category-icons')
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

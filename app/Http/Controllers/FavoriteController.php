@@ -20,7 +20,9 @@ class FavoriteController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $posts = $user->favorites()->paginate(4);
+        $posts = $user->favorites()
+        ->orderBy('favorites.created_at', 'desc')
+        ->paginate(6);
         // return view('favorites.index')
         //     ->with('user_id', $user_id);
         return view('favorites.index')
