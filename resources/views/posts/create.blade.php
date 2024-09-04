@@ -119,9 +119,18 @@
                     <div class="row">
                         <div class="col mb-4">
                             <label for="Prefecture of Japan" class="form-label fw-bold">Prefecture of Japan</label>
-                            <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
+                            {{-- <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
                                 @foreach ($all_prefectures as $prefecture)
                                     <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
+                                @endforeach
+                            </select> --}}
+                            <select name="prefecture_id" id="prefecture_id" class="form-control">
+                                @foreach ($prefectures_by_area as $area => $prefectures)
+                                    <optgroup label="{{ $area }}">
+                                        @foreach ($prefectures as $prefecture)
+                                            <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
+                                        @endforeach
+                                    </optgroup>
                                 @endforeach
                             </select>
 

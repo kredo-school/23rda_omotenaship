@@ -61,9 +61,18 @@ class PostController extends Controller
     {
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
 
-        return view('posts.create')->with('all_categories', $all_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+        $prefectures_by_area = [];
+        $areas = Area::all();
+
+        foreach($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id',$area->id)->get();
+        }
+
+        return view('posts.create')
+            ->with('all_categories', $all_categories)
+            ->with('all_areas', $all_areas)
+            ->with('prefectures_by_area', $prefectures_by_area);
     }
 
     // post store
@@ -115,7 +124,7 @@ class PostController extends Controller
             $this->image->save();
         }
 
-        return redirect()->route('posts.show' , $this->post->id);
+        return redirect()->route('posts.show', $this->post->id);
     }
 
     // post edit
@@ -222,16 +231,16 @@ class PostController extends Controller
 
     public function showCalendar(Request $request)
     {
-    $date = $request->input('date', now()->format('Y-m-d'));
+        $date = $request->input('date', now()->format('Y-m-d'));
 
-    $posts = Post::whereHas('postCategories', function($query) {
-                     $query->where('category_id', 2);
-                 })
-                 ->whereDate('start_date', '<=', $date)
-                 ->whereDate('end_date', '>=', $date)
-                ->paginate(3);
+        $posts = Post::whereHas('postCategories', function ($query) {
+            $query->where('category_id', 2);
+        })
+            ->whereDate('start_date', '<=', $date)
+            ->whereDate('end_date', '>=', $date)
+            ->paginate(3);
 
-    return view('posts.calendar')->with('posts', $posts);
+        return view('posts.calendar')->with('posts', $posts);
     }
 
     // ==== API ====
@@ -249,19 +258,20 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
-     // ==== Private Functions ====
-     private function generateDataUri($img_obj)
-     {
-         $img_extension = $img_obj->extension();
-         $img_contents = file_get_contents($img_obj);
-         $base64_img = base64_encode($img_contents);
+    // ==== Private Functions ====
+    private function generateDataUri($img_obj)
+    {
+        $img_extension = $img_obj->extension();
+        $img_contents = file_get_contents($img_obj);
+        $base64_img = base64_encode($img_contents);
 
-         $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
 
-         return $data_uri;
-     }
+        return $data_uri;
+    }
 
-    private function storeBrowsingHistory($post_id) {
+    private function storeBrowsingHistory($post_id)
+    {
         $this->browsing_history->user_id = Auth::user()->id;
         $this->browsing_history->post_id = $post_id;
         $this->browsing_history->save();
