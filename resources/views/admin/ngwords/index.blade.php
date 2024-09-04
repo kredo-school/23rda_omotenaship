@@ -44,7 +44,7 @@
                     <tbody>
                         @forelse ($all_ngwords as $ng_word)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $ng_word->id }}</td>
                                 <td>{{ $ng_word->word }}</td>
                                 <td>{{ $ng_word->created_at }}</td>
                                 <td>
