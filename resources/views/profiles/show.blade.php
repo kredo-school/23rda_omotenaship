@@ -45,7 +45,7 @@
                                 Introduction
                             </h5>
                             {{-- Introduction -Text --}}
-                            <div 
+                            <div
                                 class="contenedor-pf mx-auto d-flex justify-content-center text-secondary fs-10 fw-normal  col-0 m-0 px-2 py-0">
                                 <input id='leer' type="checkbox" />
                                 <label for="leer"></label>
@@ -67,10 +67,16 @@
                         <div class="d-flex flex-column align-items-center">
                             {{-- Edit Profile --}}
                             @if (Auth::id() == $user->id)
-                            <a href={{ route('profiles.edit', $user->id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2"">
-                                Edit Profile
+                                <a href={{ route('profiles.edit', $user->id) }} class="btn btn-kurenai-pf btn-lg p-1 mb-2">
+                                    Edit Profile
+                                </a>
+                            @else
+                                {{-- If the user is viewing another user's profile --}}
+                                <a href="{{ route('user', ['id' => $user->id]) }}"
+                                    class="btn btn-kurenai-pf btn-lg p-1 mb-2">
+                                    Send Message
+                                </a>
                             @endif
-                            </a>
                         </div>
                     </div>
                 </form>
