@@ -13,18 +13,22 @@
 
                 {{-- Posts --}}
                 <div class="row">
-                    @forelse ($posts as $post)
+                    @forelse ($browsingHistories as $history)
                         <div class="col mb-3">
-                            @include('components.post')
+                            @if ($history->post)
+                                @include('components.post', ['post' => $history->post])
+                            @else
+                                <p>No associated post</p>
+                            @endif
                         </div>
                     @empty
-                        No posts yet!
+                        No browsing history yet!
                     @endforelse
                 </div>
 
                 {{-- Pagination Link --}}
                 <div class="d-flex justify-content-center">
-                    {{ $posts->links() }}
+                    {{ $browsingHistories->links() }}
                 </div>
             </div>
 

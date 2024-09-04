@@ -23,9 +23,9 @@ class ProfileController extends Controller
     }
 
     # Show
-    public function show()
+    public function show($id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail($id);
         $profile = $user->profile;
 
         if (!$profile) {
@@ -48,7 +48,7 @@ class ProfileController extends Controller
         # pagination
         $posts = $profile->user->posts()->paginate(4);
 
-        return view('profiles.show')
+        return view('profiles.show', compact('user'))
             ->with('profile', $profile)
             ->with('posts', $posts);
     }

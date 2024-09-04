@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Profiles
     Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
         // Routes go here
-        Route::get('/show', [ProfileController::class, 'show'])
+        Route::get('/{id}', [ProfileController::class, 'show'])
             ->name('show');
         Route::get('/edit', [ProfileController::class, 'edit'])
             ->name('edit');
