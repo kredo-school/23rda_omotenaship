@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\NGWord;
+use Illuminate\Support\Facades\Auth;
 
 class AdminNgwordController extends Controller
 {
@@ -24,6 +25,7 @@ class AdminNgwordController extends Controller
 
         $ng_word = new NGWord();
         $ng_word->word = $request->input('word');
+        $ng_word->user_id = Auth::id();
         $ng_word->save();
         return redirect()->back();
     }
