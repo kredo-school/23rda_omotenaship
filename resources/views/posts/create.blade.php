@@ -103,6 +103,7 @@
                         <div class="col mb-4">
                             <label for="Area of Japan" class="form-label fw-bold">Area of Japan</label>
                             <select class="form-select form-select-lg mb-3" name="area_id" id="area">
+                                <option value="">Plese, Select area</option>
                                 @foreach ($all_areas as $area)
                                     <option value="{{ $area->id }}">{{ $area->name }}</option>
                                 @endforeach
