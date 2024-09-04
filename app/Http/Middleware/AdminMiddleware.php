@@ -20,7 +20,8 @@ class AdminMiddleware
         if (Auth::check() && Auth::user()->role_id == 1) {
             return $next($request); # allows viewing of the page (default)
         } else {
-            return redirect()->route('posts.index'); # redirect to index
+            // return redirect()->route('posts.index'); # redirect to index
+            return redirect()->back();
         }
     }
 }
