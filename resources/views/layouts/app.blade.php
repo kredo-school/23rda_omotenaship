@@ -44,11 +44,12 @@
     <link rel="stylesheet" href="{{ asset('css/components-footer.css') }}">
 
     {{-- mapbox --}}
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 </head>
 
 {{-- <body class="font-sans antialiased biz-udpgothic-regular"> --}}
+
 <body class="biz-udpgothic-regular">
 
     <!-- Page Content -->
