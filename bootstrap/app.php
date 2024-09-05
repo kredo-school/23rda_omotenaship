@@ -14,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // AdminMiddleware
         $middleware->appendToGroup('admin', 'App\Http\Middleware\AdminMiddleware');
+        $middleware->appendToGroup('user', 'App\Http\Middleware\UserMiddleware');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
