@@ -9,7 +9,9 @@
     <div class="container mt-5">
         <div class="row">
             {{-- Left Column --}}
-            <div class="col-8">
+            {{-- <div class="col-md-8"> --}}
+            {{-- <div class="col-lg-8"> --}}
+            <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
                 <div class="row mb-5">
                     <div class="col event-near-you">
@@ -25,7 +27,7 @@
                 {{-- Posts --}}
                 <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-6 mb-3">
+                        <div class="col-lg-6 mb-3">
                             @include('components.post')
                         </div>
                     @empty
@@ -40,11 +42,20 @@
             </div>
 
             {{-- Right Colmun --}}
-            <div class="col-4">
-                {{-- Calendar --}}
-                @include('components.calendar')
-                {{-- Categories --}}
-                @include('components.category-icons')
+            {{-- <div class="col-md-4"> --}}
+            {{-- <div class="col-lg-4"> --}}
+            <div class="col-xl-4 mb-5">
+                <div class="row">
+                    <div class="col-md-6 col-xl-12">
+                        {{-- Calendar --}}
+                        @include('components.calendar')
+                    </div>
+
+                    <div class="col-md-6 col-xl-12">
+                        {{-- Categories --}}
+                        @include('components.category-icons')
+                    </div>
+                </div>
             </div>
         </div>
     </div>
