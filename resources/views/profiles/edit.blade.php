@@ -118,8 +118,8 @@
                                     </h6>
                                 </label>
                                 <input type="date" name="birth_date" id="birth_date" class="form-control form-siz-pf"
-                                    autofocus placeholder="YYYY/MM/DD" value={{ old('birth_date', $profile->birth_date) }}>
-                                <!-- Error -->
+                                    autofocus placeholder="YYYY/MM/DD"
+                                    value="{{ old('birth_date', $profile->birth_date) }}"> <!-- Error -->
                                 @error('birth_date')
                                     <p class="text-danger small">{{ $message }}</p>
                                 @enderror
@@ -128,19 +128,15 @@
                             {{-- Language --}}
                             <div class="mb-1">
                                 <label for="language" class="form-label fw-bold mb-0">
-                                    <h6>
-                                        Language
-                                    </h6>
+                                    <h6>Language</h6>
                                 </label>
-                                <select name="language" id="language" class="form-control form-siz-pf"
-                                    value={{ old('language', $profile->language) }}
-                                    onchange="changeLanguage()">{{ $profile->language }}
-                                    <option value="en">English</option>
-                                    <option value="ja">Japanese</option>
-                                    <option value="fr">French</option>
-                                    <option value="de">German</option>
-                                    <option value="zh">Chinese</option>
-                                    <option value="ko">Korean</option>
+                                <select name="language" id="language" class="form-control form-siz-pf">
+                                    @foreach ($languages as $key => $value)
+                                        <option value="{{ $key }}"
+                                            {{ old('language', $profile->language) == $key ? 'selected' : '' }}>
+                                            {{ $value }}
+                                        </option>
+                                    @endforeach
                                 </select>
                                 <!-- Error -->
                                 @error('language')

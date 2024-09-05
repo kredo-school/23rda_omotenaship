@@ -31,37 +31,41 @@ class ProfileController extends Controller
         if (!$profile) {
             return redirect()->back()->with('error', 'Profile not found.');
         }
-        // dd($profile);
 
         # languages
         $languages = [
-            'en' => 'English',
+            'en-US' => 'English',
             'ja' => 'Japanese',
             'fr' => 'French',
             'de' => 'German',
             'zh' => 'Chinese',
             'ko' => 'Korean',
-        ];
-        $profile->language
-            = $languages[$profile->language] ?? $profile->language;
-
+            ];
         # pagination
         $posts = $profile->user->posts()->paginate(4);
 
-        return view('profiles.show', compact('user'))
-            ->with('profile', $profile)
-            ->with('posts', $posts);
+        return view('profiles.show', compact('user', 'profile', 'posts', 'languages'));
     }
 
     # Edit
     public function edit()
     {
         $profile = Auth::user()->profile;
-        // dd($profile);
-        return view('profiles.edit')
-            ->with('profile', $profile);
-    }
 
+        # languages
+        $languages = [
+            'en-US' => 'English',
+            'ja' => 'Japanese',
+            'fr' => 'French',
+            'de' => 'German',
+            'zh' => 'Chinese',
+            'ko' => 'Korean',
+        ];
+
+        return view('profiles.edit')
+            ->with('profile', $profile)
+            ->with('languages', $languages);
+    }
 
     # Update
     public function update(Request $request)
@@ -78,7 +82,8 @@ class ProfileController extends Controller
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
         $profile->middle_name = $request->middle_name;
-        $profile->language = $request->language;
+        $profile->birth_date = $request->birth_date;
+        $profile->language = $request->input('language');
         $profile->introduction = $request->introduction;
 
         #avatar
@@ -90,7 +95,8 @@ class ProfileController extends Controller
         }
         $profile->save();
 
-        return redirect()->route('profiles.show');
+        return redirect()->route('profiles.show', $profile->id)
+        ->with('success', 'Profile updated successfully');
     }
 
     // ==== Private Functions ====
