@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\BrowsingHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\NGWord;
 
 class PostController extends Controller
 {
@@ -20,6 +21,7 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
+    
 
     public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
@@ -86,6 +88,17 @@ class PostController extends Controller
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
 
         ]);
+// Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        foreach($ng_words as $ng_word) {
+            if(stripos($request->article, $ng_word) !== false) {
+                return redirect()->back()
+                ->withErrors(['article' => 'Unfortunately, you will not be able to post. Please change your words.'])
+                ->withInput();
+            }
+        }
+
 
         // dd(2);
 
