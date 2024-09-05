@@ -21,77 +21,86 @@
             <h1>Omotenaship</h1>
         </a>
 
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            @if (!request()->is('login') && !request()->is('register'))
-                @if (!Auth::check() || Auth::user()->role_id !== 1)
-                    {{-- Search bar --}}
-                    @if (Route::currentRouteName() === 'posts.index')
-                        <form action="{{ route('posts.index') }}" method="get" class="search me-20 pt-3">
+        {{-- Toggle Button --}}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                            <input type="search" name="search"
-                                value="{{ isset($search) ? old('search', $search) : '' }}" id="search"
-                                class="form-control" placeholder="search">
-                        </form>
-                    @endif
-                @endif
+        {{-- Collapse --}}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                @if (!request()->is('login') && !request()->is('register'))
+                    @if (!Auth::check() || Auth::user()->role_id !== 1)
+                        {{-- Search bar --}}
+                        @if (Route::currentRouteName() === 'posts.index')
+                            <form action="{{ route('posts.index') }}" method="get" class="search me-20 pt-3">
 
-                @if (!Auth::check())
-                    {{-- Login --}}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                        </a>
-                    </li>
-                @elseif (Auth::check())
-                    @if (Auth::user()->role_id === 2)
-                        {{-- Create Post --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('posts.create') }}">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </a>
-                        </li>
-
-                        {{-- Favorite --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('favorites.index') }}">
-                                <i class="fa-regular fa-star"></i>
-                            </a>
-                        </li>
-
-                        {{-- Direct Message --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('chatify') }}">
-                                <i class="fa-regular fa-comments"></i>
-                            </a>
-                        </li>
-
-                        {{-- Browsing History --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('browsing-history.index') }}">
-                                <i class="fa-solid fa-clock-rotate-left"></i>
-                            </a>
-                        </li>
-
-                        {{-- Profile --}}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('profiles.show', Auth::user()->id) }}">
-                                <i class="fa-solid fa-circle-user"></i>
-                            </a>
-                        </li>
+                                <input type="search" name="search"
+                                    value="{{ isset($search) ? old('search', $search) : '' }}" id="search"
+                                    class="form-control" placeholder="search">
+                            </form>
+                        @endif
                     @endif
 
-                    {{-- Logout --}}
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-
-                            <button type="submit" class="nav-link">
-                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    @if (!Auth::check())
+                        {{-- Login --}}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            </a>
+                        </li>
+                    @elseif (Auth::check())
+                        @if (Auth::user()->role_id === 2)
+                            {{-- Create Post --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('posts.create') }}">
+                                    <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
-                        </form>
-                    </li>
+                            </li>
+
+                            {{-- Favorite --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('favorites.index') }}">
+                                    <i class="fa-regular fa-star"></i>
+                                </a>
+                            </li>
+
+                            {{-- Direct Message --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('chatify') }}">
+                                    <i class="fa-regular fa-comments"></i>
+                                </a>
+                            </li>
+
+                            {{-- Browsing History --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('browsing-history.index') }}">
+                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                                </a>
+                            </li>
+
+                            {{-- Profile --}}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('profiles.show', Auth::user()->id) }}">
+                                    <i class="fa-solid fa-circle-user"></i>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Logout --}}
+                        <li class="nav-item">
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="nav-link">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                                    </a>
+                            </form>
+                        </li>
+                    @endif
                 @endif
-            @endif
-        </ul>
+            </ul>
+        </div>
     </div>
 </nav>
