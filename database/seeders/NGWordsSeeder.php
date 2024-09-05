@@ -55,6 +55,125 @@ class NGWordsSeeder extends Seeder
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
+            [
+                'user_id' => 1,
+                'word' => 'retard',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'faggot',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'bitch',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'cunt',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'whore',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'chink',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'spic',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'kike',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'dyke',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'tranny',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'paki',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'slut',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'gypsy',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'freak',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'gook',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'beaner',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'user_id' => 1,
+                'word' => 'midget',
+                'language' => 'en-US',
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
         ];
 
         $this->ng_word->insert($ng_words);

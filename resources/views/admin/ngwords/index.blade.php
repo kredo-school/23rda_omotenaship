@@ -28,6 +28,11 @@
                             </button>
                         </div>
                     </div>
+
+                    {{-- error --}}
+                    @error('word')
+                     <p class="text-danger small">{{ $message }}</p>
+                    @enderror
                 </form>
 
                 {{-- NG Word Table --}}
