@@ -35,6 +35,7 @@
         rel="stylesheet">
 
     <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/post-index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">

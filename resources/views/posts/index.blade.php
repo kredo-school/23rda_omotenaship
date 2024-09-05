@@ -12,9 +12,9 @@
             <div class="col-8">
                 {{-- Event near You --}}
                 <div class="row mb-5">
-                    <div class="col">
+                    <div class="col event-near-you">
                         <a href="{{ route('posts.show-event-near-you') }}">
-                            <img src="{{ asset('images/banners/event-near-you.png') }}" alt="">
+                            <img src="{{ asset('images/banners/event-near-you.png') }}" alt="" class="w-100">
                         </a>
                     </div>
                 </div>
