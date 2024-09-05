@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,13 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    private $profile;
+
+    public function __construct(Profile $profile)
+    {
+        $this->profile = $profile;
+    }
+
     /**
      * Display the registration view.
      */
@@ -31,7 +39,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -43,8 +51,33 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        // Create Profile for new user
+        $this->createProfile($user);
+
+        // Login
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        $user_logged_in = User::findOrFail(Auth::user()->id);
+
+        if ($user_logged_in->role_id === 1) {
+            return redirect('/admin/users/');
+        } elseif ($user_logged_in->role_id === 2) {
+            return redirect('/');
+        }
+    }
+
+    // Private Functions
+    private function createProfile($user)
+    {
+        $this->profile->user_id = $user->id;
+        $this->profile->first_name = $user->name;
+        $this->profile->last_name = null;
+        $this->profile->middle_name = null;
+        $this->profile->introduction = null;
+        $this->profile->avatar = null;
+        $this->profile->birth_date = null;
+        $this->profile->language = 'en';
+
+        $this->profile->save();
     }
 }

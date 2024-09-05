@@ -1,0 +1,62 @@
+/* admin sidebar */
+.admin-list-group h6 {
+    border-bottom: 3px solid #202F55;
+    padding-bottom: 10px;
+    width: 50%;
+}
+
+.admin-list-group a{
+    margin-bottom: 1rem;
+}
+
+.admin-img {
+    width: 100px;
+    height: 100px;
+}
+
+.admin-table-header th{
+    font-size: large;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
+}
+
+.bg-samurai {
+    background-color:#202F55 !important;
+    color: #ffffff !important;
+}
+
+.admin-btn {
+    font-size: large !important;
+    background-color: #202F55 !important;
+    color: #ffffff !important;
+}
+
+/* delete user & post modal */
+.cancel-border {
+    color: #202F55;
+}
+
+.icon-delete-user {
+    font-size: 3rem;
+    color: #202F55;
+}
+
+.admin-modal-text {
+    font-size: 0.8rem;
+}
+
+.delete-border {
+    border-color: #202F55;
+}
+
+/* admin post.index page image size */
+.admin-post-image {
+    height: 100px;
+    width: 300px;
+}
+
+/* admin user.index page image size */
+.admin-profile-avatar {
+    height: 100px;
+    width: 150px;
+}

@@ -1,0 +1,108 @@
+/* FullCalendar */
+.fc-daygrid-day-number,
+.fc-daygrid-day-top {
+    color:#000000;
+    text-decoration: none;
+}
+.fc-col-header-cell-cushion {
+    height: 30px;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+/* 月タイトルの書式 */
+.fc-toolbar-title {
+    color:#000000;
+}
+/* 月タイトルのサイズ */
+#fc-dom-1 {
+    font-size: 22px;
+}
+/* ヘッダーの背景 */
+.fc-col-header-cell {
+    background-color: #BC002D;
+}
+/* 本日の背景 */
+.fc-day-today {
+    background-color: #BC002D !important;
+}
+/* 選択日の背景 */
+.fc-highlight {
+    background-color: #888888 !important;
+}
+/* 過去の日付の書式 */
+.past-date .fc-daygrid-day-number {
+    color: #888888;
+    pointer-events: none;
+}
+/* ボタンの書式 */
+.fc-today-button,
+.fc-prev-button,
+.fc-next-button {
+    background-color: #BC002D !important;
+    color: #FFFFFF !important;
+    font-weight: bold !important;
+}
+/* 前後ボタンの幅 */
+.fc-prev-button,
+.fc-next-button {
+    padding-left: 2.5px !important;
+    padding-right: 2.5px !important;
+}
+/* 日付を中央表示 */
+.fc-daygrid-day-top {
+    justify-content: center;
+}
+/* 日付のフレームの高さ */
+.fc-daygrid-day-frame {
+    height: 40px;
+}
+/* 枠線の削除 */
+table, th, td {
+    border: 0px !important;
+}
+/* カーソルを手の矢印にする */
+.fc-day-pointer {
+    cursor: pointer;
+}
+
+/* Categories */
+.underline-kurenai {
+    text-decoration: underline;
+    text-decoration-color: #BC002D;
+}
+
+/* icon-position */
+.category-icon {
+    position: relative;
+}
+
+/* text-positon */
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 16px;
+    background-color: rgba(188, 0, 45, 1);
+    padding: 5px 10px;
+    border-radius: 50%;
+    display: none;
+}
+
+.icon-container:hover .hover-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 100px;
+}
+
+.icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.img-fluid {
+    display: block;
+}

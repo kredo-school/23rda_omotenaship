@@ -1,0 +1,25 @@
+/* navbar */
+.admin-navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px #202F55;
+}
+
+.user-navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 1px 4px #BC002D;
+}
+
+.navbar {
+    top: 0%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+}
+
+.navbar h1 {
+    margin-bottom: 0;
+}
+
+.nav-item {
+    font-size: 2em;
+}
