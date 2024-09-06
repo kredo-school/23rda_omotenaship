@@ -23,3 +23,10 @@
 .nav-item {
     font-size: 2em;
 }
+
+@media (max-width: 500px) {
+    /* less than 500px */
+    .brand-name {
+        font-size: 1.5rem;
+    }
+}
