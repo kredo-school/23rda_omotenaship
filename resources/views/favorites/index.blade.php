@@ -3,8 +3,6 @@
 @section('title', 'Favorites')
 
 @section('content')
-
-    @include('components.navbar')
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12">
@@ -31,8 +29,4 @@
 
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
-
 @endsection
