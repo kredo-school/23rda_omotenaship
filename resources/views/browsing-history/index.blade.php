@@ -3,8 +3,6 @@
 @section('title', 'Browsing-history')
 
 @section('content')
-
-    @include('components.navbar')
     <div class="container mt-5">
         <div class="row">
             <div class="col-auto">
@@ -34,7 +32,4 @@
 
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection

@@ -3,9 +3,6 @@
 @section('title', 'Event near You')
 
 @section('content')
-    {{-- Navbar --}}
-    @include('components.navbar')
-
     <div class="container">
         <div class="row mt-5 mb-3">
             {{-- Heading --}}
@@ -35,7 +32,4 @@
             </div>
         </div> --}}
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection

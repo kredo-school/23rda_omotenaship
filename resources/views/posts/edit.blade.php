@@ -3,7 +3,6 @@
 @section('title', 'Edit Post')
 
 @section('content')
-    @include('components.navbar')
     <div class="container pt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
@@ -218,6 +217,4 @@
     </div>
     {{-- include delete modal  --}}
     @include('components.delete-post-modal')
-    {{-- include footer --}}
-    @include('components.footer')
 @endsection
