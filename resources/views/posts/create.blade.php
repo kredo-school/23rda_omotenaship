@@ -124,7 +124,7 @@
                                     <option value="{{ $prefecture->id }}">{{ $prefecture->name }}</option>
                                 @endforeach
                             </select> --}}
-                            <select name="prefecture_id" id="prefecture_id" class="form-control">
+                            <select name="prefecture_id" id="prefecture_id" class="form-select">
                                 @foreach ($prefectures_by_area as $area => $prefectures)
                                     <optgroup label="{{ $area }}">
                                         @foreach ($prefectures as $prefecture)

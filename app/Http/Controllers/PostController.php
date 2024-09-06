@@ -134,19 +134,27 @@ class PostController extends Controller
         $post = $this->post->findOrFail($id);
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
+        // $all_prefectures = $this->prefecture->all();
 
-        #If the AUTH user is NOT the owner of the post,redirect to homepage
-        // if(Auth::user()->id != $post->user->id) {
-        //     return redirect()->route('index');
-        // }
+        $prefectures_by_area = [];
+        $areas = Area::all();
+
+        foreach($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id',$area->id)->get();
+        }
 
         $selected_categories = [];
         foreach ($post->postCategories as $post_category) {
             $selected_categories[] = $post_category->category_id;
         }
 
-        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories', $selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+        return view('posts.edit')
+        ->with('post', $post)
+        ->with('all_categories', $all_categories)
+        ->with('selected_categories', $selected_categories)
+        ->with('all_areas', $all_areas)
+        ->with('prefectures_by_area', $prefectures_by_area);
+        // ->with('all_prefectures', $all_prefectures);
     }
 
     // post update
