@@ -3,7 +3,6 @@
 @section('title', 'New Post')
 
 @section('content')
-    @include('components.navbar')
     <div class="container pt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
@@ -187,5 +186,4 @@
             </div>
         </div>
     </div>
-    @include('components.footer')
 @endsection

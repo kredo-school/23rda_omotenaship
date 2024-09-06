@@ -3,9 +3,6 @@
 
 
 @section('content')
-    <!-- Include the modal here-->
-    @include('components.navbar')
-
     <div class="container mt-5">
         <div class="row">
             @include('components.admin-sidebar')
@@ -59,7 +56,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include the modal here-->
-    @include('components.footer')
 @endsection
