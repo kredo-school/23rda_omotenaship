@@ -37,7 +37,8 @@
                     @if (!Auth::check() || Auth::user()->role_id !== 1)
                         {{-- Search bar --}}
                         @if (Route::currentRouteName() === 'posts.index')
-                            <form action="{{ route('posts.index') }}" method="get" class="search me-20 pt-3">
+                            <form action="{{ route('posts.index') }}" method="get"
+                                class="search d-flex align-items-center">
 
                                 <input type="search" name="search"
                                     value="{{ isset($search) ? old('search', $search) : '' }}" id="search"
@@ -56,49 +57,57 @@
                     @elseif (Auth::check())
                         @if (Auth::user()->role_id === 2)
                             {{-- Create Post --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('posts.create') }}">
-                                    <i class="fa-regular fa-pen-to-square"></i>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link d-flex align-items-center" href="{{ route('posts.create') }}">
+                                    <i class="fa-regular fa-pen-to-square me-2"></i>
+                                    <span class="nav-item-text">Create New Post</span>
                                 </a>
                             </li>
 
                             {{-- Favorite --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('favorites.index') }}">
-                                    <i class="fa-regular fa-star"></i>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link d-flex align-items-center" href="{{ route('favorites.index') }}">
+                                    <i class="fa-regular fa-star me-2"></i>
+                                    <span class="nav-item-text">Favorite</span>
                                 </a>
                             </li>
 
                             {{-- Direct Message --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('chatify') }}">
-                                    <i class="fa-regular fa-comments"></i>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link d-flex align-items-center" href="{{ route('chatify') }}">
+                                    <i class="fa-regular fa-comments me-2"></i>
+                                    <span class="nav-item-text">Direct Message</span>
                                 </a>
                             </li>
 
                             {{-- Browsing History --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('browsing-history.index') }}">
-                                    <i class="fa-solid fa-clock-rotate-left"></i>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link d-flex align-items-center"
+                                    href="{{ route('browsing-history.index') }}">
+                                    <i class="fa-solid fa-clock-rotate-left me-2"></i>
+                                    <span class="nav-item-text">Browsing History</span>
                                 </a>
                             </li>
 
                             {{-- Profile --}}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('profiles.show', Auth::user()->id) }}">
-                                    <i class="fa-solid fa-circle-user"></i>
+                            <li class="nav-item d-flex align-items-center">
+                                <a class="nav-link d-flex align-items-center"
+                                    href="{{ route('profiles.show', Auth::user()->id) }}">
+                                    <i class="fa-solid fa-circle-user me-2"></i>
+                                    <span class="nav-item-text">Your Profile</span>
                                 </a>
                             </li>
                         @endif
 
                         {{-- Logout --}}
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
 
-                                <button type="submit" class="nav-link">
-                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
-                                    </a>
+                                <button type="submit" class="nav-link d-flex align-items-center">
+                                    <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+                                    <span class="nav-item-text">Logout</span>
+                                </button>
                             </form>
                         </li>
                     @endif
