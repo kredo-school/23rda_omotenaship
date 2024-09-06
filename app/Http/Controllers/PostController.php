@@ -98,10 +98,10 @@ class PostController extends Controller
 
         $errorMessages = [];
 
-        foreach ($fields as $fiel => $fielname) {
+        foreach ($fields as $field_key => $field_value) {
             foreach ($ng_words as $ng_word) {
-                if (stripos($fielname, $ng_word) !== false) {
-                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                if (stripos($field_value, $ng_word) !== false) {
+                    $errorMessages[$field_key] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
                 }
             }
         }
