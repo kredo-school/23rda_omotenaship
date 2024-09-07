@@ -25,6 +25,8 @@ class CategoriesTableSeeder extends Seeder
             ['id' => 2, 'name' => 'Event', 'created_at' => NOW(), 'updated_at' => NOW()],
             ['id' => 3, 'name' => 'Volunteer', 'created_at' => NOW(), 'updated_at' => NOW()],
             ['id' => 4, 'name' => 'Culture', 'created_at' => NOW(), 'updated_at' => NOW()],
+            ['id' => 5, 'name' => 'Event Organizer', 'created_at' => NOW(), 'updated_at' => NOW()],
+            ['id' => 6, 'name' => 'Volunteer Organizer', 'created_at' => NOW(), 'updated_at' => NOW()],
         ];
 
         $this->category->insert($categories);
