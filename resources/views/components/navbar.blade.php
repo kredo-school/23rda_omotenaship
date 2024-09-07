@@ -93,7 +93,12 @@
                             <li class="nav-item d-flex align-items-center">
                                 <a class="nav-link d-flex align-items-center"
                                     href="{{ route('profiles.show', Auth::user()->id) }}">
-                                    <i class="fa-solid fa-circle-user me-2"></i>
+                                    @if (!empty(Auth::user()->profile->avatar))
+                                        <img src="{{ Auth::user()->profile->avatar }}" alt=""
+                                            class="rounded-circle me-2 nav-avatar">
+                                    @else
+                                        <i class="fa-solid fa-circle-user me-2"></i>
+                                    @endif
                                     <span class="nav-item-text">Your Profile</span>
                                 </a>
                             </li>

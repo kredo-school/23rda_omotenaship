@@ -18,6 +18,12 @@
     display: none;
 }
 
+.nav-avatar {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+}
+
 /* Color */
 .admin-navbar {
     background-color: #ffffff !important;
