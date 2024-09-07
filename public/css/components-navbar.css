@@ -10,22 +10,12 @@
 }
 
 .nav-item {
-    /* font-size: 2rem; */
     font-size: 1.5rem;
 }
 
 .nav-item-text {
-/* #nav-item-text { */
     font-size: 1.0rem;
-    /* line-height: 100%; */
-    /* font-size: 0.5rem; */
-}
-
-@media (max-width: 500px) {
-    /* less than 500px */
-    .brand-name {
-        font-size: 1.5rem;
-    }
+    display: none;
 }
 
 /* Color */
@@ -37,4 +27,21 @@
 .user-navbar {
     background-color: #ffffff !important;
     box-shadow: 0 1px 4px #BC002D;
+}
+
+
+/* Media Query */
+
+/* Less than sm (576px) */
+@media (max-width: 576px) {
+    .brand-name {
+        font-size: 1.5rem;
+    }
+}
+
+/* Less than lg (992px) */
+@media (max-width: 992px) {
+    .nav-item-text {
+        display: block;
+    }
 }
