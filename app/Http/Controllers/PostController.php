@@ -11,6 +11,7 @@ use App\Models\Image;
 use App\Models\BrowsingHistory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use App\Models\NGWord;
 
 class PostController extends Controller
 {
@@ -20,6 +21,7 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
+
 
     public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
@@ -65,8 +67,8 @@ class PostController extends Controller
         $prefectures_by_area = [];
         $areas = Area::all();
 
-        foreach($areas as $area) {
-            $prefectures_by_area[$area->name] = Prefecture::where('area_id',$area->id)->get();
+        foreach ($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
         return view('posts.create')
@@ -86,6 +88,28 @@ class PostController extends Controller
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
 
         ]);
+        // Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        $fields = [
+            'article' => $request->article,
+            'title' => $request->title
+        ];
+
+        $errorMessages = [];
+
+        foreach ($fields as $fiel => $fielname) {
+            foreach ($ng_words as $ng_word) {
+                if (stripos($fielname, $ng_word) !== false) {
+                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                }
+            }
+        }
+        if (!empty($errorMessages)) {
+            return redirect()->back()
+                ->withErrors($errorMessages)
+                ->withInput();
+        }
 
         // dd(2);
 
@@ -139,8 +163,8 @@ class PostController extends Controller
         $prefectures_by_area = [];
         $areas = Area::all();
 
-        foreach($areas as $area) {
-            $prefectures_by_area[$area->name] = Prefecture::where('area_id',$area->id)->get();
+        foreach ($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
         $selected_categories = [];
@@ -149,11 +173,11 @@ class PostController extends Controller
         }
 
         return view('posts.edit')
-        ->with('post', $post)
-        ->with('all_categories', $all_categories)
-        ->with('selected_categories', $selected_categories)
-        ->with('all_areas', $all_areas)
-        ->with('prefectures_by_area', $prefectures_by_area);
+            ->with('post', $post)
+            ->with('all_categories', $all_categories)
+            ->with('selected_categories', $selected_categories)
+            ->with('all_areas', $all_areas)
+            ->with('prefectures_by_area', $prefectures_by_area);
         // ->with('all_prefectures', $all_prefectures);
     }
 
