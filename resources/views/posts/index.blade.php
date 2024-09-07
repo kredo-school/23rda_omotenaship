@@ -50,7 +50,7 @@
 
                     <div class="col-md-6 col-xl-12">
                         {{-- Categories --}}
-                        @include('components.category-icons')
+                        @include('components.category-buttons')
                     </div>
                 </div>
             </div>
