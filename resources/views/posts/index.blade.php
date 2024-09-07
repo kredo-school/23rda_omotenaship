@@ -3,9 +3,6 @@
 @section('title', 'Omotenaship')
 
 @section('content')
-    {{-- Navbar --}}
-    @include('components.navbar')
-
     <div class="container mt-5">
         <div class="row">
             {{-- Left Column --}}
@@ -59,7 +56,4 @@
             </div>
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection

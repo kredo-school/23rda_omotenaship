@@ -11,21 +11,24 @@
 @endphp
 
 <nav class="navbar navbar-expand-lg {{ $navbar_classes }}">
-    <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="{{ route($route_from_logo) }}">
-            {{-- Logo --}}
-            <img src="{{ asset($logo_url) }}" alt="logo" width="60" height="60"
-                class="d-inline-block align-text-top">
-
-            {{-- Servise Name --}}
-            <h1>Omotenaship</h1>
-        </a>
+    <div class="container-fluid justify-content-between">
 
         {{-- Toggle Button --}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+        {{-- Brand --}}
+        <a class="navbar-brand mx-auto pe-5 d-flex align-items-center" href="{{ route($route_from_logo) }}">
+            {{-- Logo --}}
+            <img src="{{ asset($logo_url) }}" alt="logo" width="60" height="60"
+                class="d-inline-block align-text-top">
+
+            {{-- Servise Name --}}
+            {{-- <h1 class="fs-1" style="font-size: 5vw;">Omotenaship</h1> --}}
+            <h1 class="brand-name">Omotenaship</h1>
+        </a>
 
         {{-- Collapse --}}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

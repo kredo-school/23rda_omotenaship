@@ -3,7 +3,6 @@
 @section('title', 'Direct-Messages')
 
 @section('content')
-    @include('components.navbar')
     <div class="container">
         <div class="row">
             <div class="col mt-4 d-flex justify-content-center">
@@ -49,5 +48,4 @@
             </div>
         </div>
     </div>
-    @include('components.footer')
 @endsection
