@@ -41,4 +41,9 @@ return [
         'api_key' => env('MAPBOX_API_KEY'),
     ],
 
+    // ==== OpenAI ====
+    'openai' => [
+        'api_key' => env('OPENAI_API_KEY'),
+    ],
+
 ];
