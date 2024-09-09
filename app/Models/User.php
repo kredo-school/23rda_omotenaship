@@ -103,5 +103,10 @@ class User extends Authenticatable
         return $this->hasMany(DirectMessage::class, 'to_id');
     }
 
+    public function getAvatarAttribute()
+    {
+        return $this->profile->avatar;
+    }
+
 
 }
