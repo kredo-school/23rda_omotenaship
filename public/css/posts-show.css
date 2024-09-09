@@ -25,3 +25,12 @@
     display: none;
     width: 100%;
 }
+
+#read-aloud-btn-translated{
+    display: none;
+}
+
+#audio-player-translated {
+    display: none;
+    width: 100%;
+}

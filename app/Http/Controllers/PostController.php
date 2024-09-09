@@ -363,18 +363,19 @@ class PostController extends Controller
         ]);
 
         $translated_article = $response->choices[0]->message->content;
+        $language = $bcp47;
 
         return response()->json([
-            'translatedArticle' => $translated_article
+            'translatedArticle' => $translated_article,
+            'language' => $language
         ]);
     }
 
     // Post Read Aloud
-    public function readAloudArticle($id)
+    public function generateAudioUrl(Request $request)
     {
-        $post = $this->post->findOrFail($id);
-        $article = $post->article;
-        $language = $post->language;
+        $article = $request->input('article');
+        $language = $request->input('language');
 
         // get URL from TTS service
         $audio_url = $this->google_tts_service->convertTextToSpeech($article, $language);
