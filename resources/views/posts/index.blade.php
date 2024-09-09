@@ -43,14 +43,14 @@
             {{-- <div class="col-lg-4"> --}}
             <div class="col-xl-4 mb-5">
                 <div class="row">
-                    <div class="col-md-6 col-xl-12">
+                    <div class="col-md-6 col-xl-12 mb-5">
                         {{-- Calendar --}}
                         @include('components.calendar')
                     </div>
 
-                    <div class="col-md-6 col-xl-12">
+                    <div class="col-md-6 col-xl-12 mb-5">
                         {{-- Categories --}}
-                        @include('components.category-icons')
+                        @include('components.category-buttons')
                     </div>
                 </div>
             </div>

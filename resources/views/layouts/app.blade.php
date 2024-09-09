@@ -35,18 +35,19 @@
         rel="stylesheet">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ asset('css/post-index.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/post-index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-post.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components-category-buttons.css') }}">
 
     {{-- mapbox --}}
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
