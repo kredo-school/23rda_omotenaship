@@ -57,13 +57,13 @@
                     <div class="">
                         {{-- Edit Profile --}}
                         @if (Auth::id() == $user->id)
-                            <a href={{ route('profiles.edit', $user->id) }} class="btn btn-kurenai-pf w-100">
+                            <a href={{ route('profiles.edit', $user->id) }} class="btn btn-lg btn-kurenai-pf w-100">
                                 Edit Profile
                             </a>
                         @else
                             {{-- Send Message --}}
                             {{-- If the user is viewing another user's profile --}}
-                            <a href="{{ route('user', ['id' => $user->id]) }}" class="btn btn-kurenai-pf w-100">
+                            <a href="{{ route('user', ['id' => $user->id]) }}" class="btn btn-lg btn-kurenai-pf w-100">
                                 Send Message
                             </a>
                         @endif

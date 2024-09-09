@@ -10,6 +10,7 @@
     width: 150px;
     height: 150px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 /* ---------- */
@@ -111,15 +112,6 @@ input[type=checkbox]:checked~.expand-pf {
 input[type=checkbox]:checked~.expand-pf:before {
     opacity: 0
 }
-
-/* ---------- */
-/* Edit form */
-.form-siz-pf {
-    width: 300px;
-    height: 50px;
-}
-
-/* ---------- */
 
 /* delete account modal */
 .icon-delete-account {
