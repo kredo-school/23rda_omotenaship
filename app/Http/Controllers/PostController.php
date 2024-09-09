@@ -23,6 +23,7 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
+
     public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
         $this->post = $post;
@@ -57,6 +58,19 @@ class PostController extends Controller
             ->with('search', $request->search);
     }
 
+    public function show($id)
+    {
+        // with comments
+        $post = $this->post->with('comments.user')->findOrFail($id);
+
+        // Only when user logging in, store history
+        if (Auth::check()) {
+            $this->storeBrowsingHistory($id);
+        }
+
+        return view('posts.show')->with('post', $post);
+    }
+
     // create post
     public function create()
     {
@@ -79,12 +93,6 @@ class PostController extends Controller
     // post store
     public function store(Request $request)
     {
-
-
-
-
-
-
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
@@ -281,26 +289,11 @@ class PostController extends Controller
         return redirect()->route('posts.show', $id);
     }
 
-
     public function destroy($id)
     {
         $this->post->destroy($id);
 
         return redirect()->route('posts.index');
-    }
-
-
-    //comments
-    public function show($id)
-    {
-        $post = $this->post->with('comments.user')->findOrFail($id);
-
-        // Only when user logging in, store history
-        if (Auth::check()) {
-            $this->storeBrowsingHistory($id);
-        }
-
-        return view('posts.show')->with('post', $post);
     }
 
     public function showEventNearYou()
