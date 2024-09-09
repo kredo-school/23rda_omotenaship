@@ -13,6 +13,7 @@ use App\Models\Prefecture;
 use App\Models\Image;
 use App\Models\BrowsingHistory;
 use App\Models\NGWord;
+use App\Services\GoogleTTSService;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
@@ -23,15 +24,24 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
+    private $google_tts_service;
 
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
-    {
+    public function __construct(
+        Post $post,
+        Category $category,
+        Area $area,
+        Prefecture $prefecture,
+        Image $image,
+        BrowsingHistory $browsing_history,
+        GoogleTTSService $google_tts_service,
+    ) {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
         $this->browsing_history = $browsing_history;
+        $this->google_tts_service = $google_tts_service;
     }
 
     // post.index, also top page
@@ -357,6 +367,18 @@ class PostController extends Controller
         return response()->json([
             'translatedArticle' => $translated_article
         ]);
+    }
+
+    // Post Read Aloud
+    public function readAloudArticle($id)
+    {
+        $post = $this->post->findOrFail($id);
+        $article = $post->article;
+
+        // get URL from TTS service
+        $audio_url = $this->google_tts_service->convertTextToSpeech($article, 'en-US');
+
+        return response()->json(['audioUrl' => $audio_url]);
     }
 
     // ===========================

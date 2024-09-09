@@ -54,6 +54,11 @@ Route::group(['middleware' => 'user'], function () {
 
         // Post Translation
         Route::post('/translate-article', [PostController::class, 'translateArticle']);
+
+        // Post TTS
+        Route::post('/{id}/read-aloud-article', [PostController::class, 'readAloudArticle'])
+            ->where('id', '[0-9]+')
+            ->name('read-aloud-article');
     });
 
     // Favorites

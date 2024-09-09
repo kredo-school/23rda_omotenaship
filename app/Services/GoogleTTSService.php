@@ -7,6 +7,7 @@ use Google\Cloud\TextToSpeech\V1\SsmlVoiceGender;
 use Google\Cloud\TextToSpeech\V1\SynthesisInput;
 use Google\Cloud\TextToSpeech\V1\TextToSpeechClient;
 use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
+use Google\Cloud\TextToSpeech\V1\AudioEncoding;
 
 class GoogleTTSService
 {
@@ -17,7 +18,15 @@ class GoogleTTSService
         $this->client = new TextToSpeechClient();
     }
 
-    public function convertTextToSpeech($text)
+    /**
+     * テキストを音声に変換し、音声ファイルのURLを返します。
+     *
+     * @param string $text 読み上げるテキスト
+     * @param string $languageCode 言語コード（例: 'ja-JP'）
+     * @param string $gender 声の性別（'MALE', 'FEMALE', 'NEUTRAL'）
+     * @return string 音声ファイルのパス
+     */
+    public function convertTextToSpeech($text, $languageCode = 'ja-JP', $gender = SsmlVoiceGender::FEMALE)
     {
         // 入力テキストの設定
         $input = new SynthesisInput();
@@ -25,12 +34,12 @@ class GoogleTTSService
 
         // 音声の選択パラメーター
         $voice = new VoiceSelectionParams();
-        $voice->setLanguageCode('en-US');  // 日本語を使う場合は 'ja-JP' などに変更
-        $voice->setSsmlGender(SsmlVoiceGender::FEMALE);  // 声の性別も設定可能
+        $voice->setLanguageCode($languageCode);
+        $voice->setSsmlGender($gender);
 
-        // 音声出力の設定（MP3形式で取得）
+        // 音声出力の設定（MP3形式）
         $audioConfig = new AudioConfig();
-        $audioConfig->setAudioEncoding(AudioConfig::MP3);
+        $audioConfig->setAudioEncoding(AudioEncoding::MP3);
 
         // TTSリクエストを送信
         $response = $this->client->synthesizeSpeech($input, $voice, $audioConfig);
@@ -38,10 +47,17 @@ class GoogleTTSService
         // 音声データを取得
         $audioContent = $response->getAudioContent();
 
-        // 音声データを保存（適切なディレクトリに変更してください）
-        $outputFile = storage_path('app/public/output.mp3');
-        file_put_contents($outputFile, $audioContent);
+        // 音声データを保存（ユニークなファイル名を生成）
+        $fileName = 'tts_' . uniqid() . '.mp3';
+        $outputPath = storage_path('app/public/tts/' . $fileName);
 
-        return $outputFile;
+        // ディレクトリが存在しない場合は作成
+        if (!file_exists(dirname($outputPath))) {
+            mkdir(dirname($outputPath), 0755, true);
+        }
+
+        file_put_contents($outputPath, $audioContent);
+
+        return asset('storage/tts/' . $fileName);
     }
 }
