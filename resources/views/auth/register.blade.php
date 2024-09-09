@@ -3,9 +3,6 @@
 @section('title', 'Register')
 
 @section('content')
-    {{-- Navbar --}}
-    @include('components.navbar')
-
     <div class="row">
         <!-- left -->
         <div class="col-lg-3">
@@ -92,7 +89,4 @@
             <img src="{{ asset('/images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection
