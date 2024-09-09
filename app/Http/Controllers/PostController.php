@@ -48,7 +48,8 @@ class PostController extends Controller
                 $posts->appends(['category' => $request->category]);
             }
         } else {
-            $posts = $this->post->paginate(4);
+            // All posts
+            $posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
         }
 
         return view('posts.index')
