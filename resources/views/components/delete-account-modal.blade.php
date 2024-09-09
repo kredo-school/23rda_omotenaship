@@ -1,7 +1,7 @@
 {{-- Delete Acount --}}
 <div class="modal fade" id="deleteAccountModal-{{ $profile->user->id }}" aria-labelledby="delete-user-modal">
     <div class="modal-dialog modal-sm">
-        <form action="{{ route('profiles.destroy', $profile->id) }}" method="post">
+        <form action="{{ route('profiles.destroy', $profile->user->id) }}" method="post">
             @csrf
             @method('DELETE')
 
@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal-body text-center">
                     @if ($profile->avatar)
-                        <img src="{{ $profile->avatar }}" class="rounded-circle mx-auto admin-img">
+                        <img src="{{ $profile->avatar }}" class="rounded-circle mx-auto modal-img">
                     @else
                         <img src="{{ asset('images\profile_sample1.png') }}" alt=""
                             class="mx-auto d-flex justify-content-center align-items-center abatar-pf-edit">
