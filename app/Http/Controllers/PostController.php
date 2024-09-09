@@ -374,9 +374,10 @@ class PostController extends Controller
     {
         $post = $this->post->findOrFail($id);
         $article = $post->article;
+        $language = $post->language;
 
         // get URL from TTS service
-        $audio_url = $this->google_tts_service->convertTextToSpeech($article, 'en-US');
+        $audio_url = $this->google_tts_service->convertTextToSpeech($article, $language);
 
         return response()->json(['audioUrl' => $audio_url]);
     }

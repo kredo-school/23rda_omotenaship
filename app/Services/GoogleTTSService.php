@@ -26,7 +26,7 @@ class GoogleTTSService
      * @param string $gender 声の性別（'MALE', 'FEMALE', 'NEUTRAL'）
      * @return string 音声ファイルのパス
      */
-    public function convertTextToSpeech($text, $languageCode = 'ja-JP', $gender = SsmlVoiceGender::FEMALE)
+    public function convertTextToSpeech($text, $languageCode = 'en-US', $gender = SsmlVoiceGender::FEMALE)
     {
         // 入力テキストの設定
         $input = new SynthesisInput();
