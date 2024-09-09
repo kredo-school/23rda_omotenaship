@@ -13,6 +13,7 @@ use App\Models\Prefecture;
 use App\Models\Image;
 use App\Models\BrowsingHistory;
 use App\Models\NGWord;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
 {
@@ -294,7 +295,10 @@ class PostController extends Controller
     {
         $post = $this->post->with('comments.user')->findOrFail($id);
 
-        $this->storeBrowsingHistory($id);
+        // Only when user logging in, store history
+        if (Auth::check()) {
+            $this->storeBrowsingHistory($id);
+        }
 
         return view('posts.show')->with('post', $post);
     }
@@ -335,6 +339,31 @@ class PostController extends Controller
         }
 
         return response()->json($posts);
+    }
+
+    // Post Translation
+    public function translateArticle(Request $request)
+    {
+        $article = $request->input('content');
+
+        // Get language user uses
+        $bcp47 = Auth::user()->profile->language;
+
+        $response = OpenAI::chat()->create([
+            'model' => 'gpt-4o',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => "Translate this article to {$bcp47} in BCP 47: {$article}"
+                ]
+            ],
+        ]);
+
+        $translated_article = $response->choices[0]->message->content;
+
+        return response()->json([
+            'translatedArticle' => $translated_article
+        ]);
     }
 
     // ===========================
