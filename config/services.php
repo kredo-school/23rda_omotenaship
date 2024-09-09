@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    // ==== mapbox ====
+    'mapbox' => [
+        // 'api_url' => env('MAPBOX_API_URL'),
+        'api_key' => env('MAPBOX_API_KEY'),
+    ],
 ];
