@@ -1,15 +1,19 @@
 'use strict';
 
 {
-    // ==== Env ====
+    // ==== Definition ====
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-    const hostUrl = 'http://localhost:8000';
-
     const translateBtn = document.getElementById('translate-btn');
+
+    // ==== Event Listeners ====
+    // When click translateBtn
     translateBtn.addEventListener('click', async function () {
+        // get URL
+        const hostUrl = window.location.origin;
         const routeUri = '/posts/translate-article';
-        // const routeUri = '/api/posts/translate-article';
         const url = hostUrl + routeUri;
+
+        // get article to translate
         const article = document.getElementById('article').innerText;
 
         // console.log(article);
