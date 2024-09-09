@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container pt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-7">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 {{-- username --}}
                 @if ($post && $post->user)
                     <div class="row">
