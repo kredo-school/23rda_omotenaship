@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('title', 'Adimin Posts')
 
 @section('content')
     <div class="container mt-5">
@@ -13,7 +13,7 @@
                         <tr class="admin-table-header">
                             <th></th>
                             <th>Title</th>
-                            <th>PostBy</th>
+                            <th>Post_By</th>
                             <th>Create</th>
                             <th>Update</th>
                             <th></th>

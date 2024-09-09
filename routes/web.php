@@ -47,9 +47,13 @@ Route::group(['middleware' => 'user'], function () {
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
+
         //Calendar
         Route::get('/calendar', [PostController::class, 'showCalendar'])
             ->name('calendar');
+
+        // Post Translation
+        Route::post('/translate-article', [PostController::class, 'translateArticle']);
     });
 
     // Favorites

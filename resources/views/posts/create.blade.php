@@ -34,6 +34,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- title --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -45,6 +46,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- artical --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -114,6 +116,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- prefecture --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -166,6 +169,19 @@
                                     @enderror
                                 </div>
                             </div>
+                        </div>
+                    </div>
+
+                    {{-- Address --}}
+                    <div class="row">
+                        <div class="col mb-4">
+                            <label for="event-address" class="form-label fw-bold">Address</label>
+                            <input type="text" name="event_address" id="event-address" class="form-control">{{ old('event_address') }}
+
+                            <!-- Error -->
+                            @error('event_address')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 

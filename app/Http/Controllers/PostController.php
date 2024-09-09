@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
 use App\Models\BrowsingHistory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use App\Models\NGWord;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
 {
@@ -21,8 +23,6 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
-
-
     public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
     {
         $this->post = $post;
@@ -48,15 +48,14 @@ class PostController extends Controller
                 $posts->appends(['category' => $request->category]);
             }
         } else {
-            $posts = $this->post->paginate(4);
+            // All posts
+            $posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
         }
 
         return view('posts.index')
             ->with('posts', $posts)
             ->with('search', $request->search);
     }
-
-
 
     // create post
     public function create()
@@ -80,14 +79,19 @@ class PostController extends Controller
     // post store
     public function store(Request $request)
     {
-        // dd(3);
+
+
+
+
+
+
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
-
         ]);
+
         // Omit NGWord
         $ng_words = NGWord::all()->pluck('word')->toArray();
 
@@ -111,8 +115,6 @@ class PostController extends Controller
                 ->withInput();
         }
 
-        // dd(2);
-
         //   post store
         $this->post->user_id = Auth::user()->id;
         // $this->post->user_id = 3;
@@ -123,9 +125,32 @@ class PostController extends Controller
         $this->post->end_date = $request->end_date;
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
+
+        // Set address to posts table
+        $this->post->event_address = $request->event_address;
+
+        // ==== Transform address to geocode ====
+        $location = $this->geocodeAddress($request->event_address);
+        // $location['longitude', 'latitude']
+
+        // If $location is null, get prefecture's location
+        if (
+            $location === null &&
+            !empty($request->prefecture_id)
+        ) {
+            $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
+            $location = $this->geocodeAddress($prefecture);
+        }
+
+        // Set data to post table
+        if ($location !== null) {
+            $this->post->event_longitude = $location['longitude'];
+            $this->post->event_latitude = $location['latitude'];
+        }
+
+        // Save data to posts table
         $this->post->save();
 
-        // dd(1);
 
         // category
         $post_categories = [];
@@ -218,6 +243,29 @@ class PostController extends Controller
             }
         }
 
+        // Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        $fields = [
+            'article' => $request->article,
+            'title' => $request->title
+        ];
+
+        $errorMessages = [];
+
+        foreach ($fields as $fiel => $fielname) {
+            foreach ($ng_words as $ng_word) {
+                if (stripos($fielname, $ng_word) !== false) {
+                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                }
+            }
+        }
+        if (!empty($errorMessages)) {
+            return redirect()->back()
+                ->withErrors($errorMessages)
+                ->withInput();
+        }
+
         // categories
         $post->postCategories()->delete();
 
@@ -247,7 +295,10 @@ class PostController extends Controller
     {
         $post = $this->post->with('comments.user')->findOrFail($id);
 
-        $this->storeBrowsingHistory($id);
+        // Only when user logging in, store history
+        if (Auth::check()) {
+            $this->storeBrowsingHistory($id);
+        }
 
         return view('posts.show')->with('post', $post);
     }
@@ -290,7 +341,34 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
+    // Post Translation
+    public function translateArticle(Request $request)
+    {
+        $article = $request->input('content');
+
+        // Get language user uses
+        $bcp47 = Auth::user()->profile->language;
+
+        $response = OpenAI::chat()->create([
+            'model' => 'gpt-4o',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => "Translate this article to {$bcp47} in BCP 47: {$article}"
+                ]
+            ],
+        ]);
+
+        $translated_article = $response->choices[0]->message->content;
+
+        return response()->json([
+            'translatedArticle' => $translated_article
+        ]);
+    }
+
+    // ===========================
     // ==== Private Functions ====
+    // ===========================
     private function generateDataUri($img_obj)
     {
         $img_extension = $img_obj->extension();
@@ -307,5 +385,30 @@ class PostController extends Controller
         $this->browsing_history->user_id = Auth::user()->id;
         $this->browsing_history->post_id = $post_id;
         $this->browsing_history->save();
+    }
+
+    // Transform address to geocode
+    private function geocodeAddress($address)
+    {
+        $api_key = config('services.mapbox.api_key');
+        $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
+
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+
+            $data = $response->json();
+
+            if (isset($data['features'][0])) {
+                $location = $data['features'][0]['geometry']['coordinates'];
+                return [
+                    'longitude' => $location[0],
+                    'latitude' => $location[1],
+                ];
+            }
+        }
+
+        // Fail to find address
+        return null;
     }
 }
