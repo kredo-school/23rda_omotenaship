@@ -147,7 +147,7 @@
                 <div class="row mb-3">
                     <div class="col">
                         <p class="d-inline fw-light" id="article">
-                            {{ $post->article }}
+                            {!! nl2br(e($post->article)) !!}
                         </p>
                     </div>
                 </div>
