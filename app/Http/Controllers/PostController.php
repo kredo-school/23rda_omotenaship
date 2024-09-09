@@ -218,6 +218,29 @@ class PostController extends Controller
             }
         }
 
+        // Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        $fields = [
+            'article' => $request->article,
+            'title' => $request->title
+        ];
+
+        $errorMessages = [];
+
+        foreach ($fields as $fiel => $fielname) {
+            foreach ($ng_words as $ng_word) {
+                if (stripos($fielname, $ng_word) !== false) {
+                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                }
+            }
+        }
+        if (!empty($errorMessages)) {
+            return redirect()->back()
+                ->withErrors($errorMessages)
+                ->withInput();
+        }
+
         // categories
         $post->postCategories()->delete();
 
