@@ -42,7 +42,7 @@
                 {{-- Calendar --}}
                 @include('components.calendar')
 
-                @include('components.category-icons')
+                @include('components.category-buttons')
             </div>
         </div>
     </div>
