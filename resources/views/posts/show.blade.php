@@ -152,6 +152,18 @@
                     </div>
                 </div>
 
+                {{-- Read Aloud Button --}}
+                <div class="mb-3">
+                    {{-- Button --}}
+                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn"
+                        data-post-id="{{ $post->id }}">
+                        Read aloud
+                    </button>
+
+                    {{-- Player --}}
+                    <audio controls id="audio-player"></audio>
+                </div>
+
                 {{-- Translate Button --}}
                 <div class="mb-3">
                     <button type="button" class="btn btn-secondary btn-sm" id="translate-btn">
@@ -162,12 +174,9 @@
                 {{-- Translated Article --}}
                 <div class="row mb-5">
                     <div class="col">
-                        {{-- <p>Translated Article</p> --}}
-
                         <p class="d-inline fw-light" id="translated-article"></p>
                     </div>
                 </div>
-                <script src="{{ asset('js/posts/show.js') }}"></script>
 
                 {{-- post comment --}}
                 <div class="row">
@@ -244,4 +253,7 @@
             </div>
         </div>
     </div>
+
+    {{-- JS for this view --}}
+    <script src="{{ asset('js/posts/show.js') }}"></script>
 @endsection
