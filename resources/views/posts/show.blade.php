@@ -143,14 +143,32 @@
                     </div>
                 </div>
 
-                {{-- discription --}}
-                <div class="row mb-5">
+                {{-- Article --}}
+                <div class="row mb-3">
                     <div class="col">
-                        <p class="d-inline fw-light">
+                        <p class="d-inline fw-light" id="article">
                             {{ $post->article }}
                         </p>
                     </div>
                 </div>
+
+                {{-- Translate Button --}}
+                <div class="mb-3">
+                    <button type="button" class="btn btn-secondary btn-sm" id="translate-btn">
+                        Translate to your language
+                    </button>
+                </div>
+
+                {{-- Translated Article --}}
+                <div class="row mb-5">
+                    <div class="col">
+                        {{-- <p>Translated Article</p> --}}
+
+                        <p class="d-inline fw-light" id="translated-article"></p>
+                    </div>
+                </div>
+                <script src="{{ asset('js/posts/show.js') }}"></script>
+
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
@@ -189,7 +207,8 @@
                                                         alt="{{ $comment->user->name }}"
                                                         class="rounded-circle avatar-sm posts-show-icon">
                                                 @else
-                                                    <i class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
+                                                    <i
+                                                        class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
                                                 @endif
                                             </a>
                                             <div class="d-flex align-items-center ms-2">
