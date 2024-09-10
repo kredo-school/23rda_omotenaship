@@ -6,11 +6,14 @@
 
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            contentHeight: 'auto', // auto adjustment for height (prevent scroll)
+            contentHeight: 'auto',
 
             dateClick: function (info) {
-                window.location.href = '/posts/calendar?date=' + info.dateStr;
-                document.getElementById('selected-date').innerText = selectedDate;
+                var clickedDate = info.date;
+                var options = { month: 'short', day: 'numeric' };
+                var formattedDate = clickedDate.toLocaleDateString('en-US', options);
+
+                document.getElementById('selected-date').textContent = formattedDate;
             },
 
             // hand pointer function
