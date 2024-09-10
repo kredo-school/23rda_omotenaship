@@ -3,8 +3,6 @@
 @section('title', 'Edit Profile')
 
 @section('content')
-
-    @include('components.navbar')
     <div class="row justify-content-center">
         <div class="col-8 mt-5 justify-content-center">
             <form action="{{ route('profiles.update') }}" method="post" enctype="multipart/form-data">
@@ -183,5 +181,4 @@
 
         </div>
     </div>
-    @include('components.footer')
 @endsection
