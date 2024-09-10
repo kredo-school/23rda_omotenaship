@@ -23,29 +23,40 @@ Route::get('/', [PostController::class, 'index'])
 
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/{id}/show', [PostController::class, 'show'])
+        ->where('id', '[0-9]+')
         ->name('show');
 });
 
 // Only logged-in user is able to see
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'user'], function () {
     Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
         Route::get('/create', [PostController::class, 'create'])
             ->name('create');
         Route::post('/store', [PostController::class, 'store'])
             ->name('store');
         Route::get('/{id}/edit', [PostController::class, 'edit'])
+            ->where('id', '[0-9]+')
             ->name('edit');
         Route::patch('/{id}/update', [PostController::class, 'update'])
+            ->where('id', '[0-9]+')
             ->name('update');
         Route::delete('/{id}/destroy', [PostController::class, 'destroy'])
+            ->where('id', '[0-9]+')
             ->name('destroy');
 
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
+
         //Calendar
         Route::get('/calendar', [PostController::class, 'showCalendar'])
             ->name('calendar');
+
+        // Post Translation
+        Route::post('/translate-article', [PostController::class, 'translateArticle']);
+
+        // Post TTS
+        Route::post('/generate-audio-url', [PostController::class, 'generateAudioUrl']);
     });
 
     // Favorites
@@ -53,33 +64,47 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [FavoriteController::class, 'index'])
             ->name('index');
         Route::post('/{post_id}', [FavoriteController::class, 'store'])
+            ->where('post_id', '[0-9]+')
             ->name('store');
         Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
+            ->where('post_id', '[0-9]+')
             ->name('destroy');
     });
 
     //likes
     Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
-        Route::post('/{post_id}/store', [LikeController::class, 'store'])->name('store');
-        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])->name('destroy');
+        Route::post('/{post_id}/store', [LikeController::class, 'store'])
+            ->where('post_id', '[0-9]+')
+            ->name('store');
+        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
+            ->where('post_id', '[0-9]+')
+            ->name('destroy');
     });
 
     //comments
     Route::group(['prefix' => 'comments', 'as' => 'comments.'], function () {
-        Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
-        Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
+        Route::post('/{post_id}/store', [CommentController::class, 'store'])
+            ->where('post_id', '[0-9]+')
+            ->name('store');
+        Route::delete('/{id}', [CommentController::class, 'destroy'])
+            ->where('id', '[0-9]+')
+            ->name('destroy');
     });
 
     // Profiles
     Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
         // Routes go here
-        Route::get('/show', [ProfileController::class, 'show'])
+        Route::get('/{user_id}', [ProfileController::class, 'show'])
+            ->where('user_id', '[0-9]+')
             ->name('show');
-        Route::get('/edit', [ProfileController::class, 'edit'])
+        Route::get('/{user_id}/edit', [ProfileController::class, 'edit'])
+            ->where('user_id', '[0-9]+')
             ->name('edit');
-        Route::patch('/update', [ProfileController::class, 'update'])
+        Route::patch('/{user_id}/update', [ProfileController::class, 'update'])
+            ->where('user_id', '[0-9]+')
             ->name('update');
-        Route::delete('/{id}', [ProfileController::class, 'destroy'])
+        Route::delete('/{user_id}', [ProfileController::class, 'destroy'])
+            ->where('user_id', '[0-9]+')
             ->name('destroy');
     });
 
@@ -88,6 +113,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/', [DirectMessageController::class, 'index'])
             ->name('index');
         Route::get('/{user_id}/show', [DirectMessageController::class, 'show'])
+            ->where('user_id', '[0-9]+')
             ->name('show');
     });
 
@@ -106,6 +132,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/', [AdminUserController::class, 'index'])
             ->name('index');
         Route::delete('/{id}', [AdminUserController::class, 'destroy'])
+            ->where('id', '[0-9]+')
             ->name('destroy');
     });
 
@@ -114,8 +141,10 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/', [AdminPostController::class, 'index'])
             ->name('index');
         Route::get('/{id}/show', [AdminPostController::class, 'show'])
+            ->where('id', '[0-9]+')
             ->name('show');
         Route::delete('/{id}', [AdminPostController::class, 'destroy'])
+            ->where('id', '[0-9]+')
             ->name('destroy');
     });
 
@@ -126,6 +155,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/', [AdminNgwordController::class, 'store'])
             ->name('store');
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])
+            ->where('id', '[0-9]+')
             ->name('destroy');
     });
 });

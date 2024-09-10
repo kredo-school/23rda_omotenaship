@@ -3,9 +3,6 @@
 @section('title', 'Adimin Users')
 
 @section('content')
-    <!-- Include the modal here-->
-    @include('components.navbar')
-
     <div class="container mt-5">
         <div class="row">
             
@@ -55,7 +52,7 @@
                             </tr>
 
                             <!-- Include the modal here-->
-                            @include('components.delete-user-modal')
+                            @include('components.admin-delete-user-modal')
 
                         @endforeach
                     </tbody>
@@ -67,8 +64,5 @@
             </div>
         </div>
     </div>
-
-    <!-- Include the modal here-->
-    @include('components.footer')
 @endsection
 

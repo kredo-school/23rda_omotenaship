@@ -3,10 +3,9 @@
 @section('title', 'Show Post')
 
 @section('content')
-    @include('components.navbar')
     <div class="container pt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-7">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
                 {{-- username --}}
                 @if ($post && $post->user)
                     <div class="row">
@@ -16,7 +15,7 @@
                                     <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
                                         class="rounded-circle avatar-sm posts-show-icon">
                                 @else
-                                    <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                                    <i class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
                                 @endif
                             </a>
                             <a href="{{ route('profiles.show', $post->user->id) }}"
@@ -144,14 +143,56 @@
                     </div>
                 </div>
 
-                {{-- discription --}}
-                <div class="row mb-5">
+                {{-- Article --}}
+                <div class="row mb-3">
                     <div class="col">
-                        <p class="d-inline fw-light">
-                            {{ $post->article }}
+                        <p class="d-inline fw-light" id="article" data-language="{{ $post->language }}">
+                            {!! nl2br(e($post->article)) !!}
                         </p>
                     </div>
                 </div>
+
+                {{-- Read Aloud Button --}}
+                <div class="mb-3">
+                    {{-- Button --}}
+                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn"
+                        data-post-id="{{ $post->id }}">
+                        Read aloud
+                    </button>
+
+                    {{-- Player --}}
+                    <audio controls id="audio-player" class=""></audio>
+                </div>
+
+                <hr>
+
+                {{-- Translate Button --}}
+                <div class="mb-3">
+                    <button type="button" class="btn btn-secondary btn-sm" id="translate-btn">
+                        Translate to your language
+                    </button>
+                </div>
+
+                {{-- Translated Article --}}
+                <div class="row mb-3">
+                    <div class="col">
+                        <p class="d-inline fw-light" id="translated-article"></p>
+                    </div>
+                </div>
+
+                {{-- Read Aloud Button for translated article --}}
+                <div class="mb-3">
+                    {{-- Button --}}
+                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn-translated">
+                        Read aloud
+                    </button>
+
+                    {{-- Player --}}
+                    <audio controls id="audio-player-translated"></audio>
+                </div>
+
+                <hr>
+
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
@@ -185,16 +226,17 @@
                                     <li class="list-group-item border-0 p-0 mb-2">
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('profiles.show', $comment->user->id) }}">
-                                                @if ($comment->user->profile->avatar)
+                                                @if (isset($comment->user->profile->avatar) && $comment->user->profile->avatar)
                                                     <img src="{{ $comment->user->profile->avatar }}"
                                                         alt="{{ $comment->user->name }}"
                                                         class="rounded-circle avatar-sm posts-show-icon">
                                                 @else
-                                                    <i class="fa-solid fa-circle-user text-secondary icon-lg me-2"></i>
+                                                    <i
+                                                        class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
                                                 @endif
                                             </a>
                                             <div class="d-flex align-items-center ms-2">
-                                                <a href="{{ route('profiles.show', $post->id) }}"
+                                                <a href="{{ route('profiles.show', $comment->user->id) }}"
                                                     class="text-decoration-none text-dark fw-bold">
                                                     {{ $comment->user->name }}
                                                 </a>
@@ -227,5 +269,6 @@
         </div>
     </div>
 
-    @include('components.footer')
+    {{-- JS for this view --}}
+    <script src="{{ asset('js/posts/show.js') }}"></script>
 @endsection

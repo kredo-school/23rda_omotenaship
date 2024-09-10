@@ -11,73 +11,81 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
+    private $user;
     private $profile;
     private $post;
 
+    private static $languages;
+
     public function __construct(
+        User $user,
         Profile $profile,
         Post $post
     ) {
+        $this->user = $user;
         $this->profile = $profile;
         $this->post = $post;
+
+        self::$languages = [
+            'en-US' => 'English (US)',
+            'en-GB' => 'English (UK)',
+            'fr-FR' => 'French',
+            'de-DE' => 'German',
+            'ja-JP' => 'Japanese',
+            'zh-Hans-CN' => 'Chinese (Simplified)',
+            'zh-Hant-TW' => 'Chinese (Traditional)',
+            'ko-KR' => 'Korean',
+        ];
     }
 
     # Show
-    public function show()
+    public function show($user_id)
     {
-        $user = Auth::user();
-        $profile = $user->profile;
+        $user = $this->user->findOrFail($user_id);
+        $profile = $user->profile()->first();
 
         if (!$profile) {
             return redirect()->back()->with('error', 'Profile not found.');
         }
-        // dd($profile);
 
-        # languages
-        $languages = [
-            'en' => 'English',
-            'ja' => 'Japanese',
-            'fr' => 'French',
-            'de' => 'German',
-            'zh' => 'Chinese',
-            'ko' => 'Korean',
-        ];
-        $profile->language
-            = $languages[$profile->language] ?? $profile->language;
+        // Language list
+        $languages = self::$languages;
 
         # pagination
-        $posts = $profile->user->posts()->paginate(4);
+        $posts = $user->posts()->paginate(4);
 
-        return view('profiles.show')
-            ->with('profile', $profile)
-            ->with('posts', $posts);
+        return view('profiles.show', compact('user', 'profile', 'posts', 'languages'));
     }
 
     # Edit
-    public function edit()
+    public function edit($user_id)
     {
-        $profile = Auth::user()->profile;
-        // dd($profile);
+        $user = $this->user->findOrFail($user_id);
+        $profile = $user->profile()->first();
+
+        // Language list
+        $languages = self::$languages;
+
         return view('profiles.edit')
-            ->with('profile', $profile);
+            ->with('profile', $profile)
+            ->with('languages', $languages);
     }
 
-
     # Update
-    public function update(Request $request)
+    public function update($user_id, Request $request)
     {
-        // dd(1);
-
         $request->validate([
             'first_name' => 'required|max:50',
             'avatar' => 'mimes:jpeg,jpg,gif,png|max:1048',
         ]);
-        // dd(1);
 
-        $profile = $this->profile->findOrFail(Auth::user()->id);
+        $user = $this->user->findOrFail($user_id);
+        $profile = $user->profile()->first();
+
         $profile->first_name = $request->first_name;
         $profile->last_name = $request->last_name;
         $profile->middle_name = $request->middle_name;
+        $profile->birth_date = $request->birth_date;
         $profile->language = $request->language;
         $profile->introduction = $request->introduction;
 
@@ -90,7 +98,17 @@ class ProfileController extends Controller
         }
         $profile->save();
 
-        return redirect()->route('profiles.show');
+        return redirect()->route('profiles.show', $user_id)
+            ->with('success', 'Profile updated successfully');
+    }
+
+    //  Delete User and their profile
+    public function destroy($user_id)
+    {
+        $user = $this->user->findOrFail($user_id);
+        $user->delete();
+
+        return redirect()->route('register');
     }
 
     // ==== Private Functions ====
@@ -103,21 +121,5 @@ class ProfileController extends Controller
         $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
 
         return $data_uri;
-    }
-
-    # Delete
-    public function destroy($id)
-    {
-        $profile =  Profile::findOrFail($id);
-        $user = $profile->user;
-
-
-        $profile->delete();
-
-        if ($user) {
-            $user->delete();
-        }
-
-        return redirect()->back();
     }
 }

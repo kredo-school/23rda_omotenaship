@@ -9,6 +9,7 @@
  */
 
 use Illuminate\Support\Facades\Route;
+use Chatify\Http\Controllers\MessagesController;
 
 /*
 * This is the main app route [Chatify Messenger]
@@ -104,7 +105,7 @@ Route::post('/setActiveStatus', 'MessagesController@setActiveStatus')->name('act
 /*
 * [Group] view by id
 */
-Route::get('/group/{id}', 'MessagesController@index')->name('group');
+Route::get('/group/{id}', [MessagesController::class,'index'])->name('group');
 
 /*
 * user view by id.
@@ -114,5 +115,5 @@ Route::get('/group/{id}', 'MessagesController@index')->name('group');
 * e.g. - The commented routes below :
 */
 // Route::get('/route', function(){ return 'Munaf'; }); // works as a route
-Route::get('/{id}', 'MessagesController@index')->name('user');
+Route::get('/{id}', [MessagesController::class,'index'])->name('user');
 // Route::get('/route', function(){ return 'Munaf'; }); // works as a user id

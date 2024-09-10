@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Profile; 
+use App\Models\Profile;
+use App\Models\User; 
 
 class AdminUserController extends Controller
 {
@@ -17,7 +18,10 @@ class AdminUserController extends Controller
 
     public function destroy($id) {
         $profile = Profile::findOrFail($id);
+        $user = $profile->user;
+
         $profile->delete();
+        $user->delete();
 
         return redirect()->back();
     }

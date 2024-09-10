@@ -3,7 +3,6 @@
 @section('title', 'Edit Post')
 
 @section('content')
-    @include('components.navbar')
     <div class="container pt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
@@ -39,7 +38,7 @@
                                 </div>
                             @endforeach
                             <!-- Error -->
-                            @error('catogory')
+                            @error('categories')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
@@ -138,14 +137,27 @@
                     <div class="row">
                         <div class="col mb-4">
                             <label for="Prefecture" class="form-label fw-bold">Prefecture of Japan</label>
-                            <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
+                            {{-- <select class="form-select form-select-lg mb-3" name="prefecture_id" id="prefecture">
                                 @foreach ($all_prefectures as $prefecture)
                                     <option value="{{ $prefecture->id }}"
                                         {{ old('prefecture_id', $post->prefecture_id) == $prefecture->id ? 'selected' : '' }}>
                                         {{ $prefecture->name }}
                                     </option>
                                 @endforeach
+                            </select> --}}
+                            <select name="prefecture_id" id="prefecture_id" class="form-select">
+                                @foreach ($prefectures_by_area as $area => $prefectures)
+                                    <optgroup label="{{ $area }}">
+                                        @foreach ($prefectures as $prefecture)
+                                            <option value="{{ $prefecture->id }}"
+                                                {{ old('prefecture_id', $post->prefecture_id) == $prefecture->id ? 'selected' : '' }}>
+                                                {{ $prefecture->name }}
+                                            </option>
+                                        @endforeach
+                                    </optgroup>
+                                @endforeach
                             </select>
+
 
                             <!-- Error -->
                             @error('prefecture_id')
@@ -205,6 +217,4 @@
     </div>
     {{-- include delete modal  --}}
     @include('components.delete-post-modal')
-    {{-- include footer --}}
-    @include('components.footer')
 @endsection

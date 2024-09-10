@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\Area;
 use App\Models\Prefecture;
 use App\Models\Image;
 use App\Models\BrowsingHistory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use App\Models\NGWord;
+use App\Services\GoogleTTSService;
+use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
 {
@@ -20,21 +24,29 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
+    private $google_tts_service;
 
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
-    {
+    public function __construct(
+        Post $post,
+        Category $category,
+        Area $area,
+        Prefecture $prefecture,
+        Image $image,
+        BrowsingHistory $browsing_history,
+        GoogleTTSService $google_tts_service,
+    ) {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
         $this->browsing_history = $browsing_history;
+        $this->google_tts_service = $google_tts_service;
     }
 
     // post.index, also top page
     public function index(Request $request)
     {
-        
         if ($request->search) {
             $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
             $posts->appends(['search' => $request->search]);
@@ -45,10 +57,10 @@ class PostController extends Controller
                     $query->where('category_id', $category->id);
                 })->paginate(4);
                 $posts->appends(['category' => $request->category]);
-            } 
-        
+            }
         } else {
-            $posts = $this->post->paginate(4);
+            // All posts
+            $posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
         }
 
         return view('posts.index')
@@ -56,31 +68,70 @@ class PostController extends Controller
             ->with('search', $request->search);
     }
 
+    public function show($id)
+    {
+        // with comments
+        $post = $this->post->with('comments.user')->findOrFail($id);
 
+        // Only when user logging in, store history
+        if (Auth::check()) {
+            $this->storeBrowsingHistory($id);
+        }
+
+        return view('posts.show')->with('post', $post);
+    }
 
     // create post
     public function create()
     {
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
 
-        return view('posts.create')->with('all_categories', $all_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+        $prefectures_by_area = [];
+        $areas = Area::all();
+
+        foreach ($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
+        }
+
+        return view('posts.create')
+            ->with('all_categories', $all_categories)
+            ->with('all_areas', $all_areas)
+            ->with('prefectures_by_area', $prefectures_by_area);
     }
 
     // post store
     public function store(Request $request)
     {
-        // dd(3);
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
-
+            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
 
-        // dd(2);
+        // Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        $fields = [
+            'article' => $request->article,
+            'title' => $request->title
+        ];
+
+        $errorMessages = [];
+
+        foreach ($fields as $fiel => $fielname) {
+            foreach ($ng_words as $ng_word) {
+                if (stripos($fielname, $ng_word) !== false) {
+                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                }
+            }
+        }
+        if (!empty($errorMessages)) {
+            return redirect()->back()
+                ->withErrors($errorMessages)
+                ->withInput();
+        }
 
         //   post store
         $this->post->user_id = Auth::user()->id;
@@ -92,9 +143,32 @@ class PostController extends Controller
         $this->post->end_date = $request->end_date;
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
+
+        // Set address to posts table
+        $this->post->event_address = $request->event_address;
+
+        // ==== Transform address to geocode ====
+        $location = $this->geocodeAddress($request->event_address);
+        // $location['longitude', 'latitude']
+
+        // If $location is null, get prefecture's location
+        if (
+            $location === null &&
+            !empty($request->prefecture_id)
+        ) {
+            $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
+            $location = $this->geocodeAddress($prefecture);
+        }
+
+        // Set data to post table
+        if ($location !== null) {
+            $this->post->event_longitude = $location['longitude'];
+            $this->post->event_latitude = $location['latitude'];
+        }
+
+        // Save data to posts table
         $this->post->save();
 
-        // dd(1);
 
         // category
         $post_categories = [];
@@ -117,7 +191,7 @@ class PostController extends Controller
             $this->image->save();
         }
 
-        return redirect()->route('posts.show');
+        return redirect()->route('posts.show', $this->post->id);
     }
 
     // post edit
@@ -127,19 +201,27 @@ class PostController extends Controller
         $post = $this->post->findOrFail($id);
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
-        $all_prefectures = $this->prefecture->all();
+        // $all_prefectures = $this->prefecture->all();
 
-        #If the AUTH user is NOT the owner of the post,redirect to homepage
-        // if(Auth::user()->id != $post->user->id) {
-        //     return redirect()->route('index');
-        // }
+        $prefectures_by_area = [];
+        $areas = Area::all();
+
+        foreach ($areas as $area) {
+            $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
+        }
 
         $selected_categories = [];
         foreach ($post->postCategories as $post_category) {
             $selected_categories[] = $post_category->category_id;
         }
 
-        return view('posts.edit')->with('post', $post)->with('all_categories', $all_categories)->with('selected_categories', $selected_categories)->with('all_areas', $all_areas)->with('all_prefectures', $all_prefectures);
+        return view('posts.edit')
+            ->with('post', $post)
+            ->with('all_categories', $all_categories)
+            ->with('selected_categories', $selected_categories)
+            ->with('all_areas', $all_areas)
+            ->with('prefectures_by_area', $prefectures_by_area);
+        // ->with('all_prefectures', $all_prefectures);
     }
 
     // post update
@@ -179,6 +261,29 @@ class PostController extends Controller
             }
         }
 
+        // Omit NGWord
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        $fields = [
+            'article' => $request->article,
+            'title' => $request->title
+        ];
+
+        $errorMessages = [];
+
+        foreach ($fields as $fiel => $fielname) {
+            foreach ($ng_words as $ng_word) {
+                if (stripos($fielname, $ng_word) !== false) {
+                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
+                }
+            }
+        }
+        if (!empty($errorMessages)) {
+            return redirect()->back()
+                ->withErrors($errorMessages)
+                ->withInput();
+        }
+
         // categories
         $post->postCategories()->delete();
 
@@ -194,23 +299,12 @@ class PostController extends Controller
         return redirect()->route('posts.show', $id);
     }
 
-
     public function destroy($id)
     {
-        $this->post->destroy($id);
+        $post = $this->post->findOrFail($id);
+        $post->delete();
 
-        return redirect()->route('index');
-    }
-
-
-    //comments
-    public function show($id)
-    {
-        $post = $this->post->with('comments.user')->findOrFail($id);
-
-        $this->storeBrowsingHistory($id);
-
-        return view('posts.show')->with('post', $post);
+        return redirect()->route('posts.index');
     }
 
     public function showEventNearYou()
@@ -224,48 +318,115 @@ class PostController extends Controller
 
     public function showCalendar(Request $request)
     {
-    $date = $request->input('date', now()->format('Y-m-d'));
+        $date = $request->input('date', now()->format('Y-m-d'));
 
-    $posts = Post::whereHas('postCategories', function($query) {
-                     $query->where('category_id', 2);
-                 })
-                 ->whereDate('start_date', '<=', $date)
-                 ->whereDate('end_date', '>=', $date)
-                ->paginate(3); 
+        $posts = Post::whereHas('postCategories', function ($query) {
+            $query->where('category_id', 2);
+        })
+            ->whereDate('start_date', '<=', $date)
+            ->whereDate('end_date', '>=', $date)
+            ->paginate(3);
 
-    return view('posts.calendar')->with('posts', $posts);
+        return view('posts.calendar')->with('posts', $posts);
     }
 
+    // ==== API ====
+    public function fetchData()
+    {
+        $posts = $this->post->whereHas('postCategories', function ($query) {
+            $query->where('category_id', 2); // Event
+        })->get();
 
-     // ==== Private Functions ====
-     private function generateDataUri($img_obj)
-     {
-         $img_extension = $img_obj->extension();
-         $img_contents = file_get_contents($img_obj);
-         $base64_img = base64_encode($img_contents);
- 
-         $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
- 
-         return $data_uri;
-     }
+        foreach ($posts as $post) {
+            $image = $post->images()->first();
+            $post->image = $image; // add image property to $post
+        }
 
-    private function storeBrowsingHistory($post_id) {
+        return response()->json($posts);
+    }
+
+    // Post Translation
+    public function translateArticle(Request $request)
+    {
+        $article = $request->input('content');
+
+        // Get language user uses
+        $bcp47 = Auth::user()->profile->language;
+
+        $response = OpenAI::chat()->create([
+            'model' => 'gpt-4o',
+            'messages' => [
+                [
+                    'role' => 'user',
+                    'content' => "Translate this article to {$bcp47} in BCP 47: {$article}"
+                ]
+            ],
+        ]);
+
+        $translated_article = $response->choices[0]->message->content;
+        $language = $bcp47;
+
+        return response()->json([
+            'translatedArticle' => $translated_article,
+            'language' => $language
+        ]);
+    }
+
+    // Post Read Aloud
+    public function generateAudioUrl(Request $request)
+    {
+        $article = $request->input('article');
+        $language = $request->input('language');
+
+        // get URL from TTS service
+        $audio_url = $this->google_tts_service->convertTextToSpeech($article, $language);
+
+        return response()->json(['audioUrl' => $audio_url]);
+    }
+
+    // ===========================
+    // ==== Private Functions ====
+    // ===========================
+    private function generateDataUri($img_obj)
+    {
+        $img_extension = $img_obj->extension();
+        $img_contents = file_get_contents($img_obj);
+        $base64_img = base64_encode($img_contents);
+
+        $data_uri = 'data:image/' . $img_extension . ';base64,' . $base64_img;
+
+        return $data_uri;
+    }
+
+    private function storeBrowsingHistory($post_id)
+    {
         $this->browsing_history->user_id = Auth::user()->id;
         $this->browsing_history->post_id = $post_id;
         $this->browsing_history->save();
     }
 
-    public function showCalendar(Request $request)
+    // Transform address to geocode
+    private function geocodeAddress($address)
     {
-    $date = $request->input('date', now()->format('Y-m-d'));
+        $api_key = config('services.mapbox.api_key');
+        $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
 
-    $posts = Post::whereHas('postCategories', function($query) {
-                     $query->where('category_id', 2);
-                 })
-                 ->whereDate('start_date', '<=', $date)
-                 ->whereDate('end_date', '>=', $date)
-                ->paginate(3); 
+        $response = Http::get($url);
 
-    return view('posts.calendar')->with('posts', $posts);
+        if ($response->successful()) {
+
+            $data = $response->json();
+
+            if (isset($data['features'][0])) {
+                $location = $data['features'][0]['geometry']['coordinates'];
+                return [
+                    'longitude' => $location[0],
+                    'latitude' => $location[1],
+                ];
+            }
+        }
+
+        // Fail to find address
+        return null;
     }
 }

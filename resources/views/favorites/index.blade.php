@@ -3,48 +3,24 @@
 @section('title', 'Favorites')
 
 @section('content')
-
-    @include('components.navbar')
     <div class="container mt-5">
+        {{-- Heading --}}
+        <h2 class="mb-3"><span class="px-2 heading-kurenai">Favorite</span></h2>
+
+        {{-- Posts --}}
         <div class="row">
-            <div class="col-lg-8">
-
-                {{-- Heading --}}
-                <h2 class="mb-3"><span class="px-2 heading-kurenai">Favorite</span></h2>
-
-                {{-- Posts --}}
-                <div class="row justify-content-around">
-                    @forelse ($posts as $post)
-                        <div class="col-md-6 mb-3 d-flex justify-content-center">
-                            @include('components.post', ['post' => $post])
-                        </div>
-                    @empty
-                        <p>No favorite posts yet!</p>
-                    @endforelse
+            @forelse ($posts as $post)
+                <div class="col-lg-4 col-md-6 mb-3 d-flex justify-content-start">
+                    @include('components.post', ['post' => $post])
                 </div>
+            @empty
+                <p>No favorite posts yet!</p>
+            @endforelse
+        </div>
 
-                {{-- Pagination Link --}}
-                <div class="d-flex justify-content-center">
-                    {{ $posts->links() }}
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                {{-- Sidebar --}}
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-12">
-                        @include('components.calendar')
-                    </div>
-
-                    <div class="col-12 col-md-6 col-lg-12">
-                        @include('components.category-icons')
-                    </div>
-                </div>
-            </div>
+        {{-- Pagination Link --}}
+        <div class="d-flex justify-content-center">
+            {{ $posts->links() }}
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
-
 @endsection

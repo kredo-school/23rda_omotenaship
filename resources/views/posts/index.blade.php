@@ -3,18 +3,17 @@
 @section('title', 'Omotenaship')
 
 @section('content')
-    {{-- Navbar --}}
-    @include('components.navbar')
-
     <div class="container mt-5">
         <div class="row">
             {{-- Left Column --}}
-            <div class="col-8">
+            {{-- <div class="col-md-8"> --}}
+            {{-- <div class="col-lg-8"> --}}
+            <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
                 <div class="row mb-5">
-                    <div class="col">
+                    <div class="col event-near-you">
                         <a href="{{ route('posts.show-event-near-you') }}">
-                            <img src="{{ asset('images/banners/event-near-you.png') }}" alt="">
+                            <img src="{{ asset('images/banners/event-near-you.png') }}" alt="" class="w-100">
                         </a>
                     </div>
                 </div>
@@ -25,7 +24,7 @@
                 {{-- Posts --}}
                 <div class="row">
                     @forelse ($posts as $post)
-                        <div class="col-6 mb-3">
+                        <div class="col-lg-6 mb-3">
                             @include('components.post')
                         </div>
                     @empty
@@ -40,15 +39,21 @@
             </div>
 
             {{-- Right Colmun --}}
-            <div class="col-4">
-                {{-- Calendar --}}
-                @include('components.calendar')
-                {{-- Categories --}}
-                @include('components.category-icons')
+            {{-- <div class="col-md-4"> --}}
+            {{-- <div class="col-lg-4"> --}}
+            <div class="col-xl-4 mb-5">
+                <div class="row">
+                    <div class="col-md-6 col-xl-12 mb-5">
+                        {{-- Calendar --}}
+                        @include('components.calendar')
+                    </div>
+
+                    <div class="col-md-6 col-xl-12 mb-5">
+                        {{-- Categories --}}
+                        @include('components.category-buttons')
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection

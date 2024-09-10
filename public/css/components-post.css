@@ -1,11 +1,14 @@
 .components-post {
-    width: 350px;
+    /* width: 350px; */
+    width: 100%;
     height: 325px;
     position: relative;
 }
 .card-img-top {
-    width: 350px;
+    /* width: 350px; */
+    width: 100%;
     height: 200px;
+    object-fit: cover;
 }
 
 .star-icon {

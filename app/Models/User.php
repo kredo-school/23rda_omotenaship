@@ -6,10 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+
 
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    use HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -82,7 +85,7 @@ class User extends Authenticatable
     public function favorites()
     {
         // return $this->hasMany(Favorite::class);
-        return $this->belongsToMany(Post::class, 'favorites');
+        return $this->belongsToMany(Post::class, 'favorites')->withTimestamps();
     }
 
     public function browsingHistories()
@@ -98,6 +101,11 @@ class User extends Authenticatable
     public function receivedDMs()
     {
         return $this->hasMany(DirectMessage::class, 'to_id');
+    }
+
+    public function getAvatarAttribute()
+    {
+        return $this->profile->avatar;
     }
 
 

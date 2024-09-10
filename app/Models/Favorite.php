@@ -18,4 +18,6 @@ class Favorite extends Model
     {
         return $this->belongsTo(Post::class);
     }
+
+    
 }

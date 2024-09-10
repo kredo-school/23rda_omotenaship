@@ -3,9 +3,6 @@
 @section('title', 'Adimin NG Word')
 
 @section('content')
-
-    @include('components.navbar')
-
     <div class="container mt-5">
         <div class="row">
 
@@ -28,6 +25,11 @@
                             </button>
                         </div>
                     </div>
+
+                    {{-- error --}}
+                    @error('word')
+                     <p class="text-danger small">{{ $message }}</p>
+                    @enderror
                 </form>
 
                 {{-- NG Word Table --}}
@@ -44,7 +46,7 @@
                     <tbody>
                         @forelse ($all_ngwords as $ng_word)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $ng_word->id }}</td>
                                 <td>{{ $ng_word->word }}</td>
                                 <td>{{ $ng_word->created_at }}</td>
                                 <td>
@@ -71,8 +73,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Include the footer here-->
-    @include('components.footer')
-
 @endsection
