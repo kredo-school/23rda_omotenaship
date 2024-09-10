@@ -125,3 +125,13 @@ p {
 .xsmall {
     font-size: 0.65rem;
 }
+
+.pagination a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    color: #ff0000; /* ホバー時に好きな色を指定 */
+    text-decoration: underline; /* 必要ならホバー時に下線を追加 */
+}
