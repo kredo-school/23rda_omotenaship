@@ -54,6 +54,9 @@ Route::group(['middleware' => 'user'], function () {
 
         // Post Translation
         Route::post('/translate-article', [PostController::class, 'translateArticle']);
+
+        // Post TTS
+        Route::post('/generate-audio-url', [PostController::class, 'generateAudioUrl']);
     });
 
     // Favorites

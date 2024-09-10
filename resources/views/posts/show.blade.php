@@ -146,11 +146,25 @@
                 {{-- Article --}}
                 <div class="row mb-3">
                     <div class="col">
-                        <p class="d-inline fw-light" id="article">
-                            {{ $post->article }}
+                        <p class="d-inline fw-light" id="article" data-language="{{ $post->language }}">
+                            {!! nl2br(e($post->article)) !!}
                         </p>
                     </div>
                 </div>
+
+                {{-- Read Aloud Button --}}
+                <div class="mb-3">
+                    {{-- Button --}}
+                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn"
+                        data-post-id="{{ $post->id }}">
+                        Read aloud
+                    </button>
+
+                    {{-- Player --}}
+                    <audio controls id="audio-player" class=""></audio>
+                </div>
+
+                <hr>
 
                 {{-- Translate Button --}}
                 <div class="mb-3">
@@ -160,14 +174,24 @@
                 </div>
 
                 {{-- Translated Article --}}
-                <div class="row mb-5">
+                <div class="row mb-3">
                     <div class="col">
-                        {{-- <p>Translated Article</p> --}}
-
                         <p class="d-inline fw-light" id="translated-article"></p>
                     </div>
                 </div>
-                <script src="{{ asset('js/posts/show.js') }}"></script>
+
+                {{-- Read Aloud Button for translated article --}}
+                <div class="mb-3">
+                    {{-- Button --}}
+                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn-translated">
+                        Read aloud
+                    </button>
+
+                    {{-- Player --}}
+                    <audio controls id="audio-player-translated"></audio>
+                </div>
+
+                <hr>
 
                 {{-- post comment --}}
                 <div class="row">
@@ -244,4 +268,7 @@
             </div>
         </div>
     </div>
+
+    {{-- JS for this view --}}
+    <script src="{{ asset('js/posts/show.js') }}"></script>
 @endsection
