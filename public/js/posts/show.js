@@ -2,7 +2,8 @@
 
 {
     // ==== Env ====
-    const hostUrl = 'http://localhost:8000';
+    // const hostUrl = 'http://localhost:8000';
+    const hostUrl = window.location.origin;
     const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const translateBtn = document.getElementById('translate-btn');
