@@ -121,8 +121,6 @@
     readAloudBtnTranslated.addEventListener('click', async function () {
         readAloudBtnTranslated.disabled = true;
 
-        // Get Post ID
-        // const postId = 1; // temp
 
         // Get an article information to read
         const translatedArticle = document.getElementById('translated-article');
@@ -136,6 +134,4 @@
 
         readAloudBtnTranslated.disabled = false;
     });
-
-
 }
