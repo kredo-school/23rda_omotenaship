@@ -76,7 +76,7 @@ class RegisteredUserController extends Controller
         $this->profile->introduction = null;
         $this->profile->avatar = null;
         $this->profile->birth_date = null;
-        $this->profile->language = 'en';
+        $this->profile->language = 'en-US';
 
         $this->profile->save();
     }
