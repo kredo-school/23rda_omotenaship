@@ -109,4 +109,11 @@ class User extends Authenticatable
     }
 
 
+    public function getNameAttribute()
+    {
+        return $this->profile->first_name . ' ' . $this->profile->last_name;
+    }
+
+
+
 }
