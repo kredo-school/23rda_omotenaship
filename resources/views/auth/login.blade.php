@@ -3,9 +3,6 @@
 @section('title', 'Login')
 
 @section('content')
-    {{-- Navbar --}}
-    @include('components.navbar')
-
     <div class="row">
         <!-- left -->
         <div class="col-lg-3">
@@ -26,7 +23,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
-                {{-- <form method="POST" action="{{ route('login.store') }}" class="mt-4"> --}}
+                    {{-- <form method="POST" action="{{ route('login.store') }}" class="mt-4"> --}}
                     @csrf
 
                     <!-- username -->
@@ -95,7 +92,4 @@
             <img src="{{ asset('/images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
         </div>
     </div>
-
-    {{-- Footer --}}
-    @include('components.footer')
 @endsection

@@ -54,11 +54,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 </head>
 
-{{-- <body class="font-sans antialiased biz-udpgothic-regular"> --}}
-
-
 <body class="biz-udpgothic-regular">
-
     <div class="wrap">
         <!-- Include the navbar here-->
         @include('components.navbar')
