@@ -54,6 +54,9 @@ Route::group(['middleware' => 'user'], function () {
 
         // Post Translation
         Route::post('/translate-article', [PostController::class, 'translateArticle']);
+
+        // Post TTS
+        Route::post('/generate-audio-url', [PostController::class, 'generateAudioUrl']);
     });
 
     // Favorites
@@ -91,15 +94,17 @@ Route::group(['middleware' => 'user'], function () {
     // Profiles
     Route::group(['prefix' => '/profiles', 'as' => 'profiles.'], function () {
         // Routes go here
-        Route::get('/{id}', [ProfileController::class, 'show'])
-            ->where('id', '[0-9]+')
+        Route::get('/{user_id}', [ProfileController::class, 'show'])
+            ->where('user_id', '[0-9]+')
             ->name('show');
-        Route::get('/edit', [ProfileController::class, 'edit'])
+        Route::get('/{user_id}/edit', [ProfileController::class, 'edit'])
+            ->where('user_id', '[0-9]+')
             ->name('edit');
-        Route::patch('/update', [ProfileController::class, 'update'])
+        Route::patch('/{user_id}/update', [ProfileController::class, 'update'])
+            ->where('user_id', '[0-9]+')
             ->name('update');
-        Route::delete('/{id}', [ProfileController::class, 'destroy'])
-            ->where('id', '[0-9]+')
+        Route::delete('/{user_id}', [ProfileController::class, 'destroy'])
+            ->where('user_id', '[0-9]+')
             ->name('destroy');
     });
 

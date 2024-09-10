@@ -2,7 +2,7 @@
 /* General Style */
 /* ============= */
 main {
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
 .wrap {
@@ -72,6 +72,14 @@ main {
     /* font-family:serif; */
     font-weight: 400;
     font-style: normal;
+}
+
+
+/* Modal Window */
+.modal-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
 }
 
 /* Heading */

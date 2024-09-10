@@ -31,7 +31,7 @@ class ProfilesTableSeeder extends Seeder
                 I am active in urban areas of Japan, especially Tokyo and Osaka! My Japanese is at a beginner level (lol).',
                 'image_path' => 'images/seeders/avatars/Avatar_user_id2.jpg',
                 'birth_date' => '1988-04-12',
-                'language' => 'en-US',
+                'language' => 'ja-JP',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
@@ -44,7 +44,7 @@ class ProfilesTableSeeder extends Seeder
                 I would like to learn about Japanese food culture! I would like to get inspiration from Japanese cuisine to introduce new menu items in my own restaurant.',
                 'image_path' => 'images/seeders/avatars/Avatar_user_id3.jpg',
                 'birth_date' => '1997-06-22',
-                'language' => 'en-US',
+                'language' => 'ko-KR',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
@@ -61,7 +61,7 @@ class ProfilesTableSeeder extends Seeder
                 Please do not hesitate to contact me! ',
                 'image_path' => 'images/seeders/avatars/Avatar_user_id4.jpg',
                 'birth_date' => '1996-08-12',
-                'language' => 'en-US',
+                'language' => 'zh-Hans-CN',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
@@ -75,7 +75,7 @@ class ProfilesTableSeeder extends Seeder
                 Please do not hesitate to contact me',
                 'image_path' => 'images/seeders/avatars/Avatar_user_id5.jpg',
                 'birth_date' => '1970-10-22',
-                'language' => 'en-US',
+                'language' => 'de-DE',
                 'created_at' => NOW(),
                 'updated_at' => NOW()
             ],
