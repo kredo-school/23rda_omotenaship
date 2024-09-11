@@ -26,12 +26,6 @@
     <!-- Bootstrap 5 CSS -->
     <link href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <!-- UDGothic -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=BIZ+UDPGothic&display=swap"
-        rel="stylesheet">
-
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
@@ -52,7 +46,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 </head>
 
-<body class="biz-udpgothic-regular">
+<body>
     <div class="wrap">
         <!-- Include the navbar here-->
         @include('components.navbar')
