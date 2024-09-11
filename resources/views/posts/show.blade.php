@@ -173,22 +173,25 @@
                     </button>
                 </div>
 
-                {{-- Translated Article --}}
-                <div class="row mb-3">
-                    <div class="col">
-                        <p class="d-inline fw-light" id="translated-article"></p>
+                {{-- Translated result  --}}
+                <div id="translated-result">
+                    {{-- Translated Article --}}
+                    <div class="row mb-3">
+                        <div class="col">
+                            <p class="d-inline fw-light" id="translated-article"></p>
+                        </div>
                     </div>
-                </div>
 
-                {{-- Read Aloud Button for translated article --}}
-                <div class="mb-3">
-                    {{-- Button --}}
-                    <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn-translated">
-                        Read aloud
-                    </button>
+                    {{-- Read Aloud Button for translated article --}}
+                    <div class="mb-3">
+                        {{-- Button --}}
+                        <button type="button" class="btn btn-secondary btn-sm mb-2" id="read-aloud-btn-translated">
+                            Read aloud
+                        </button>
 
-                    {{-- Player --}}
-                    <audio controls id="audio-player-translated"></audio>
+                        {{-- Player --}}
+                        <audio controls id="audio-player-translated"></audio>
+                    </div>
                 </div>
 
                 <hr>
