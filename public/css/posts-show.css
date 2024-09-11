@@ -27,8 +27,13 @@
     width: 100%;
 }
 
-#read-aloud-btn-translated{
+/* Article Translation  */
+#translated-result {
     display: none;
+}
+
+#read-aloud-btn-translated {
+    /* display: none; */
 }
 
 #audio-player-translated {

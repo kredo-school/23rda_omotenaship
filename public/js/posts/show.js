@@ -42,13 +42,14 @@
 
             const data = await response.json();
 
-            // show translated article
+            // set translated article
             const translatedArticle = document.getElementById('translated-article');
             translatedArticle.innerText = data.translatedArticle;
             translatedArticle.dataset.language = data.language;
 
-            // show read aloud button
-            readAloudBtnTranslated.style.display = 'block';
+            // show translated article and read aloud button (show container)
+            const $translatedResult = $('#translated-result');
+            $translatedResult.fadeIn(300);
         } catch (error) {
             console.error('Translation failed:', error);
             // alert('Translation failed');
