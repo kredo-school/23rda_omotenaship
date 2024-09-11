@@ -81,6 +81,14 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
+    
+    // select category
+    public function storeSelectCategory(){
+
+        return view ('posts.select-category');
+    }
+
+
     // create post
     public function create()
     {
