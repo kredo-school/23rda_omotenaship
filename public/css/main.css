@@ -1,6 +1,19 @@
 /* ============= */
 /* General Style */
 /* ============= */
+@font-face {
+    font-family: 'BIZ UDPGothic';
+    src: url('/fonts/BIZ_UDPGothic/BIZUDPGothic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'BIZ UDPGothic', sans-serif;
+    /* font-family: sans-serif; */
+    /* font-family: serif; */
+}
+
 main {
     padding-top: 70px;
 }
@@ -67,14 +80,6 @@ main {
     background-color: #FFFFFF;
 }
 
-.biz-udpgothic-regular {
-    font-family: "BIZ UDPGothic", sans-serif;
-    /* font-family:serif; */
-    font-weight: 400;
-    font-style: normal;
-}
-
-
 /* Modal Window */
 .modal-img {
     width: 100px;
@@ -84,37 +89,30 @@ main {
 
 /* Heading */
 h1 {
-    font-family: "BIZ UDPGothic";
     font-size: 40px;
 }
 
 h2 {
-    font-family: "BIZ UDPGothic";
     font-size: 32px;
 }
 
 h3 {
-    font-family: "BIZ UDPGothic";
     font-size: 28px;
 }
 
 h4 {
-    font-family: "BIZ UDPGothic";
     font-size: 24px;
 }
 
 h5 {
-    font-family: "BIZ UDPGothic";
     font-size: 20px;
 }
 
 h6 {
-    font-family: "BIZ UDPGothic";
     font-size: 16px;
 }
 
 p {
-    font-family: "BIZ UDPGothic";
     font-size: 16px;
 }
 
