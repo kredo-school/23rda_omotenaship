@@ -21,19 +21,15 @@
     object-fit: cover;
 }
 
-/* Audio Player */
-#audio-player {
-    display: none;
-    width: 100%;
-}
-
 /* Article Translation  */
 #translated-result {
     display: none;
 }
 
-#read-aloud-btn-translated {
-    /* display: none; */
+/* Audio Players */
+#audio-player {
+    display: none;
+    width: 100%;
 }
 
 #audio-player-translated {
