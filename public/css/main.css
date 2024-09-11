@@ -2,7 +2,7 @@
 /* General Style */
 /* ============= */
 main {
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
 .wrap {
@@ -74,6 +74,14 @@ main {
     font-style: normal;
 }
 
+
+/* Modal Window */
+.modal-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
 /* Heading */
 h1 {
     font-family: "BIZ UDPGothic";
@@ -124,4 +132,14 @@ p {
 
 .xsmall {
     font-size: 0.65rem;
+}
+
+.pagination a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    color: #ff0000; /* ホバー時に好きな色を指定 */
+    text-decoration: underline; /* 必要ならホバー時に下線を追加 */
 }

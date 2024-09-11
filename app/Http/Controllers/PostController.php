@@ -13,6 +13,7 @@ use App\Models\Prefecture;
 use App\Models\Image;
 use App\Models\BrowsingHistory;
 use App\Models\NGWord;
+use App\Services\GoogleTTSService;
 use OpenAI\Laravel\Facades\OpenAI;
 
 class PostController extends Controller
@@ -23,14 +24,24 @@ class PostController extends Controller
     private $prefecture;
     private $image;
     private $browsing_history;
-    public function __construct(Post $post, Category $category, Area $area, Prefecture $prefecture, Image $image, BrowsingHistory $browsing_history)
-    {
+    private $google_tts_service;
+
+    public function __construct(
+        Post $post,
+        Category $category,
+        Area $area,
+        Prefecture $prefecture,
+        Image $image,
+        BrowsingHistory $browsing_history,
+        GoogleTTSService $google_tts_service,
+    ) {
         $this->post = $post;
         $this->category = $category;
         $this->area = $area;
         $this->prefecture = $prefecture;
         $this->image = $image;
         $this->browsing_history = $browsing_history;
+        $this->google_tts_service = $google_tts_service;
     }
 
     // post.index, also top page
@@ -57,6 +68,19 @@ class PostController extends Controller
             ->with('search', $request->search);
     }
 
+    public function show($id)
+    {
+        // with comments
+        $post = $this->post->with('comments.user')->findOrFail($id);
+
+        // Only when user logging in, store history
+        if (Auth::check()) {
+            $this->storeBrowsingHistory($id);
+        }
+
+        return view('posts.show')->with('post', $post);
+    }
+
     // create post
     public function create()
     {
@@ -79,12 +103,6 @@ class PostController extends Controller
     // post store
     public function store(Request $request)
     {
-
-
-
-
-
-
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
@@ -281,26 +299,12 @@ class PostController extends Controller
         return redirect()->route('posts.show', $id);
     }
 
-
     public function destroy($id)
     {
-        $this->post->destroy($id);
+        $post = $this->post->findOrFail($id);
+        $post->delete();
 
         return redirect()->route('posts.index');
-    }
-
-
-    //comments
-    public function show($id)
-    {
-        $post = $this->post->with('comments.user')->findOrFail($id);
-
-        // Only when user logging in, store history
-        if (Auth::check()) {
-            $this->storeBrowsingHistory($id);
-        }
-
-        return view('posts.show')->with('post', $post);
     }
 
     public function showEventNearYou()
@@ -360,10 +364,24 @@ class PostController extends Controller
         ]);
 
         $translated_article = $response->choices[0]->message->content;
+        $language = $bcp47;
 
         return response()->json([
-            'translatedArticle' => $translated_article
+            'translatedArticle' => $translated_article,
+            'language' => $language
         ]);
+    }
+
+    // Post Read Aloud
+    public function generateAudioUrl(Request $request)
+    {
+        $article = $request->input('article');
+        $language = $request->input('language');
+
+        // get URL from TTS service
+        $audio_url = $this->google_tts_service->convertTextToSpeech($article, $language);
+
+        return response()->json(['audioUrl' => $audio_url]);
     }
 
     // ===========================
