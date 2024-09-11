@@ -24,15 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Bootstrap 5 CSS -->
-    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> --}}
     <link href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
-
-    <!-- UDGothic -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic&family=BIZ+UDPGothic&display=swap"
-        rel="stylesheet">
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -54,7 +46,7 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 </head>
 
-<body class="biz-udpgothic-regular">
+<body>
     <div class="wrap">
         <!-- Include the navbar here-->
         @include('components.navbar')
@@ -68,14 +60,11 @@
         @include('components.footer')
     </div>
 
-        {{-- Bootstrap 5 JS --}}
-        {{-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
-        </script> --}}
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-            integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
-        </script> --}}
-        <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.min.js') }}"></script>
+    {{-- Bootstrap 5 JS --}}
+    <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
+
+    {{-- jQuery --}}
+    <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
 </body>
 
 </html>
