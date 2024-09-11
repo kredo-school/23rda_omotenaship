@@ -109,9 +109,22 @@ class User extends Authenticatable
     }
 
 
+    // public function getNameAttribute()
+    // {
+    //     return $this->profile->first_name . ' ' . $this->profile->last_name;
+    // }
+
+    public function getUserAvatarAttribute()
+    {
+        return $this->profile ? $this->profile->avatar : null; // Return null or a default value if profile doesn't exist
+    }
+
     public function getNameAttribute()
     {
-        return $this->profile->first_name . ' ' . $this->profile->last_name;
+        if ($this->profile) {
+            return $this->profile->first_name . ' ' . $this->profile->last_name;
+        }
+        return $this->name; // Fall back to the 'name' column from the User model or another default value
     }
 
 
