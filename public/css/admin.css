@@ -17,7 +17,8 @@
 
 /* スマホサイズでは横並びにする */
 @media (max-width: 768px) {
-    .admin-list-group h6{
+    .admin-list-group h6,
+    .hide-on-mobile {
        display: none;
     }
     .admin-list-group {
