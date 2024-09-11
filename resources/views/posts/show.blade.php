@@ -76,6 +76,22 @@
                             @endif
                         @else
                             <a href="{{ route('login') }}" class="text-decoration-none">
+                                <button type="submit" class="btn btn-sm shadow-none p-0" onclick="alert('Please Login');">
+                                    @if ($post->likes->count() > 0)
+                                        <i class="fa-solid fa-heart text-danger fa-2x"></i>
+                                    @else
+                                        <i class="fa-regular fa-heart fa-2x"></i>
+                                    @endif
+                                </button>
+                            </a>
+                        @endif
+
+                        <div class="pt-0 px-2">
+                            @if ($post->likes->count() > 0)
+                                <span>{{ $post->likes->count() }}</span>
+                            @endif
+                        </div>
+                        {{-- <a href="{{ route('login') }}" class="text-decoration-none">
                                 <button class="border-0 bg-transparent" onclick="alert('Please Login');">
                                     <i class="fa-regular fa-heart fa-heart-post text-black d-flex align-items-center"></i>
                                 </button>
@@ -83,9 +99,12 @@
                         @endif
 
 
+                        <!-- Like count display -->
                         <div class="px-2">
-                            <span class="d-flex align-items-center">{{ $post->likes->count() }}</span>
-                        </div>
+                            <span class="d-flex align-items-center">
+                                {{ $post->likes->count() > 0 ? $post->likes->count() : '' }}
+                            </span>
+                        </div> --}}
                         {{-- Favorite --}}
                         <div class="">
 
