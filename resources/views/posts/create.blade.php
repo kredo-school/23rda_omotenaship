@@ -3,14 +3,18 @@
 @section('title', 'New Post')
 
 @section('content')
-    <div class="container mb-5">
+    <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
                 {{-- heading --}}
-                <h2 class="mb-3"><span class="px-2 heading-kurenai mb-5">Create New Post</span></h2>
+                <h2 class="mb-3">
+                    <span class="px-2 heading-kurenai mb-5">Create New Post</span>
+                </h2>
 
                 {{-- Post Type --}}
-                <p>Post Type: {{ $selected_category_name }}</p>
+                <p class="">Post Type:
+                    <span class="fw-bold">{{ $selected_category_name }}</span>
+                </p>
 
                 <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
@@ -50,8 +54,10 @@
                             <input type="file" name="image" id="image" class="form-control posts_input_box"
                                 aria-describedby="image-info">
                             <div class="form-text" id="image-info">
-                                <p class="mb-0">The acceptable formats are jpeg, jpg, png and gif only.</p>
-                                <p class="mb-0">Maximum file size is 1048kb.</p>
+                                <p class="mb-0 small">
+                                    The acceptable formats are jpeg, jpg, png and gif only.<br>
+                                    Maximum file size is 1048kb.
+                                </p>
                             </div>
 
                             @error('image')
@@ -61,21 +67,25 @@
                         </div>
                     </div>
 
-                    {{-- visit_Date --}}
-                    <div class="row">
-                        <div class="col mb-4 w-100">
-                            <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
-                            <br>
-                            <label class="visit_date w-100 posts_input_box">
-                                <input type="date" name="visit_date" class="form-control rounded-2">
-                            </label>
+                    {{-- 5: Event Organizeer --}}
+                    {{-- 6: Volunteer Organizeer --}}
+                    @if ($selected_category_id !== '5' && $selected_category_id !== '6')
+                        {{-- visit_Date --}}
+                        <div class="row">
+                            <div class="col mb-4 w-100">
+                                <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
+                                <br>
+                                <label class="visit_date w-100 posts_input_box">
+                                    <input type="date" name="visit_date" class="form-control rounded-2">
+                                </label>
 
-                            <!-- Error -->
-                            @error('visit_date')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
+                                <!-- Error -->
+                                @error('visit_date')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
+                    @endif
 
                     {{-- prefecture --}}
                     <div class="row">
@@ -114,37 +124,42 @@
                         </div>
                     </div>
 
-                    {{-- Event --}}
-                    <div class="row mb-4">
-                        <div class="col mb-4 w-100">
-                            <p class="form-label fw-bold m-0">Date of Event</p>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="start_date">
-                                        <span>Start</span>
-                                    </label>
-                                    <input type="date" class="rounded-2 form-control" id="start_date" name="start_date">
+                    {{-- 1: Review --}}
+                    {{-- 4: Culture --}}
+                    @if ($selected_category_id !== '1' && $selected_category_id !== '4')
+                        {{-- Date of Event --}}
+                        <div class="row mb-4">
+                            <div class="col mb-4 w-100">
+                                <p class="form-label fw-bold m-0">Date of Event</p>
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="start_date">
+                                            <span>Start</span>
+                                        </label>
+                                        <input type="date" class="rounded-2 form-control" id="start_date"
+                                            name="start_date">
 
-                                    <!-- Error -->
-                                    @error('start_date')
-                                        <div class="text-danger small">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                        <!-- Error -->
+                                        @error('start_date')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
+                                    </div>
 
-                                <div class="col">
-                                    <label for="end_date">
-                                        <span> End </span>
-                                    </label>
-                                    <input type="date" class="rounded-2 form-control" id="end_date" name="end_date">
+                                    <div class="col">
+                                        <label for="end_date">
+                                            <span> End </span>
+                                        </label>
+                                        <input type="date" class="rounded-2 form-control" id="end_date" name="end_date">
 
-                                    <!-- Error -->
-                                    @error('end_date')
-                                        <div class="text-danger small">{{ $message }}</div>
-                                    @enderror
+                                        <!-- Error -->
+                                        @error('end_date')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endif
 
                     {{-- Button --}}
                     <div class="row">
