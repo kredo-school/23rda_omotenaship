@@ -1,3 +1,7 @@
+@php
+    $logo_url = 'images/logos/red.jpg';
+@endphp
+
 @extends('layouts.app')
 
 @section('title', 'New Post')
@@ -8,15 +12,18 @@
             {{-- Left Column --}}
             <div class="offset-lg-3 col-lg-6 mb-5">
                 {{-- Header --}}
-                <h2 class="text-center m-0 mb-4">What do you want to share?</h2>
+                <h2 class="text-center m-0 mb-4">
+                    <span class="px-2 heading-kurenai">What do you want to share?</span>
+                </h2>
 
                 {{-- User selecton --}}
-                <div class="border mb-3">
+                <div class="border rounded mb-3">
                     <div class="row">
                         <div class="col-lg-3">
                             {{-- Icon --}}
                             <div>
-                                User Cat Icon
+                                <img src="{{ asset($logo_url) }}" alt="logo" width="140" height="140"
+                                    class="posts-logo">
                             </div>
                         </div>
 
@@ -26,28 +33,32 @@
                                 {{-- Event --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 2]) }}">
-                                        Event
+                                        <img src="{{ asset('images/categories/2.png') }}" class="img-fluid">
+                                        <span class="hover-text">Event</span>
                                     </a>
                                 </div>
 
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 3]) }}">
-                                        Volunteer
+                                        <img src="{{ asset('images/categories/1.png') }}" class="img-fluid">
+                                        <span class="hover-text">Volunteer</span>
                                     </a>
                                 </div>
 
                                 {{-- Review --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 1]) }}">
-                                        Review
+                                        <img src="{{ asset('images/categories/3.png') }}" class="img-fluid">
+                                        <span class="hover-text">Review</span>
                                     </a>
                                 </div>
 
                                 {{-- Culture --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 4]) }}">
-                                        Culture
+                                        <img src="{{ asset('images/categories/4.png') }}" class="img-fluid">
+                                        <span class="hover-text">Culture</span>
                                     </a>
                                 </div>
                             </div>
@@ -56,12 +67,12 @@
                 </div>
 
                 {{-- Organizer selecton --}}
-                <div class="border">
+                <div class="border rounded">
                     <div class="row">
                         <div class="col-lg-3">
                             {{-- Icon --}}
                             <div>
-                                Organizer Cat Icon
+                                <img src="{{ asset($logo_url) }}" alt="logo" width="140" height="140" class="posts-logo">
                             </div>
                         </div>
 
@@ -70,14 +81,16 @@
                                 {{-- Event --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 5]) }}">
-                                        Event
+                                        <img src="{{ asset('images/categories/2.png') }}" class="img-fluid">
+                                        <span class="hover-text">Event</span>
                                     </a>
                                 </div>
 
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-lg-3">
                                     <a href="{{ route('posts.create', ['category_id' => 6]) }}">
-                                        Volunteer
+                                        <img src="{{ asset('images/categories/1.png') }}" class="img-fluid">
+                                        <span class="hover-text">Volunteer</span>
                                     </a>
                                 </div>
                             </div>
