@@ -3,13 +3,13 @@
 @section('title', 'Adimin NG Word')
 
 @section('content')
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-5 px-5">
         <div class="row">
 
             <!-- Include the sidebar here-->
             @include('components.admin-sidebar')
 
-            <div class="col-md-9 col-12">
+            <div class="col-lg-10">
                 {{-- NG Word input form --}}
                 <form action="{{ route('admin.ngwords.store') }}" method="post">
                     @csrf

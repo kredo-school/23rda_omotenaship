@@ -6,16 +6,15 @@
     <div class="container mt-5">
         <div class="row">
             {{-- Left Column --}}
-            {{-- <div class="col-md-8"> --}}
-            {{-- <div class="col-lg-8"> --}}
             <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
-                <div class="row mb-5">
-                    <div class="col event-near-you">
-                        <a href="{{ route('posts.show-event-near-you') }}">
-                            <img src="{{ asset('images/banners/event-near-you.png') }}" alt="" class="w-100">
-                        </a>
-                    </div>
+                <div class="mb-5">
+                    <a href="{{ route('posts.show-event-near-you') }}" class="d-block w-100">
+                        <div class="event-near-you image-container w-100">
+                            <img src="{{ asset('images/banners/map_japan.png') }}" alt="Event near You" class="img-fluid">
+                        <h2 class="h1 display-4 text-center fw-bold w-100 m-0 text-overlay">Event near You</h2>
+                        </div>
+                    </a>
                 </div>
 
                 {{-- Heading --}}
@@ -39,8 +38,6 @@
             </div>
 
             {{-- Right Colmun --}}
-            {{-- <div class="col-md-4"> --}}
-            {{-- <div class="col-lg-4"> --}}
             <div class="col-xl-4 mb-5">
                 <div class="row">
                     <div class="col-md-6 col-xl-12 mb-5">

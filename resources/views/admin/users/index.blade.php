@@ -3,13 +3,13 @@
 @section('title', 'Adimin Users')
 
 @section('content')
-    <div class="container mt-5">
+    <div class="container-fluid mt-5 px-5">
         <div class="row">
             
             <!-- Include the sidebar here-->
             @include('components.admin-sidebar')
 
-            <div class="col-md-9">
+            <div class="col-lg-10">
                 <table class="table table-hover align-middle border text-center">
                     <thead>
                         <tr class="admin-table-header">
@@ -17,8 +17,8 @@
                             <th>Name</th>
                             <th>BirthDate</th>
                             <th>Language</th>
-                            <th>Create</th>
-                            <th>Update</th>
+                            <th class="hide-on-mobile">Create</th>
+                            <th class="hide-on-mobile">Update</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -41,8 +41,12 @@
                                 </td>
                                 <td>{{ $profile->birth_date }}</td>
                                 <td>{{ $profile->language }}</td>
-                                <td>{{ $profile->created_at }}</td>
-                                <td>{{ $profile->updated_at }}</td>
+                                <td class="hide-on-mobile">
+                                    {{ $profile->created_at }}
+                                </td>
+                                <td class="hide-on-mobile">
+                                    {{ $profile->updated_at }}
+                                </td>
                                 <td>
                                     <button class="btn" data-bs-toggle="modal"
                                     data-bs-target="#deleteUserModal-{{ $profile->user->id }}">

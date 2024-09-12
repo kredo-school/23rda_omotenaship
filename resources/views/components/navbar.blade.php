@@ -58,7 +58,7 @@
                         @if (Auth::user()->role_id === 2)
                             {{-- Create Post --}}
                             <li class="nav-item d-flex align-items-center">
-                                <a class="nav-link d-flex align-items-center" href="{{ route('posts.create') }}">
+                                <a class="nav-link d-flex align-items-center" href="{{ route('posts.select-category') }}">
                                     <i class="fa-regular fa-pen-to-square me-2"></i>
                                     <span class="nav-item-text">Create New Post</span>
                                 </a>

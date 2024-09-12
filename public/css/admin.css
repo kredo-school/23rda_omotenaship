@@ -2,7 +2,7 @@
 .admin-list-group h6 {
     border-bottom: 3px solid #202F55;
     padding-bottom: 10px;
-    width: 60%;
+    width: fit-content;
 }
 
 .admin-list-group a{
@@ -17,7 +17,8 @@
 
 /* スマホサイズでは横並びにする */
 @media (max-width: 768px) {
-    .admin-list-group h6{
+    .admin-list-group h6,
+    .hide-on-mobile {
        display: none;
     }
     .admin-list-group {

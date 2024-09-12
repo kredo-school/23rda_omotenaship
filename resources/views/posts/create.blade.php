@@ -6,19 +6,23 @@
     <div class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-7">
-
                 {{-- heading --}}
-                <h2><span class="px-2 heading-kurenai mb-5">Create New Post</span></h2>
-                <p>Post Type:</p>
+                <h2 class="mb-3"><span class="px-2 heading-kurenai mb-5">Create New Post</span></h2>
+
+                {{-- Post Type --}}
+                <p>Post Type: {{ $selected_category_name }}</p>
 
                 <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    {{-- Slected Category ID --}}
+                    <input type="hidden" name="categories[]" value="{{ $selected_category_id }}">
 
                     {{-- Title --}}
                     <div class="row">
                         <div class="col mb-4 w-100">
                             <label for="title" class="form-label fw-bold posts_input_box">Title</label>
                             <textarea name="title" id="title" class="form-control">{{ old('title') }}</textarea>
+
                             <!-- Error -->
                             @error('title')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -31,12 +35,14 @@
                         <div class="col mb-4 w-100">
                             <label for="article" class="form-label fw-bold">Article</label>
                             <textarea name="article" id="article" rows="20" class="form-control">{{ old('article') }}</textarea>
+
                             <!-- Error -->
                             @error('article')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
+
                     {{-- images --}}
                     <div class="row">
                         <div class="col mb-4 w-100">
@@ -47,6 +53,7 @@
                                 <p class="mb-0">The acceptable formats are jpeg, jpg, png and gif only.</p>
                                 <p class="mb-0">Maximum file size is 1048kb.</p>
                             </div>
+
                             @error('image')
                                 <div class="text-danger small">{{ $message }}
                                 </div>
@@ -62,6 +69,7 @@
                             <label class="visit_date w-100 posts_input_box">
                                 <input type="date" name="visit_date" class="form-control rounded-2">
                             </label>
+
                             <!-- Error -->
                             @error('visit_date')
                                 <div class="text-danger small">{{ $message }}</div>
@@ -105,6 +113,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- Event --}}
                     <div class="row mb-4">
                         <div class="col mb-4 w-100">
@@ -115,6 +124,7 @@
                                         <span>Start</span>
                                     </label>
                                     <input type="date" class="rounded-2 form-control" id="start_date" name="start_date">
+
                                     <!-- Error -->
                                     @error('start_date')
                                         <div class="text-danger small">{{ $message }}</div>
@@ -126,6 +136,7 @@
                                         <span> End </span>
                                     </label>
                                     <input type="date" class="rounded-2 form-control" id="end_date" name="end_date">
+
                                     <!-- Error -->
                                     @error('end_date')
                                         <div class="text-danger small">{{ $message }}</div>
@@ -135,8 +146,6 @@
                         </div>
                     </div>
 
-
-
                     {{-- Button --}}
                     <div class="row">
                         <div class="mb-4 col mx-auto d-grid gap-2">
@@ -144,7 +153,6 @@
                                 class="btn post-button-kurenai btn-lg px-5 text-white btn-kurenai btn-kurenai:hover"
                                 id="post-button">Post
                             </button>
-
                         </div>
                     </div>
                 </form>
