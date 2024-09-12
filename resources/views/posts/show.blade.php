@@ -28,7 +28,7 @@
                         <div class="row m-0 p-0">
                             <div class="col mb-0">
                                 <p class="xsmall text-secondary m-0">
-                                    <small>Post Date:{{ date('Y-m-d', strtotime($post->create_at)) }}</small>
+                                    <small>Post Date : {{ date('Y-m-d', strtotime($post->create_at)) }}</small>
                                 </p>
                             </div>
                         </div>
@@ -133,7 +133,7 @@
                 <div class="row">
                     <div class="col">
                         <p class="xsmall text-secondary">
-                            <small>Visit Date:{{ date('Y-m-d', strtotime($post->visit_date)) }}</small>
+                            <small>Visit Date : {{ date('Y-m-d', strtotime($post->visit_date)) }}</small>
                         </p>
                     </div>
                 </div>
