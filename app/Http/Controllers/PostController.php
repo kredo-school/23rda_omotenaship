@@ -81,9 +81,19 @@ class PostController extends Controller
         return view('posts.show')->with('post', $post);
     }
 
-    // create post
-    public function create()
+    public function selectCategory()
     {
+        return view('posts.select-category');
+    }
+
+    // create post
+    public function create(Request $request)
+    {
+        // Get $category_id
+        $selected_category_id = $request->category_id;
+        $selected_category = $this->category->findOrFail($selected_category_id);
+        $selected_category_name = $selected_category->name;
+
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
 
@@ -95,6 +105,8 @@ class PostController extends Controller
         }
 
         return view('posts.create')
+            ->with('selected_category_id', $selected_category_id)
+            ->with('selected_category_name', $selected_category_name)
             ->with('all_categories', $all_categories)
             ->with('all_areas', $all_areas)
             ->with('prefectures_by_area', $prefectures_by_area);
