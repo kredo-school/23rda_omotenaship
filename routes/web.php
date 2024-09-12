@@ -30,6 +30,8 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
 // Only logged-in user is able to see
 Route::group(['middleware' => 'user'], function () {
     Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
+        Route::get('/select-category', [PostController::class, 'selectCategory'])
+            ->name('select-category');
         Route::get('/create', [PostController::class, 'create'])
             ->name('create');
         Route::post('/store', [PostController::class, 'store'])
