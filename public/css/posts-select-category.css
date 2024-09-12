@@ -1,24 +1,5 @@
-/* .icon-wrapper {
-  flex-basis: 25%; /* 通常は1行に4つ並べる
-*/
-
-/* 画面が小さくなったら2列にする
-@media (max-width: 768px) {
-  .icon-wrapper {
-      flex-basis: 50%;
-  }
-} */
-
-/* さらに小さい画面では1列にする
-@media (max-width: 576px) {
-  .icon-wrapper {
-      flex-basis: 100%;
-  }
-} */
-
-.posts-logo {
-    width: 100px;
-    height: 900px;
-    color: blueviolet;
-
+.posts-select-category-logo {
+    width: 120px;
+    height: 120px;
+    /* color: blueviolet; */
 }
