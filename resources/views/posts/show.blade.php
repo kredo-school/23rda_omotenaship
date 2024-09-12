@@ -150,6 +150,19 @@
                             @endforeach
                         </div>
                     </div>
+                    {{-- Start Date --}}
+                    <div class="col-auto mb-0">
+                        <div class="d-flex flex-column">
+                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 mb-1 ps-1">
+                                <small>Start Date:{{ date('Y-m-d', strtotime($post->start_date)) }}</small>
+                            </p>
+
+                            {{-- End Date --}}
+                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 ps-1">
+                                <small>End Date : {{ date('Y-m-d', strtotime($post->end_date)) }}</small>
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Article --}}
