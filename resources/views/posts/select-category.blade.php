@@ -1,5 +1,6 @@
 @php
     $logo_url = 'images/logos/red.jpg';
+    $logo_blue_url = 'images/logos/blue.jpg';
 @endphp
 
 @extends('layouts.app')
@@ -12,7 +13,7 @@
             {{-- Left Column --}}
             <div class="offset-lg-3 col-lg-6 mb-5">
                 {{-- Header --}}
-                <h2 class="text-center m-0 mb-4">
+                <h2 class="text-center m-0 mb-5">
                     <span class="px-2 heading-kurenai">What do you want to share?</span>
                 </h2>
 
@@ -21,8 +22,9 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3">
                             {{-- Icon --}}
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img src="{{ asset($logo_url) }}" alt="logo" class="posts-select-category-logo">
+                            <div class="d-flex justify-content-center align-items-center position-relative custom-logo-container">
+                                <img src="{{ asset($logo_url) }}" alt="logo" class="custom-logo">
+                                <span class="overlay-text">user</span>
                             </div>
                         </div>
 
@@ -31,37 +33,37 @@
                             <div class="row h-100">
                                 {{-- Event --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="event" class="icon-position">Event</label>
                                     <a href="{{ route('posts.create', ['category_id' => 2]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/2.png') }}" class="img-fluid">
-                                        <span class="hover-text">Event</span>
+                                        class="d-flex justify-content-center align-items-center user-color custom-icon-container">
+                                        <img src="{{ asset('images/categories/2.png') }}">
                                     </a>
                                 </div>
 
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="volunteer" class="icon-position">Volunteer</label>
                                     <a href="{{ route('posts.create', ['category_id' => 3]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/1.png') }}" class="img-fluid">
-                                        <span class="hover-text">Volunteer</span>
+                                        class="d-flex justify-content-center align-items-center user-color">
+                                        <img src="{{ asset('images/categories/1.png') }}">
                                     </a>
                                 </div>
 
                                 {{-- Review --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="review" class="icon-position">Review</label>
                                     <a href="{{ route('posts.create', ['category_id' => 1]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/3.png') }}" class="img-fluid">
-                                        <span class="hover-text">Review</span>
+                                        class="d-flex justify-content-center align-items-center user-color">
+                                        <img src="{{ asset('images/categories/3.png') }}">
                                     </a>
                                 </div>
 
                                 {{-- Culture --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="culture" class="icon-position">Culture</label>
                                     <a href="{{ route('posts.create', ['category_id' => 4]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/4.png') }}" class="img-fluid">
-                                        <span class="hover-text">Culture</span>
+                                        class="d-flex justify-content-center align-items-center user-color">
+                                        <img src="{{ asset('images/categories/4.png') }}">
                                     </a>
                                 </div>
                             </div>
@@ -74,8 +76,9 @@
                     <div class="row">
                         <div class="col-md-3 col-lg-3">
                             {{-- Icon --}}
-                            <div class="d-flex justify-content-center align-items-center">
-                                <img src="{{ asset($logo_url) }}" alt="logo" class="posts-select-category-logo">
+                            <div class="d-flex justify-content-center align-items-center position-relative custom-logo-container">
+                                <img src="{{ asset($logo_blue_url) }}" alt="logo" class="logo-organizer">
+                                <span class="overlay-text">Organizer</span>
                             </div>
                         </div>
 
@@ -83,19 +86,19 @@
                             <div class="row h-100">
                                 {{-- Event --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="event" class="icon-position icon-organizer">Event</label>
                                     <a href="{{ route('posts.create', ['category_id' => 5]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/2.png') }}" class="img-fluid">
-                                        <span class="hover-text">Event</span>
+                                        class="d-flex justify-content-center align-items-center">
+                                        <img src="{{ asset('images/categories/2.png') }}">
                                     </a>
                                 </div>
 
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                    <label for="volunteer" class="icon-position icon-organizer">Volunteer</label>
                                     <a href="{{ route('posts.create', ['category_id' => 6]) }}"
-                                        class="h-100 d-flex justify-content-center align-items-center">
-                                        <img src="{{ asset('images/categories/1.png') }}" class="img-fluid">
-                                        <span class="hover-text">Volunteer</span>
+                                        class="d-flex justify-content-center align-items-center">
+                                        <img src="{{ asset('images/categories/1.png') }}">
                                     </a>
                                 </div>
                             </div>

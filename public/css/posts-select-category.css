@@ -1,5 +1,32 @@
-.posts-select-category-logo {
-    width: 120px;
-    height: 120px;
-    /* color: blueviolet; */
+.custom-logo {
+    width: 150px;
+    height: auto;
+    opacity: 0.3;
+    
+}
+.custom-logo-container {
+    position: relative;
+    display: inline-block;
+}
+.overlay-text {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 20px;
+    font-weight: bold;
+}
+.icon-position {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+}
+.logo-organizer {
+    width: 150px;
+    height: auto;
+    opacity: 0.3;
+    color: #202F55;
+}
+.user-color {
+    color: #BC002D;   
 }
