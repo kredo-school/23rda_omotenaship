@@ -3,11 +3,11 @@
 @section('title', 'Adimin Posts')
 
 @section('content')
-    <div class="container-fluid mt-5">
+    <div class="container-fluid mt-5 px-5">
         <div class="row">
             @include('components.admin-sidebar')
 
-            <div class="col-md-9">
+            <div class="col-lg-10">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle border text-center">
                         <thead>

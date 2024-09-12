@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="{{ asset('css/post-index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/posts-show.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post-create.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/posts-select-category.css') }}">
     <link rel="stylesheet" href="{{ asset('css/profiles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/direct-messages.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
