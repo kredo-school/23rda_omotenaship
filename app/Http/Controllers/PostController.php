@@ -518,23 +518,50 @@ class PostController extends Controller
     // Transform address to geocode
     private function geocodeAddress($address)
     {
-        $api_key = config('services.mapbox.api_key');
-        $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
+        // === Mapbox API ====
+        // $api_key = config('services.mapbox.api_key');
+        // $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
 
-        $response = Http::get($url);
+        // $response = Http::get($url);
 
-        if ($response->successful()) {
+        // if ($response->successful()) {
 
-            $data = $response->json();
+        //     $data = $response->json();
 
-            if (isset($data['features'][0])) {
-                $location = $data['features'][0]['geometry']['coordinates'];
-                return [
-                    'longitude' => $location[0],
-                    'latitude' => $location[1],
-                ];
-            }
+        //     if (isset($data['features'][0])) {
+        //         $location = $data['features'][0]['geometry']['coordinates'];
+        //         return [
+        //             'longitude' => $location[0],
+        //             'latitude' => $location[1],
+        //         ];
+        //     }
+        // }
+        // ===================
+
+        // === Google Maps API ====
+        $api_key = config('services.google_maps.api_key');
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json';
+
+        // Get location from Google Maps API
+        $response = Http::get(
+            $url,
+            [
+                'address' => $address,
+                'key' => $api_key,
+            ]
+        );
+        $data = $response->json();
+
+        // If the response has results
+        if (isset($data['results'][0])) {
+            $location = $data['results'][0]['geometry']['location'];
+
+            return [
+                'latitude' => $location['lat'],
+                'longitude' => $location['lng'],
+            ];
         }
+        // =========================
 
         // Fail to find address
         return null;
