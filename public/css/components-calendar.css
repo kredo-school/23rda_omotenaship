@@ -40,6 +40,10 @@
     background-color: #BC002D !important;
 }
 
+.fc-day-today .fc-daygrid-day-number {
+    color: #FFFFFF !important;
+}
+
 /* 選択日の背景 */
 .fc-highlight {
     background-color: #888888 !important;
