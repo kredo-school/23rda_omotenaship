@@ -50,7 +50,10 @@
     function showAudioPlayer(audioPlayer, audioUrl) {
         audioPlayer.src = audioUrl;
 
-        $(audioPlayer).fadeIn(300); // show audio player
+        $(audioPlayer).fadeIn(500); // show audio player
+
+        // Scroll to the bottom of the page
+        $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
 
         audioPlayer.play();
     }
@@ -96,7 +99,12 @@
 
             // show translated article and read aloud button (show container)
             const $translatedResult = $('#translated-result');
-            $translatedResult.fadeIn(300);
+            $translatedResult.fadeIn(500);
+
+            // Scroll to the bottom of the page
+            $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+
+
         } catch (error) {
             console.error('Translation failed:', error);
             // alert('Translation failed');
