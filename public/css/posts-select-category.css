@@ -30,9 +30,13 @@
 .user-color {
     color: #BC002D;   
 }
-/* .custom-icon-container img {
-    filter: invert(21%) sepia(84%) saturate(7471%) hue-rotate(345deg) brightness(94%) contrast(104%);
-} */
-.custom-icon-container img {
+.custom-icon-user img {
     filter: invert(30%) sepia(200%) saturate(7471%) hue-rotate(399deg) brightness(96%) contrast(104%);
+}
+.icon-filter img {
+    filter: brightness(40%) saturate(9000%) invert(14%) sepia(270%) saturate(633%) hue-rotate(900deg) brightness(89%) contrast(98%);
+}
+.info-icon-size {
+    width: 30px;
+    height: 30px;
 }
