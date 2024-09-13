@@ -8,14 +8,16 @@
             {{-- Left Column --}}
             <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
-                <div class="mb-5">
-                    <a href="{{ route('posts.show-event-near-you') }}" class="d-block w-100">
-                        <div class="event-near-you image-container w-100">
-                            <img src="{{ asset('images/banners/map_japan.png') }}" alt="Event near You" class="img-fluid">
-                        <h2 class="h1 display-4 text-center fw-bold w-100 m-0 text-overlay">Event near You</h2>
-                        </div>
-                    </a>
-                </div>
+                @if (!request()->has('category') && !request()->has('search'))
+                    <div class="mb-5">
+                        <a href="{{ route('posts.show-event-near-you') }}" class="d-block w-100">
+                            <div class="event-near-you image-container w-100">
+                                <img src="{{ asset('images/banners/map_japan.png') }}" alt="Event near You" class="img-fluid">
+                                <h2 class="h1 display-4 text-center fw-bold w-100 m-0 text-overlay">Event near You</h2>
+                            </div>
+                        </a>
+                    </div>
+                @endif
 
                 {{-- Heading --}}
                 <h2 class="mb-3"><span class="px-2 heading-kurenai">New Post</span></h2>
