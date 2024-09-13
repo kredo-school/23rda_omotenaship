@@ -39,12 +39,11 @@
                                         <img src="{{ asset('images/categories/2.png') }}">
                                     </a>
                                 </div>
-
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-md-3 col-lg-3">
                                     <label for="volunteer" class="icon-position">Volunteer</label>
                                     <a href="{{ route('posts.create', ['category_id' => 3]) }}"
-                                        class="d-flex justify-content-center align-items-center user-color">
+                                        class="d-flex justify-content-center align-items-center user-color custom-icon-container">
                                         <img src="{{ asset('images/categories/1.png') }}">
                                     </a>
                                 </div>
@@ -53,7 +52,7 @@
                                 <div class="col-6 col-md-3 col-lg-3">
                                     <label for="review" class="icon-position">Review</label>
                                     <a href="{{ route('posts.create', ['category_id' => 1]) }}"
-                                        class="d-flex justify-content-center align-items-center user-color">
+                                        class="d-flex justify-content-center align-items-center user-color custom-icon-container">
                                         <img src="{{ asset('images/categories/3.png') }}">
                                     </a>
                                 </div>
@@ -62,7 +61,7 @@
                                 <div class="col-6 col-md-3 col-lg-3">
                                     <label for="culture" class="icon-position">Culture</label>
                                     <a href="{{ route('posts.create', ['category_id' => 4]) }}"
-                                        class="d-flex justify-content-center align-items-center user-color">
+                                        class="d-flex justify-content-center align-items-center user-color custom-icon-container">
                                         <img src="{{ asset('images/categories/4.png') }}">
                                     </a>
                                 </div>
