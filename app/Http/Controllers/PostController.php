@@ -48,24 +48,129 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->search) {
-            $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-            $posts->appends(['search' => $request->search]);
+            // Searched posts
+            $searched_posts = $this->post
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->paginate(4);
+            $searched_posts
+                ->appends(['search' => $request->search]);
+
+            return view('posts.index')
+                ->with('searched_posts', $searched_posts)
+                ->with('search', $request->search);
         } elseif ($request->category) {
+            // Get category record
             $category = Category::where('name', $request->category)->first();
-            if ($category) {
-                $posts = $this->post->whereHas('postCategories', function ($query) use ($category) {
-                    $query->where('category_id', $category->id);
-                })->paginate(4);
-                $posts->appends(['category' => $request->category]);
+
+            // If the category is 'Event' or 'Volunteer'
+            if (
+                $category->name === 'Event' ||
+                $category->name === 'Volunteer'
+            ) {
+                // Recommended posts
+                $recommended_posts = $this->post
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Event') {
+                            $query->whereIn('category_id', [2, 5]); // Event or Event Organizer
+                        } elseif ($category->name === 'Volunteer') {
+                            $query->whereIn('category_id', [3, 6]); // Volunteer or Volunteer Organizer
+                        }
+                    })
+                    // Order by the latest updated_at
+                    ->orderByDesc('updated_at')
+                    // Order by the number of likes
+                    ->orderByDesc(function ($query) {
+                        $query
+                            ->selectRaw('count(*)')
+                            ->from('likes')
+                            ->whereColumn('likes.post_id', 'posts.id');
+                    })
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                // Upcoming posts
+                $upcoming_posts = $this->post
+                    ->where('end_date', '>=', now()->toDateString())
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Event') {
+                            $query->whereIn('category_id', [5]); // Event Organizer
+                        } elseif ($category->name === 'Volunteer') {
+                            $query->whereIn('category_id', [6]); // Volunteer Organizer
+                        }
+                    })->orderBy('end_date', 'asc')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                // Ended posts
+                $ended_posts = $this->post
+                    ->where('end_date', '<', now()->toDateString())
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Event') {
+                            $query->whereIn('category_id', [5]); // Event Organizer
+                        } elseif ($category->name === 'Volunteer') {
+                            $query->whereIn('category_id', [6]); // Volunteer Organizer
+                        }
+                    })->orderBy('end_date', 'desc')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                return view('posts.index')
+                    ->with('recommended_posts', $recommended_posts)
+                    ->with('upcoming_posts', $upcoming_posts)
+                    ->with('ended_posts', $ended_posts);
+            }
+
+            // If the category is 'Review' or 'Culture'
+            if (
+                $category->name === 'Review' ||
+                $category->name === 'Culture'
+            ) {
+                // Recommended posts
+                $recommended_posts = $this->post
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Review') {
+                            $query->whereIn('category_id', [1]); // Review
+                        } elseif ($category->name === 'Culture') {
+                            $query->whereIn('category_id', [4]); // Culture
+                        }
+                    })
+                    // Order by the latest updated_at
+                    ->orderByDesc('updated_at')
+                    // Order by the number of likes
+                    ->orderByDesc(function ($query) {
+                        $query
+                            ->selectRaw('count(*)')
+                            ->from('likes')
+                            ->whereColumn('likes.post_id', 'posts.id');
+                    })
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                // Latest posts
+                $latest_posts = $this->post
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Review') {
+                            $query->whereIn('category_id', [1]); // Review
+                        } elseif ($category->name === 'Culture') {
+                            $query->whereIn('category_id', [4]); // Culture
+                        }
+                    })
+                    // Order by the latest updated_at
+                    ->orderByDesc('updated_at')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                return view('posts.index')
+                    ->with('recommended_posts', $recommended_posts)
+                    ->with('latest_posts', $latest_posts);
             }
         } else {
             // All posts
-            $posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
-        }
+            $all_posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
 
-        return view('posts.index')
-            ->with('posts', $posts)
-            ->with('search', $request->search);
+            return view('posts.index')
+                ->with('all_posts', $all_posts);
+        }
     }
 
     public function show($id)
