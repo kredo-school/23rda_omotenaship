@@ -17,62 +17,65 @@ class LikeController extends Controller
     }
 
     # store()/like
-    public function store($post_id)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
+    // public function store($post_id)
+    // {
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login');
+    //     }
 
-        $this->like->user_id = Auth::user()->id;
+    //     $this->like->user_id = Auth::user()->id;
 
-        $this->like->post_id = $post_id;
+    //     $this->like->post_id = $post_id;
 
-        $this->like->save();
+    //     $this->like->save();
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 
     # destroy()/unlike
-    public function destroy($post_id)
-    {
-        if (!Auth::check()) {
-            return redirect()->route('login');
-        }
-        $this->like->where('user_id', Auth::user()->id)
-            ->where('post_id', $post_id)
-            ->delete();
-        #DELETE FROM likes WHERE user_id = Auth::user()->id AND post_id = $post_id;
-        return redirect()->back();
-    }
+    // public function destroy($post_id)
+    // {
+    //     if (!Auth::check()) {
+    //         return redirect()->route('login');
+    //     }
+    //     $this->like->where('user_id', Auth::user()->id)
+    //         ->where('post_id', $post_id)
+    //         ->delete();
+    //     #DELETE FROM likes WHERE user_id = Auth::user()->id AND post_id = $post_id;
+    //     return redirect()->back();
+    // }
 
-    public function ajaxlike(Request $request)
+    public function toggle(Request $request)
     {
-        $id = Auth::user()->id;
+        $user_id = Auth::user()->id;
         $post_id = $request->post_id;
-        $like = new Like;
-        $post = Post::findOrFail($post_id);
 
-        // 空でない（既にいいねしている）なら
-        if ($like->like_exist($id, $post_id)) {
-            //likesテーブルのレコードを削除
-            $like = Like::where('post_id', $post_id)->where('user_id', $id)->delete();
-        } else {
-            //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
-            $like = new Like;
-            $like->post_id = $request->post_id;
-            $like->user_id = Auth::user()->id;
-            $like->save();
+        // Check if the user has already liked the post
+        $isLiked = $this->like
+            ->where('user_id', $user_id)
+            ->where('post_id', $post_id)
+            ->exists();
+
+        if ($isLiked) {
+            // If the user has already liked the post, delete the like
+            $this->like
+                ->where('user_id', $user_id)
+                ->where('post_id', $post_id)
+                ->delete();
+        } elseif (!$isLiked) {
+            // If the user has not liked the post, create a new like
+            $this->like->user_id = $user_id;
+            $this->like->post_id = $post_id;
+            $this->like->save();
         }
 
-        //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
-        $postLikesCount = $post->loadCount('likes')->likes_count;
+        // Get the total number of likes for the post
+        $post_likes_count = $this->like
+            ->where('post_id', $post_id)
+            ->count();
 
-        //一つの変数にajaxに渡す値をまとめる
-        //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
-        $json = [
-            'postLikesCount' => $postLikesCount,
-        ];
-        //下記の記述でajaxに引数の値を返す
-        return response()->json($json);
+        // Return the total number of likes for the post
+        return response()
+            ->json(['postLikesCount' => $post_likes_count]);
     }
 }

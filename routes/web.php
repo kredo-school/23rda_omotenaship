@@ -73,20 +73,18 @@ Route::group(['middleware' => 'user'], function () {
             ->name('destroy');
     });
 
-    // likes ajax
-    Route::group(['middleware' => ['auth']], function () {
-        //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
-        Route::post('ajaxlike', 'PostsController@ajaxlike')->name('posts.ajaxlike');
-    });
-
     //likes
     Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
-        Route::post('/{post_id}/store', [LikeController::class, 'store'])
+        // Route::post('/{post_id}/store', [LikeController::class, 'store'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('store');
+        // Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('destroy');
+
+        Route::post('/{post_id}/toggle', [LikeController::class, 'toggle'])
             ->where('post_id', '[0-9]+')
-            ->name('store');
-        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
-            ->where('post_id', '[0-9]+')
-            ->name('destroy');
+            ->name('toggle');
     });
 
     //comments
