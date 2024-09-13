@@ -15,34 +15,9 @@
                     @method('PATCH')
 
                     {{-- category --}}
-                    <div class="row">
-                        <div class="col mb-4">
-                            <label for="category" class="form-label d-block fw-bold">
-                                Category
-                            </label>
-                            @foreach ($all_categories as $category)
-                                <div class="form-check form-check-inline">
-                                    @if (in_array($category->id, $selected_categories))
-                                        <input type="checkbox" name="categories[]" id="{{ $category->name }}"
-                                            value="{{ $category->id }}" class="form-check-input" checked>
-
-                                        <label for="{{ $category->name }}"
-                                            class="form-check-label">{{ $category->name }}</label>
-                                    @else
-                                        <input type="checkbox" name="categories[]" id="{{ $category->name }}"
-                                            value="{{ $category->id }}" class="form-check-input">
-
-                                        <label for="{{ $category->name }}"
-                                            class="form-check-label">{{ $category->name }}</label>
-                                    @endif
-                                </div>
-                            @endforeach
-                            <!-- Error -->
-                            @error('categories')
-                                <div class="text-danger small">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
+                    {{-- [Design changed] Only one category can be selected and automatically sent to here --}}
+                    <input type="hidden" name="category_id" value="{{ $category_id }}">
+                    
                     {{-- title --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -54,7 +29,8 @@
                             @enderror
                         </div>
                     </div>
-                    {{-- artical --}}
+
+                    {{-- article --}}
                     <div class="row">
                         <div class="col mb-4">
                             <label for="article" class="form-label fw-bold">Article</label>
@@ -65,6 +41,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- images --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -90,6 +67,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- caption --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -101,6 +79,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- visit_Date --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -114,6 +93,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- Area of japan --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -133,6 +113,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- prefecture --}}
                     <div class="row">
                         <div class="col mb-4">
@@ -165,6 +146,7 @@
                             @enderror
                         </div>
                     </div>
+
                     {{-- Date of Event --}}
                     <div class="row mb-4">
                         <div class="col mb-4">
@@ -215,6 +197,7 @@
             </div>
         </div>
     </div>
+
     {{-- include delete modal  --}}
     @include('components.delete-post-modal')
 @endsection
