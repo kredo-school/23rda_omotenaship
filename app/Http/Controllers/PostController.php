@@ -223,16 +223,19 @@ class PostController extends Controller
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
-        // Get the category ID from the post
+        // ==== Get the category ID and name from the post ====
         // Only loop once (to get the only one category ID from pivot table)
         foreach ($post->postCategories as $post_category) {
             $category_id = $post_category->category_id;
         }
+        $category_name = $this->category->findOrFail($category_id)->name;
+        // ===================================================
 
         return view('posts.edit')
             ->with('post', $post)
             ->with('all_categories', $all_categories)
             ->with('category_id', $category_id)
+            ->with('category_name', $category_name)
             ->with('all_areas', $all_areas)
             ->with('prefectures_by_area', $prefectures_by_area);
         // ->with('all_prefectures', $all_prefectures);

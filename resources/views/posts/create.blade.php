@@ -70,10 +70,10 @@
                     {{-- 5: Event Organizeer --}}
                     {{-- 6: Volunteer Organizeer --}}
                     @if ($selected_category_id !== '5' && $selected_category_id !== '6')
-                        {{-- visit_Date --}}
+                        {{-- Date of your visit --}}
                         <div class="row">
                             <div class="col mb-4 w-100">
-                                <label for="Date of visit" class="form-label fw-bold">Date of visit</label>
+                                <label for="Date of visit" class="form-label fw-bold">Date of your visit</label>
                                 <br>
                                 <label class="visit_date w-100 posts_input_box">
                                     <input type="date" name="visit_date" class="form-control rounded-2">
@@ -90,7 +90,7 @@
                     {{-- prefecture --}}
                     <div class="row">
                         <div class="col mb-4 w-100">
-                            <label for="Prefecture of Japan" class="form-label fw-bold posts_input_box">Prefecture of
+                            <label for="Prefecture of Japan" class="form-label fw-bold posts_input_box">Prefecture in
                                 Japan</label>
 
                             <select name="prefecture_id" id="prefecture_id" class="form-select">
@@ -114,8 +114,8 @@
                     <div class="row">
                         <div class="col mb-4 w-100">
                             <label for="event-address" class="form-label fw-bold posts_input_box">Address</label>
-                            <input type="text" name="event_address" id="event-address"
-                                class="form-control">{{ old('event_address') }}
+                            <input type="text" name="event_address" value="{{ old('event_address') }}"
+                                id="event-address" class="form-control">
 
                             <!-- Error -->
                             @error('event_address')
@@ -124,20 +124,21 @@
                         </div>
                     </div>
 
-                    {{-- 1: Review --}}
-                    {{-- 4: Culture --}}
+                    {{-- Date of Event --}}
                     @if ($selected_category_id !== '1' && $selected_category_id !== '4')
-                        {{-- Date of Event --}}
+                        {{-- 1: Review --}}
+                        {{-- 4: Culture --}}
                         <div class="row mb-4">
                             <div class="col mb-4 w-100">
                                 <p class="form-label fw-bold m-0">Date of Event</p>
                                 <div class="row">
+                                    {{-- Start date --}}
                                     <div class="col">
                                         <label for="start_date">
                                             <span>Start</span>
                                         </label>
-                                        <input type="date" class="rounded-2 form-control" id="start_date"
-                                            name="start_date">
+                                        <input type="date" name="start_date" value="{{ old('start_date') }}"
+                                            class="rounded-2 form-control" id="start_date">
 
                                         <!-- Error -->
                                         @error('start_date')
@@ -145,11 +146,13 @@
                                         @enderror
                                     </div>
 
+                                    {{-- End date --}}
                                     <div class="col">
                                         <label for="end_date">
                                             <span> End </span>
                                         </label>
-                                        <input type="date" class="rounded-2 form-control" id="end_date" name="end_date">
+                                        <input type="date" name="end_date" value="{{ old('end_date') }}"
+                                            class="rounded-2 form-control" id="end_date">
 
                                         <!-- Error -->
                                         @error('end_date')
