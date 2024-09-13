@@ -16,7 +16,7 @@
 
                 {{-- Heading --}}
                 <h2 class="mb-3">
-                    <span class="px-2 heading-kurenai">Event on </span>
+                    <span class="px-2 heading-kurenai">Event date: </span>
                     <span id="selected-date" class="px-2 heading-kurenai"></span>
                 </h2>
 
@@ -47,4 +47,3 @@
         </div>
     </div>
 @endsection
-
