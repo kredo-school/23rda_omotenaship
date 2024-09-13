@@ -68,8 +68,8 @@
                     </div>
                 @endif
 
-                {{-- Posts with category Event/Volunteer --}}
-                @if (request()->category === 'event' || request()->category === 'volunteer')
+                {{-- Posts with each category --}}
+                @if (request()->has('category'))
                     {{-- Recommended --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Recommended</span>
@@ -88,7 +88,10 @@
                             {{ $recommended_posts->links() }}
                         </div>
                     </div>
+                @endif
 
+                {{-- Posts with category Event/Volunteer --}}
+                @if (request()->category === 'event' || request()->category === 'volunteer')
                     {{-- Upcoming --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Upcoming</span>
@@ -130,25 +133,6 @@
 
                 {{-- Posts with category Review/Culture --}}
                 @if (request()->category === 'review' || request()->category === 'culture')
-                    {{-- Recommended --}}
-                    <h3 class="fs-4 mb-3">
-                        <span class="px-2 heading-kurenai">Recommended</span>
-                    </h3>
-                    <div class="row">
-                        @forelse ($recommended_posts as $post)
-                            <div class="col-lg-6 mb-3">
-                                @include('components.post')
-                            </div>
-                        @empty
-                            No posts yet!
-                        @endforelse
-
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            {{ $recommended_posts->links() }}
-                        </div>
-                    </div>
-
                     {{-- Latest --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Latest</span>
