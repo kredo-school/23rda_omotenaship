@@ -14,8 +14,8 @@
 
     <!-- Scripts -->
     @vite([
-        // 'resources/css/app.css',
-        // 'resources/js/app.js'
+        'resources/css/app.css',
+        'resources/js/app.js'
     ])
 
     <!-- FontAwesome -->
@@ -24,7 +24,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Bootstrap 5 CSS -->
-    <link href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -62,7 +62,7 @@
     </div>
 
     {{-- Bootstrap 5 JS --}}
-    <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
+    {{-- <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script> --}}
 
     {{-- jQuery --}}
     <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>

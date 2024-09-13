@@ -44,28 +44,128 @@ class PostController extends Controller
         $this->google_tts_service = $google_tts_service;
     }
 
-    // post.index, also top page
+    // posts.index, also top page
     public function index(Request $request)
     {
-        if ($request->search) {
-            $posts = $this->post->where('title', 'like', '%' . $request->search . '%')->paginate(4);
-            $posts->appends(['search' => $request->search]);
-        } elseif ($request->category) {
-            $category = Category::where('name', $request->category)->first();
-            if ($category) {
-                $posts = $this->post->whereHas('postCategories', function ($query) use ($category) {
-                    $query->where('category_id', $category->id);
-                })->paginate(4);
-                $posts->appends(['category' => $request->category]);
-            }
-        } else {
+        if (
+            !$request->search &&
+            !$request->category
+        ) {
             // All posts
-            $posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
+            $all_posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
+        } elseif ($request->search) {
+            // Searched posts
+            $searched_posts = $this->post
+                ->where('title', 'like', '%' . $request->search . '%')
+                ->paginate(4)
+                ->appends(['search' => $request->search]);
+        } elseif ($request->category) {
+            // Get category record
+            $category = Category::where('name', $request->category)->first();
+
+            // Recommended posts
+            $recommended_posts = $this->post
+                ->whereHas('postCategories', function ($query) use ($category) {
+                    if ($category->name === 'Event') {
+                        $query->whereIn('category_id', [2, 5]); // Event or Event Organizer
+                    } elseif ($category->name === 'Volunteer') {
+                        $query->whereIn('category_id', [3, 6]); // Volunteer or Volunteer Organizer
+                    }
+                })
+                // Order by the latest updated_at
+                ->orderByDesc('updated_at')
+                // Order by the number of likes
+                ->orderByDesc(function ($query) {
+                    $query
+                        ->selectRaw('count(*)')
+                        ->from('likes')
+                        ->whereColumn('likes.post_id', 'posts.id');
+                })
+                ->paginate(4)
+                ->appends(['category' => $request->category]);
+
+            // If the category is 'Event' or 'Volunteer'
+            if (
+                $category->name === 'Event' ||
+                $category->name === 'Volunteer'
+            ) {
+                // Upcoming posts
+                $upcoming_posts = $this->post
+                    ->where('end_date', '>=', now()->toDateString())
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Event') {
+                            $query->whereIn('category_id', [5]); // Event Organizer
+                        } elseif ($category->name === 'Volunteer') {
+                            $query->whereIn('category_id', [6]); // Volunteer Organizer
+                        }
+                    })->orderBy('end_date', 'asc')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+
+                // Ended posts
+                $ended_posts = $this->post
+                    ->where('end_date', '<', now()->toDateString())
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Event') {
+                            $query->whereIn('category_id', [5]); // Event Organizer
+                        } elseif ($category->name === 'Volunteer') {
+                            $query->whereIn('category_id', [6]); // Volunteer Organizer
+                        }
+                    })->orderBy('end_date', 'desc')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+            }
+
+            // If the category is 'Review' or 'Culture'
+            if (
+                $category->name === 'Review' ||
+                $category->name === 'Culture'
+            ) {
+                // Latest posts
+                $latest_posts = $this->post
+                    ->whereHas('postCategories', function ($query) use ($category) {
+                        if ($category->name === 'Review') {
+                            $query->whereIn('category_id', [1]); // Review
+                        } elseif ($category->name === 'Culture') {
+                            $query->whereIn('category_id', [4]); // Culture
+                        }
+                    })
+                    // Order by the latest updated_at
+                    ->orderByDesc('updated_at')
+                    ->paginate(4)
+                    ->appends(['category' => $request->category]);
+            }
         }
 
-        return view('posts.index')
-            ->with('posts', $posts)
-            ->with('search', $request->search);
+        // Return view
+        if (
+            !$request->search &&
+            !$request->category
+        ) {
+            return view('posts.index')
+                ->with('all_posts', $all_posts);
+        } elseif ($request->search) {
+            return view('posts.index')
+                ->with('searched_posts', $searched_posts)
+                ->with('search', $request->search);
+        } elseif ($request->category) {
+            if (
+                $category->name === 'Event' ||
+                $category->name === 'Volunteer'
+            ) {
+                return view('posts.index')
+                    ->with('recommended_posts', $recommended_posts)
+                    ->with('upcoming_posts', $upcoming_posts)
+                    ->with('ended_posts', $ended_posts);
+            } elseif (
+                $category->name === 'Review' ||
+                $category->name === 'Culture'
+            ) {
+                return view('posts.index')
+                    ->with('recommended_posts', $recommended_posts)
+                    ->with('latest_posts', $latest_posts);
+            }
+        }
     }
 
     public function show($id)
@@ -112,42 +212,33 @@ class PostController extends Controller
             ->with('prefectures_by_area', $prefectures_by_area);
     }
 
-    // post store
     public function store(Request $request)
     {
+        // ==== Omit NGWord ====
+        $error_messages = [];
+        $error_messages['title'] = $this->omitNGWord($request->title);
+        $error_messages['article'] = $this->omitNGWord($request->article);
+        if (
+            !is_null($error_messages['title']) ||
+            !is_null($error_messages['article'])
+        ) {
+            return redirect()->back()
+                ->withErrors($error_messages)
+                ->withInput();
+        }
+        // =======================
+
+        // ==== Validation ====
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
+        // =====================
 
-        // Omit NGWord
-        $ng_words = NGWord::all()->pluck('word')->toArray();
-
-        $fields = [
-            'article' => $request->article,
-            'title' => $request->title
-        ];
-
-        $errorMessages = [];
-
-        foreach ($fields as $fiel => $fielname) {
-            foreach ($ng_words as $ng_word) {
-                if (stripos($fielname, $ng_word) !== false) {
-                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
-                }
-            }
-        }
-        if (!empty($errorMessages)) {
-            return redirect()->back()
-                ->withErrors($errorMessages)
-                ->withInput();
-        }
-
-        //   post store
+        // ==== Post ====
         $this->post->user_id = Auth::user()->id;
-        // $this->post->user_id = 3;
         $this->post->title = $request->title;
         $this->post->article = $request->article;
         $this->post->visit_date = $request->visit_date;
@@ -155,11 +246,9 @@ class PostController extends Controller
         $this->post->end_date = $request->end_date;
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
-
-        // Set address to posts table
         $this->post->event_address = $request->event_address;
 
-        // ==== Transform address to geocode ====
+        // Transform address to geocode
         $location = $this->geocodeAddress($request->event_address);
         // $location['longitude', 'latitude']
 
@@ -178,11 +267,12 @@ class PostController extends Controller
             $this->post->event_latitude = $location['latitude'];
         }
 
-        // Save data to posts table
         $this->post->save();
+        // ===============
 
-
-        // category
+        // ==== Category ====
+        // Save one category ID onto post_category table
+        // Loop just once
         $post_categories = [];
         foreach ($request->categories as $category_id) {
             $post_categories[] = [
@@ -191,8 +281,9 @@ class PostController extends Controller
             ];
         }
         $this->post->postCategories()->createMany($post_categories);
+        // ==================
 
-        // image
+        // ==== Image ====
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -200,16 +291,16 @@ class PostController extends Controller
             $this->image->post_id = $this->post->id;
             $this->image->image = $data_uri;
             $this->image->caption = $request->caption;
+
             $this->image->save();
         }
+        // ===============
 
         return redirect()->route('posts.show', $this->post->id);
     }
 
-    // post edit
     public function edit($id)
     {
-
         $post = $this->post->findOrFail($id);
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
@@ -222,15 +313,19 @@ class PostController extends Controller
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
-        $selected_categories = [];
+        // ==== Get the category ID and name from the post ====
+        // Only loop once (to get the only one category ID from pivot table)
         foreach ($post->postCategories as $post_category) {
-            $selected_categories[] = $post_category->category_id;
+            $category_id = $post_category->category_id;
         }
+        $category_name = $this->category->findOrFail($category_id)->name;
+        // ===================================================
 
         return view('posts.edit')
             ->with('post', $post)
             ->with('all_categories', $all_categories)
-            ->with('selected_categories', $selected_categories)
+            ->with('category_id', $category_id)
+            ->with('category_name', $category_name)
             ->with('all_areas', $all_areas)
             ->with('prefectures_by_area', $prefectures_by_area);
         // ->with('all_prefectures', $all_prefectures);
@@ -239,14 +334,39 @@ class PostController extends Controller
     // post update
     public function update(Request $request, $id)
     {
+        // ==== Omit NGWord ====
+        $error_messages = [];
+
+        // check if the title has NGWord
+        $error_messages['title'] = $this->omitNGWord($request->title);
+
+        // check if the article has NGWord
+        $error_messages['article'] = $this->omitNGWord($request->article);
+
+        // if either title or article has NGWord, return error message
+        if (
+            !is_null($error_messages['title']) ||
+            !is_null($error_messages['article'])
+        ) {
+            return redirect()->back()
+                ->withErrors($error_messages)
+                ->withInput();
+        }
+        // =======================
+
+        // ** Needs to be fixed **
+        // ==== Validation ====
         $request->validate([
-            'categories' => 'required|array|between:1,4',
+            // 'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
             'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
         ]);
+        // =====================
 
+        // ==== Post ====
         $post = $this->post->findOrFail($id);
+
         $post->title = $request->title;
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
@@ -254,9 +374,21 @@ class PostController extends Controller
         $post->end_date = $request->end_date;
         $post->prefecture_id = $request->prefecture_id;
         $post->area_id = $request->area_id;
-        $post->save();
 
-        // image
+        $post->save();
+        // ===============
+
+        // ==== Categories ====
+        // ==== Save one category ID onto post_category table ====
+        $post->postCategories()->delete();
+        $post_categories[] = [
+            'post_id' => $post->id,
+            'category_id' => (int)$request->category_id,
+        ];
+        $post->postCategories()->createMany($post_categories);
+        // ======================================================
+
+        // ==== Image ====
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -272,41 +404,7 @@ class PostController extends Controller
                 $image->save();
             }
         }
-
-        // Omit NGWord
-        $ng_words = NGWord::all()->pluck('word')->toArray();
-
-        $fields = [
-            'article' => $request->article,
-            'title' => $request->title
-        ];
-
-        $errorMessages = [];
-
-        foreach ($fields as $fiel => $fielname) {
-            foreach ($ng_words as $ng_word) {
-                if (stripos($fielname, $ng_word) !== false) {
-                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
-                }
-            }
-        }
-        if (!empty($errorMessages)) {
-            return redirect()->back()
-                ->withErrors($errorMessages)
-                ->withInput();
-        }
-
-        // categories
-        $post->postCategories()->delete();
-
-        foreach ($request->categories as $category_id) {
-            $post_categories[] = [
-                'post_id' => $this->post->id,
-                'category_id' => $category_id
-            ];
-        }
-
-        $post->postCategories()->createMany($post_categories);
+        // ===============
 
         return redirect()->route('posts.show', $id);
     }
@@ -439,6 +537,35 @@ class PostController extends Controller
         }
 
         // Fail to find address
+        return null;
+    }
+
+    private function omitNGWord($text)
+    {
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        foreach ($ng_words as $ng_word) {
+            // Remove special characters
+            $text = preg_replace('/[^\p{L}\p{N}\s]/u', '', $text);
+
+            // Split the text into words
+            $words = preg_split('/\s+/', $text);
+
+            foreach ($words as $word) {
+                // Check if the word is NGWord
+                // If it is, return error message
+                if (strtolower($word) === strtolower($ng_word)) {
+                    $error_message = "Your post contains the word '{$word}'. Please change it.";
+                    break;
+                }
+            }
+        }
+
+        // If the text has NGWord, return error message
+        if (!empty($error_message)) {
+            return $error_message;
+        }
+
         return null;
     }
 }

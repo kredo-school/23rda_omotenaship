@@ -6,24 +6,35 @@
     <div class="container pt-5 mb-5">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                {{-- username --}}
+                {{-- useravatar --}}
                 @if ($post && $post->user)
                     <div class="row">
-                        <div class="col d-flex align-items-center mb-2">
+                        <div class="col d-flex align-items-center">
                             <a href="{{ route('profiles.show', $post->user->id) }}">
                                 @if ($post->user->profile && $post->user->profile->avatar)
                                     <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
-                                        class="rounded-circle avatar-sm posts-show-icon">
+                                        class="rounded-circle avatar-sm posts-show-icon mb-0">
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary avatar-sm posts-show-icon"></i>
                                 @endif
                             </a>
+                            {{-- username --}}
                             <a href="{{ route('profiles.show', $post->user->id) }}"
-                                class="text-decoration-none text-dark me-auto ms-3">
+                                class="text-decoration-none text-dark me-auto ms-3 mb-0">
                                 {{ $post->user->name }}
                             </a>
                         </div>
-                        {{-- Edit --}}
+                        {{-- Post Date --}}
+                        <div class="row m-0 p-0">
+                            <div class="col mb-0">
+                                <p class="xsmall text-secondary m-0">
+                                    <small>Posted Date : {{ date('Y-m-d', strtotime($post->created_at)) }}</small>
+                                    <small>Updated Date : {{ date('Y-m-d', strtotime($post->updated_at)) }}</small>
+                                </p>
+                            </div>
+                        </div>
+
+                        {{-- Edit Button --}}
                         <div class="col d-flex justify-content-end">
                             @if (Auth::check() && Auth::user()->id === $post->user->id)
                                 <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
@@ -49,7 +60,7 @@
                 </div>
                 <div class="row">
                     <div class="col-10 d-flex justify-content-start">
-                        {{-- title and icon --}}
+                        {{-- title --}}
                         <h3 class="m-0">{{ $post->title }}</h3>
                     </div>
 
@@ -120,25 +131,38 @@
                     </div>
                 </div>
 
-                {{-- date of post --}}
+                {{-- Visit date --}}
                 <div class="row">
                     <div class="col">
                         <p class="xsmall text-secondary">
-                            <small>{{ date('Y-m-d', strtotime($post->create_at)) }}</small>
+                            <small>Visit Date : {{ date('Y-m-d', strtotime($post->visit_date)) }}</small>
                         </p>
                     </div>
                 </div>
 
-                {{-- avatar,username and category --}}
+                {{-- category --}}
                 <div class="row">
                     <div class="col">
                         <div class="d-flex align-items-center mb-2">
 
                             @foreach ($post->postCategories as $post_category)
-                                <div class="badge bg-secondary bg-opacity-50">
+                                <div class="badge bg-secondary bg-opacity-50 me-2">
                                     {{ $post_category->category->name }}
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                    {{-- Start Date --}}
+                    <div class="col-auto mb-0">
+                        <div class="d-flex flex-column">
+                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 mb-1 ps-1">
+                                <small>Start Date:{{ date('Y-m-d', strtotime($post->start_date)) }}</small>
+                            </p>
+
+                            {{-- End Date --}}
+                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 ps-1">
+                                <small>End Date : {{ date('Y-m-d', strtotime($post->end_date)) }}</small>
+                            </p>
                         </div>
                     </div>
                 </div>
