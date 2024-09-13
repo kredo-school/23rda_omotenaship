@@ -291,6 +291,9 @@
                         @endif
                     </div>
                 </div>
+
+                {{-- Google Map Test --}}
+                <div id="google_maps_posts_show"></div>
             </div>
         </div>
     </div>

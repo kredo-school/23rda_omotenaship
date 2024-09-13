@@ -36,3 +36,9 @@
     display: none;
     width: 100%;
 }
+
+/* Google Maps */
+#google_maps_posts_show {
+    height: 400px;
+    width: 400px;
+}
