@@ -13,10 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite([
-        'resources/css/app.css',
-        'resources/js/app.js'
-    ])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -66,6 +63,12 @@
 
     {{-- jQuery --}}
     <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+
+    {{-- Google Maps --}}
+    <script
+        src="https://maps.googleapis.com/maps/api/js?language=en&region=US&key={{ config('services.google_maps.api_key') }}&callback=initMap&libraries=places"
+        async defer></script>
+    <script src="{{ asset('js/google-maps/main.js') }}"></script>
 </body>
 
 </html>
