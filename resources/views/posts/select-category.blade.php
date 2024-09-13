@@ -150,7 +150,8 @@
                             <div>
                                 <label for="Review" class="d-block my-1">My Experience Review</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    share your experiences and feelings in Japan.
+                                    日本での経験や感じた事を共有してください。
                                 </span>
                             </div>
                         </div>
@@ -161,7 +162,10 @@
                             <div>
                                 <label for="Culture" class="d-block my-1">Japanese Culture</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    *share your impressions of culture.<br>
+                                    *Japanese rules you would like to share.
+                                    *日本の文化について感じた事をシェアして
+                                    *共有したい日本のルール。
                                 </span>
                             </div>
                         </div>
@@ -182,7 +186,7 @@
                          <div class="mb-3 d-flex align-items-start  icon-filter ms-4">
                             <img src="{{ asset('images/categories/1.png') }}" class="me-3 info-icon-size">
                             <div>
-                                <label for="Culture" class="d-block my-1">Event</label>
+                                <label for="Culture" class="d-block my-1">Volunyteer</label>
                                 <span>
                                     Lorem ipsum dolor sit amet consectetur adipisicing 
                                 </span>
