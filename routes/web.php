@@ -73,6 +73,12 @@ Route::group(['middleware' => 'user'], function () {
             ->name('destroy');
     });
 
+    // likes ajax
+    Route::group(['middleware' => ['auth']], function () {
+        //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+        Route::post('ajaxlike', 'PostsController@ajaxlike')->name('posts.ajaxlike');
+    });
+
     //likes
     Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
         Route::post('/{post_id}/store', [LikeController::class, 'store'])

@@ -65,6 +65,21 @@
                         </button>
                     </a>
                 @endif
+                {{-- Blue like  --}}
+                @if (Auth::check() &&
+                        Auth::user()->likes()->where('post_id', $post->id)->exists())
+                    <p class="favorite-marke">
+                        <a class="hidden js-like-toggle loved" href="" data-postid="{{ $post->id }}"><i
+                                class="fas fa-heart"></i></a>
+                        <span class="likesCount">{{ $post->likes_count }}</span>
+                    </p>
+                @else
+                    <p class="favorite-marke">
+                        <a class="js-like-toggle" href="" data-postid="{{ $post->id }}"><i
+                                class="fas fa-heart"></i></a>
+                        <span class="likesCount">{{ $post->likes_count }}</span>
+                    </p>
+                @endif
             </div>
             <div class="col-1 pt-4 px-1">
                 @if ($post->likes->count() > 0)
