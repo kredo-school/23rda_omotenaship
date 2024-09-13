@@ -23,7 +23,8 @@
                                 {{ $post->user->name }}
                             </a>
                         </div>
-                        {{-- Edit --}}
+
+                        {{-- Edit Button --}}
                         <div class="col d-flex justify-content-end">
                             @if (Auth::check() && Auth::user()->id === $post->user->id)
                                 <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
