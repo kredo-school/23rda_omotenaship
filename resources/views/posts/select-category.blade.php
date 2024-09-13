@@ -20,7 +20,7 @@
                 {{-- User selecton --}}
                 <div class="border rounded mb-3 p-3">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             {{-- Icon --}}
                             <div class="d-flex justify-content-center align-items-center position-relative custom-logo-container">
                                 <img src="{{ asset($logo_url) }}" alt="logo" class="custom-logo">
@@ -29,10 +29,11 @@
                         </div>
 
                         {{-- User category contener --}}
-                        <div class="col-md-9 col-lg-9">
+                        <div class="col-md-8 col-lg-8">
                             <div class="row h-100">
                                 {{-- Event --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                {{-- <div class="col-6 col-lg-3"> --}}
                                     <label for="event" class="icon-position">Event</label>
                                     <a href="{{ route('posts.create', ['category_id' => 2]) }}"
                                         class="d-flex justify-content-center align-items-center user-color custom-icon-container">
@@ -41,6 +42,7 @@
                                 </div>
                                 {{-- Volunteer --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                {{-- <div class="col-6 col-lg-3"> --}}
                                     <label for="volunteer" class="icon-position">Volunteer</label>
                                     <a href="{{ route('posts.create', ['category_id' => 3]) }}"
                                         class="d-flex justify-content-center align-items-center user-color custom-icon-container">
@@ -50,6 +52,7 @@
 
                                 {{-- Review --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                {{-- <div class="col-6 col-lg-3"> --}}
                                     <label for="review" class="icon-position">Review</label>
                                     <a href="{{ route('posts.create', ['category_id' => 1]) }}"
                                         class="d-flex justify-content-center align-items-center user-color custom-icon-container">
@@ -59,6 +62,7 @@
 
                                 {{-- Culture --}}
                                 <div class="col-6 col-md-3 col-lg-3">
+                                {{-- <div class="col-6 col-lg-3"> --}}
                                     <label for="culture" class="icon-position">Culture</label>
                                     <a href="{{ route('posts.create', ['category_id' => 4]) }}"
                                         class="d-flex justify-content-center align-items-center user-color custom-icon-container">
@@ -73,7 +77,7 @@
                 {{-- Organizer selecton --}}
                 <div class="border rounded p-3">
                     <div class="row">
-                        <div class="col-md-3 col-lg-3">
+                        <div class="col-md-4 col-lg-4">
                             {{-- Icon --}}
                             <div class="d-flex justify-content-center align-items-center position-relative custom-logo-container">
                                 <img src="{{ asset($logo_blue_url) }}" alt="logo" class="logo-organizer">
@@ -81,7 +85,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-9 col-lg-9">
+                        <div class="col-md-8 col-lg-8">
                             <div class="row h-100">
                                 {{-- Event --}}
                                 <div class="col-6 col-md-3 col-lg-3">
