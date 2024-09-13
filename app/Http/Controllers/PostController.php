@@ -44,7 +44,7 @@ class PostController extends Controller
         $this->google_tts_service = $google_tts_service;
     }
 
-    // post.index, also top page
+    // posts.index, also top page
     public function index(Request $request)
     {
         if ($request->search) {
@@ -112,17 +112,18 @@ class PostController extends Controller
             ->with('prefectures_by_area', $prefectures_by_area);
     }
 
-    // post store
     public function store(Request $request)
     {
+        // ==== Validation ====
         $request->validate([
             'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
+        // =====================
 
-        // Omit NGWord
+        // ==== Omit NGWord ====
         $ng_words = NGWord::all()->pluck('word')->toArray();
 
         $fields = [
@@ -144,10 +145,10 @@ class PostController extends Controller
                 ->withErrors($errorMessages)
                 ->withInput();
         }
+        // =======================
 
-        //   post store
+        // ==== Post ====
         $this->post->user_id = Auth::user()->id;
-        // $this->post->user_id = 3;
         $this->post->title = $request->title;
         $this->post->article = $request->article;
         $this->post->visit_date = $request->visit_date;
@@ -155,11 +156,9 @@ class PostController extends Controller
         $this->post->end_date = $request->end_date;
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
-
-        // Set address to posts table
         $this->post->event_address = $request->event_address;
 
-        // ==== Transform address to geocode ====
+        // Transform address to geocode
         $location = $this->geocodeAddress($request->event_address);
         // $location['longitude', 'latitude']
 
@@ -178,11 +177,12 @@ class PostController extends Controller
             $this->post->event_latitude = $location['latitude'];
         }
 
-        // Save data to posts table
         $this->post->save();
+        // ===============
 
-
-        // category
+        // ==== Category ====
+        // Save one category ID onto post_category table
+        // Loop just once
         $post_categories = [];
         foreach ($request->categories as $category_id) {
             $post_categories[] = [
@@ -191,8 +191,9 @@ class PostController extends Controller
             ];
         }
         $this->post->postCategories()->createMany($post_categories);
+        // ==================
 
-        // image
+        // ==== Image ====
         if ($request->image) {
             $img_obj = $request->image;
             $data_uri = $this->generateDataUri($img_obj);
@@ -200,16 +201,16 @@ class PostController extends Controller
             $this->image->post_id = $this->post->id;
             $this->image->image = $data_uri;
             $this->image->caption = $request->caption;
+
             $this->image->save();
         }
+        // ===============
 
         return redirect()->route('posts.show', $this->post->id);
     }
 
-    // post edit
     public function edit($id)
     {
-
         $post = $this->post->findOrFail($id);
         $all_categories = $this->category->all();
         $all_areas = $this->area->all();
@@ -222,15 +223,16 @@ class PostController extends Controller
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
-        $selected_categories = [];
+        // Get the category ID from the post
+        // Only loop once (to get the only one category ID from pivot table)
         foreach ($post->postCategories as $post_category) {
-            $selected_categories[] = $post_category->category_id;
+            $category_id = $post_category->category_id;
         }
 
         return view('posts.edit')
             ->with('post', $post)
             ->with('all_categories', $all_categories)
-            ->with('selected_categories', $selected_categories)
+            ->with('category_id', $category_id)
             ->with('all_areas', $all_areas)
             ->with('prefectures_by_area', $prefectures_by_area);
         // ->with('all_prefectures', $all_prefectures);
@@ -239,41 +241,18 @@ class PostController extends Controller
     // post update
     public function update(Request $request, $id)
     {
+        // ** Needs to be fixed **
+        // ==== Validation ====
         $request->validate([
-            'categories' => 'required|array|between:1,4',
+            // 'categories' => 'required|array|between:1,4',
             'title' => 'required|max:500',
             'article' => 'required|max:1000',
             'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
         ]);
+        // =====================
 
-        $post = $this->post->findOrFail($id);
-        $post->title = $request->title;
-        $post->article = $request->article;
-        $post->visit_date = $request->visit_date;
-        $post->start_date = $request->start_date;
-        $post->end_date = $request->end_date;
-        $post->prefecture_id = $request->prefecture_id;
-        $post->area_id = $request->area_id;
-        $post->save();
-
-        // image
-        if ($request->image) {
-            $img_obj = $request->image;
-            $data_uri = $this->generateDataUri($img_obj);
-
-            foreach ($post->images as $image) {
-
-                $image_id = $image->id;
-
-                $image = $this->image->findOrFail($image_id);
-                $image->post_id = $post->id;
-                $image->image = $data_uri;
-                $image->caption = $request->caption;
-                $image->save();
-            }
-        }
-
-        // Omit NGWord
+        // ** Needs to be fixed **
+        // ==== Omit NGWord ====
         $ng_words = NGWord::all()->pluck('word')->toArray();
 
         $fields = [
@@ -295,18 +274,49 @@ class PostController extends Controller
                 ->withErrors($errorMessages)
                 ->withInput();
         }
+        // =======================
 
-        // categories
+        // ==== Post ====
+        $post = $this->post->findOrFail($id);
+
+        $post->title = $request->title;
+        $post->article = $request->article;
+        $post->visit_date = $request->visit_date;
+        $post->start_date = $request->start_date;
+        $post->end_date = $request->end_date;
+        $post->prefecture_id = $request->prefecture_id;
+        $post->area_id = $request->area_id;
+
+        $post->save();
+        // ===============
+
+        // ==== Categories ====
+        // ==== Save one category ID onto post_category table ====
         $post->postCategories()->delete();
-
-        foreach ($request->categories as $category_id) {
-            $post_categories[] = [
-                'post_id' => $this->post->id,
-                'category_id' => $category_id
-            ];
-        }
-
+        $post_categories[] = [
+            'post_id' => $post->id,
+            'category_id' => (int)$request->category_id,
+        ];
         $post->postCategories()->createMany($post_categories);
+        // ======================================================
+
+        // ==== Image ====
+        if ($request->image) {
+            $img_obj = $request->image;
+            $data_uri = $this->generateDataUri($img_obj);
+
+            foreach ($post->images as $image) {
+
+                $image_id = $image->id;
+
+                $image = $this->image->findOrFail($image_id);
+                $image->post_id = $post->id;
+                $image->image = $data_uri;
+                $image->caption = $request->caption;
+                $image->save();
+            }
+        }
+        // ===============
 
         return redirect()->route('posts.show', $id);
     }
