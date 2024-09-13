@@ -114,6 +114,20 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // ==== Omit NGWord ====
+        $error_messages = [];
+        $error_messages['title'] = $this->omitNGWord($request->title);
+        $error_messages['article'] = $this->omitNGWord($request->article);
+        if (
+            !is_null($error_messages['title']) ||
+            !is_null($error_messages['article'])
+        ) {
+            return redirect()->back()
+                ->withErrors($error_messages)
+                ->withInput();
+        }
+        // =======================
+
         // ==== Validation ====
         $request->validate([
             'categories' => 'required|array|between:1,4',
@@ -122,30 +136,6 @@ class PostController extends Controller
             'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
         // =====================
-
-        // ==== Omit NGWord ====
-        $ng_words = NGWord::all()->pluck('word')->toArray();
-
-        $fields = [
-            'article' => $request->article,
-            'title' => $request->title
-        ];
-
-        $errorMessages = [];
-
-        foreach ($fields as $fiel => $fielname) {
-            foreach ($ng_words as $ng_word) {
-                if (stripos($fielname, $ng_word) !== false) {
-                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
-                }
-            }
-        }
-        if (!empty($errorMessages)) {
-            return redirect()->back()
-                ->withErrors($errorMessages)
-                ->withInput();
-        }
-        // =======================
 
         // ==== Post ====
         $this->post->user_id = Auth::user()->id;
@@ -244,6 +234,26 @@ class PostController extends Controller
     // post update
     public function update(Request $request, $id)
     {
+        // ==== Omit NGWord ====
+        $error_messages = [];
+
+        // check if the title has NGWord
+        $error_messages['title'] = $this->omitNGWord($request->title);
+
+        // check if the article has NGWord
+        $error_messages['article'] = $this->omitNGWord($request->article);
+        
+        // if either title or article has NGWord, return error message
+        if (
+            !is_null($error_messages['title']) ||
+            !is_null($error_messages['article'])
+        ) {
+            return redirect()->back()
+                ->withErrors($error_messages)
+                ->withInput();
+        }
+        // =======================
+
         // ** Needs to be fixed **
         // ==== Validation ====
         $request->validate([
@@ -253,31 +263,6 @@ class PostController extends Controller
             'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
         ]);
         // =====================
-
-        // ** Needs to be fixed **
-        // ==== Omit NGWord ====
-        $ng_words = NGWord::all()->pluck('word')->toArray();
-
-        $fields = [
-            'article' => $request->article,
-            'title' => $request->title
-        ];
-
-        $errorMessages = [];
-
-        foreach ($fields as $fiel => $fielname) {
-            foreach ($ng_words as $ng_word) {
-                if (stripos($fielname, $ng_word) !== false) {
-                    $errorMessages[$fiel] = "Unfortunately, you will not be able to post because the word '{$ng_word}' is not allowed. Please change your words.";
-                }
-            }
-        }
-        if (!empty($errorMessages)) {
-            return redirect()->back()
-                ->withErrors($errorMessages)
-                ->withInput();
-        }
-        // =======================
 
         // ==== Post ====
         $post = $this->post->findOrFail($id);
@@ -452,6 +437,25 @@ class PostController extends Controller
         }
 
         // Fail to find address
+        return null;
+    }
+
+    private function omitNGWord($text)
+    {
+        $ng_words = NGWord::all()->pluck('word')->toArray();
+
+        // Check if the text has NGWord
+        foreach ($ng_words as $ng_word) {
+            if (stripos($text, $ng_word) !== false) {
+                $error_message = "Your post has the word '{$ng_word}'. Please change it.";
+            }
+        }
+
+        // If the text has NGWord, return error message
+        if (!empty($error_message)) {
+            return $error_message;
+        }
+
         return null;
     }
 }
