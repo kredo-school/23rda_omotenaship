@@ -8,33 +8,150 @@
             {{-- Left Column --}}
             <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
-                <div class="mb-5">
-                    <a href="{{ route('posts.show-event-near-you') }}" class="d-block w-100">
-                        <div class="event-near-you image-container w-100">
-                            <img src="{{ asset('images/banners/map_japan.png') }}" alt="Event near You" class="img-fluid">
-                        <h2 class="h1 display-4 text-center fw-bold w-100 m-0 text-overlay">Event near You</h2>
-                        </div>
-                    </a>
-                </div>
+                @if (!request()->has('category') && !request()->has('search'))
+                    <div class="mb-5">
+                        <a href="{{ route('posts.show-event-near-you') }}" class="d-block w-100">
+                            <div class="event-near-you image-container w-100">
+                                <img src="{{ asset('images/banners/map_japan.png') }}" alt="Event near You" class="img-fluid">
+                                <h2 class="h1 display-4 text-center fw-bold w-100 m-0 text-overlay">Event near You</h2>
+                            </div>
+                        </a>
+                    </div>
+                @endif
 
                 {{-- Heading --}}
-                <h2 class="mb-3"><span class="px-2 heading-kurenai">New Post</span></h2>
+                @php
+                    // Set the heading text
+                    $heading_text = 'New Post';
+                    if (request()->has('category')) {
+                        $heading_text = 'Category: ' . ucfirst(request()->category);
+                    } elseif (request()->has('search')) {
+                        $heading_text = 'Search: ' . request()->search;
+                    }
+                @endphp
+                <h2 class="fs-3 mb-3"><span class="px-2 heading-kurenai">{{ $heading_text }}</span></h2>
 
                 {{-- Posts --}}
-                <div class="row">
-                    @forelse ($posts as $post)
-                        <div class="col-lg-6 mb-3">
-                            @include('components.post')
-                        </div>
-                    @empty
-                        No posts yet!
-                    @endforelse
+                {{-- All posts --}}
+                @if (!request()->has('category') && !request()->has('search'))
+                    <div class="row">
+                        @forelse ($all_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
 
-                    {{-- Pagination Link --}}
-                    <div class="d-flex justify-content-center">
-                        {{ $posts->links() }}
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $all_posts->links() }}
+                        </div>
                     </div>
-                </div>
+                @endif
+
+                {{-- Searched posts --}}
+                @if (request()->has('search'))
+                    <div class="row">
+                        @forelse ($searched_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $searched_posts->links() }}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Posts with each category --}}
+                @if (request()->has('category'))
+                    {{-- Recommended --}}
+                    <h3 class="fs-4 mb-3">
+                        <span class="px-2 heading-kurenai">Recommended</span>
+                    </h3>
+                    <div class="row">
+                        @forelse ($recommended_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $recommended_posts->links() }}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Posts with category Event/Volunteer --}}
+                @if (request()->category === 'event' || request()->category === 'volunteer')
+                    {{-- Upcoming --}}
+                    <h3 class="fs-4 mb-3">
+                        <span class="px-2 heading-kurenai">Upcoming</span>
+                    </h3>
+                    <div class="row">
+                        @forelse ($upcoming_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $upcoming_posts->links() }}
+                        </div>
+                    </div>
+
+                    {{-- Ended --}}
+                    <h3 class="fs-4 mb-3">
+                        <span class="px-2 heading-kurenai">Ended</span>
+                    </h3>
+                    <div class="row">
+                        @forelse ($ended_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $ended_posts->links() }}
+                        </div>
+                    </div>
+                @endif
+
+                {{-- Posts with category Review/Culture --}}
+                @if (request()->category === 'review' || request()->category === 'culture')
+                    {{-- Latest --}}
+                    <h3 class="fs-4 mb-3">
+                        <span class="px-2 heading-kurenai">Latest</span>
+                    </h3>
+                    <div class="row">
+                        @forelse ($latest_posts as $post)
+                            <div class="col-lg-6 mb-3">
+                                @include('components.post')
+                            </div>
+                        @empty
+                            No posts yet!
+                        @endforelse
+
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $latest_posts->links() }}
+                        </div>
+                    </div>
+                @endif
             </div>
 
             {{-- Right Colmun --}}

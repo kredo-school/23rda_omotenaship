@@ -52,7 +52,7 @@ class ProfileController extends Controller
         $languages = self::$languages;
 
         # pagination
-        $posts = $user->posts()->paginate(4);
+        $posts = $user->posts()->orderBy('updated_at', 'desc')->paginate(4);
 
         return view('profiles.show', compact('user', 'profile', 'posts', 'languages'));
     }
