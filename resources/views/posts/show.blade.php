@@ -28,7 +28,8 @@
                         <div class="row m-0 p-0">
                             <div class="col mb-0">
                                 <p class="xsmall text-secondary m-0">
-                                    <small>Post Date : {{ date('Y-m-d', strtotime($post->create_at)) }}</small>
+                                    <small>Posted Date : {{ date('Y-m-d', strtotime($post->created_at)) }}</small>
+                                    <small>Updated Date : {{ date('Y-m-d', strtotime($post->updated_at)) }}</small>
                                 </p>
                             </div>
                         </div>
