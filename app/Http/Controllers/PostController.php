@@ -242,7 +242,7 @@ class PostController extends Controller
 
         // check if the article has NGWord
         $error_messages['article'] = $this->omitNGWord($request->article);
-        
+
         // if either title or article has NGWord, return error message
         if (
             !is_null($error_messages['title']) ||
@@ -444,10 +444,20 @@ class PostController extends Controller
     {
         $ng_words = NGWord::all()->pluck('word')->toArray();
 
-        // Check if the text has NGWord
         foreach ($ng_words as $ng_word) {
-            if (stripos($text, $ng_word) !== false) {
-                $error_message = "Your post has the word '{$ng_word}'. Please change it.";
+            // Remove special characters
+            $text = preg_replace('/[^\p{L}\p{N}\s]/u', '', $text);
+
+            // Split the text into words
+            $words = preg_split('/\s+/', $text);
+
+            foreach ($words as $word) {
+                // Check if the word is NGWord
+                // If it is, return error message
+                if (strtolower($word) === strtolower($ng_word)) {
+                    $error_message = "Your post contains the word '{$word}'. Please change it.";
+                    break;
+                }
             }
         }
 
