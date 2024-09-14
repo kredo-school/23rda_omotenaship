@@ -36,12 +36,9 @@
                 @if (!request()->is('login') && !request()->is('register'))
                     @if (!Auth::check() || Auth::user()->role_id !== 1)
                         {{-- Search bar --}}
-                        @if (Route::currentRouteName() === 'posts.index')
-                            <form action="{{ route('posts.index') }}" method="get"
-                                class="search d-flex align-items-center">
-
-                                <input type="search" name="search"
-                                    value="{{ isset($search) ? old('search', $search) : '' }}" id="search"
+                        @if (Route::currentRouteName() === 'posts.index' && !request()->has('category'))
+                            <form action="{{ route('posts.index') }}" method="get" class="search d-flex align-items-center">
+                                <input type="search" name="search" value="{{ isset($search) ? old('search', $search) : '' }}" id="search"
                                     class="form-control" placeholder="search">
                             </form>
                         @endif
