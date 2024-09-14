@@ -32,16 +32,15 @@
                                     <small>Updated Date : {{ date('Y-m-d', strtotime($post->updated_at)) }}</small>
                                 </p>
                             </div>
-                        </div>
-
-                        {{-- Edit Button --}}
-                        <div class="col d-flex justify-content-end">
-                            @if (Auth::check() && Auth::user()->id === $post->user->id)
-                                <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
-                                    class="text-decoration-none text-dark d-flex align-items-center">
-                                    <i class="fa-solid fa-pen fa-pen-post"></i>
-                                </a>
-                            @endif
+                            {{-- Edit Button --}}
+                            <div class="col d-flex justify-content-end">
+                                @if (Auth::check() && Auth::user()->id === $post->user->id)
+                                    <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
+                                        class="text-decoration-none text-dark d-flex align-items-center mb-1">
+                                        <i class="fa-solid fa-pen fa-pen-post"></i>
+                                    </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif
