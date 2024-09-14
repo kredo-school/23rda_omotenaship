@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('introduction')->nullable();
             $table->longText('avatar')->nullable();
             $table->date('birth_date')->nullable();
-            $table->string('language')->default('en');
+            $table->string('language')->default('en-US');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
