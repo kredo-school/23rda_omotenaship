@@ -138,6 +138,7 @@ Route::group(['middleware' => 'user'], function () {
     //Contact
     Route::get('/contact', [ContactController::class, 'index'])
     ->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 });
 
 // Only logged-in Admin user is able to see
