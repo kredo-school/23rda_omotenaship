@@ -60,6 +60,54 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('11111111'), // Hash
                 'created_at' => NOW(),
                 'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user05',
+                'email' => 'user05@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user06',
+                'email' => 'user06@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user07',
+                'email' => 'user07@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user08',
+                'email' => 'user08@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user09',
+                'email' => 'user09@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
+            ],
+            [
+                'role_id' => 2, // user
+                'name' => 'user10',
+                'email' => 'user10@sample.com',
+                'password' => Hash::make('11111111'), // Hash
+                'created_at' => NOW(),
+                'updated_at' => NOW()
             ]
         ];
 
