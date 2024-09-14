@@ -248,17 +248,13 @@ class PostController extends Controller
         $this->post->area_id = $request->area_id;
         $this->post->event_address = $request->event_address;
 
-        // Transform address to geocode
-        $location = $this->geocodeAddress($request->event_address);
-        // $location['longitude', 'latitude']
-
-        // If $location is null, get prefecture's location
-        if (
-            $location === null &&
-            !empty($request->prefecture_id)
-        ) {
+        if ($request->event_address) {
+            // Get location from address
+            $location = $this->geocodeAddress($request->event_address); // $location['longitude', 'latitude']
+        } elseif (!empty($request->prefecture_id)) {
+            // Get location from prefecture
             $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
-            $location = $this->geocodeAddress($prefecture);
+            $location = $this->geocodeAddress($prefecture->name);
         }
 
         // Set data to post table
@@ -370,10 +366,25 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
+        $post->prefecture_id = $request->prefecture_id;
+        $post->event_address = $request->event_address;
         $post->start_date = $request->start_date;
         $post->end_date = $request->end_date;
-        $post->prefecture_id = $request->prefecture_id;
-        $post->area_id = $request->area_id;
+
+        if ($request->event_address) {
+            // Get location from address
+            $location = $this->geocodeAddress($request->event_address); // $location['longitude', 'latitude']
+        } elseif (!empty($request->prefecture_id)) {
+            // Get location from prefecture
+            $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
+            $location = $this->geocodeAddress($prefecture->name);
+        }
+
+        // Set data to post table
+        if ($location !== null) {
+            $post->event_longitude = $location['longitude'];
+            $post->event_latitude = $location['latitude'];
+        }
 
         $post->save();
         // ===============
@@ -394,13 +405,13 @@ class PostController extends Controller
             $data_uri = $this->generateDataUri($img_obj);
 
             foreach ($post->images as $image) {
-
                 $image_id = $image->id;
-
                 $image = $this->image->findOrFail($image_id);
+
                 $image->post_id = $post->id;
                 $image->image = $data_uri;
                 $image->caption = $request->caption;
+
                 $image->save();
             }
         }
@@ -582,7 +593,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
-                     // if (stripos($word,$ng_word) !== false) { 
+                     // if (stripos($word,$ng_word) !== false) {
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
