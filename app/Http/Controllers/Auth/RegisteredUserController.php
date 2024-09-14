@@ -70,7 +70,8 @@ class RegisteredUserController extends Controller
     private function createProfile($user)
     {
         $this->profile->user_id = $user->id;
-        $this->profile->first_name = $user->name;
+        // $this->profile->first_name = $user->name;
+        $this->profile->first_name = 'User ' . $user->id;
         $this->profile->last_name = null;
         $this->profile->middle_name = null;
         $this->profile->introduction = null;

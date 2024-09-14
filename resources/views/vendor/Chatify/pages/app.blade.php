@@ -1,4 +1,22 @@
+{{-- chatify head --}}
 @include('Chatify::layouts.headLinks')
+<link rel="stylesheet" href="{{ asset('css/components-navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('css/components-footer.css') }}">
+ <!-- FontAwesome -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+ integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+ crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<!-- Bootstrap 5 CSS -->
+<link href="{{ asset('bootstrap-5.3.3-dist/css/bootstrap.min.css') }}" rel="stylesheet">
+
+{{-- Bootstrap 5 JS --}}
+    <script src="{{ asset('bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js') }}"></script>
+
+
+{{-- omotenaship navbar --}}
+@include('components.navbar')
+
 <div class="messenger">
     {{-- ----------------------Users/Groups lists side---------------------- --}}
     <div class="messenger-listView {{ !!$id ? 'conversation-active' : '' }}">
@@ -63,7 +81,7 @@
                 {{-- header buttons --}}
                 <nav class="m-header-right">
                     <a href="#" class="add-to-favorite"><i class="fas fa-star"></i></a>
-                    <a href="/"><i class="fas fa-home"></i></a>
+                    {{-- <a href="/"><i class="fas fa-home"></i></a> --}}
                     <a href="#" class="show-infoSide"><i class="fas fa-info-circle"></i></a>
                 </nav>
             </nav>
@@ -110,3 +128,6 @@
 
 @include('Chatify::layouts.modals')
 @include('Chatify::layouts.footerLinks')
+
+{{-- omotenaship footer --}}
+@include('components.footer')
