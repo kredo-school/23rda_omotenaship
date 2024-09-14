@@ -14,6 +14,8 @@ use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
 
 // posts (every user is able to see)
 
@@ -128,6 +130,14 @@ Route::group(['middleware' => 'user'], function () {
         Route::get('/', [BrowsingHistoryController::class, 'index'])
             ->name('index');
     });
+
+    //About
+    Route::get('/about', [AboutController::class, 'index'])
+    ->name('about');
+
+    //Contact
+    Route::get('/contact', [ContactController::class, 'index'])
+    ->name('contact');
 });
 
 // Only logged-in Admin user is able to see
