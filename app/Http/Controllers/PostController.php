@@ -555,6 +555,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
+                     // if (stripos($word,$ng_word) !== false) { 
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
