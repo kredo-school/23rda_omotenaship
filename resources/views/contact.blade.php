@@ -4,13 +4,13 @@
 
 @section('content')
     <div class="card border-0 col-lg-12 mt-3 d-flex align-items-center justify-content-center">
-        <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="contact-redcat">
+        <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="contact-redcat img-fluid">
 
         <div class="card-img-overlay">
             <div class="text-center">
-            <h2 class="mt-5 pt-5 mb-3">Contact Information</h2>
-            <p>If you have any questions or issues regarding the site, please feel free to contact us.</p>
-            <p>The personal information you provide will only be used to respond to your inquiry</p>
+                <h2 class="mt-5 pt-5 mb-3">Contact Information</h2>
+                <p>If you have any questions or issues regarding the site, please feel free to contact us.</p>
+                <p>The personal information you provide will only be used to respond to your inquiry</p>
             </div>
 
             <form method="POST" action="#" class="mt-5">
@@ -49,5 +49,10 @@
                     </div>
                 </div>
             </form>
+
+            <div id="successMessage" class="alert alert-success" style="display: none;">
+                Thank you for contacting us! We will get back to you soon.
+            </div>
         </div>
+    </div>
 @endsection
