@@ -105,8 +105,8 @@
                         @endif
 
                         {{-- Logout --}}
-                        <li class="nav-item d-flex align-items-center">
-                            <form action="{{ route('logout') }}" method="POST">
+                        <li class="nav-item d-flex align-items-center m-0">
+                            <form action="{{ route('logout') }}" method="POST" class="m-0">
                                 @csrf
 
                                 <button type="submit" class="nav-link d-flex align-items-center">
