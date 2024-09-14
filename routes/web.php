@@ -14,6 +14,8 @@ use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ContactController;
 
 // posts (every user is able to see)
 
@@ -78,12 +80,16 @@ Route::group(['middleware' => 'user'], function () {
 
     //likes
     Route::group(['prefix' => 'likes', 'as' => 'likes.'], function () {
-        Route::post('/{post_id}/store', [LikeController::class, 'store'])
+        // Route::post('/{post_id}/store', [LikeController::class, 'store'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('store');
+        // Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('destroy');
+
+        Route::post('/{post_id}/toggle', [LikeController::class, 'toggle'])
             ->where('post_id', '[0-9]+')
-            ->name('store');
-        Route::delete('/{post_id}/destroy', [LikeController::class, 'destroy'])
-            ->where('post_id', '[0-9]+')
-            ->name('destroy');
+            ->name('toggle');
     });
 
     //comments
@@ -127,6 +133,14 @@ Route::group(['middleware' => 'user'], function () {
         Route::get('/', [BrowsingHistoryController::class, 'index'])
             ->name('index');
     });
+
+    //About
+    Route::get('/about', [AboutController::class, 'index'])
+    ->name('about');
+
+    //Contact
+    Route::get('/contact', [ContactController::class, 'index'])
+    ->name('contact');
 });
 
 // Only logged-in Admin user is able to see
@@ -164,3 +178,11 @@ Route::group(['middleware' => 'admin'], function () {
             ->name('destroy');
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
