@@ -128,7 +128,7 @@
                             <div>
                                 <label for="event" class="d-block my-1">My Favarite Event</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    Share your events in Japan that you've enjoyed or would love to attend.
                                 </span>
                             </div>
                         </div>
@@ -139,7 +139,7 @@
                             <div>
                                 <label for="volunteer" class="d-block my-1">Volunteer</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    Share your volunteering in Japan, you've done or would like to try.
                                 </span>
                             </div>
                         </div>
@@ -150,8 +150,7 @@
                             <div>
                                 <label for="Review" class="d-block my-1">My Experience Review</label>
                                 <span>
-                                    share your experiences and feelings in Japan.
-                                    日本での経験や感じた事を共有してください。
+                                    Share your experiences and feelings in Japan.
                                 </span>
                             </div>
                         </div>
@@ -162,10 +161,8 @@
                             <div>
                                 <label for="Culture" class="d-block my-1">Japanese Culture</label>
                                 <span>
-                                    *share your impressions of culture.<br>
+                                    *Share your impressions of culture.<br>
                                     *Japanese rules you would like to share.
-                                    *日本の文化について感じた事をシェアして
-                                    *共有したい日本のルール。
                                 </span>
                             </div>
                         </div>
@@ -177,7 +174,7 @@
                             <div>
                                 <label for="Culture" class="d-block my-1">Event</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    Event announcements from the organizer side.
                                 </span>
                             </div>
                         </div>
@@ -186,9 +183,9 @@
                          <div class="mb-3 d-flex align-items-start  icon-filter ms-4">
                             <img src="{{ asset('images/categories/1.png') }}" class="me-3 info-icon-size">
                             <div>
-                                <label for="Culture" class="d-block my-1">Volunyteer</label>
+                                <label for="Culture" class="d-block my-1">Volunteer</label>
                                 <span>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing 
+                                    Volunteer recruitment from the organizer side.
                                 </span>
                             </div>
                         </div>
