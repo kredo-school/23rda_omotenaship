@@ -190,12 +190,27 @@
 
                 <hr>
 
-                {{-- Google Map --}}
-                <div id="google-maps-posts-show"></div>
-                <div id="post-data" data-post-id="{{ $post->id }}"
-                    data-post-lat="{{ $post->event_latitude }}" data-post-lng="{{ $post->event_longitude }}"></div>
+                {{-- Geological Info --}}
+                @if ($post->event_latitude && $post->event_longitude)
+                    <div class="row">
+                        <div class="col-sm-8">
+                            {{-- Google Map --}}
+                            <div id="google-maps-posts-show"></div>
+                            <div id="post-data" data-post-id="{{ $post->id }}"
+                                data-post-lat="{{ $post->event_latitude }}" data-post-lng="{{ $post->event_longitude }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            {{-- OpenWeatherMap --}}
+                            <div id="open-weather-map-data"
+                                data-open-weather-map-api-key="{{ config('services.open_weather_map.api_key') }}"></div>
 
-                <hr>
+                            <div id="weather-info"></div>
+                        </div>
+                    </div>
+
+                    <hr>
+                @endif
 
                 {{-- post comment --}}
                 <div class="row">

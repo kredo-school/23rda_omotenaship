@@ -70,6 +70,9 @@
         src="https://maps.googleapis.com/maps/api/js?language=en&region=US&key={{ config('services.google_maps.api_key') }}&callback=initMap&libraries=places"
         async defer></script>
     <script src="{{ asset('js/google-maps/main.js') }}"></script>
+
+    {{-- Open Weather Map --}}
+    <script src="{{asset('js/open-weather-map/main.js')}}"></script>
 </body>
 
 </html>
