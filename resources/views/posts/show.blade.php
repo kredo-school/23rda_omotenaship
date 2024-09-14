@@ -65,41 +65,12 @@
                     </div>
 
                     {{-- Like --}}
-
                     <div class="col-2 d-flex justify-content-end">
-                        @if (Auth::check())
-                            @if ($post->isLiked())
-                                <form action="{{ route('likes.destroy', ['post_id' => $post->id]) }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm p-0">
-                                        <i
-                                            class="fa-solid fa-heart fa-heart-post text-danger d-flex align-items-center"></i>
-                                    </button>
-                                </form>
-                            @else
-                                <form action="{{ route('likes.store', ['post_id' => $post->id]) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm shadow-none p-0">
-                                        <i class="fa-regular fa-heart fa-heart-post d-flex align-items-center"></i>
-                                    </button>
-                                </form>
-                            @endif
-                        @else
-                            <a href="{{ route('login') }}" class="text-decoration-none">
-                                <button class="border-0 bg-transparent" onclick="alert('Please Login');">
-                                    <i class="fa-regular fa-heart fa-heart-post text-black d-flex align-items-center"></i>
-                                </button>
-                            </a>
-                        @endif
+                        {{-- Like button --}}
+                        @include('components.like')
 
-
-                        <div class="px-2">
-                            <span class="d-flex align-items-center">{{ $post->likes->count() }}</span>
-                        </div>
                         {{-- Favorite --}}
-                        <div class="">
-
+                        <div class="d-flex align-items-center">
                             @if (Auth::check())
                                 @if ($post->isFavorited(Auth::user()))
                                     <form action="{{ route('favorites.destroy', $post->id) }}" method="post"
@@ -126,7 +97,6 @@
                                     </button>
                                 </a>
                             @endif
-
                         </div>
                     </div>
                 </div>
@@ -241,9 +211,9 @@
                                 <a href="{{ route('login') }}" class="text-decoration-none">Login to post a comment</a>
                             </p>
                         @endauth
-
                     </div>
                 </div>
+
                 {{-- show comments --}}
                 <div class="row">
                     <div class="col">

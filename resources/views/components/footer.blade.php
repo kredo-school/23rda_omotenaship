@@ -25,10 +25,10 @@
         </div>
 
         <div class="d-flex">
-            <a href="#" class="text-white text-decoration-none">
+            <a href="{{ route('about') }}" class="text-white text-decoration-none">
                 <h6 class="m-0">About</h6>
             </a>
-            <a href="#" class="text-white text-decoration-none">
+            <a href="{{ route('contact') }}" class="text-white text-decoration-none">
                 <h6 class="m-0 ms-3">Contact</h6>
             </a>
         </div>

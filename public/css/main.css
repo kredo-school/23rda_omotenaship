@@ -141,3 +141,8 @@ p {
     color: #ff0000; /* ホバー時に好きな色を指定 */
     text-decoration: underline; /* 必要ならホバー時に下線を追加 */
 }
+
+.heart-icon {
+    outline: none;
+    border: none; 
+}
