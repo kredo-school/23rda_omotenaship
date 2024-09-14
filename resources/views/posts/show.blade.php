@@ -190,6 +190,13 @@
 
                 <hr>
 
+                {{-- Google Map --}}
+                <div id="google-maps-posts-show"></div>
+                <div id="post-data" data-post-id="{{ $post->id }}"
+                    data-post-lat="{{ $post->event_latitude }}" data-post-lng="{{ $post->event_longitude }}"></div>
+
+                <hr>
+
                 {{-- post comment --}}
                 <div class="row">
                     <div class="col">
@@ -262,9 +269,6 @@
                         @endif
                     </div>
                 </div>
-
-                {{-- Google Map Test --}}
-                <div id="google_maps_posts_show"></div>
             </div>
         </div>
     </div>
