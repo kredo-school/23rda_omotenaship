@@ -6,10 +6,11 @@
     <div class="container pt-5 mb-5">
         <div class="row">
             <div class="col-lg-8 mx-auto">
-                {{-- useravatar --}}
                 @if ($post && $post->user)
-                    <div class="row">
-                        <div class="col d-flex align-items-center">
+                    <div class="d-flex justify-content-between mb-2">
+                        {{-- Post User --}}
+                        <div class="d-flex align-items-center">
+                            {{-- user avatar --}}
                             <a href="{{ route('profiles.show', $post->user->id) }}">
                                 @if ($post->user->profile && $post->user->profile->avatar)
                                     <img src="{{ $post->user->profile->avatar }}" alt="{{ $post->user->name }}"
@@ -24,18 +25,9 @@
                                 {{ $post->user->name }}
                             </a>
                         </div>
-                        {{-- Post Date --}}
-                        <div class="row m-0 p-0">
-                            <div class="col mb-0">
-                                <p class="xsmall text-secondary m-0">
-                                    <small>Posted Date : {{ date('Y-m-d', strtotime($post->created_at)) }}</small>
-                                    <small>Updated Date : {{ date('Y-m-d', strtotime($post->updated_at)) }}</small>
-                                </p>
-                            </div>
-                        </div>
 
                         {{-- Edit Button --}}
-                        <div class="col d-flex justify-content-end">
+                        <div class="d-flex align-items-center">
                             @if (Auth::check() && Auth::user()->id === $post->user->id)
                                 <a href="{{ route('posts.edit', ['id' => $post->id]) }}"
                                     class="text-decoration-none text-dark d-flex align-items-center">
@@ -45,6 +37,21 @@
                         </div>
                     </div>
                 @endif
+
+                <div>
+                    {{-- Post Date --}}
+                    <div class="d-flex justify-content-end mb-1">
+                        @if ($post->updated_at > $post->created_at)
+                            <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
+                                Updated: {{ date('M d, Y', strtotime($post->updated_at)) }}
+                            </div>
+                        @else
+                            <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
+                                Posted: {{ date('M d, Y', strtotime($post->created_at)) }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
 
                 {{-- image --}}
                 <div class="row mb-3">
@@ -58,7 +65,8 @@
                         @endif
                     </div>
                 </div>
-                <div class="row">
+
+                <div class="row mb-2">
                     <div class="col-10 d-flex justify-content-start">
                         {{-- title --}}
                         <h3 class="m-0">{{ $post->title }}</h3>
@@ -101,39 +109,40 @@
                     </div>
                 </div>
 
-                {{-- Visit date --}}
-                <div class="row">
-                    <div class="col">
-                        <p class="xsmall text-secondary">
-                            <small>Visit Date : {{ date('Y-m-d', strtotime($post->visit_date)) }}</small>
-                        </p>
-                    </div>
-                </div>
-
-                {{-- category --}}
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex align-items-center mb-2">
-
+                {{-- Post tags --}}
+                <div class="d-flex justify-content-between mb-3">
+                    {{-- Left --}}
+                    <div>
+                        {{-- User visits --}}
+                        @if ($post->visit_date)
+                            <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
+                                User visits: {{ date('Y-m-d', strtotime($post->visit_date)) }}
+                            </div>
+                        @endif
+                        {{-- Category --}}
+                        <div class="">
                             @foreach ($post->postCategories as $post_category)
-                                <div class="badge bg-secondary bg-opacity-50 me-2">
+                                <div class="badge bg-secondary bg-opacity-50">
                                     {{ $post_category->category->name }}
                                 </div>
                             @endforeach
                         </div>
                     </div>
-                    {{-- Start Date --}}
-                    <div class="col-auto mb-0">
-                        <div class="d-flex flex-column">
-                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 mb-1 ps-1">
-                                <small>Start Date:{{ date('Y-m-d', strtotime($post->start_date)) }}</small>
-                            </p>
 
-                            {{-- End Date --}}
-                            <p class="xsmall text-secondary m-0 border border-2 rounded-2 ps-1">
-                                <small>End Date : {{ date('Y-m-d', strtotime($post->end_date)) }}</small>
-                            </p>
-                        </div>
+                    {{-- Right --}}
+                    <div class="d-flex flex-column align-items-end">
+                        {{-- Event starts --}}
+                        @if ($post->start_date)
+                            <div class="text-secondary border border-2 rounded-2 mb-1 px-1 xsmall">
+                                Evnet starts: {{ date('Y-m-d', strtotime($post->start_date)) }}
+                            </div>
+                        @endif
+                        {{-- Event ends --}}
+                        @if ($post->end_date)
+                            <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
+                                Event ends: {{ date('Y-m-d', strtotime($post->end_date)) }}
+                            </div>
+                        @endif
                     </div>
                 </div>
 
