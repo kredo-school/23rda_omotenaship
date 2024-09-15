@@ -19,7 +19,8 @@
                 <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{-- Slected Category ID --}}
-                    <input type="hidden" name="categories[]" value="{{ $selected_category_id }}">
+                    {{-- <input type="hidden" name="categories[]" value="{{ $selected_category_id }}"> --}}
+                    <input type="hidden" name="category_id" value="{{ $selected_category_id }}">
 
                     {{-- Title --}}
                     <div class="row">

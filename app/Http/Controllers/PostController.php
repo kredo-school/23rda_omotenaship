@@ -229,12 +229,7 @@ class PostController extends Controller
         // =======================
 
         // ==== Validation ====
-        $request->validate([
-            'categories' => 'required|array|between:1,4',
-            'title' => 'required|max:500',
-            'article' => 'required|max:1000',
-            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
-        ]);
+        $this->validatePost($request);
         // =====================
 
         // ==== Post ====
@@ -248,6 +243,8 @@ class PostController extends Controller
         $this->post->area_id = $request->area_id;
         $this->post->event_address = $request->event_address;
 
+
+
         if ($request->event_address) {
             // Get location from address
             $location = $this->geocodeAddress($request->event_address); // $location['longitude', 'latitude']
@@ -255,6 +252,8 @@ class PostController extends Controller
             // Get location from prefecture
             $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
             $location = $this->geocodeAddress($prefecture->name);
+        } else {
+            $location = null;
         }
 
         // Set data to post table
@@ -268,14 +267,20 @@ class PostController extends Controller
 
         // ==== Category ====
         // Save one category ID onto post_category table
-        // Loop just once
         $post_categories = [];
-        foreach ($request->categories as $category_id) {
-            $post_categories[] = [
-                'post_id' => $this->post->id,
-                'category_id' => $category_id
-            ];
-        }
+
+        $post_categories[] = [
+            'post_id' => $this->post->id,
+            'category_id' => $request->category_id,
+        ];
+
+        // Loop just once
+        // foreach ($request->categories as $category_id) {
+        // $post_categories[] = [
+        //     'post_id' => $this->post->id,
+        //     'category_id' => $category_id
+        // ];
+        // }
         $this->post->postCategories()->createMany($post_categories);
         // ==================
 
@@ -350,14 +355,8 @@ class PostController extends Controller
         }
         // =======================
 
-        // ** Needs to be fixed **
         // ==== Validation ====
-        $request->validate([
-            // 'categories' => 'required|array|between:1,4',
-            'title' => 'required|max:500',
-            'article' => 'required|max:1000',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
-        ]);
+        $this->validatePost($request);
         // =====================
 
         // ==== Post ====
@@ -378,6 +377,8 @@ class PostController extends Controller
             // Get location from prefecture
             $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
             $location = $this->geocodeAddress($prefecture->name);
+        } else {
+            $location = null;
         }
 
         // Set data to post table
@@ -593,7 +594,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
-                     // if (stripos($word,$ng_word) !== false) {
+                    // if (stripos($word,$ng_word) !== false) {
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
@@ -606,5 +607,47 @@ class PostController extends Controller
         }
 
         return null;
+    }
+
+    private function validatePost(Request $request)
+    {
+        // Get category ID
+        $category_id = $request->category_id;
+
+        // Validation rules
+        $rules = [
+            'title' => 'required|max:255',
+            'article' => 'required|max:10000',
+        ];
+        // If the route is 'posts.store'
+        if ($request->routeIs('posts.store')) {
+            $rules += [
+                'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
+            ];
+        }
+        // If the category is 'Event'
+        if ($category_id == 2) {
+            $rules += [
+                'prefecture_id' => 'required',
+            ];
+        }
+        // If the category is 'Event Organizer'
+        if ($category_id == 5) {
+            $rules += [
+                'prefecture_id' => 'required',
+                'event_address' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ];
+        }
+        // If the category is 'Volunteer Organizer'
+        if ($category_id == 6) {
+            $rules += [
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ];
+        }
+
+        $request->validate($rules);
     }
 }
