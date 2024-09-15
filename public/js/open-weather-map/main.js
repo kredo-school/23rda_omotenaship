@@ -1,29 +1,26 @@
 'use strict';
 
 {
-    const openWeatherMapData = document.getElementById('open-weather-map-data');
-
-    const apiKey = openWeatherMapData.dataset.openWeatherMapApiKey;
-
-    const postData = document.getElementById('post-data');
-    const postLat = parseFloat(postData.dataset.postLat);
-    const postLng = parseFloat(postData.dataset.postLng);
-
-    const lat = postLat;
-    const lon = postLng;
-
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
-
-
-
-    async function getWeather() {
+    // ==== Functions ===========================================================
+    async function getWeather(lat, lon, apiKey) {
         try {
+            const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+            // const token = document.querySelector('meta[name="csrf-token"]').content;
+
             const response = await fetch(apiUrl);
+            // const response = await fetch(apiUrl, {
+            //     headers: {
+            //         Authorization: token,
+            //         accept: 'application/json',
+            //     }
+            // });
+
             const data = await response.json();
 
             console.log(data);
 
             if (response.ok) {
+                // ==== Render Weather Information ==================================
                 const mainTemp = data.main.temp;
                 const mainHumidity = data.main.humidity;
                 const name = data.name;
@@ -110,6 +107,28 @@
         }
     }
 
-    // ページがロードされたら天気情報を取得
-    window.onload = getWeather;
+    // ==== Main Process ========================================================
+    const currentUrl = window.location.href;
+    const routeRegex = /\/posts\/(\d+)\/show/;
+    const routeIsMatched = currentUrl.match(routeRegex);
+
+    // console.log(routeIsMatched);
+
+    if (routeIsMatched) {
+        // Get the latitude and longitude of the post
+        const postData = document.getElementById('post-data');
+        const postLat = parseFloat(postData.dataset.postLat);
+        const lat = postLat;
+        const postLng = parseFloat(postData.dataset.postLng);
+        const lon = postLng;
+
+        // Get the OpenWeatherMap API key
+        const apiKey = document.getElementById('open-weather-map-data').dataset.openWeatherMapApiKey;
+
+        // Call the OpenWeatherMap API
+        getWeather(lat, lon, apiKey);
+    } else {
+        console.log('OpenWeatherMap API is not called.');
+    }
+
 }
