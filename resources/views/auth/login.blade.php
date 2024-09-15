@@ -3,28 +3,21 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="row">
-        <!-- left -->
-        <div class="col-lg-3">
-            <img src="{{ asset('images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
-        </div>
-
-        <!-- center -->
-        <div class="card border-0 col-lg-6 mt-3 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="redcat">
-
-            <div class="card-img-overlay">
-                <h2 class="text-kurenai text-center mt-5 pt-5">Welcome back to Omotenaship</h2>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                {{-- Header --}}
+                <h2 class="text-kurenai text-center m-0">Welcome back to Omotenaship</h2>
 
                 {{-- Login --}}
                 <form method="POST" action="{{ route('login') }}" class="mt-4">
+                    @csrf
+
                     @if (session('message'))
                         <div class="alert alert-danger">
                             {{ session('message') }}
                         </div>
                     @endif
-                    {{-- <form method="POST" action="{{ route('login.store') }}" class="mt-4"> --}}
-                    @csrf
 
                     <!-- username -->
                     <div class="row mb-3">
@@ -57,7 +50,7 @@
                     </div>
 
                     <!-- password -->
-                    <div class="row mb-3">
+                    <div class="row mb-4">
                         <label for="password" class="col-md-3 col-form-label text-black">{{ __('Password') }}</label>
                         <div class="col-md-6">
                             <input type="password" class="form-control bg-transparent" id="password" name="password"
@@ -72,8 +65,8 @@
                     </div>
 
                     <!-- login -->
-                    <div class="row mb-3">
-                        <div class="d-flex justify-content-center">
+                    <div class="row mb-5">
+                        <div class="d-flex justify-content-center mb-2">
                             <button type="submit" class="btn btn-kurenai w-50">
                                 Login
                             </button>
@@ -86,10 +79,10 @@
                 </form>
             </div>
         </div>
-
-        <!-- right -->
-        <div class="col-lg-3 p-0">
-            <img src="{{ asset('/images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
-        </div>
     </div>
+
+    {{-- Icons --}}
+    <img src="{{ asset('images/logos/red5.png') }}" alt="Red cat" class="red-cat">
+    <img src="{{ asset('/images/logos/blue5.png') }}" alt="Blue cat" class="blue-cat blue-cat-left">
+    <img src="{{ asset('/images/logos/blue5.png') }}" alt="Blue cat" class="blue-cat blue-cat-right">
 @endsection
