@@ -116,7 +116,7 @@
                         {{-- User visits --}}
                         @if ($post->visit_date)
                             <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
-                                User visits: {{ date('Y-m-d', strtotime($post->visit_date)) }}
+                                User visits: {{ date('M d, Y', strtotime($post->visit_date)) }}
                             </div>
                         @endif
                         {{-- Category --}}
@@ -134,13 +134,13 @@
                         {{-- Event starts --}}
                         @if ($post->start_date)
                             <div class="text-secondary border border-2 rounded-2 mb-1 px-1 xsmall">
-                                Evnet starts: {{ date('Y-m-d', strtotime($post->start_date)) }}
+                                Evnet starts: {{ date('M d, Y', strtotime($post->start_date)) }}
                             </div>
                         @endif
                         {{-- Event ends --}}
                         @if ($post->end_date)
                             <div class="text-secondary border border-2 rounded-2 px-1 xsmall">
-                                Event ends: {{ date('Y-m-d', strtotime($post->end_date)) }}
+                                Event ends: {{ date('M d, Y', strtotime($post->end_date)) }}
                             </div>
                         @endif
                     </div>
@@ -214,7 +214,7 @@
                             <div id="open-weather-map-data"
                                 data-open-weather-map-api-key="{{ config('services.open_weather_map.api_key') }}"></div>
 
-                            <div id="weather-info"></div>
+                            <div id="weather-info" class="border pb-3"></div>
                         </div>
                     </div>
 
