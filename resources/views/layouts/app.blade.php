@@ -75,6 +75,9 @@
 
     {{-- Open Weather Map --}}
     <script src="{{ asset('js/open-weather-map/main.js') }}"></script>
+
+    {{-- Custum JS --}}
+    <script src="{{ asset('js/posts/index.js') }}"></script>
 </body>
 
 </html>

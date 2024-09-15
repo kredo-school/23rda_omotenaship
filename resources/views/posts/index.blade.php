@@ -34,9 +34,9 @@
                 {{-- Posts --}}
                 {{-- All posts --}}
                 @if (!request()->has('category') && !request()->has('search'))
-                    <div class="row">
+                    <div id="all-posts-container" class="">
                         @forelse ($all_posts as $post)
-                            <div class="col-lg-6 mb-3">
+                            <div class="post-container me-1">
                                 @include('components.post')
                             </div>
                         @empty
@@ -44,9 +44,9 @@
                         @endforelse
 
                         {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
+                        {{-- <div class="d-flex justify-content-center">
                             {{ $all_posts->links() }}
-                        </div>
+                        </div> --}}
                     </div>
                 @endif
 

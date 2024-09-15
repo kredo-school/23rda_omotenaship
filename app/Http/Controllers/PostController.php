@@ -52,7 +52,7 @@ class PostController extends Controller
             !$request->category
         ) {
             // All posts
-            $all_posts = $this->post->orderBy('updated_at', 'desc')->paginate(4);
+            $all_posts = $this->post->orderBy('updated_at', 'desc')->paginate(10);
         } elseif ($request->search) {
             // Searched posts
             $searched_posts = $this->post
@@ -166,6 +166,23 @@ class PostController extends Controller
                     ->with('latest_posts', $latest_posts);
             }
         }
+    }
+
+    public function loadMorePosts(Request $request)
+    {
+        $all_posts = $this->post->orderBy('updated_at', 'desc')
+            ->paginate(10);
+
+        $views = [];
+        foreach ($all_posts as $post) {
+            $view = view('components.post', compact('post'))->render();
+            $views[] = $view;
+        }
+
+        return response()->json([
+            'html' => $views,
+            'hasMore' => $all_posts->hasMorePages(),
+        ]);
     }
 
     public function show($id)
