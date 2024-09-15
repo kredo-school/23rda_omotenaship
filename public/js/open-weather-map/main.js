@@ -17,7 +17,7 @@
 
             const data = await response.json();
 
-            console.log(data);
+            // console.log(data);
 
             if (response.ok) {
                 // ==== Render Weather Information ==================================
