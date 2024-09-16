@@ -139,7 +139,7 @@ class ImagesTableSeeder extends Seeder
             [
                 'id' => 20,
                 'post_id' => 20,
-                'image_path' => 'images/seeders/images/21_Sapporo_Autumn_Fest.jpg',
+                'image_path' => 'images/seeders/images/20_Sendai_Tanabata_Festival.jpg',
                 'caption' => 'image20'
             ],
             [
