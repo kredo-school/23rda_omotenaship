@@ -3,22 +3,15 @@
 @section('title', 'Register')
 
 @section('content')
-    <div class="row">
-        <!-- left -->
-        <div class="col-lg-3">
-            <img src="{{ asset('images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
-        </div>
+    <div id="register-container" class="container mt-5">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                {{-- Header --}}
+                <h2 class="text-kurenai text-center m-0">Welcome to Omotenaship</h2>
 
-        <!-- center -->
-        <div class="card border-0 col-lg-6 mt-3 d-flex align-items-center justify-content-center">
-            <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="redcat">
-
-            <div class="card-img-overlay">
-                <h2 class="text-kurenai text-center mt-5 pt-5">Welcome to Omotenaship</h2>
-
+                {{-- Forms --}}
                 <form method="POST" action="{{ route('register') }}" class="mt-4">
                     @csrf
-
                     <!-- username -->
                     <div class="row mb-3">
                         <label for="name" class="col-md-3 col-form-label text-black">{{ __('Username') }}</label>
@@ -70,8 +63,8 @@
                     </div>
 
                     <!-- Register Button -->
-                    <div class="row mb-3">
-                        <div class="d-flex justify-content-center">
+                    <div class="row mb-5">
+                        <div class="d-flex justify-content-center mb-2">
                             <button type="submit" class="btn btn-kurenai w-50">
                                 Register
                             </button>
@@ -83,10 +76,10 @@
                 </form>
             </div>
         </div>
-
-        <!-- right -->
-        <div class="col-lg-3 p-0">
-            <img src="{{ asset('/images/logos/blue5.png') }}" alt="bluecat" class="bluecat">
-        </div>
     </div>
+
+    {{-- Icons --}}
+    <img src="{{ asset('images/logos/red5.png') }}" alt="Red cat" class="red-cat">
+    <img src="{{ asset('/images/logos/blue5.png') }}" alt="Blue cat" class="blue-cat blue-cat-left">
+    <img src="{{ asset('/images/logos/blue5.png') }}" alt="Blue cat" class="blue-cat blue-cat-right">
 @endsection

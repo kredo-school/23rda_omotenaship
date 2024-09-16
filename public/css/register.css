@@ -1,18 +1,31 @@
-.text-kurenai{
-    color:#BC002D;
+.text-kurenai {
+    color: #BC002D;
 }
 
-.redcat {
-   height: 100%;
-   width: 90%;
-   position: relative;
-   top: 3%;
+.red-cat {
+    position: fixed;
+    left: 50%;
+    bottom: 50px;
+    transform: translateX(-50%);
+    width: auto;
+    height: 75vh;
+    pointer-events: none;
 }
-.bluecat {
-    height: 40%;
-    width: 70%;
-    position: relative;
-    top: 55%;
-    right: 20%;
-    left: 10%;
+
+.blue-cat {
+    position: fixed;
+    bottom: 100px;
+    width: auto;
+    height: 35vh;
+    pointer-events: none;
+}
+
+.blue-cat-left {
+    left: 50%;
+    transform: translateX(calc(-50% - 400px));
+}
+
+.blue-cat-right {
+    left: 50%;
+    transform: translateX(calc(-50% + 400px));
 }

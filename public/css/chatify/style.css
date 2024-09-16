@@ -1,8 +1,15 @@
+@font-face {
+    font-family: 'BIZ UDPGothic';
+    src: url('/fonts/BIZ_UDPGothic/BIZUDPGothic-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
-  font-family:"BIZ UDPGothic", sans-serif;
+  font-family: "BIZ UDPGothic", sans-serif !important;
 }
 
 :root {
@@ -1184,17 +1191,17 @@ div.loadingPlaceholder-date {
 :root {
 
   --icon-color: #BC002D;
-  
+
   --primary-color: #BC002D;
   --icon-size: 20px;
   --headers-padding: 1rem;
   --listView-header-height: 110px;
- 
+
 }
 
 
 .m-header svg {
-  color: var(--icon-color); 
+  color: var(--icon-color);
   font-size: var(--icon-size);
   transition: transform 0.12s;
 }

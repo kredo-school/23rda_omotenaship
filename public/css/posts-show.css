@@ -36,3 +36,18 @@
     display: none;
     width: 100%;
 }
+
+/* Google Maps */
+#google-maps-posts-show {
+    height: 300px;
+    width: 100%;
+}
+
+.google-maps-info-window {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.gm-style-iw-a .gm-style-iw-t .gm-style-iw.gm-style-iw-c .gm-style-iw-chr .gm-ui-hover-effect {
+    display: none !important;
+}

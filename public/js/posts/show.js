@@ -52,8 +52,11 @@
 
         $(audioPlayer).fadeIn(500); // show audio player
 
-        // Scroll to the bottom of the page
-        $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
+        const currentScroll = $(window).scrollTop();
+        const audioPlayerHeight = audioPlayer.offsetHeight;
+        $('html, body').animate({
+            scrollTop: currentScroll + audioPlayerHeight + 50
+        });
 
         audioPlayer.play();
     }
@@ -101,9 +104,11 @@
             const $translatedResult = $('#translated-result');
             $translatedResult.fadeIn(500);
 
-            // Scroll to the bottom of the page
-            $('html, body').animate({ scrollTop: $(document).height() }, 'slow');
-
+            const currentScroll = $(window).scrollTop();
+            const translatedResultHeight = $translatedResult.outerHeight();
+            $('html, body').animate({
+                scrollTop: currentScroll + translatedResultHeight + 50
+            });
 
         } catch (error) {
             console.error('Translation failed:', error);

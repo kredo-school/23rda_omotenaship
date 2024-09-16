@@ -229,12 +229,7 @@ class PostController extends Controller
         // =======================
 
         // ==== Validation ====
-        $request->validate([
-            'categories' => 'required|array|between:1,4',
-            'title' => 'required|max:500',
-            'article' => 'required|max:1000',
-            'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
-        ]);
+        $this->validatePost($request);
         // =====================
 
         // ==== Post ====
@@ -248,17 +243,17 @@ class PostController extends Controller
         $this->post->area_id = $request->area_id;
         $this->post->event_address = $request->event_address;
 
-        // Transform address to geocode
-        $location = $this->geocodeAddress($request->event_address);
-        // $location['longitude', 'latitude']
 
-        // If $location is null, get prefecture's location
-        if (
-            $location === null &&
-            !empty($request->prefecture_id)
-        ) {
+
+        if ($request->event_address) {
+            // Get location from address
+            $location = $this->geocodeAddress($request->event_address); // $location['longitude', 'latitude']
+        } elseif (!empty($request->prefecture_id)) {
+            // Get location from prefecture
             $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
-            $location = $this->geocodeAddress($prefecture);
+            $location = $this->geocodeAddress($prefecture->name);
+        } else {
+            $location = null;
         }
 
         // Set data to post table
@@ -272,14 +267,20 @@ class PostController extends Controller
 
         // ==== Category ====
         // Save one category ID onto post_category table
-        // Loop just once
         $post_categories = [];
-        foreach ($request->categories as $category_id) {
-            $post_categories[] = [
-                'post_id' => $this->post->id,
-                'category_id' => $category_id
-            ];
-        }
+
+        $post_categories[] = [
+            'post_id' => $this->post->id,
+            'category_id' => $request->category_id,
+        ];
+
+        // Loop just once
+        // foreach ($request->categories as $category_id) {
+        // $post_categories[] = [
+        //     'post_id' => $this->post->id,
+        //     'category_id' => $category_id
+        // ];
+        // }
         $this->post->postCategories()->createMany($post_categories);
         // ==================
 
@@ -354,14 +355,8 @@ class PostController extends Controller
         }
         // =======================
 
-        // ** Needs to be fixed **
         // ==== Validation ====
-        $request->validate([
-            // 'categories' => 'required|array|between:1,4',
-            'title' => 'required|max:500',
-            'article' => 'required|max:1000',
-            'image' => 'mimes:jpeg,jpg,png,gif|max:1048',
-        ]);
+        $this->validatePost($request);
         // =====================
 
         // ==== Post ====
@@ -370,10 +365,27 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
+        $post->prefecture_id = $request->prefecture_id;
+        $post->event_address = $request->event_address;
         $post->start_date = $request->start_date;
         $post->end_date = $request->end_date;
-        $post->prefecture_id = $request->prefecture_id;
-        $post->area_id = $request->area_id;
+
+        if ($request->event_address) {
+            // Get location from address
+            $location = $this->geocodeAddress($request->event_address); // $location['longitude', 'latitude']
+        } elseif (!empty($request->prefecture_id)) {
+            // Get location from prefecture
+            $prefecture = $this->prefecture->findOrFail($request->prefecture_id);
+            $location = $this->geocodeAddress($prefecture->name);
+        } else {
+            $location = null;
+        }
+
+        // Set data to post table
+        if ($location !== null) {
+            $post->event_longitude = $location['longitude'];
+            $post->event_latitude = $location['latitude'];
+        }
 
         $post->save();
         // ===============
@@ -394,13 +406,13 @@ class PostController extends Controller
             $data_uri = $this->generateDataUri($img_obj);
 
             foreach ($post->images as $image) {
-
                 $image_id = $image->id;
-
                 $image = $this->image->findOrFail($image_id);
+
                 $image->post_id = $post->id;
                 $image->image = $data_uri;
                 $image->caption = $request->caption;
+
                 $image->save();
             }
         }
@@ -518,23 +530,50 @@ class PostController extends Controller
     // Transform address to geocode
     private function geocodeAddress($address)
     {
-        $api_key = config('services.mapbox.api_key');
-        $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
+        // === Mapbox API ====
+        // $api_key = config('services.mapbox.api_key');
+        // $url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' . urlencode($address) . '.json?access_token=' . $api_key;
 
-        $response = Http::get($url);
+        // $response = Http::get($url);
 
-        if ($response->successful()) {
+        // if ($response->successful()) {
 
-            $data = $response->json();
+        //     $data = $response->json();
 
-            if (isset($data['features'][0])) {
-                $location = $data['features'][0]['geometry']['coordinates'];
-                return [
-                    'longitude' => $location[0],
-                    'latitude' => $location[1],
-                ];
-            }
+        //     if (isset($data['features'][0])) {
+        //         $location = $data['features'][0]['geometry']['coordinates'];
+        //         return [
+        //             'longitude' => $location[0],
+        //             'latitude' => $location[1],
+        //         ];
+        //     }
+        // }
+        // ===================
+
+        // === Google Maps API ====
+        $api_key = config('services.google_maps.api_key');
+        $url = 'https://maps.googleapis.com/maps/api/geocode/json';
+
+        // Get location from Google Maps API
+        $response = Http::get(
+            $url,
+            [
+                'address' => $address,
+                'key' => $api_key,
+            ]
+        );
+        $data = $response->json();
+
+        // If the response has results
+        if (isset($data['results'][0])) {
+            $location = $data['results'][0]['geometry']['location'];
+
+            return [
+                'latitude' => $location['lat'],
+                'longitude' => $location['lng'],
+            ];
         }
+        // =========================
 
         // Fail to find address
         return null;
@@ -568,5 +607,47 @@ class PostController extends Controller
         }
 
         return null;
+    }
+
+    private function validatePost(Request $request)
+    {
+        // Get category ID
+        $category_id = $request->category_id;
+
+        // Validation rules
+        $rules = [
+            'title' => 'required|max:255',
+            'article' => 'required|max:10000',
+        ];
+        // If the route is 'posts.store'
+        if ($request->routeIs('posts.store')) {
+            $rules += [
+                'image' => 'required|mimes:jpeg,jpg,png,gif|max:1048',
+            ];
+        }
+        // If the category is 'Event'
+        if ($category_id == 2) {
+            $rules += [
+                'prefecture_id' => 'required',
+            ];
+        }
+        // If the category is 'Event Organizer'
+        if ($category_id == 5) {
+            $rules += [
+                'prefecture_id' => 'required',
+                'event_address' => 'required',
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ];
+        }
+        // If the category is 'Volunteer Organizer'
+        if ($category_id == 6) {
+            $rules += [
+                'start_date' => 'required',
+                'end_date' => 'required',
+            ];
+        }
+
+        $request->validate($rules);
     }
 }
