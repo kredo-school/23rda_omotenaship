@@ -65,7 +65,7 @@ class PostController extends Controller
             $all_posts = $this->getAllPosts('all-posts-page', 1);
         } elseif ($request->search) {
             // Searched posts
-            $searched_posts = $this->getSearchedPosts($request->search, 'searched-posts-page', 1);
+            $searched_posts = $this->getSearchedPosts($request->search, 'searched-posts-page', $request['searched-posts-page'] ?? 1);
         } elseif ($request->category) {
             // Get category record
             $category = Category::where('name', $request->category)->first();
@@ -205,12 +205,12 @@ class PostController extends Controller
                 ->with('searched_posts', $data['searched_posts'])
                 ->with('search', $request->search);
         } elseif ($request->category) {
-            if (in_array($request->category, ['event', 'volunteer'])) {
+            if (strtolower($request->category) == 'event'|| strtolower($request->category) == 'volunteer') {
                 return view('posts.index')
                     ->with('recommended_posts', $data['recommended_posts'])
                     ->with('upcoming_posts', $data['upcoming_posts'])
                     ->with('ended_posts', $data['ended_posts']);
-            } elseif (in_array($request->category, ['review', 'culture'])) {
+            } elseif (strtolower($request->category) == 'review'|| strtolower($request->category) == 'culture') {
                 return view('posts.index')
                     ->with('recommended_posts', $data['recommended_posts'])
                     ->with('latest_posts', $data['latest_posts']);
