@@ -473,7 +473,7 @@ class PostController extends Controller
     public function fetchData()
     {
         $posts = $this->post->whereHas('postCategories', function ($query) {
-            $query->where('category_id', 2); // Event
+            $query->whereIn('category_id', [2, 5]); // Event and Event Organizer
         })->get();
 
         foreach ($posts as $post) {

@@ -71,12 +71,15 @@ Route::group(['middleware' => 'user'], function () {
     Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
         Route::get('/', [FavoriteController::class, 'index'])
             ->name('index');
-        Route::post('/{post_id}', [FavoriteController::class, 'store'])
+        // Route::post('/{post_id}', [FavoriteController::class, 'store'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('store');
+        // Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('destroy');
+        Route::post('/{post_id}/toggle', [FavoriteController::class, 'toggle'])
             ->where('post_id', '[0-9]+')
-            ->name('store');
-        Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
-            ->where('post_id', '[0-9]+')
-            ->name('destroy');
+            ->name('toggle');
     });
 
     //likes
@@ -142,6 +145,8 @@ Route::group(['middleware' => 'user'], function () {
     //Contact
     Route::get('/contact', [ContactController::class, 'index'])
         ->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->name('contact.store');
 });
 
 // Only logged-in Admin user is able to see

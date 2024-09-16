@@ -73,6 +73,7 @@
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'accept': 'application/json',
             'X-CSRF-TOKEN': token
         }
     })
@@ -85,7 +86,12 @@
             data.forEach(post => {
                 let event = {};
                 event.id = post.id;
-                event.image = post.image.image;
+
+                // check if image exists
+                if (post.image && post.image.image) {
+                    event.image = post.image.image;
+                }
+
                 event.name = post.title;
                 event.location = [post.event_longitude, post.event_latitude];
                 event.date = post.start_date;

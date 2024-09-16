@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-category-buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 
     {{-- mapbox --}}
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
