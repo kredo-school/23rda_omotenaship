@@ -26,6 +26,8 @@ class PostController extends Controller
     private $browsing_history;
     private $google_tts_service;
 
+    private static $languages;
+
     public function __construct(
         Post $post,
         Category $category,
@@ -42,6 +44,18 @@ class PostController extends Controller
         $this->image = $image;
         $this->browsing_history = $browsing_history;
         $this->google_tts_service = $google_tts_service;
+
+
+        self::$languages = [
+            'en-US' => 'English (US)',
+            'en-GB' => 'English (UK)',
+            'fr-FR' => 'French',
+            'de-DE' => 'German',
+            'ja-JP' => 'Japanese',
+            'zh-Hans-CN' => 'Chinese (Simplified)',
+            'zh-Hant-TW' => 'Chinese (Traditional)',
+            'ko-KR' => 'Korean',
+        ];
     }
 
     // posts.index, also top page
@@ -249,6 +263,7 @@ class PostController extends Controller
     // create post
     public function create(Request $request)
     {
+        $profile = Auth::user()->profile;
         // Get $category_id
         $selected_category_id = $request->category_id;
         $selected_category = $this->category->findOrFail($selected_category_id);
@@ -259,17 +274,21 @@ class PostController extends Controller
 
         $prefectures_by_area = [];
         $areas = Area::all();
+        $languages = self::$languages;
+
 
         foreach ($areas as $area) {
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
 
         return view('posts.create')
+            ->with('profile', $profile)
             ->with('selected_category_id', $selected_category_id)
             ->with('selected_category_name', $selected_category_name)
             ->with('all_categories', $all_categories)
             ->with('all_areas', $all_areas)
-            ->with('prefectures_by_area', $prefectures_by_area);
+            ->with('prefectures_by_area', $prefectures_by_area)
+            ->with('languages', $languages);
     }
 
     public function store(Request $request)
@@ -302,6 +321,7 @@ class PostController extends Controller
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
         $this->post->event_address = $request->event_address;
+        $this->language = $request->input('language');
 
 
 
@@ -369,6 +389,7 @@ class PostController extends Controller
 
         $prefectures_by_area = [];
         $areas = Area::all();
+        $languages = self::$languages;
 
         foreach ($areas as $area) {
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
@@ -388,7 +409,8 @@ class PostController extends Controller
             ->with('category_id', $category_id)
             ->with('category_name', $category_name)
             ->with('all_areas', $all_areas)
-            ->with('prefectures_by_area', $prefectures_by_area);
+            ->with('prefectures_by_area', $prefectures_by_area)
+            ->with('languages', $languages);
         // ->with('all_prefectures', $all_prefectures);
     }
 
@@ -426,6 +448,7 @@ class PostController extends Controller
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
         $post->prefecture_id = $request->prefecture_id;
+        $post->language = $request->input('language');
         $post->event_address = $request->event_address;
         $post->start_date = $request->start_date;
         $post->end_date = $request->end_date;
@@ -446,6 +469,7 @@ class PostController extends Controller
             $post->event_longitude = $location['longitude'];
             $post->event_latitude = $location['latitude'];
         }
+       
 
         $post->save();
         // ===============
@@ -455,7 +479,7 @@ class PostController extends Controller
         $post->postCategories()->delete();
         $post_categories[] = [
             'post_id' => $post->id,
-            'category_id' => (int)$request->category_id,
+            'category_id' => (int) $request->category_id,
         ];
         $post->postCategories()->createMany($post_categories);
         // ======================================================
@@ -654,7 +678,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
-                    // if (stripos($word,$ng_word) !== false) {
+                    // if (stripos($word,$ng_word) !== false) { 
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
@@ -678,6 +702,7 @@ class PostController extends Controller
         $rules = [
             'title' => 'required|max:255',
             'article' => 'required|max:10000',
+            'language' => 'required|string',
         ];
         // If the route is 'posts.store'
         if ($request->routeIs('posts.store')) {

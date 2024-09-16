@@ -178,6 +178,29 @@
                             </div>
                         </div>
                     @endif
+                     {{-- Language --}}
+                     <div class="row mb-4">
+                        <div class="col">
+                            <label for="language">
+                                <span>Language</span>
+                            </label>
+                            <select name="language" id="language" class="form-control">
+                                @foreach ($languages as $key => $value)
+                                    <option value="{{ $key }}"
+                                        {{ old('language', $post->language ?? 'ja-JP') == $key ? 'selected' : '' }}>
+                                        {{ $value }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+
+                            <!-- Error -->
+                            @error('language')
+                                <p class="text-danger small">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
 
                     {{-- Buttons --}}
                     <div class="row">
