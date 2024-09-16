@@ -5,6 +5,10 @@
 @section('content')
     <div class="container mt-5">
         <div class="row">
+
+
+
+
             {{-- Left Column --}}
             <div class="col-xl-8 mb-5">
                 {{-- Event near You --}}
@@ -34,7 +38,7 @@
                 {{-- Posts --}}
                 {{-- All posts --}}
                 @if (!request()->has('category') && !request()->has('search'))
-                    <div id="all-posts-container" class="">
+                    <div id="all-posts-container" class="posts-container" data-page-name="all-posts-page">
                         @forelse ($all_posts as $post)
                             <div class="post-container me-1">
                                 @include('components.post')
@@ -42,11 +46,6 @@
                         @empty
                             No posts yet!
                         @endforelse
-
-                        {{-- Pagination Link --}}
-                        {{-- <div class="d-flex justify-content-center">
-                            {{ $all_posts->links() }}
-                        </div> --}}
                     </div>
                 @endif
 
@@ -60,11 +59,6 @@
                         @empty
                             No posts yet!
                         @endforelse
-
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            {{ $searched_posts->links() }}
-                        </div>
                     </div>
                 @endif
 
@@ -74,100 +68,65 @@
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Recommended</span>
                     </h3>
-                    <div class="row">
+                    <div id="recommended-posts-container" class="mb-4 posts-container"
+                        data-page-name="recommended-posts-page">
                         @forelse ($recommended_posts as $post)
-                            <div class="col-lg-6 mb-3">
+                            <div class="post-container me-1">
                                 @include('components.post')
                             </div>
                         @empty
                             No posts yet!
                         @endforelse
-
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            @if (strtolower(request()->category) == 'event' || strtolower(request()->category) == 'volunteer')
-                                {{ $recommended_posts->appends([
-                                        'upcoming-posts-page' => $upcoming_posts->currentPage(),
-                                        'ended-posts-page' => $ended_posts->currentPage(),
-                                    ])->links() }}
-                            @elseif (strtolower(request()->category) == 'review' || strtolower(request()->category) == 'culture')
-                                {{ $recommended_posts->appends([
-                                        'latest-posts-page' => $latest_posts->currentPage(),
-                                    ])->links() }}
-                            @endif
-                        </div>
                     </div>
                 @endif
 
                 {{-- Posts with category Event/Volunteer --}}
-                @if (strtolower(request()->category) == 'event' || strtolower(request()->category) == 'volunteer')
+                @if (request()->category === 'event' || request()->category === 'volunteer')
                     {{-- Upcoming --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Upcoming</span>
                     </h3>
-                    <div class="row">
+                    <div id="upcoming-posts-container" class="mb-4 posts-container" data-page-name="upcoming-posts-page">
                         @forelse ($upcoming_posts as $post)
-                            <div class="col-lg-6 mb-3">
+                            <div class="post-container me-1">
                                 @include('components.post')
                             </div>
                         @empty
                             No posts yet!
                         @endforelse
-
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            {{ $upcoming_posts->appends([
-                                    'recommended-posts-page' => $recommended_posts->currentPage(),
-                                    'ended-posts-page' => $ended_posts->currentPage(),
-                                ])->links() }}
-                        </div>
                     </div>
 
                     {{-- Ended --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Ended</span>
                     </h3>
-                    <div class="row">
+                    <div id="ended-posts-container" class="mb-4 posts-container" data-page-name="ended-posts-page">
                         @forelse ($ended_posts as $post)
-                            <div class="col-lg-6 mb-3">
+                            <div class="post-container me-1">
                                 @include('components.post')
                             </div>
                         @empty
                             No posts yet!
                         @endforelse
-
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            {{ $ended_posts->appends([
-                                    'recommended-posts-page' => $recommended_posts->currentPage(),
-                                    'upcoming-posts-page' => $upcoming_posts->currentPage(),
-                                ])->links() }}
-                        </div>
                     </div>
                 @endif
 
+
                 {{-- Posts with category Review/Culture --}}
-                @if (strtolower(request()->category) == 'review' || strtolower(request()->category) == 'culture')
+                @if (request()->category === 'review' || request()->category === 'culture')
                     {{-- Latest --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Latest</span>
                     </h3>
-                    <div class="row">
+                    <div id="latest-posts-container" class="mb-4 posts-container" data-page-name="latest-posts-page">
                         @forelse ($latest_posts as $post)
-                            <div class="col-lg-6 mb-3">
+                            <div class="post-container me-1">
                                 @include('components.post')
                             </div>
                         @empty
                             No posts yet!
                         @endforelse
 
-                        {{-- Pagination Link --}}
-                        <div class="d-flex justify-content-center">
-                            {{-- {{ $latest_posts->links() }} --}}
-                            {{ $latest_posts->appends([
-                                    'recommended-posts-page' => $recommended_posts->currentPage(),
-                                ])->links() }}
-                        </div>
                     </div>
                 @endif
             </div>

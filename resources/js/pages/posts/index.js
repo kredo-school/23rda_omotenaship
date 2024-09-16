@@ -6,63 +6,83 @@ import {
     initializeLikeButtons,
     updateLikeButtons,
 } from '../../components/likeFunctions';
+import {
+    infiniteScroll,
+} from '../../components/infiniteScrollFunctions';
 
 
 'use strict';
 {
-    // ==== Functions ========================================
-    function loadMorePosts(pageName, currentPage) {
-        $.ajax({
-            url: `/posts/load-more-posts`,
-            type: 'post',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                pageName: pageName,
-                currentPage: currentPage
-            },
-        })
-            .done(function (data) {
-                if (data.length === 0) {
-                    return;
-                }
-                data.views.forEach(view => {
-                    const $postContainer = $('<div>')
-                        .addClass('post-container me-1')
-                        .append(view);
-                    // likeボタンにイベントリスナーを追加？
-                    $('#all-posts-container').append($postContainer);
-                });
-            })
-            .fail(function () {
-                console.log('Error loading posts');
-            });
-    }
-
-    // ==== Main =============================================
     initializeLikeButtons();
     updateLikeButtons();
 
+    const urlParams = new URLSearchParams(window.location.search);
 
-    // For All Posts
-    const pageName = 'all-posts-page';
-    let currentPage = 1;
-    $('#all-posts-container').on('scroll', function () {
-        const container = $(this);
-        if (container.scrollLeft() + container.width() >= container[0].scrollWidth) {
-            currentPage++;
-            loadMorePosts(pageName, currentPage);
+    // console.log(urlParams);
+    // console.log(urlParams.get('category'));
+    // console.log(urlParams.get('search'));
+
+    const search = urlParams.get('search');
+    const category = urlParams.get('category');
+
+    function getPosts(container, category) {
+        enableHorizontalScrollWithWheel(container);
+        enableHorizontalScrollWithTouch(container);
+        infiniteScroll(container, container.dataset.pageName, 1, category);
+    }
+
+    const $postsContainers = $('.posts-container');
+    $postsContainers.each(function () {
+        const $postsContainer = $(this);
+        const pageName = $postsContainer[0].dataset.pageName;
+
+        if (search === null && category === null) {
+            const $allPostsContainer = $('#all-posts-container');
+            getPosts($allPostsContainer[0], category);
+        } else if (search !== null) {
+            // console.log(search);
+        } else if (category !== null) {
+            if (category === 'event') {
+                if (pageName === 'recommended-posts-page') {
+                    const $recommendedPostsContainer = $('#recommended-posts-container');
+                    getPosts($recommendedPostsContainer[0], category);
+                } else if (pageName === 'upcoming-posts-page') {
+                    const $upcomingPostsContainer = $('#upcoming-posts-container');
+                    getPosts($upcomingPostsContainer[0], category);
+                } else if (pageName === 'ended-posts-page') {
+                    const $endedPostsContainer = $('#ended-posts-container');
+                    getPosts($endedPostsContainer[0], category);
+                }
+            } else if (category === 'volunteer') {
+                if (pageName === 'recommended-posts-page') {
+                    const $recommendedPostsContainer = $('#recommended-posts-container');
+                    getPosts($recommendedPostsContainer[0], category);
+                } else if (pageName === 'upcoming-posts-page') {
+                    const $upcomingPostsContainer = $('#upcoming-posts-container');
+                    getPosts($upcomingPostsContainer[0], category);
+                } else if (pageName === 'ended-posts-page') {
+                    const $endedPostsContainer = $('#ended-posts-container');
+                    getPosts($endedPostsContainer[0], category);
+                }
+            } else if (category === 'review') {
+                if (pageName === 'recommended-posts-page') {
+                    const $recommendedPostsContainer = $('#recommended-posts-container');
+                    getPosts($recommendedPostsContainer[0], category);
+                } else if (pageName === 'latest-posts-page') {
+                    const $latestPostsContainer = $('#latest-posts-container');
+                    getPosts($latestPostsContainer[0], category);
+                }
+            } else if (category === 'culture') {
+                if (pageName === 'recommended-posts-page') {
+                    const $recommendedPostsContainer = $('#recommended-posts-container');
+                    getPosts($recommendedPostsContainer[0], category);
+                } else if (pageName === 'latest-posts-page') {
+                    const $latestPostsContainer = $('#latest-posts-container');
+                    getPosts($latestPostsContainer[0], category);
+                }
+            }
         }
+
     });
-
-    // Enable horizontal scrolling with mouse wheel and touch gestures
-    const allPostsContainer = document.getElementById('all-posts-container');
-    enableHorizontalScrollWithWheel(allPostsContainer);
-    enableHorizontalScrollWithTouch(allPostsContainer);
-
-
-
-
 
 }
