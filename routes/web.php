@@ -14,6 +14,7 @@ use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 
@@ -172,6 +173,15 @@ Route::group(['middleware' => 'admin'], function () {
         Route::post('/', [AdminNgwordController::class, 'store'])
             ->name('store');
         Route::delete('/{id}', [AdminNgwordController::class, 'destroy'])
+            ->where('id', '[0-9]+')
+            ->name('destroy');
+    });
+
+    //Admin Inquires
+    Route::group(['prefix' => '/admin/inquires', 'as' => 'admin.inquires.'], function () {
+        Route::get('/', [AdminContactController::class, 'index'])
+            ->name('index');
+        Route::delete('/{id}', [AdminContactController::class, 'destroy'])
             ->where('id', '[0-9]+')
             ->name('destroy');
     });
