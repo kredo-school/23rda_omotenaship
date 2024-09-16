@@ -66,42 +66,17 @@ class PostController extends Controller
                 $upcoming_posts = $this->getUpcomingPosts($category, 'upcoming-posts-page', $request['upcoming-posts-page'] ?? 1);
 
                 // Ended posts
-                $ended_posts = $this->post
-                    ->where('end_date', '<', now()->toDateString())
-                    ->whereHas('postCategories', function ($query) use ($category) {
-                        if ($category->name === 'Event') {
-                            $query->whereIn('category_id', [5]); // Event Organizer
-                        } elseif ($category->name === 'Volunteer') {
-                            $query->whereIn('category_id', [6]); // Volunteer Organizer
-                        }
-                    })->orderBy('end_date', 'desc')
-                    ->paginate(4, ['*'], 'ended-posts-page', $request['ended-posts-page'] ?? 1)
-                    ->appends(['category' => $request->category]);
+                $ended_posts = $this->getEndedPosts($category, 'ended-posts-page', $request['ended-posts-page'] ?? 1);
             }
 
             // If the category is 'Review' or 'Culture'
-            if (
-                $category->name === 'Review' ||
-                $category->name === 'Culture'
-            ) {
+            if ($category->name === 'Review' || $category->name === 'Culture') {
                 // Latest posts
-                $latest_posts = $this->post
-                    ->whereHas('postCategories', function ($query) use ($category) {
-                        if ($category->name === 'Review') {
-                            $query->whereIn('category_id', [1]); // Review
-                        } elseif ($category->name === 'Culture') {
-                            $query->whereIn('category_id', [4]); // Culture
-                        }
-                    })
-                    // Order by the latest updated_at
-                    ->orderByDesc('updated_at')
-                    ->paginate(4, ['*'], 'latest-posts-page', $request['latest-posts-page'] ?? 1)
-                    ->appends(['category' => $request->category]);
+                $latest_posts = $this->getLatestPosts($category, 'latest-posts-page', $request['latest-posts-page'] ?? 1);
             }
         }
 
         return $this->prepareView($request, [
-            'category' => $category ?? null,
             'all_posts' => $all_posts ?? null,
             'searched_posts' => $searched_posts ?? null,
             'recommended_posts' => $recommended_posts ?? null,
@@ -168,6 +143,40 @@ class PostController extends Controller
         return $upcoming_posts;
     }
 
+    private function getEndedPosts($category, $page_name, $current_page)
+    {
+        $ended_posts = $this->post
+            ->where('end_date', '<', now()->toDateString())
+            ->whereHas('postCategories', function ($query) use ($category) {
+                if ($category->name === 'Event') {
+                    $query->whereIn('category_id', [5]); // Event Organizer
+                } elseif ($category->name === 'Volunteer') {
+                    $query->whereIn('category_id', [6]); // Volunteer Organizer
+                }
+            })->orderBy('end_date', 'desc')
+            ->paginate(4, ['*'], $page_name, $current_page)
+            ->appends(['category' => $category->name]);
+
+        return $ended_posts;
+    }
+
+    private function getLatestPosts($category, $page_name, $current_page)
+    {
+        $latest_posts = $this->post
+            ->whereHas('postCategories', function ($query) use ($category) {
+                if ($category->name === 'Review') {
+                    $query->whereIn('category_id', [1]); // Review
+                } elseif ($category->name === 'Culture') {
+                    $query->whereIn('category_id', [4]); // Culture
+                }
+            })
+            // Order by the latest updated_at
+            ->orderByDesc('updated_at')
+            ->paginate(4, ['*'], $page_name, $current_page)
+            ->appends(['category' => $category->name]);
+
+        return $latest_posts;
+    }
 
     private function prepareView(Request $request, $data)
     {
@@ -179,12 +188,12 @@ class PostController extends Controller
                 ->with('searched_posts', $data['searched_posts'])
                 ->with('search', $request->search);
         } elseif ($request->category) {
-            if (in_array($data['category']->name, ['Event', 'Volunteer'])) {
+            if (in_array($request->category, ['event', 'volunteer'])) {
                 return view('posts.index')
                     ->with('recommended_posts', $data['recommended_posts'])
                     ->with('upcoming_posts', $data['upcoming_posts'])
                     ->with('ended_posts', $data['ended_posts']);
-            } elseif (in_array($data['category']->name, ['Review', 'Culture'])) {
+            } elseif (in_array($request->category, ['review', 'culture'])) {
                 return view('posts.index')
                     ->with('recommended_posts', $data['recommended_posts'])
                     ->with('latest_posts', $data['latest_posts']);
