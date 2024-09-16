@@ -45,7 +45,6 @@ class PostController extends Controller
         $this->browsing_history = $browsing_history;
         $this->google_tts_service = $google_tts_service;
 
-
         self::$languages = [
             'en-US' => 'English (US)',
             'en-GB' => 'English (UK)',
@@ -276,7 +275,6 @@ class PostController extends Controller
         $areas = Area::all();
         $languages = self::$languages;
 
-
         foreach ($areas as $area) {
             $prefectures_by_area[$area->name] = Prefecture::where('area_id', $area->id)->get();
         }
@@ -321,9 +319,7 @@ class PostController extends Controller
         $this->post->prefecture_id = $request->prefecture_id;
         $this->post->area_id = $request->area_id;
         $this->post->event_address = $request->event_address;
-        $this->language = $request->input('language');
-
-
+        $this->post->language = $request->language;
 
         if ($request->event_address) {
             // Get location from address
@@ -448,10 +444,10 @@ class PostController extends Controller
         $post->article = $request->article;
         $post->visit_date = $request->visit_date;
         $post->prefecture_id = $request->prefecture_id;
-        $post->language = $request->input('language');
         $post->event_address = $request->event_address;
         $post->start_date = $request->start_date;
         $post->end_date = $request->end_date;
+        $post->language = $request->language;
 
         if ($request->event_address) {
             // Get location from address
@@ -469,7 +465,6 @@ class PostController extends Controller
             $post->event_longitude = $location['longitude'];
             $post->event_latitude = $location['latitude'];
         }
-       
 
         $post->save();
         // ===============
@@ -678,7 +673,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
-                    // if (stripos($word,$ng_word) !== false) { 
+                    // if (stripos($word,$ng_word) !== false) {
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
