@@ -2,6 +2,11 @@ import {
     enableHorizontalScrollWithWheel,
     enableHorizontalScrollWithTouch
 } from '../../components/scrollFunctions';
+import {
+    initializeLikeButtons,
+    updateLikeButtons,
+} from '../../components/likeFunctions';
+
 
 'use strict';
 {
@@ -23,10 +28,11 @@ import {
                     return;
                 }
                 data.views.forEach(view => {
-                    const postContainer = $('<div>')
+                    const $postContainer = $('<div>')
                         .addClass('post-container me-1')
                         .append(view);
-                    $('#all-posts-container').append(postContainer);
+                    // likeボタンにイベントリスナーを追加？
+                    $('#all-posts-container').append($postContainer);
                 });
             })
             .fail(function () {
@@ -35,6 +41,10 @@ import {
     }
 
     // ==== Main =============================================
+    initializeLikeButtons();
+    updateLikeButtons();
+
+
     // For All Posts
     const pageName = 'all-posts-page';
     let currentPage = 1;

@@ -189,3 +189,7 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    @vite(['resources/js/pages/posts/index.js'])
+@endpush
