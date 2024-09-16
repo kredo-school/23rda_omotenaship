@@ -19,7 +19,8 @@
                 <form action="{{ route('posts.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     {{-- Slected Category ID --}}
-                    <input type="hidden" name="categories[]" value="{{ $selected_category_id }}">
+                    {{-- <input type="hidden" name="categories[]" value="{{ $selected_category_id }}"> --}}
+                    <input type="hidden" name="category_id" value="{{ $selected_category_id }}">
 
                     {{-- Title --}}
                     <div class="row">
@@ -92,8 +93,8 @@
                         <div class="col mb-4 w-100">
                             <label for="Prefecture of Japan" class="form-label fw-bold posts_input_box">Prefecture in
                                 Japan</label>
-
                             <select name="prefecture_id" id="prefecture_id" class="form-select">
+                                <option value="" hidden>Select a prefecture</option>
                                 @foreach ($prefectures_by_area as $area => $prefectures)
                                     <optgroup label="{{ $area }}">
                                         @foreach ($prefectures as $prefecture)

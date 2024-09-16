@@ -14,6 +14,7 @@ use App\Http\Controllers\BrowsingHistoryController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\AdminNgwordController;
+use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 
@@ -48,6 +49,10 @@ Route::group(['middleware' => 'user'], function () {
             ->where('id', '[0-9]+')
             ->name('destroy');
 
+        // Infinite Scroll
+        Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
+            ->name('load-more-posts');
+
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
@@ -67,12 +72,15 @@ Route::group(['middleware' => 'user'], function () {
     Route::group(['prefix' => '/favorites', 'as' => 'favorites.'], function () {
         Route::get('/', [FavoriteController::class, 'index'])
             ->name('index');
-        Route::post('/{post_id}', [FavoriteController::class, 'store'])
+        // Route::post('/{post_id}', [FavoriteController::class, 'store'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('store');
+        // Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
+        //     ->where('post_id', '[0-9]+')
+        //     ->name('destroy');
+        Route::post('/{post_id}/toggle', [FavoriteController::class, 'toggle'])
             ->where('post_id', '[0-9]+')
-            ->name('store');
-        Route::delete('/{post_id}', [FavoriteController::class, 'destroy'])
-            ->where('post_id', '[0-9]+')
-            ->name('destroy');
+            ->name('toggle');
     });
 
     //likes
@@ -133,11 +141,13 @@ Route::group(['middleware' => 'user'], function () {
 
     //About
     Route::get('/about', [AboutController::class, 'index'])
-    ->name('about');
+        ->name('about');
 
     //Contact
     Route::get('/contact', [ContactController::class, 'index'])
-    ->name('contact');
+        ->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->name('contact.store');
 });
 
 // Only logged-in Admin user is able to see
@@ -174,12 +184,13 @@ Route::group(['middleware' => 'admin'], function () {
             ->where('id', '[0-9]+')
             ->name('destroy');
     });
+
+    //Admin Inquires
+    Route::group(['prefix' => '/admin/inquires', 'as' => 'admin.inquires.'], function () {
+        Route::get('/', [AdminContactController::class, 'index'])
+            ->name('index');
+        Route::delete('/{id}', [AdminContactController::class, 'destroy'])
+            ->where('id', '[0-9]+')
+            ->name('destroy');
+    });
 });
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

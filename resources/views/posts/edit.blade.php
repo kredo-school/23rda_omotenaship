@@ -105,6 +105,7 @@
                             <label for="Prefecture" class="form-label fw-bold">Prefecture in Japan</label>
 
                             <select name="prefecture_id" id="prefecture_id" class="form-select">
+                                <option value="" hidden>Select a prefecture</option>
                                 @foreach ($prefectures_by_area as $area => $prefectures)
                                     <optgroup label="{{ $area }}">
                                         @foreach ($prefectures as $prefecture)

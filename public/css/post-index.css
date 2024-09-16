@@ -10,3 +10,20 @@
     color: black;
     text-shadow: 2px 2px 6px rgba(255, 255, 255, 1.0);
 }
+
+#all-posts-container {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    cursor: grab;  /* 初期状態ではgrab（手を開いている） */
+}
+
+#all-posts-container.active {
+    cursor: grabbing;  /* ドラッグ中はgrabbing（手を閉じている） */
+}
+
+#all-posts-container .post-container {
+    flex-shrink: 0;
+    width: 350px;
+    height: 100%;
+}

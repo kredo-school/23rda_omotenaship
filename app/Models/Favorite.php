@@ -19,5 +19,5 @@ class Favorite extends Model
         return $this->belongsTo(Post::class);
     }
 
-    
+    protected $fillable = ['user_id', 'post_id'];
 }

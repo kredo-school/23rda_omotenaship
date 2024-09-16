@@ -15,6 +15,7 @@ body {
 }
 
 main {
+    position: relative;
     padding-top: 70px;
 }
 
@@ -144,5 +145,5 @@ p {
 
 .heart-icon {
     outline: none;
-    border: none; 
+    border: none;
 }

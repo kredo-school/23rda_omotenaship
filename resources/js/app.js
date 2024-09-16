@@ -1,6 +1,10 @@
 import './bootstrap';
 import Alpine from 'alpinejs';
-import './like.js';
+
+import './pages/posts/index';
+import './pages/posts/like';
+
+import './favorite.js';
 
 window.Alpine = Alpine;
 Alpine.start();

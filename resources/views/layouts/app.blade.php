@@ -15,7 +15,8 @@
     <!-- Scripts -->
     @vite([
         'resources/css/app.css',
-        'resources/js/app.js'
+        'resources/js/app.js',
+        // 'resources/sass/app.scss',
     ])
 
     <!-- FontAwesome -->
@@ -42,6 +43,7 @@
     <link rel="stylesheet" href="{{ asset('css/components-calendar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components-category-buttons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/contact.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 
     {{-- mapbox --}}
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
@@ -67,6 +69,20 @@
 
     {{-- jQuery --}}
     <script src="{{ asset('jquery/jquery-3.7.1.min.js') }}"></script>
+
+    {{-- Google Maps --}}
+    @if (Request::routeIs('posts.show'))
+        <script
+            src="https://maps.googleapis.com/maps/api/js?language=en&region=US&key={{ config('services.google_maps.api_key') }}&callback=initMap&libraries=places"
+            async defer></script>
+        <script src="{{ asset('js/google-maps/main.js') }}"></script>
+    @endif
+
+    {{-- Open Weather Map --}}
+    <script src="{{ asset('js/open-weather-map/main.js') }}"></script>
+
+    {{-- Custum JS --}}
+    {{-- <script type="module" src="{{ asset('js/posts/index.js') }}"></script> --}}
 </body>
 
 </html>

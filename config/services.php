@@ -40,4 +40,14 @@ return [
         // 'api_url' => env('MAPBOX_API_URL'),
         'api_key' => env('MAPBOX_API_KEY'),
     ],
+
+    // ==== Google Maps ====
+    'google_maps' => [
+        'api_key' => env('GOOGLE_MAPS_API_KEY'),
+    ],
+
+    // ==== OpenWeatherMap ====
+    'open_weather_map' => [
+        'api_key' => env('OPEN_WEATHER_MAP_API_KEY'),
+    ],
 ];
