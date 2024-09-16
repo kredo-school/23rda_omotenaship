@@ -72,24 +72,17 @@
                         {{-- Favorite --}}
                         <div class="d-flex align-items-center">
                             @if (Auth::check())
-                                @if ($post->isFavorited(Auth::user()))
-                                    <form action="{{ route('favorites.destroy', $post->id) }}" method="post"
-                                        class="">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="border-0 bg-transparent">
-                                            <i
-                                                class="fa-solid fa-star fa-star-post text-warning fa-2x d-flex align-items-center"></i>
-                                        </button>
-                                    </form>
-                                @else
-                                    <form action="{{ route('favorites.store', ['post_id' => $post->id]) }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="border-0 bg-transparent">
-                                            <i class="fa-regular fa-star fa-star-post fa-2x d-flex align-items-center"></i>
-                                        </button>
-                                    </form>
-                                @endif
+
+                                <button type="submit" class="border-0 bg-transparent"
+                                    id="favorite-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
+                                    @if ($post->isFavorited(Auth::user()))
+                                        <i class="fa-solid fa-star fa-star-post text-warning fa-2x d-flex align-items-center"
+                                            id="favorite-icon-{{ $post->id }}"></i>
+                                    @else
+                                        <i class="fa-regular fa-star fa-star-post fa-2x d-flex align-items-center"
+                                            id="favorite-icon-{{ $post->id }}"></i>
+                                    @endif
+                                </button>
                             @else
                                 <a href="{{ route('login') }}" class="text-decoration-none">
                                     <button class="border-0 bg-transparent" onclick="alert('Please Login');">
@@ -268,4 +261,6 @@
 
     {{-- JS for this view --}}
     <script src="{{ asset('js/posts/show.js') }}"></script>
+    <script src="{{ asset('js/favorite.js') }}"></script>
+
 @endsection
