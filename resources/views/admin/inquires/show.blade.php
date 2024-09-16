@@ -5,7 +5,7 @@
 @section('content')
 <div class="cotainer-fluid">
     <div class="card border-0 col-lg-12 mt-3 d-flex align-items-center justify-content-center">
-        <img src="{{ asset('images/logos/red5.png') }}" alt="redcat" class="contact-redcat img-fluid">
+        <img src="{{ asset('images/logos/blue5.png') }}" alt="redcat" class="contact-redcat img-fluid">
 
         <div class="card-img-overlay">
             <div class="text-center">
