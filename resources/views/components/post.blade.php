@@ -1,9 +1,9 @@
 <div class="card components-post">
     {{-- Top Image --}}
-    <a href="{{ route('posts.show', ['id' => $post->id]) }}">
+    <a href="{{ route('posts.show', ['id' => $post->id]) }}" draggable="false">
         @if ($post->images->isNotEmpty())
             @foreach ($post->images as $image)
-                <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top">
+                <img src="{{ $image->image }}" alt="{{ $image->post_id }}" class="img-fluid card-img-top" draggable="false">
             @endforeach
         @else
             <p>No image available</p>

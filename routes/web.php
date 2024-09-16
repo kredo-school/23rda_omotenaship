@@ -48,6 +48,10 @@ Route::group(['middleware' => 'user'], function () {
             ->where('id', '[0-9]+')
             ->name('destroy');
 
+        // Infinite Scroll
+        Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
+            ->name('load-more-posts');
+
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
@@ -136,12 +140,13 @@ Route::group(['middleware' => 'user'], function () {
 
     //About
     Route::get('/about', [AboutController::class, 'index'])
-    ->name('about');
+        ->name('about');
 
     //Contact
     Route::get('/contact', [ContactController::class, 'index'])
-    ->name('contact');
-    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+        ->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->name('contact.store');
 });
 
 // Only logged-in Admin user is able to see
