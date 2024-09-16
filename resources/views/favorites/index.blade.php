@@ -24,3 +24,7 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    @vite('resources/js/pages/favorites/index.js')
+@endpush
