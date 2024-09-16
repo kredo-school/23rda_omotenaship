@@ -74,7 +74,7 @@
                         {{-- Date of your visit --}}
                         <div class="row">
                             <div class="col mb-4 w-100">
-                                <label for="Date of visit" class="form-label fw-bold">Date of your visit</label>
+                                <label for="Date of visit" class="form-label fw-bold">Date of your Visit</label>
                                 <br>
                                 <label class="visit_date w-100 posts_input_box">
                                     <input type="date" name="visit_date" class="form-control rounded-2">
@@ -129,7 +129,7 @@
                     @if ($selected_category_id !== '1' && $selected_category_id !== '4')
                         {{-- 1: Review --}}
                         {{-- 4: Culture --}}
-                        <div class="row mb-4">
+                        <div class="row">
                             <div class="col mb-4 w-100">
                                 <p class="form-label fw-bold m-0">Date of Event</p>
                                 <div class="row">
@@ -168,18 +168,17 @@
                     {{-- Language --}}
                     <div class="row mb-4">
                         <div class="col">
-                            <label for="language">
-                                <span>Language</span>
+                            <label for="language" class="form-label fw-bold posts_input_box">
+                                <span>Post Language</span>
                             </label>
-                            <select name="language" id="language" class="form-control">
+                            <select id="language" class="form-select" name="language">
                                 @foreach ($languages as $key => $value)
                                     <option value="{{ $key }}"
-                                        {{ old('language', $post->language ?? 'ja-JP') == $key ? 'selected' : '' }}>
+                                        {{ old('language', 'en-US') == $key ? 'selected' : '' }}>
                                         {{ $value }}
                                     </option>
                                 @endforeach
                             </select>
-
 
                             <!-- Error -->
                             @error('language')
