@@ -122,6 +122,10 @@ class PostController extends Controller
                     $query->whereIn('category_id', [2, 5]); // Event or Event Organizer
                 } elseif ($category->name === 'Volunteer') {
                     $query->whereIn('category_id', [3, 6]); // Volunteer or Volunteer Organizer
+                } elseif ($category->name === 'Review') {
+                    $query->whereIn('category_id', [1]); // Review
+                } elseif ($category->name === 'Culture') {
+                    $query->whereIn('category_id', [4]); // Culture
                 }
             })
             // Order by the latest updated_at
