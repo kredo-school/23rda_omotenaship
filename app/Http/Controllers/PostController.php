@@ -456,7 +456,7 @@ class PostController extends Controller
     public function fetchData()
     {
         $posts = $this->post->whereHas('postCategories', function ($query) {
-            $query->where('category_id', 2); // Event
+            $query->whereIn('category_id', [2, 5]); // Event and Event Organizer
         })->get();
 
         foreach ($posts as $post) {
@@ -594,7 +594,7 @@ class PostController extends Controller
                 // Check if the word is NGWord
                 // If it is, return error message
                 if (strtolower($word) === strtolower($ng_word)) {
-                    // if (stripos($word,$ng_word) !== false) {
+                     // if (stripos($word,$ng_word) !== false) {
                     $error_message = "Your post contains the word '{$word}'. Please change it.";
                     break;
                 }
