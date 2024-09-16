@@ -28,20 +28,22 @@
                                 <tr>
                                     <td>
 
-                                    </td>
-                                    <td>{{ $inquire->name }}</td>
+                                    </td>                                  
+                                    <td>
+                                        <a href="{{ route('admin.inquires.show', $inquire->id) }}" class="text-decoration-none text-dark">{{ $inquire->name }}</a>
+                                    </td>                                    
                                     <td>{{ $inquire->email }}</td>
                                     <td class="hide-on-mobile">{{ $inquire->content }}</td>
                                     <td class="hide-on-mobile">{{ $inquire->created_at }}</td>
                                     <td>
                                         <button class="btn" data-bs-toggle="modal"
-                                            data-bs-target="#deletePostModal-{{ $inquire->id }}">
+                                            data-bs-target="#deleteInquireModal-{{ $inquire->id }}">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </td>
                                 </tr>
                                 <!-- Include the modal here-->
-                                {{-- @include('components.admin-delete-post-modal') --}}
+                                @include('components.admin-delete-inquire-modal')
                             @endforeach
                         </tbody>
                     </table>

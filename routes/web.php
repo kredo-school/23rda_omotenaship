@@ -192,5 +192,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/{id}', [AdminContactController::class, 'destroy'])
             ->where('id', '[0-9]+')
             ->name('destroy');
+        Route::get('/{id}/show', [AdminContactController::class, 'show'])
+            ->where('id', '[0-9]+')
+            ->name('show');
+        Route::patch('/{id}', [AdminContactController::class, 'update'])
+            ->where('id', '[0-9]+')
+            ->name('update');
     });
 });
