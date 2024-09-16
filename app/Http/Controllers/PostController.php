@@ -107,10 +107,24 @@ class PostController extends Controller
             ->paginate(10, ['*'], $page_name, $current_page);
     }
 
+    // private function getSearchedPosts($search, $page_name, $current_page)
+    // {
+    //     return $this->post
+    //         ->where('title', 'like', '%' . $search . '%')
+    //         ->paginate(4, ['*'], $page_name, $current_page)
+    //         ->appends(['search' => $search]);
+    // }
+
     private function getSearchedPosts($search, $page_name, $current_page)
     {
+        $searchTerm = preg_quote($search, '/');
         return $this->post
-            ->where('title', 'like', '%' . $search . '%')
+            ->where(function ($query) use ($searchTerm) {
+                $query->whereRaw("title REGEXP '[[:<:]] {$searchTerm}[[:>:]]'")
+                      ->orWhereRaw("article REGEXP '[[:<:]] {$searchTerm} [[:>:]]'") 
+                      ->orWhereRaw("event_address REGEXP '[[:<:]] {$searchTerm} [[:>:]]'"); 
+                    })
+                    
             ->paginate(4, ['*'], $page_name, $current_page)
             ->appends(['search' => $search]);
     }
