@@ -85,13 +85,22 @@
 
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
-                            {{ $recommended_posts->links() }}
+                            @if (strtolower(request()->category) == 'event' || strtolower(request()->category) == 'volunteer')
+                                {{ $recommended_posts->appends([
+                                        'upcoming-posts-page' => $upcoming_posts->currentPage(),
+                                        'ended-posts-page' => $ended_posts->currentPage(),
+                                    ])->links() }}
+                            @elseif (strtolower(request()->category) == 'review' || strtolower(request()->category) == 'culture')
+                                {{ $recommended_posts->appends([
+                                        'latest-posts-page' => $latest_posts->currentPage(),
+                                    ])->links() }}
+                            @endif
                         </div>
                     </div>
                 @endif
 
                 {{-- Posts with category Event/Volunteer --}}
-                @if (request()->category === 'event' || request()->category === 'volunteer')
+                @if (strtolower(request()->category) == 'event' || strtolower(request()->category) == 'volunteer')
                     {{-- Upcoming --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Upcoming</span>
@@ -107,7 +116,10 @@
 
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
-                            {{ $upcoming_posts->links() }}
+                            {{ $upcoming_posts->appends([
+                                    'recommended-posts-page' => $upcoming_posts->currentPage(),
+                                    'ended-posts-page' => $ended_posts->currentPage(),
+                                ])->links() }}
                         </div>
                     </div>
 
@@ -126,13 +138,16 @@
 
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
-                            {{ $ended_posts->links() }}
+                            {{ $ended_posts->appends([
+                                    'recommended-posts-page' => $upcoming_posts->currentPage(),
+                                    'upcoming-posts-page' => $ended_posts->currentPage(),
+                                ])->links() }}
                         </div>
                     </div>
                 @endif
 
                 {{-- Posts with category Review/Culture --}}
-                @if (request()->category === 'review' || request()->category === 'culture')
+                @if (strtolower(request()->category) == 'review' || strtolower(request()->category) == 'culture')
                     {{-- Latest --}}
                     <h3 class="fs-4 mb-3">
                         <span class="px-2 heading-kurenai">Latest</span>
@@ -148,7 +163,10 @@
 
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
-                            {{ $latest_posts->links() }}
+                            {{-- {{ $latest_posts->links() }} --}}
+                            {{ $latest_posts->appends([
+                                    'recommended-posts-page' => $recommended_posts->currentPage(),
+                                ])->links() }}
                         </div>
                     </div>
                 @endif
