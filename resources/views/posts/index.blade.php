@@ -117,7 +117,7 @@
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
                             {{ $upcoming_posts->appends([
-                                    'recommended-posts-page' => $upcoming_posts->currentPage(),
+                                    'recommended-posts-page' => $recommended_posts->currentPage(),
                                     'ended-posts-page' => $ended_posts->currentPage(),
                                 ])->links() }}
                         </div>
@@ -139,8 +139,8 @@
                         {{-- Pagination Link --}}
                         <div class="d-flex justify-content-center">
                             {{ $ended_posts->appends([
-                                    'recommended-posts-page' => $upcoming_posts->currentPage(),
-                                    'upcoming-posts-page' => $ended_posts->currentPage(),
+                                    'recommended-posts-page' => $recommended_posts->currentPage(),
+                                    'upcoming-posts-page' => $upcoming_posts->currentPage(),
                                 ])->links() }}
                         </div>
                     </div>

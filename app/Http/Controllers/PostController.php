@@ -61,22 +61,9 @@ class PostController extends Controller
             $recommended_posts = $this->getRecommendedPosts($category, 'recommended-posts-page', $request['recommended-posts-page'] ?? 1);
 
             // If the category is 'Event' or 'Volunteer'
-            if (
-                $category->name === 'Event' ||
-                $category->name === 'Volunteer'
-            ) {
+            if ($category->name === 'Event' || $category->name === 'Volunteer') {
                 // Upcoming posts
-                $upcoming_posts = $this->post
-                    ->where('end_date', '>=', now()->toDateString())
-                    ->whereHas('postCategories', function ($query) use ($category) {
-                        if ($category->name === 'Event') {
-                            $query->whereIn('category_id', [5]); // Event Organizer
-                        } elseif ($category->name === 'Volunteer') {
-                            $query->whereIn('category_id', [6]); // Volunteer Organizer
-                        }
-                    })->orderBy('end_date', 'asc')
-                    ->paginate(4, ['*'], 'upcoming-posts-page', $request['upcoming-posts-page'] ?? 1)
-                    ->appends(['category' => $request->category]);
+                $upcoming_posts = $this->getUpcomingPosts($category, 'upcoming-posts-page', $request['upcoming-posts-page'] ?? 1);
 
                 // Ended posts
                 $ended_posts = $this->post
@@ -162,6 +149,23 @@ class PostController extends Controller
             ->appends(['category' => $category->name]);
 
         return $recommended_posts;
+    }
+
+    private function getUpcomingPosts($category, $page_name, $current_page)
+    {
+        $upcoming_posts = $this->post
+            ->where('end_date', '>=', now()->toDateString())
+            ->whereHas('postCategories', function ($query) use ($category) {
+                if ($category->name === 'Event') {
+                    $query->whereIn('category_id', [5]); // Event Organizer
+                } elseif ($category->name === 'Volunteer') {
+                    $query->whereIn('category_id', [6]); // Volunteer Organizer
+                }
+            })->orderBy('end_date', 'asc')
+            ->paginate(4, ['*'], $page_name, $current_page)
+            ->appends(['category' => $category->name]);
+
+        return $upcoming_posts;
     }
 
 
