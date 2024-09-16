@@ -49,7 +49,7 @@ Route::group(['middleware' => 'user'], function () {
             ->name('destroy');
 
         // Infinite Scroll
-        Route::get('/load-more-posts', [PostController::class, 'loadMorePosts'])
+        Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
             ->name('load-more-posts');
 
         // Event near You

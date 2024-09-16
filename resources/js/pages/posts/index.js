@@ -6,16 +6,23 @@ import {
 'use strict';
 {
     // ==== Functions ========================================
-    function loadMorePosts(page) {
+    function loadMorePosts(pageName, currentPage) {
         $.ajax({
-            url: `/posts/load-more-posts?page=${page}`,
-            type: 'get',
+            url: `/posts/load-more-posts`,
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                pageName: pageName,
+                currentPage: currentPage
+            },
         })
             .done(function (data) {
                 if (data.length === 0) {
                     return;
                 }
-                data.html.forEach(view => {
+                data.views.forEach(view => {
                     const postContainer = $('<div>')
                         .addClass('post-container me-1')
                         .append(view);
@@ -28,12 +35,14 @@ import {
     }
 
     // ==== Main =============================================
-    let page = 1;
+    // For All Posts
+    const pageName = 'all-posts-page';
+    let currentPage = 1;
     $('#all-posts-container').on('scroll', function () {
         const container = $(this);
         if (container.scrollLeft() + container.width() >= container[0].scrollWidth) {
-            page++;
-            loadMorePosts(page);
+            currentPage++;
+            loadMorePosts(pageName, currentPage);
         }
     });
 
