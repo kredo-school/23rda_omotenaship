@@ -1,0 +1,44 @@
+.custom-logo {
+    width: 150px;
+    height: auto;
+    opacity: 0.3;
+
+}
+
+.custom-logo-container {
+    position: relative;
+    display: inline-block;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo-organizer {
+    width: 150px;
+    height: auto;
+    opacity: 0.3;
+    color: #202F55;
+}
+
+.user-color {
+    color: #BC002D;
+}
+
+.custom-icon-user img {
+    filter: invert(30%) sepia(200%) saturate(7471%) hue-rotate(399deg) brightness(96%) contrast(104%);
+}
+
+.icon-filter img {
+    filter: brightness(40%) saturate(9000%) invert(14%) sepia(270%) saturate(633%) hue-rotate(900deg) brightness(89%) contrast(98%);
+}
+
+.info-icon-size {
+    width: 30px;
+    height: 30px;
+}

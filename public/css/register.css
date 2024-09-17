@@ -1,0 +1,31 @@
+.text-kurenai {
+    color: #BC002D;
+}
+
+.red-cat {
+    position: fixed;
+    left: 50%;
+    bottom: 50px;
+    transform: translateX(-50%);
+    width: auto;
+    height: 75vh;
+    pointer-events: none;
+}
+
+.blue-cat {
+    position: fixed;
+    bottom: 100px;
+    width: auto;
+    height: 35vh;
+    pointer-events: none;
+}
+
+.blue-cat-left {
+    left: 50%;
+    transform: translateX(calc(-50% - 400px));
+}
+
+.blue-cat-right {
+    left: 50%;
+    transform: translateX(calc(-50% + 400px));
+}

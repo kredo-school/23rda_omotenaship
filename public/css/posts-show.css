@@ -1,0 +1,53 @@
+.posts-show-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.show-date {
+    font-size: 0.65rem;
+
+}
+
+.posts-show-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 40px;
+}
+
+.avatar-sm {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+}
+
+/* Article Translation  */
+#translated-result {
+    display: none;
+}
+
+/* Audio Players */
+#audio-player {
+    display: none;
+    width: 100%;
+}
+
+#audio-player-translated {
+    display: none;
+    width: 100%;
+}
+
+/* Google Maps */
+#google-maps-posts-show {
+    height: 300px;
+    width: 100%;
+}
+
+.google-maps-info-window {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.gm-style-iw-a .gm-style-iw-t .gm-style-iw.gm-style-iw-c .gm-style-iw-chr .gm-ui-hover-effect {
+    display: none !important;
+}
