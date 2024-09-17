@@ -1,3 +1,11 @@
+# 必要なこと
+# AWS用のSSH用のキーを作成（aws_key_pair）
+# これは何のキー？  private_key = file("~/.ssh/deployer.pem")
+# AMI IDを取得（AWS のリージョンに対応した最新の Amazon Linux 2 の AMI ID を指定）
+
+
+
+
 # provider.tf：プロバイダの設定
 # variables.tf：変数の定義
 # vpc.tf：VPCとサブネットのリソース
@@ -7,12 +15,6 @@
 # rds.tf：RDSインスタンス
 # ec2.tf：EC2インスタンス
 # outputs.tf：出力の定義
-
-
-# 必要なこと
-# AWS用のSSH用のキーを作成（aws_key_pair）
-# これは何のキー？  private_key = file("~/.ssh/deployer.pem")
-# AMI IDを取得（AWS のリージョンに対応した最新の Amazon Linux 2 の AMI ID を指定）
 
 # ステップ1：AWSプロバイダの設定
 # まず、TerraformでAWSプロバイダを使用するための基本設定を行います。
