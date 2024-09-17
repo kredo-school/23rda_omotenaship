@@ -30,3 +30,7 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    @vite('resources/js/pages/browsing-history/index.js')
+@endpush

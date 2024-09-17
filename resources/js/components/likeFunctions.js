@@ -1,14 +1,49 @@
-'use strict';
+export function initializeLikeButtons() {
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.body;
+        addLikeButtons(container);
+    });
+}
 
-{
-    const likeButtons = document.querySelectorAll('[id^="like-button-"]');
+export function updateLikeButtons() {
+    const callback = (mutationList, observer) => {
+        for (const mutation of mutationList) {
+            if (mutation.type === 'childList') {
+                if (mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === 1) {
+                            // console.log('Node added:', node);
+                            addLikeButtons(node);
+                        }
+                    });
+                }
+            }
+        }
+    };
+    const targetNode = document.body;
+    const observerOptions = {
+        childList: true,
+        subtree: true,
+    };
+
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, observerOptions);
+}
+
+function addLikeButtons(container) {
+    if (!container) {
+        console.log('Container not found');
+        return;
+    }
+
+    const likeButtons = container.querySelectorAll('[id^="like-button-"]');
     likeButtons.forEach(likeButton => {
         // Get the post ID
         const postId = likeButton.dataset.postId;
 
         // Get the like icon and like count
-        const likeIcon = document.getElementById(`like-icon-${postId}`);
-        const likeCount = document.getElementById(`like-count-${postId}`);
+        const likeIcon = container.querySelector(`#like-icon-${postId}`);
+        const likeCount = container.querySelector(`#like-count-${postId}`);
 
         const url = `/likes/${postId}/toggle`;
         const token = document.querySelector('meta[name="csrf-token"]').content;
@@ -19,9 +54,9 @@
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            data: {
+            body: JSON.stringify({
                 'post_id': postId,
-            },
+            }),
         };
 
         // Add event listener to the like button

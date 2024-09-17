@@ -201,13 +201,22 @@
                             <div id="post-data" data-post-id="{{ $post->id }}"
                                 data-post-lat="{{ $post->event_latitude }}" data-post-lng="{{ $post->event_longitude }}">
                             </div>
+                            @push('script')
+                                <script
+                                    src="https://maps.googleapis.com/maps/api/js?language=en&region=US&key={{ config('services.google_maps.api_key') }}&callback=initMap&libraries=places"
+                                    async defer></script>
+                                <script src="{{ asset('js/google-maps/main.js') }}"></script>
+                            @endpush
                         </div>
+
                         <div class="col-sm-4">
                             {{-- OpenWeatherMap --}}
+                            <div id="weather-info" class="border pb-3"></div>
                             <div id="open-weather-map-data"
                                 data-open-weather-map-api-key="{{ config('services.open_weather_map.api_key') }}"></div>
-
-                            <div id="weather-info" class="border pb-3"></div>
+                            @push('script')
+                                <script src="{{ asset('js/open-weather-map/main.js') }}"></script>
+                            @endpush
                         </div>
                     </div>
 
@@ -289,9 +298,9 @@
             </div>
         </div>
     </div>
-
-    {{-- JS for this view --}}
-    <script src="{{ asset('js/posts/show.js') }}"></script>
-    <script src="{{ asset('js/favorite.js') }}"></script>
-
 @endsection
+
+{{-- JS for this view --}}
+@push('script')
+    @vite('resources/js/pages/posts/show.js')
+@endpush
