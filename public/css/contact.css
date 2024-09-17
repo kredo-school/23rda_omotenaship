@@ -7,3 +7,8 @@
     height: 75vh;
     pointer-events: none;
 }
+
+.contact-text {
+    color: #BC002D;
+    font-size: larger;
+}

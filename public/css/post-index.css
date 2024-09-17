@@ -4,11 +4,11 @@
 
 .text-overlay {
     position: absolute;
-    top: 50%;
+    top: 47%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: black;
-    text-shadow: 2px 2px 6px rgba(255, 255, 255, 1.0);
+    color: #FFFFFF;
+    text-shadow: 3px 3px 2px rgb(0, 0, 0);
 }
 
 .posts-container {

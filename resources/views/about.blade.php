@@ -3,7 +3,7 @@
 @section('title', 'About')
 
 @section('content')
-    <div class="container-fluid col-lg-9">
+    <div class="container col-lg-9">
 
         <div>
             <img src="{{ asset('images/manekineko.png') }}" alt="manekineko" class="manekineko">
