@@ -101,3 +101,7 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    @vite('resources/js/pages/profiles/show.js')
+@endpush

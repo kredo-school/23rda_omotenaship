@@ -1,5 +1,13 @@
-'use strict';
+import {
+    initializeLikeButtons,
+    updateLikeButtons,
+} from '../../components/likeFunctions';
+import {
+    initializeFavoriteButtons,
+} from '../../components/favoriteFunctions';
 
+
+'use strict';
 {
     // =====================
     // ==== Definitions ====
@@ -64,6 +72,10 @@
     // ========================
     // ==== Main Procedure ====
     // ========================
+    initializeLikeButtons();
+    updateLikeButtons();
+
+    initializeFavoriteButtons();
 
     // ==== Event Listeners ====
     translateBtn.addEventListener('click', async function () {
