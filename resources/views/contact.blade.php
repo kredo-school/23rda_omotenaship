@@ -8,12 +8,12 @@
         <div class="col-lg-10 mx-auto">
             {{-- Header --}}
             <div class="row text-center">
-                <h2 class="mt-5 pt-5 mb-3">
+                <h1 class="mt-5 pt-5 mb-3">
                     Contact Information
-                </h2>
+                </h1>
 
                 @if (session('success'))
-                    <p>{{ session('success') }}</p>
+                    <p class="contact-text">{{ session('success') }}</p>
                 @else
                     <p>If you have any questions or issues regarding the site, please feel free to contact us.</p>
                     <p>The personal information you provide will only be used to respond to your inquiry</p>
