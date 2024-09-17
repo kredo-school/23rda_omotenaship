@@ -33,3 +33,7 @@
         </div> --}}
     </div>
 @endsection
+
+@push('script')
+    @vite('resources/js/pages/posts/event-near-you.js')
+@endpush
