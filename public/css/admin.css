@@ -27,6 +27,17 @@
     }
 }
 
+@media (max-width: 1000px) {
+    .admin-list-group h6,
+    .hide-on-mobile {
+       display: none;
+    }
+    .admin-list-group {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+
 .admin-img {
     width: 100px;
     height: 100px;
@@ -77,4 +88,8 @@
 .admin-profile-avatar {
     height: 100px;
     width: 100px;
+}
+
+.icon-size {
+    font-size: 6rem;
 }
