@@ -32,7 +32,7 @@
                                                 <img src="{{ $post->images->first()->image }}" alt="{{ $post->id }}"
                                                     class="admin-post-image">
                                             @else
-                                                <i class="fa-solid fa-circle-user icon-sm"></i>
+                                                <i class="fa-solid fa-circle-user icon-size"></i>
                                             @endif
                                         </a>
                                     </td>
