@@ -50,7 +50,7 @@
                 @endif
 
                 {{-- Searched posts --}}
-                @if (request()->has('search'))
+                @if (request()->filled('search') && !empty($searched_posts))
                     <div class="row">
                         @forelse ($searched_posts as $post)
                             <div class="col-lg-6 mb-3">

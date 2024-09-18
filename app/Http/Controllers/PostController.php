@@ -117,6 +117,11 @@ class PostController extends Controller
     // search Bar
     private function getSearchedPosts($search, $page_name, $current_page)
 {
+    if(empty($search)) {
+        return $this->post
+        ->paginate(4, ['*'], $page_name, $current_page);
+    }
+
     return $this->post
         ->where(function($query) use ($search) {
             $query->whereRaw("title REGEXP '[[:<:]]{$search}[[:>:]]'")
