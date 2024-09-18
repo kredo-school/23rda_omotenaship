@@ -3,12 +3,12 @@
     @if (Auth::check())
         {{-- Authorized user --}}
         @if ($post->isLiked())
-            <button class="btn btn-sm p-0 heart-icon" id="like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
-                <i class="fa-solid fa-heart text-danger fa-2x" id="like-icon-{{ $post->id }}"></i>
+            <button class="btn btn-sm p-0 heart-icon like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
+                <i class="fa-solid fa-heart text-danger fa-2x like-icon-{{ $post->id }}"></i>
             </button>
         @else
-            <button class="btn btn-sm p-0 heart-icon" id="like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
-                <i class="fa-regular fa-heart fa-2x" id="like-icon-{{ $post->id }}"></i>
+            <button class="btn btn-sm p-0 heart-icon like-button-{{ $post->id }}" data-post-id="{{ $post->id }}">
+                <i class="fa-regular fa-heart fa-2x like-icon-{{ $post->id }}"></i>
             </button>
         @endif
     @else
@@ -26,11 +26,11 @@
 
     {{-- Like count --}}
     @if ($post->likes->count() > 0)
-        <div class="d-flex align-items-center ms-1" id="like-count-{{ $post->id }}">
+        <div class="d-flex align-items-center ms-1 like-count-{{ $post->id }}">
             {{ $post->likes->count() }}
         </div>
     @elseif ($post->likes->count() === 0)
-        <div class="d-flex align-items-center ms-1 text-white" id="like-count-{{ $post->id }}">
+        <div class="d-flex align-items-center ms-1 text-white like-count-{{ $post->id }}">
             {{ $post->likes->count() }}
         </div>
     @endif
