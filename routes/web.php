@@ -18,16 +18,20 @@ use App\Http\Controllers\AdminContactController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 
-// posts (every user is able to see)
-
+// Every users are able to see
 // Top page
 Route::get('/', [PostController::class, 'index'])
     ->name('posts.index');
 
+// Posts
 Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     Route::get('/{id}/show', [PostController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('show');
+
+    // Infinite Scroll
+    Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
+        ->name('load-more-posts');
 });
 
 // Only logged-in user is able to see
@@ -48,10 +52,6 @@ Route::group(['middleware' => 'user'], function () {
         Route::delete('/{id}/destroy', [PostController::class, 'destroy'])
             ->where('id', '[0-9]+')
             ->name('destroy');
-
-        // Infinite Scroll
-        Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
-            ->name('load-more-posts');
 
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
