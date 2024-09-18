@@ -106,13 +106,29 @@ class PostController extends Controller
             ->paginate(10, ['*'], $page_name, $current_page);
     }
 
+    // private function getSearchedPosts($search, $page_name, $current_page)
+    // {
+    //     return $this->post
+    //         ->where('title', 'like', '%' . $search . '%')
+    //         ->paginate(4, ['*'], $page_name, $current_page)
+    //         ->appends(['search' => $search]);
+    // }
+
+    // search Bar
     private function getSearchedPosts($search, $page_name, $current_page)
-    {
-        return $this->post
-            ->where('title', 'like', '%' . $search . '%')
-            ->paginate(4, ['*'], $page_name, $current_page)
-            ->appends(['search' => $search]);
-    }
+{
+    return $this->post
+        ->where(function($query) use ($search) {
+            $query->whereRaw("title REGEXP '[[:<:]]{$search}[[:>:]]'")
+                  ->orWhereRaw("article REGEXP '[[:<:]]{$search}[[:>:]]'");
+        })
+        ->orWhereHas('prefecture', function($query) use ($search) {
+            $query->whereRaw("name REGEXP '[[:<:]]{$search}[[:>:]]'");
+        })
+        ->paginate(4, ['*'], $page_name, $current_page)
+        ->appends(['search' => $search]);
+}
+
 
     private function getRecommendedPosts($category, $page_name, $current_page)
     {

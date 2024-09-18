@@ -59,6 +59,10 @@
                         @empty
                             No posts yet!
                         @endforelse
+                        {{-- Pagination Link --}}
+                        <div class="d-flex justify-content-center">
+                            {{ $searched_posts->links() }}
+                        </div>
                     </div>
                 @endif
 
