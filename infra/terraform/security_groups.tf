@@ -10,14 +10,21 @@ resource "aws_security_group" "ec2_sg" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # どこからのアクセスを許可するか
+    cidr_blocks = ["0.0.0.0/0"] # 全世界からのアクセスを許可
   }
 
-  # インバウンドルール
+  ingress {
+    description = "HTTPS from anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"] # 全世界からのアクセスを許可
+  }
+
   ingress {
     description = "SSH from your IP"
-    from_port   = 22 # SSHのポート番号
-    to_port     = 22 # SSHのポート番号
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["202.208.64.84/32"] # どこからのアクセスを許可するか
     # IP確認：```curl ifconfig.me```
