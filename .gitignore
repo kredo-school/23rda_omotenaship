@@ -27,5 +27,6 @@ google-cloud-omotenaship-d9926461d234.json
 /infra/terraform/.terraform/
 /infra/terraform/.terraform.tfstate.lock.info
 /infra/terraform/.terraform.lock.hcl
+/infra/terraform/terraform.log
 /infra/terraform/crash.log
 
