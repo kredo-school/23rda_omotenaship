@@ -40,6 +40,6 @@ class AdminContactController extends Controller
         $inquire = Contact::findOrFail($id);
         $inquire->delete();
 
-        return redirect()->back();
+        return redirect()->route('admin.inquires.index');
     }
 }

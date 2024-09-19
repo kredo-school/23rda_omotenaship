@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Comment;
 
 class AdminPostController extends Controller
 {
@@ -25,8 +26,8 @@ class AdminPostController extends Controller
 
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
 
         return redirect()->back();
     }

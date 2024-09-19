@@ -32,8 +32,12 @@
                                     <td>
                                         <a href="{{ route('admin.inquires.show', $inquire->id) }}" class="text-decoration-none text-dark">{{ $inquire->name }}</a>
                                     </td>                                    
-                                    <td>{{ $inquire->email }}</td>
-                                    <td class="hide-on-mobile">{{ $inquire->content }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.inquires.show', $inquire->id) }}" class="text-decoration-none text-dark">{{ $inquire->email }}</a>
+                                    </td>
+                                    <td class="hide-on-mobile">
+                                        <a href="{{ route('admin.inquires.show', $inquire->id) }}" class="text-decoration-none text-dark">{{ $inquire->content }}</a>
+                                    </td>
                                     <td class="hide-on-mobile">{{ $inquire->created_at }}</td>
                                     <td>
                                         <button class="btn" data-bs-toggle="modal"
