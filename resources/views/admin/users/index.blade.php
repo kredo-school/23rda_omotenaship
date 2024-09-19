@@ -27,20 +27,39 @@
                         @csrf
 
                         @foreach ($all_profiles as $profile)
+
+                        @php
+                            $languageMap = [
+                                'ko-KR' => 'Korean',
+                                'en-US' => 'English',
+                                'ja-JP' => 'Japanese',
+                                'zh-Hans-CN' => 'Chainese',
+                                'de-DE' => 'German',
+                                'es-ES' => 'Spanish',
+                                'pt-BR' => 'Portuguese',
+                                'vi-VN' => 'Vietnamese',
+                                'ar-SA' => 'Arabic',
+                                'ru-RU' => 'Russian',
+                                'it-IT' => 'Italian',
+                            ];
+
+                            $languageName = $languageMap[$profile->language] ?? $profile->language;
+                        @endphp
+
                             <tr>
                                 <td>
                                     @if ($profile && $profile->avatar)
                                         <img src="{{ $profile->avatar }}" alt="profile-avatar"
                                             class="rounded-circle d-block avatar-md admin-profile-avatar">
                                     @else
-                                        <i class="fa-solid fa-circle-user icon-sm"></i>
+                                        <i class="fa-solid fa-circle-user icon-size"></i>
                                     @endif
                                 </td>
                                 <td>
                                     {{ $profile->first_name }} {{ $profile->last_name }} {{ $profile->middle_name }}
                                 </td>
                                 <td>{{ $profile->birth_date }}</td>
-                                <td>{{ $profile->language }}</td>
+                                <td>{{ $languageName }}</td>
                                 <td class="hide-on-mobile">
                                     {{ $profile->created_at }}
                                 </td>

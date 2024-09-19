@@ -32,6 +32,20 @@ Route::group(['prefix' => 'posts', 'as' => 'posts.'], function () {
     // Infinite Scroll
     Route::post('/load-more-posts', [PostController::class, 'loadMorePosts'])
         ->name('load-more-posts');
+
+    //About
+    Route::get('/about', [AboutController::class, 'index'])
+        ->name('about');
+
+    //Contact
+    Route::get('/contact', [ContactController::class, 'index'])
+        ->name('contact');
+    Route::post('/contact', [ContactController::class, 'store'])
+        ->name('contact.store');
+
+    //Calendar
+    Route::get('/calendar', [PostController::class, 'showCalendar'])
+        ->name('calendar');
 });
 
 // Only logged-in user is able to see
@@ -56,10 +70,6 @@ Route::group(['middleware' => 'user'], function () {
         // Event near You
         Route::get('/event-near-you', [PostController::class, 'showEventNearYou'])
             ->name('show-event-near-you');
-
-        //Calendar
-        Route::get('/calendar', [PostController::class, 'showCalendar'])
-            ->name('calendar');
 
         // Post Translation
         Route::post('/translate-article', [PostController::class, 'translateArticle']);
@@ -138,16 +148,6 @@ Route::group(['middleware' => 'user'], function () {
         Route::get('/', [BrowsingHistoryController::class, 'index'])
             ->name('index');
     });
-
-    //About
-    Route::get('/about', [AboutController::class, 'index'])
-        ->name('about');
-
-    //Contact
-    Route::get('/contact', [ContactController::class, 'index'])
-        ->name('contact');
-    Route::post('/contact', [ContactController::class, 'store'])
-        ->name('contact.store');
 });
 
 // Only logged-in Admin user is able to see

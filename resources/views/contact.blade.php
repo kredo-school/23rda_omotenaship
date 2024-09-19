@@ -20,7 +20,7 @@
                 @endif
             </div>
 
-            <form method="post" action="{{ route('contact.store') }}" class="mt-5">
+            <form method="post" action="{{ route('posts.contact.store') }}" class="mt-5">
                 @csrf
 
                 <!-- name -->
