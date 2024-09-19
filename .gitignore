@@ -29,4 +29,5 @@ google-cloud-omotenaship-d9926461d234.json
 /infra/terraform/.terraform.lock.hcl
 /infra/terraform/terraform.log
 /infra/terraform/crash.log
+/infra/terraform/laravel-app.zip
 
