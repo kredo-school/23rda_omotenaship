@@ -1,10 +1,6 @@
-# 必要なこと
-# AWS用のSSH用のキーを作成（aws_key_pair）
-# これは何のキー？  private_key = file("~/.ssh/deployer.pem")
-# AMI IDを取得（AWS のリージョンに対応した最新の Amazon Linux 2 の AMI ID を指定）
-
-
-
+# ```
+# ssh -i ~/.ssh/id_rsa_aws ec2-user@54.249.94.9
+# ```
 
 # provider.tf：プロバイダの設定
 # variables.tf：変数の定義
