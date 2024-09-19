@@ -45,6 +45,18 @@
                 </div>
             </form>
 
+            {{-- Delete --}}
+            <div class="row mb-3 d-flex justify-content-center">
+                <div class="col-md-6">
+                    <button class="submit btn w-100 bg-samurai" data-bs-toggle="modal"
+                    data-bs-target="#deleteInquireModal-{{ $inquire->id }}">
+                        Delete Inquire
+                    </button>
+                </div>
+            </div>
+
+            <!-- Include the modal here-->
+            @include('components.admin-delete-inquire-modal')
         </div>
     </div>
 </div>

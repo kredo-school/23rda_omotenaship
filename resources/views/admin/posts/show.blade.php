@@ -105,10 +105,11 @@
                                             </div>
 
                                             @if (Auth::check() && (Auth::user()->id === $comment->user->id || Auth::user()->role_id === 1))
-                                                <form action="{{ route('comments.destroy', $comment->id) }}" method="post" class="ms-3">
+                                                <form action="{{ Auth::user()->role_id === 1 ? route('admin.posts.destroy', $comment->id) : route('comments.destroy', $comment->id) }}" method="post" class="ms-3">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="border-0 bg-transparent text-danger pb-2 xsmall">
+
+                                                    <button type="submit" class="btn border-0 bg-transparent text-danger pb-2 xsmall">
                                                         <i class="fa-solid fa-trash-can text-kurenai"></i>
                                                     </button>
                                                 </form>
