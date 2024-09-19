@@ -1,66 +1,115 @@
 # # AMI IDの取得（Amazon Linux 2）
-# data "aws_ami" "amazon_linux_2" {
-#   most_recent = true
-#   owners      = ["amazon"]
+data "aws_ami" "amazon_linux_2" {
+  most_recent = true
+  owners      = ["amazon"]
 
-#   filter {
-#     name   = "name"
-#     values = ["amzn2-ami-hvm-*-x86_64-gp2"]
-#   }
-# }
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"] # Amazon Linux 2のAMI
+  }
+}
 
-# # EC2インスタンスの作成
-# resource "aws_instance" "web" {
-#   ami                         = "ami-0abcdef1234567890" # 適切なAMI IDに置き換えてください
-#   instance_type               = "t3.micro"
-#   subnet_id                   = aws_subnet.public_subnet.id
-#   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
-#   key_name                    = aws_key_pair.deployer.key_name
-#   associate_public_ip_address = true
+# EC2インスタンスの作成
+resource "aws_instance" "web" {
+  ami                         = data.aws_ami.amazon_linux_2.id # Amazon Linux 2のAMI ID
+  instance_type               = "t3.micro"
+  subnet_id                   = aws_subnet.subnet_a.id # VPCのサブネットID
+  vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
+  key_name                    = aws_key_pair.deployer.key_name # キーペアの名前
+  associate_public_ip_address = true
 
-#   # プロビジョナーでLaravelをデプロイ
-#   provisioner "file" {
-#     source      = "../../"                     # Laravel プロジェクトのルートディレクトリへのパス
-#     destination = "/home/ec2-user/laravel-app" # EC2 インスタンスのディレクトリ(/var/www/htmlに変更？)
-#   }
+  # プロビジョナーでLaravelをデプロイ
+  provisioner "file" {
+    source      = "../../"                      # Laravel プロジェクトのルートディレクトリへのパス
+    destination = "/home/ec2-user/laravel-app/" # EC2 インスタンスのディレクトリ
 
-#   provisioner "remote-exec" {
-#     inline = [
-#       # 必要なパッケージのインストール
-#       "sudo yum update -y",
-#       "sudo amazon-linux-extras install -y php8.0",
-#       "sudo yum install -y git",
-#       "sudo yum install -y composer unzip",
-#       # アプリケーションディレクトリの設定
-#       "sudo mv /home/ec2-user/laravel-app /var/www/html",
-#       "sudo chown -R ec2-user:ec2-user /var/www/html",
-#       # Laravelのセットアップ
-#       "cd /var/www/html",
-#       "composer install --no-dev --optimize-autoloader",
-#       "cp .env.example .env",
-#       # .envファイルの設定
-#       "php artisan key:generate",
-#       "sed -i 's/DB_HOST=127.0.0.1/DB_HOST=${aws_db_instance.mysql.address}/' .env",
-#       "sed -i 's/DB_DATABASE=laravel/DB_DATABASE=laravel_db/' .env",
-#       "sed -i 's/DB_USERNAME=root/DB_USERNAME=${var.db_username}/' .env",
-#       "sed -i 's/DB_PASSWORD=/DB_PASSWORD=${var.db_password}/' .env",
-#       # マイグレーションの実行
-#       "php artisan migrate --force",
-#       # Apacheの設定と起動
-#       "sudo systemctl enable httpd",
-#       "sudo systemctl start httpd",
-#     ]
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("~/.ssh/id_rsa_aws")
+      host        = self.public_ip
+      timeout     = "5m"
+      agent       = false
+    }
+  }
 
-#     connection {
-#       type        = "ssh"
-#       user        = "ec2-user"
-#       private_key = file("~/.ssh/deployer.pem")
-#       host        = self.public_ip
-#     }
-#   }
+  provisioner "remote-exec" {
+    inline = [
+      # 必要なパッケージのインストール
+      "sudo yum update -y", # パッケージの更新
+      #   "sudo amazon-linux-extras install -y php8.0", # PHPのインストール
+      "sudo yum install -y git", # Gitのインストール
+      #   "sudo yum install -y unzip",                  # unzipのインストール
+      "sudo yum install -y php php-cli php-mbstring unzip",
 
-#   tags = {
-#     Name = "LaravelWebServer"
-#   }
-# }
+      # Composerのインストール
+      "php -r \"copy('https://getcomposer.org/installer', 'composer-setup.php');\"",
+      #   "HASH=\\\"$(wget -q -O - https://composer.github.io/installer.sig)\\\"",
+      "HASH=\"$(wget -q -O - https://composer.github.io/installer.sig)\"",
+      #   "php -r \"if (hash_file('SHA384', 'composer-setup.php') === \\\"$HASH\\\") { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"",
+      "php -r \"if (hash_file('SHA384', 'composer-setup.php') === \"$HASH\") { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;\"",
+      "sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer",
+      "php -r \"unlink('composer-setup.php');\"",
+
+      # Node.jsとnpmのインストール
+      "sudo yum install -y gcc-c++ make",                                # Node.jsのインストールに必要
+      "curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -", # Node.jsのインストール
+      "sudo yum install -y nodejs",                                      # Node.jsのインストール
+
+      # Apacheの設定
+      "sudo yum install -y httpd",                                                           # Apacheのインストール
+      "sudo systemctl enable httpd",                                                       # 起動時にApacheを自動起動
+      "sudo systemctl start httpd",                                                                   # Apacheの起動
+      "sudo sed -i 's|DocumentRoot \"/var/www/html\"|DocumentRoot \"/var/www/html/public\"|' /etc/httpd/conf/httpd.conf",                  # DocumentRootの変更
+      "sudo sed -i '/<Directory \"/var/www/html\">/,/<\\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/httpd/conf/httpd.conf", # AllowOverrideの変更
+      "sudo systemctl restart httpd",                                                                                                      # Apacheの再起動
+
+      # アプリケーションディレクトリの設定
+      "sudo mv /home/ec2-user/laravel-app /var/www/html", # プロビジョナーでコピーしたディレクトリを移動
+
+      # Laravelのセットアップ
+      "cd /var/www/html",                                # アプリケーションディレクトリに移動
+      "composer install --no-dev --optimize-autoloader", # Composerパッケージのインストール
+      "npm install",                                     # npmパッケージのインストール
+      "npm run production",                              # 本番環境用にビルド
+      "cp .env.example .env",                            # .envファイルの作成
+
+      # .envファイルの設定
+      "php artisan key:generate",
+      "sed -i 's/APP_ENV=local/APP_ENV=production/' .env",
+      "sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env",
+      "sed -i 's/DB_HOST=127.0.0.1/DB_HOST=${aws_db_instance.mysql.address}/' .env",
+      "sed -i 's/DB_DATABASE=laravel/DB_DATABASE=laravel_db/' .env",
+      "sed -i 's/DB_USERNAME=root/DB_USERNAME=${var.db_username}/' .env",
+      "sed -i 's/DB_PASSWORD=/DB_PASSWORD=${var.db_password}/' .env",
+
+      # 権限の設定
+      "sudo chown -R apache:apache /var/www/html",       # Apacheのユーザーにディレクトリの所有権を変更
+      "sudo chmod -R 775 /var/www/html/storage",         # ディレクトリのパーミッションを変更
+      "sudo chmod -R 775 /var/www/html/bootstrap/cache", # ディレクトリのパーミッションを変更
+
+      # マイグレーションの実行
+      "php artisan migrate --force",
+      "php artisan db:seed --force",
+
+      # キャッシュのクリア
+      "php artisan config:cache",
+      "php artisan route:cache",
+      "php artisan view:cache",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("~/.ssh/id_rsa_aws")
+      host        = self.public_ip
+      timeout     = "5m"
+      agent       = false
+    }
+  }
+
+  tags = {
+    Name = "LaravelWebServer"
+  }
+}
 
