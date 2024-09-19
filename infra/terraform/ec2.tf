@@ -28,13 +28,17 @@ resource "null_resource" "zip_laravel" {
 # EC2インスタンスの作成
 resource "aws_instance" "web" {
   ami                         = data.aws_ami.amazon_linux_2.id # Amazon Linux 2のAMI ID
-  instance_type               = "t3.micro"
+#   instance_type               = "t3.micro"
+  instance_type               = "t3.small"
   subnet_id                   = aws_subnet.subnet_a.id # VPCのサブネットID
   vpc_security_group_ids      = [aws_security_group.ec2_sg.id]
   key_name                    = aws_key_pair.deployer.key_name # キーペアの名前
   associate_public_ip_address = true
 
-  depends_on = [null_resource.zip_laravel] # null_resourceが完了した後に実行
+  depends_on = [
+    null_resource.zip_laravel, # null_resourceが完了した後に実行
+    aws_db_instance.mysql      # データベースインスタンスの作成完了を待つ
+  ]
 
   # 既存のディレクトリを削除
   provisioner "remote-exec" {
@@ -233,72 +237,82 @@ resource "aws_instance" "web" {
     }
   }
 
-  #   # Laravelのセットアップ
-  #   provisioner "remote-exec" {
-  #     inline = [
-  #       "set -ex",
+  # Laravelのセットアップ
+  provisioner "remote-exec" {
+    inline = [
+      "set -ex",
 
-  #       "echo \"Navigating to Laravel application directory...\"",
-  #       "cd /var/www/html/public",
+      "echo \"Navigating to Laravel application directory...\"",
+      "cd /var/www/html/public",
 
-  #       # 既存のnode_modulesを完全に削除
-  #       "echo \"Removing existing node_modules directory...\"",
-  #       "rm -rf node_modules",
+      # 既存のnode_modulesを完全に削除
+      "echo \"Removing existing node_modules directory...\"",
+      "rm -rf node_modules",
 
-  #       # 既存のシンボリックリンクが存在する場合は削除
-  #       "echo \"Removing existing .bin directory links...\"",
-  #       "rm -f .bin/*",
+      # 既存のシンボリックリンクが存在する場合は削除
+      "echo \"Removing existing .bin directory links...\"",
+      "rm -f .bin/*",
 
-  #       "echo \"Installing Composer dependencies...\"",
-  #       "composer install --no-dev --optimize-autoloader",
+      "echo \"Installing Composer dependencies...\"",
+      "composer install --no-dev --optimize-autoloader",
 
-  #       "echo \"Installing npm dependencies...\"",
-  #       "export NVM_DIR=\"$HOME/.nvm\"",
-  #       "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"",
-  #       "nvm use 18",
-  #       "npm ci", # クリーンインストール
+      "echo \"Installing npm dependencies...\"",
+      "export NVM_DIR=\"$HOME/.nvm\"",
+      "[ -s \"$NVM_DIR/nvm.sh\" ] && . \"$NVM_DIR/nvm.sh\"",
+      "nvm use 18",
+      "npm ci", # クリーンインストール
 
-  #       "echo \"Building frontend assets...\"",
-  #       "npm run production",
+      "echo \"Building frontend assets...\"",
+      "npm run production",
 
-  #       "echo \"Creating .env file...\"",
-  #       "cp .env.example .env",
+      "echo \"Creating .env file...\"",
+      "cp .env.example .env",
 
-  #       "echo \"Generating application key...\"",
-  #       "php artisan key:generate",
+      "echo \"Generating application key...\"",
+      "php artisan key:generate",
 
-  #       "echo \"Running database migrations...\"",
-  #       "php artisan migrate --force",
+      "echo \"Setting environment variables...\"",
+      "sed -i 's/APP_ENV=local/APP_ENV=production/' .env",
+      "sed -i 's/APP_DEBUG=true/APP_DEBUG=false/' .env",
+      "sed -i 's/DB_HOST=127.0.0.1/DB_HOST=${aws_db_instance.mysql.address}/' .env",
+      "sed -i 's/DB_DATABASE=laravel/DB_DATABASE=laravel_db/' .env",
+      "sed -i 's/DB_USERNAME=root/DB_USERNAME=${var.db_username}/' .env",
+      "sed -i 's/DB_PASSWORD=/DB_PASSWORD=${var.db_password}/' .env",
 
-  #       "echo \"Seeding database...\"",
-  #       "php artisan db:seed --force",
+      "echo \"Running database migrations...\"",
+      "php artisan migrate --force",
 
-  #       "echo \"Caching configuration...\"",
-  #       "php artisan config:cache",
+      "echo \"Seeding database...\"",
+      "php artisan db:seed --force",
 
-  #       "echo \"Caching routes...\"",
-  #       "php artisan route:cache",
+      "echo \"Caching configuration...\"",
+      "php artisan config:cache",
 
-  #       "echo \"Caching views...\"",
-  #       "php artisan view:cache",
+      "echo \"Caching routes...\"",
+      "php artisan route:cache",
 
-  #       "echo \"Setting permissions for storage and cache directories...\"",
-  #       "sudo chown -R apache:apache /var/www/html/public",
-  #       "sudo chmod -R 775 /var/www/html/public/storage",
-  #       "sudo chmod -R 775 /var/www/html/public/bootstrap/cache",
+      "echo \"Caching views...\"",
+      "php artisan view:cache",
 
-  #       "echo \"Laravel setup completed successfully.\""
-  #     ]
+      "echo \"Setting ownership and permissions for storage and cache directories...\"",
+      "sudo chown -R apache:apache /var/www/html/storage",
+      "sudo chown -R apache:apache /var/www/html/bootstrap/cache",
+      "sudo chmod -R 775 /var/www/html/storage",
+      "sudo chmod -R 775 /var/www/html/bootstrap/cache",
+      "echo \"Ownership and permissions set successfully.\"",
 
-  #     connection {
-  #       type        = "ssh"
-  #       user        = "ec2-user"
-  #       private_key = file("~/.ssh/id_rsa_aws")
-  #       host        = self.public_ip
-  #       timeout     = "20m"
-  #       agent       = false
-  #     }
-  #   }
+      "echo \"Laravel setup completed successfully.\""
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("~/.ssh/id_rsa_aws")
+      host        = self.public_ip
+      timeout     = "20m"
+      agent       = false
+    }
+  }
 
   tags = {
     Name = "LaravelWebServer"
