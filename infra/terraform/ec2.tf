@@ -81,31 +81,7 @@ resource "aws_instance" "web" {
 
   # ファイルの移動
   provisioner "remote-exec" {
-    inline = [
-      # エラー発生時にスクリプトを停止し、コマンドを表示
-      "set -ex",
-
-      # /var/www/html ディレクトリの存在を確認し、なければ作成
-      "echo \"Checking if /var/www/html exists...\"",
-      "if [ ! -d /var/www/html ]; then sudo mkdir -p /var/www/html; fi",
-
-      # ディレクトリの所有者と権限を設定
-      "echo \"Setting ownership and permissions...\"",
-      "sudo chown -R ec2-user:ec2-user /var/www/html",
-      "sudo chmod -R 755 /var/www/html",
-
-      # ファイルの移動
-      "echo \"Moving non-hidden files...\"",
-      "sudo mv /home/ec2-user/laravel-app/* /var/www/html/",
-
-      # 隠しファイルも移動する
-      "echo \"Moving hidden files...\"",
-      "sudo mv /home/ec2-user/laravel-app/.[!.]* /var/www/html/",
-
-      # 空になったディレクトリを削除
-      "echo \"Removing source directory...\"",
-      "sudo rmdir /home/ec2-user/laravel-app",
-    ]
+    script = "${path.module}/../scripts/move_files.sh"
 
     connection {
       type        = "ssh"
