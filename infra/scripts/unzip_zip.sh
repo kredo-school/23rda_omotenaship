@@ -1,4 +1,6 @@
 #!/bin/bash
+set -ex
+
 echo "Creating laravel-app directory..."
 mkdir -p /home/ec2-user/laravel-app
 
