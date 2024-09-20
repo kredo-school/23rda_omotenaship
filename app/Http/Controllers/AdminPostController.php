@@ -26,6 +26,14 @@ class AdminPostController extends Controller
 
     public function destroy($id)
     {
+        $post = Post::findOrFail($id);
+        $post->delete();
+
+        return redirect()->back();
+    }
+
+    public function destroyComment($id)
+    {
         $comment = Comment::findOrFail($id);
         $comment->delete();
 

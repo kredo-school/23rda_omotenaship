@@ -105,7 +105,7 @@
                                             </div>
 
                                             @if (Auth::check() && (Auth::user()->id === $comment->user->id || Auth::user()->role_id === 1))
-                                                <form action="{{ Auth::user()->role_id === 1 ? route('admin.posts.destroy', $comment->id) : route('comments.destroy', $comment->id) }}" method="post" class="ms-3">
+                                                <form action="{{ Auth::user()->role_id === 1 ? route('admin.posts.destroyComment', $comment->id) : route('comments.destroy', $comment->id) }}" method="post" class="ms-3">
                                                     @csrf
                                                     @method('DELETE')
 
