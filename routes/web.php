@@ -172,6 +172,9 @@ Route::group(['middleware' => 'admin'], function () {
         Route::delete('/{id}', [AdminPostController::class, 'destroy'])
             ->where('id', '[0-9]+')
             ->name('destroy');
+        Route::delete('/{id}/comment', [AdminPostController::class, 'destroyComment'])
+            ->where('id', '[0-9]+')
+            ->name('destroyComment');
     });
 
     // Admin NG Words
