@@ -12,7 +12,7 @@ class AdminPostController extends Controller
 {
     public function index()
     {
-        $all_posts = Post::with(['images', 'user'])->paginate(5);
+        $all_posts = Post::with(['images', 'user'])->paginate(10);
 
         return view('admin.posts.index')->with('all_posts', $all_posts);
     }

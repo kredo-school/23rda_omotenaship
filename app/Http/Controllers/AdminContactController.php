@@ -11,7 +11,7 @@ class AdminContactController extends Controller
 
     public function index()
     {
-        $all_inquires = Contact::paginate(5);
+        $all_inquires = Contact::paginate(10);
         return view('admin.inquires.index')->with('all_inquires', $all_inquires);
     }
 

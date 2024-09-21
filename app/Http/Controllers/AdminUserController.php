@@ -11,7 +11,7 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        $all_profiles = Profile::paginate(5);
+        $all_profiles = Profile::paginate(10);
         
         return view('admin.users.index')->with('all_profiles', $all_profiles);
     }
