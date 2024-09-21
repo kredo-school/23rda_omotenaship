@@ -9,6 +9,10 @@
 }
 
 .contact-text {
-    color: #BC002D;
+    color: #FFFFFF;
     font-size: larger;
+    /* background-color: #202F55; */
+    background-color: rgba(32, 47, 85, 0.8);
+    border-radius: 15px;
+    padding: 10px;
 }

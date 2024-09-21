@@ -13,7 +13,7 @@ class AdminNgwordController extends Controller
 
     public function index()
     {
-        $all_ngwords = NGWord::paginate(5);
+        $all_ngwords = NGWord::paginate(10);
         return view('admin.ngwords.index')->with('all_ngwords', $all_ngwords);
     }
 
